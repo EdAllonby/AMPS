@@ -19,4 +19,7 @@
 
 If you want to run server on a seperate network, you'll need to set up port forwarding.
 
+### Creating a Database
+Scripts are located in Server/Database_Scripts. (Need to make this 1 easy script to run, see Issue #2). Once the database is created, you can point the Server to the database (defined in: Server/app.config) and then run Option 1 on the server to gain persistence.
+
 Thanks, Ed.
