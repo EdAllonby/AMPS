@@ -9,10 +9,10 @@
 * **To build** - Must have Nuget package restore to download essential assemblies such as Log4net, NUnit and some WPF controls. 
 
 #### Guide:
-1. Start the server.exe under 'Build/Server' folder. This is a built version.
-2. When the server is running, Press '2' to start the server without using a database implementation. This will use an in-memory persistence strategy for domain entities.
+1. Build and run the Server project.
+2. When the AMPS Server is running, Press '2' to start the server without using a database implementation. This will use an in-memory persistence strategy for domain entities.
 3. Start the client by building and running the `Client.View` project. 
-4. A login screen will be displayed. Choose a Username and a Password. Then,
+4. A login screen will be displayed. Choose a Username and a Password. Then input:
 	* IP Address: **127.0.0.1**
 	* Port: **5004**
 5. You may connect many clients to a server session, and run common tasks such as starting a multi-user band and adding tasks to a Jam.
