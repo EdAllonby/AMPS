@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Markup;
 
-namespace Client.View.UI
+namespace Client.View
 {
     /// <summary>
     /// Helper to merge styles together.
