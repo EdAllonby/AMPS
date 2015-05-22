@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="file:///C:/PROGRAM FILES (X86)/MICROSOFT VISUAL STUDIO 12.0/COMMON7/IDE/EXTENSIONS/MICROSOFT/ARCHITECTURE TOOLS/EXTENSIBILITY/Logging/ReverseEngineeringLog.xslt"?>
+<Log xmlns="http://schemas.microsoft.com/VisualStudio/2010/CodeGen.RE.Log" Label="Code Generation/Text Transformation Log">
+  <MessageClass Name="Message" Label="Message" Option="Show informational messages" />
+  <MessageClass Name="Warning" Label="Warning" Option="Show warnings" />
+  <MessageClass Name="Error" Label="Error" Option="Show errors" />
+  <MessageClass Name="Property" Label="Property" Option="Show metadata" />
+  <MessageClass Name="Diagnostic" Label="Message" Option="Show diagnostic messages" />
+  <Message Timestamp="2015-03-01T01:14:08" Importance="High" Text="Reverse Engineering Started." />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'af3ec244-011d-411d-8085-0da1a50c3f16' -  (ClassifierTemplateParameter)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Boolean' -  (PrimitiveType)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'Integer' -  (PrimitiveType)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'T' -  (UndefinedType)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::log4net' -  (Package)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::log4net::ILog' -  (Interface)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared' -  (Package)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain' -  (Package)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Medium" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity' -  (Class)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::DeepClone‎&lt;T‎&gt;' -  (Operation)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::DeepClone‎&lt;T‎&gt;::entity' -  (Parameter)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Entity' -  (Operation)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Entity::id' -  (Parameter)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Equals' -  (Operation)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Equals::obj' -  (Parameter)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Equals::other' -  (Parameter)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::GetHashCode' -  (Operation)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::id' -  (Property)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Id' -  (Property)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::isNew' -  (Property)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::IsNew' -  (Property)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::Shared::Domain::Entity::Log' -  (Property)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::System' -  (Package)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::System::IEquatable' -  (Interface)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::System::IEquatable&lt;Entity‎&gt;' -  (Interface)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Element reverse engineered into the UML model: 'UML::System::Object' -  (Class)   (partially reverse engineered - definition not updated) " />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="Diagnostic" Text="Relationship reverse engineered into the UML model: UML::Shared::Domain::Entity to UML::System::IEquatable&lt;Entity‎&gt; (InterfaceRealization)" />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="High" Text="(1) type(s) fully reverse engineered." />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="High" Text="(4) type(s) partially reverse engineered.  These types were not included in the original selection so their full definitions are not reverse engineered.  Instead, this shallow operation has simply ensured these types exist in the UML model because they are needed in order to fully describe other elements." />
+  <Message Timestamp="2015-03-01T01:14:10" Importance="High" Text="The reverse engineering operation completed with (0) error(s), and (0) warning(s)." />
+</Log>

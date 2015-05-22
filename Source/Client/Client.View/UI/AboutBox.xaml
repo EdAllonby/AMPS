@@ -1,0 +1,38 @@
+﻿<Window x:Class="Client.View.UI.AboutBox"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="About" Height="300" Width="300" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+            <Canvas Margin="5,5,0,0" Width="40" Height="40"
+                            HorizontalAlignment="Left">
+                <Path Data="{StaticResource MusicIcon}"
+                              Stretch="Uniform" Stroke="Black" StrokeThickness="1"
+                              Fill="#e74c3c" Height="40" Width="40" />
+            </Canvas>
+
+            <Label Content="About" FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40" HorizontalAlignment="Left"/>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Label Content="AMPS - Agile Music Management Suite" />
+            <Label Content="Developed by Ed Allonby Copyright © 2014-2015" />
+
+        </StackPanel>
+
+        <TextBox Grid.Row="2" Text="Developed as part of a final year project at Bournemouth University for a BSc in Music and Audio Technology. The Agile Music Management Suite lets band members manage projects using agile methodologies. This software is used for testing purposes and may be unstable and therefore unfit for commercial use." Width="Auto" 
+                 Margin="10,10,10,10" IsReadOnly="True"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
+                 VerticalScrollBarVisibility="Auto"/>
+    </Grid>
+</Window>

@@ -1,0 +1,32 @@
+﻿<Window x:Class="Client.View.UI.BandChooserView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:settingsViewModel="clr-namespace:Client.ViewModel.SettingsViewModel;assembly=Client.ViewModel"
+        Title="Band Chooser" Height="140" Width="450"
+        WindowStartupLocation="CenterScreen"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        d:DataContext="{d:DesignInstance settingsViewModel:BandChooserViewModel}">
+    
+    <Grid VerticalAlignment="Top">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Content="Choose a Band to Manage" FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="20" HorizontalAlignment="Center"/>
+          
+            <GroupBox Grid.Row="1" Header="Manage a band" Margin="10,0,10,0" HorizontalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Enter a Band you are a member of: " VerticalAlignment="Center" />
+                    <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" ItemsSource="{Binding BandChooserModel.Bands}" SelectedItem="{Binding BandChooserModel.SelectedBand}" DisplayMemberPath="Name"/>
+                    <Button Content="Enter" Margin="20,5,5,5" Width="50" Height="20" Command="{Binding OpenBand}" IsDefault="True" />
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+    </Grid>
+</Window>

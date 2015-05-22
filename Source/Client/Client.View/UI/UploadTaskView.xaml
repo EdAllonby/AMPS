@@ -1,0 +1,61 @@
+﻿<Window x:Class="Client.View.UI.UploadTaskView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:settingsViewModel="clr-namespace:Client.ViewModel.SettingsViewModel;assembly=Client.ViewModel"
+        xmlns:ui="clr-namespace:Client.View.UI"
+        Title="Upload a Task" Height="195" Width="400"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        TextOptions.TextFormattingMode="Display"
+        TextOptions.TextRenderingMode="ClearType"
+        d:DataContext="{d:DesignInstance settingsViewModel:UploadTaskViewModel}">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+    </Window.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        
+
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Left">
+            <Label Content="Name:" />
+            <TextBox IsEnabled="False" Text="{Binding UploadTaskModel.TaskFileName, Mode=OneWay}" Margin="15,0,0,0"
+                     Width="200" Height="20" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Left">
+            <Label Content="Location:" />
+            <TextBox Text="{Binding UploadTaskModel.FileToUploadLocation}" Width="200"  Height="20" />
+            <Button Command="{Binding BrowseTaskToUpload}" Width="74" Height="24" Content="Browse" Margin="15,0,0,0" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            
+            <Button Command="{Binding UploadTask}" Content="Upload" Width="74" Height="24" />
+
+            <ProgressBar Width="100" Height="20" Margin="20,0,20,0"
+                         Minimum="0" 
+                         Maximum="{Binding UploadTaskModel.TotalSize}" 
+                         Value="{Binding UploadTaskModel.UploadSize}" 
+                         Visibility="{Binding UploadTaskModel.IsUploading, Converter={StaticResource BoolToVisibilityConverter}}" />
+
+            <Viewbox Width="20" Height="20" Margin="5,0,0,0"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center">
+                <ui:CircularProgressBar Visibility="{Binding UploadTaskModel.IsUploading, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </Viewbox>
+        </StackPanel>
+
+        <Button Grid.Row="3" Command="{Binding CompleteTaskWithoutUpload}" Margin="0,10,25,0" Content="Continue (No Upload)" Width="130" Height="24" />
+
+    </Grid>
+</Window>

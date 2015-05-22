@@ -1,0 +1,57 @@
+﻿<UserControl x:Class="Client.View.UI.TaskItemView"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            mc:Ignorable="d"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:mainViewModel="clr-namespace:Client.ViewModel.MainViewModel;assembly=Client.ViewModel"
+            xmlns:converter="clr-namespace:Client.View.Converter"
+            TextOptions.TextFormattingMode="Display"
+            TextOptions.TextRenderingMode="ClearType"
+            Height="70"
+            d:DataContext="{d:DesignInstance mainViewModel:TaskItemViewModel}">
+    <UserControl.Resources>
+        <converter:BoolToIconConverter x:Key="BoolToIconConverter" />
+        <converter:CategoryToIconConverter x:Key="CategoryToIconConverter" />
+    </UserControl.Resources>
+
+    <Border BorderThickness="0" CornerRadius="4" Background="{Binding TaskModel.TaskBackgroundColour}" Margin="5">
+ 
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="300" Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0" VerticalAlignment="Center" Tag="{Binding TaskModel.TaskId}" Orientation="Horizontal" >
+
+                <Canvas Width="40" Margin="15,0,5,0" Height="40">
+                    <Path Width="40" Height="40" Data="{Binding TaskModel.Category, Converter={StaticResource CategoryToIconConverter}}" Stretch="Uniform" Stroke="Black" StrokeThickness="1" Fill="#e74c3c" />
+                </Canvas>
+
+                <Canvas Width="20" Height="20" VerticalAlignment="Center" Margin="15,0,5,0">
+                    <Path Width="20" Height="20" Data="{Binding TaskModel.IsCompleted, Converter={StaticResource BoolToIconConverter}}" Stretch="Uniform" Stroke="Black" StrokeThickness="1" Fill="{Binding TaskModel.TaskCompletedColour}" />
+                </Canvas>
+
+                <TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding TaskModel.Title}" TextAlignment="Left" Margin="5,0,0,0"  FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed"  />
+                <TextBlock VerticalAlignment="Center" FontSize="16" Text=" - Assigned to " TextAlignment="Left"  FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed"  />
+                <TextBlock VerticalAlignment="Center" FontSize="16" Text="{Binding TaskModel.AssignedMember.Username}" TextAlignment="Left"  FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed"   />
+            </StackPanel>
+
+            <StackPanel Orientation="Horizontal" Grid.Column="1" Width="Auto" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,10,0">
+                <TextBlock Text="{Binding TaskModel.Points}" VerticalAlignment="Center" FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed" FontSize="16" />
+
+                <TextBlock Text=" Points" Margin="0,0,10,0" VerticalAlignment="Center" FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed" FontSize="16" />
+
+                <Button Width="70" Height="24" Margin="0,0,15,0" Content="Complete" Command="{Binding CompleteTask}"/>
+                <TextBlock Padding="0,9,0,0">
+                    <Hyperlink Command="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type UserControl}}, Path=DataContext.HyperlinkClicked}" CommandParameter ="{Binding TaskModel.TaskId}">
+                        <TextBlock FontSize="13" Height="30" Text="More info..." />
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+
+           
+        </Grid>
+    </Border>
+</UserControl>

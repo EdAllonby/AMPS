@@ -1,0 +1,126 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<layerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/SimpleShapesModel" dslVersion="1.0.0.0" Id="3aab7d03-342f-4c8c-b74c-2ba1197cecda" xmlns="http://schemas.microsoft.com/VisualStudio/TeamArchitect/LayerDesigner">
+  <comments>
+    <comment Id="6a133951-e495-459a-8e84-aecb3ace75e2" name="Comment1">
+      <body>Client MVVM</body>
+    </comment>
+  </comments>
+  <layers>
+    <layer Id="58b42599-c16d-4eae-b626-d85408198548" name="Shared">
+      <references>
+        <reference Id="2a49bc2c-9102-47ad-96d9-98f0582269a0" name="Shared">
+          <ArtifactNode Label="Shared" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Repositories/FinalYearProject/Shared/Shared.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Shared)" Label="Shared.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="f5abb855-bbbf-4fd4-ae33-8f3b1b384800" name="Server">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="81233490-9743-41e5-81f6-4603b70a1e8a" direction="Forward">
+          <layerMoniker Id="58b42599-c16d-4eae-b626-d85408198548" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="98f06f5e-c0c3-4f3f-8996-d04c1aeaabbc" name="Server">
+          <ArtifactNode Label="Server" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Repositories/FinalYearProject/Server/Server.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Server)" Label="Server.exe" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.exe" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="e023928e-173f-4920-b3d0-56243fcdd212" name="Client.ViewModel">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="140ae2a0-13e8-4133-83d2-cbc200cbe209" direction="Forward">
+          <layerMoniker Id="58b42599-c16d-4eae-b626-d85408198548" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="c88abd11-0ef8-422b-b28b-ca620ae225de" direction="Forward">
+          <layerMoniker Id="2ad07529-ead8-4b63-b28c-633e83ae021b" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="e717b238-9df4-48b9-98ab-1e74ee87596a" direction="Forward">
+          <layerMoniker Id="6061f087-e3cf-4976-bf3b-38b5fc94dbe4" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="9e8c1a61-96a9-4fc2-a340-b296e3f0b908" name="Client.ViewModel">
+          <ArtifactNode Label="Client.ViewModel" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Repositories/FinalYearProject/Client/Client.ViewModel/Client.ViewModel.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Client.ViewModel)" Label="Client.ViewModel.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="6061f087-e3cf-4976-bf3b-38b5fc94dbe4" name="Client.Model">
+      <references>
+        <reference Id="5f432f8b-1749-46ac-8be8-c979e6ec622c" name="Client.Model">
+          <ArtifactNode Label="Client.Model" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Repositories/FinalYearProject/Client/Client.Model/Client.Model.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Client.Model)" Label="Client.Model.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="2ad07529-ead8-4b63-b28c-633e83ae021b" name="Client.Service">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="93278ecd-b160-4571-9467-f9b7548bc00c" direction="Forward">
+          <layerMoniker Id="58b42599-c16d-4eae-b626-d85408198548" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="b21b8f53-9897-4b83-a54f-40e8b9d9ddcc" name="Client.Service">
+          <ArtifactNode Label="Client.Service" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Repositories/FinalYearProject/Client/Client.Service/Client.Service.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Client.Service)" Label="Client.Service.dll" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.dll" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+    <layer Id="17a75621-4064-4ff3-99d4-e0eb1221cbaa" name="Client.View">
+      <dependencyToLayers>
+        <dependencyFromLayerToLayer Id="fb181d8d-1097-4527-b63b-f76135c693ea" direction="Forward">
+          <layerMoniker Id="58b42599-c16d-4eae-b626-d85408198548" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="dd440ce0-aa2c-4a6c-9bfd-0d282cf75308" direction="Forward">
+          <layerMoniker Id="e023928e-173f-4920-b3d0-56243fcdd212" />
+        </dependencyFromLayerToLayer>
+        <dependencyFromLayerToLayer Id="1b597420-d891-4e76-aa98-ff5d6515d54e" direction="Forward">
+          <layerMoniker Id="2ad07529-ead8-4b63-b28c-633e83ae021b" />
+        </dependencyFromLayerToLayer>
+      </dependencyToLayers>
+      <references>
+        <reference Id="b91d620a-6bf8-41e9-933e-5ac5b9cd49ad" name="Client.View">
+          <ArtifactNode Label="Client.View" Category="CodeSchema_Project" Id="(Assembly=&quot;$(PersonalUri)/Repositories/FinalYearProject/Client/Client.View/Client.View.csproj&quot;)">
+            <Category Ref="File" />
+          </ArtifactNode>
+          <ExpandedNode Id="(Assembly=Client.View)" Label="Client.View.exe" Category="CodeSchema_Assembly">
+            <Category Ref="FileSystem.Category.FileOfType.exe" />
+            <LinkCategory Ref="Produces" />
+            <LinkCategory Ref="Represents" />
+          </ExpandedNode>
+        </reference>
+      </references>
+    </layer>
+  </layers>
+</layerModel>

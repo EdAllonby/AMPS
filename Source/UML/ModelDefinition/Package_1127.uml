@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="05975763-d5ec-4569-912d-4ec8bfc37d28"
+  name="Shared"
+  visibility="Private" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <referencesInternal>
+    <reference
+      Id="2d1528cd-0acb-4df3-b409-979047228205"
+      handle="viewcode://./CodeSchema_Namespace?Namespace%3DShared"
+      tag="ViewCode" />
+  </referencesInternal>
+  <packagedElements>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="4600d14f-5949-47fc-b130-f9e7fc48c0b0"
+        LastKnownName="Repository"
+        LastKnownLocation="Package1_1127.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="d391a16c-c42f-4a7c-8c75-0a7fe54cedaa"
+        LastKnownName="Domain"
+        LastKnownLocation="Package6_1127.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="8a09a232-86d4-4510-b4dd-908e278c5e8a"
+        LastKnownName="Serialiser"
+        LastKnownLocation="Package7_1127.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+</package>
