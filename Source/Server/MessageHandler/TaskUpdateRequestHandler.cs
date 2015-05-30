@@ -6,6 +6,9 @@ using Shared.Repository;
 
 namespace Server.MessageHandler
 {
+    /// <summary>
+    /// Handles an update to a <see cref="Task" />.
+    /// </summary>
     internal sealed class TaskUpdateRequestHandler : IMessageHandler
     {
         public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)

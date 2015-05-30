@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 namespace Shared.Domain
@@ -16,7 +17,7 @@ namespace Shared.Domain
         private int assignedUserId;
         private bool isCompleted;
         private int points;
-
+        private readonly List<TaskComment> comments = new List<TaskComment>(); 
         /// <summary>
         /// Creates a new <see cref="Task" /> with no assigned Id.
         /// </summary>
@@ -140,6 +141,14 @@ namespace Shared.Domain
         /// The <see cref="Jam" /> this <see cref="Task" /> belongs to.
         /// </summary>
         public int JamId { get; private set; }
+
+        /// <summary>
+        /// Comments for the <see cref="Task" />.
+        /// </summary>
+        public List<TaskComment> Comments
+        {
+            get { return comments; }
+        }
 
         /// <summary>
         /// The <see cref="Task" />'s <see cref="Category" />.

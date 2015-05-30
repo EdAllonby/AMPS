@@ -234,25 +234,25 @@
                 </EventTrigger.Actions>
             </EventTrigger>
 
-            <EventTrigger RoutedEvent="MouseEnter">
-                <EventTrigger.Actions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Height" From="70" To="80" Duration="0:0:0.2" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger.Actions>
-            </EventTrigger>
-            
-            <EventTrigger RoutedEvent="MouseLeave">
-                <EventTrigger.Actions>
-                    <BeginStoryboard>
-                        <Storyboard>
-                            <DoubleAnimation Storyboard.TargetProperty="Height" From="80" To="70" Duration="0:0:0.2" />
-                        </Storyboard>
-                    </BeginStoryboard>
-                </EventTrigger.Actions>
-            </EventTrigger>
+<!--            <EventTrigger RoutedEvent="MouseEnter">-->
+<!--                <EventTrigger.Actions>-->
+<!--                    <BeginStoryboard>-->
+<!--                        <Storyboard>-->
+<!--                            <DoubleAnimation Storyboard.TargetProperty="Height" From="70" To="80" Duration="0:0:0.2" />-->
+<!--                        </Storyboard>-->
+<!--                    </BeginStoryboard>-->
+<!--                </EventTrigger.Actions>-->
+<!--            </EventTrigger>-->
+<!--            -->
+<!--            <EventTrigger RoutedEvent="MouseLeave">-->
+<!--                <EventTrigger.Actions>-->
+<!--                    <BeginStoryboard>-->
+<!--                        <Storyboard>-->
+<!--                            <DoubleAnimation Storyboard.TargetProperty="Height" From="80" To="70" Duration="0:0:0.2" />-->
+<!--                        </Storyboard>-->
+<!--                    </BeginStoryboard>-->
+<!--                </EventTrigger.Actions>-->
+<!--            </EventTrigger>-->
 
         </Style.Triggers>
     </Style>

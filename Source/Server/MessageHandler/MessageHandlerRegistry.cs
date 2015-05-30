@@ -25,7 +25,7 @@ namespace Server.MessageHandler
                 {MessageIdentifier.ParticipationRequest, new ParticipationRequestHandler()},
                 {MessageIdentifier.TaskRequest, new TaskRequestHandler()},
                 {MessageIdentifier.TaskSnapshotRequest, new TaskSnapshotRequestHandler()},
-                {MessageIdentifier.TaskUpdateRequest, new TaskUpdateRequestHandler()}
+                {MessageIdentifier.TaskUpdateRequest, new TaskUpdateRequestHandler()},
             };
     }
 }
