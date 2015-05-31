@@ -11,15 +11,15 @@ namespace ServerTest.MessageHandlerTests
     [TestFixture]
     public class ParticipationSnapshotRequestHandlerTest : MessageHandlerTestFixture
     {
-        private readonly ParticipationSnapshotRequestHandler participationSnapshotRequestHandler = new ParticipationSnapshotRequestHandler();
-        private EntitySnapshotRequest<Participation> participationSnapshotRequest;
-
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
 
             participationSnapshotRequest = new EntitySnapshotRequest<Participation>(DefaultUser.Id);
         }
+
+        private readonly ParticipationSnapshotRequestHandler participationSnapshotRequestHandler = new ParticipationSnapshotRequestHandler();
+        private EntitySnapshotRequest<Participation> participationSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {

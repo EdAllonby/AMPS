@@ -59,7 +59,7 @@ namespace Shared.Domain
         /// Check for <see cref="Entity" /> equality.
         /// </summary>
         /// <param name="other">The other <see cref="Entity" /> to check equality with.</param>
-        /// <returns>If the two <see cref="Entity"/> objects are equal.</returns>
+        /// <returns>If the two <see cref="Entity" /> objects are equal.</returns>
         public bool Equals(Entity other)
         {
             if (ReferenceEquals(null, other))
@@ -78,9 +78,9 @@ namespace Shared.Domain
         /// <summary>
         /// Clones an <see cref="Entity" />.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="Entity"/> to clone.</typeparam>
-        /// <param name="entity">The <see cref="Entity"/> to clone.</param>
-        /// <returns>A cloned <see cref="Entity"/>.</returns>
+        /// <typeparam name="T">The type of <see cref="Entity" /> to clone.</typeparam>
+        /// <param name="entity">The <see cref="Entity" /> to clone.</param>
+        /// <returns>A cloned <see cref="Entity" />.</returns>
         public static T DeepClone<T>(T entity) where T : Entity
         {
             Contract.Requires(entity != null);

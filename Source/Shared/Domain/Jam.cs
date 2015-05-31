@@ -18,7 +18,7 @@ namespace Shared.Domain
         /// </summary>
         /// <param name="id">Create a new Jam with an Id.</param>
         /// <param name="bandId">The <see cref="Band" /> this Jam belongs to.</param>
-        /// <param name="jamEndDate">The date in which the <see cref="Jam"/> ends.</param>
+        /// <param name="jamEndDate">The date in which the <see cref="Jam" /> ends.</param>
         public Jam(int id, int bandId, DateTime jamEndDate) : base(id)
         {
             Contract.Requires(id > 0);

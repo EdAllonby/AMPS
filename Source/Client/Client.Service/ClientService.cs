@@ -33,7 +33,7 @@ namespace Client.Service
         private ServerLoginHandler serverLoginHandler;
 
         /// <summary>
-        /// Passes the service the reference to the <see cref="IServiceRegistry"/>.
+        /// Passes the service the reference to the <see cref="IServiceRegistry" />.
         /// </summary>
         /// <param name="serviceRegistry">Contains a housing for client services.</param>
         public ClientService(IServiceRegistry serviceRegistry)
@@ -66,7 +66,7 @@ namespace Client.Service
 
         /// <summary>
         /// Connects the Client to the server using the parameters as connection details
-        /// and gets the state of <see cref="ClientService"/> up to date with the user status'. 
+        /// and gets the state of <see cref="ClientService" /> up to date with the user status'.
         /// </summary>
         /// <param name="loginDetails">The details used to log in to the server.</param>
         public LoginResult LogOn(LoginDetails loginDetails)
@@ -132,11 +132,11 @@ namespace Client.Service
         }
 
         /// <summary>
-        /// Sends a <see cref="ParticipationRequest"/> message to the server to add a user to an existing <see cref="Band"/>.
+        /// Sends a <see cref="ParticipationRequest" /> message to the server to add a user to an existing <see cref="Band" />.
         /// </summary>
-        /// <param name="userId">The participant that will be added to the <see cref="Band"/>.</param>
-        /// <param name="bandId">The targetted <see cref="Band"/> the participant will be added to.</param>
-        /// <param name="isLeader">Is the user to add a leader of the <see cref="Band"/>?</param>
+        /// <param name="userId">The participant that will be added to the <see cref="Band" />.</param>
+        /// <param name="bandId">The targetted <see cref="Band" /> the participant will be added to.</param>
+        /// <param name="isLeader">Is the user to add a leader of the <see cref="Band" />?</param>
         public void AddUserToBand(int userId, int bandId, bool isLeader)
         {
             connectionHandler.SendMessage(new ParticipationRequest(new Participation(userId, bandId, isLeader)));
@@ -154,13 +154,13 @@ namespace Client.Service
         }
 
         /// <summary>
-        /// Sends a <see cref="TaskRequest"/> message to the server.
+        /// Sends a <see cref="TaskRequest" /> message to the server.
         /// </summary>
-        /// <param name="bandId">The Id of the <see cref="Task"/> the Client wants to send the message to.</param>
-        /// <param name="taskTitle">The title of the <see cref="Task"/>.</param>
-        /// <param name="taskDescription">The description of the <see cref="Task"/>.</param>
-        /// <param name="taskPoints">How many points the <see cref="Task"/> is estimated as.</param>
-        /// <param name="assignedUserId">The member who will complete the <see cref="Task"/>.</param>
+        /// <param name="bandId">The Id of the <see cref="Task" /> the Client wants to send the message to.</param>
+        /// <param name="taskTitle">The title of the <see cref="Task" />.</param>
+        /// <param name="taskDescription">The description of the <see cref="Task" />.</param>
+        /// <param name="taskPoints">How many points the <see cref="Task" /> is estimated as.</param>
+        /// <param name="assignedUserId">The member who will complete the <see cref="Task" />.</param>
         /// <param name="taskCategory">The <see cref="Task" />'s category.</param>
         public void AddTaskToBacklog(int bandId, string taskTitle, string taskDescription, int taskPoints, int assignedUserId, TaskCategory taskCategory)
         {

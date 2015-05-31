@@ -54,7 +54,7 @@ namespace Server.EntityChangedHandler
         }
 
         /// <summary>
-        /// Removes event subscriptions to <see cref="JamRepository"/> <see cref="Entity"/> changes.
+        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity" /> changes.
         /// </summary>
         public override void StopOnMessageChangedHandling()
         {

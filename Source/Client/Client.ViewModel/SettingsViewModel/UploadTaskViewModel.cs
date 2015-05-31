@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Windows.Input;
-using System.Windows.Navigation;
 using Client.Model.SettingsModel;
 using Client.Service;
 using Client.Service.FTPService;
@@ -18,10 +17,8 @@ namespace Client.ViewModel.SettingsViewModel
     /// </summary>
     public sealed class UploadTaskViewModel : ViewModel
     {
-        private UploadTaskModel uploadTaskModel;
-
         private readonly IClientService clientService;
-
+        private UploadTaskModel uploadTaskModel;
 
         /// <summary>
         /// Initialise the view model with the client's <see cref="IServiceRegistry" />.
@@ -64,6 +61,14 @@ namespace Client.ViewModel.SettingsViewModel
             get { return new RelayCommand(CompleteTaskAndClose, CanCompleteTaskAndClose); }
         }
 
+        /// <summary>
+        /// Browse a <see cref="Task" /> file to upload.
+        /// </summary>
+        public ICommand BrowseTaskToUpload
+        {
+            get { return new RelayCommand(OpenUploadFileDialog, CanOpenFileDialog); }
+        }
+
         private bool CanCompleteTaskAndClose()
         {
             return !UploadTaskModel.IsUploading;
@@ -74,14 +79,6 @@ namespace Client.ViewModel.SettingsViewModel
             UpdateTaskStatusToComplete();
 
             EventUtility.SafeFireEvent(CloseUploaderViewRequested, this);
-        }
-
-        /// <summary>
-        /// Browse a <see cref="Task"/> file to upload.
-        /// </summary>
-        public ICommand BrowseTaskToUpload
-        {
-            get { return new RelayCommand(OpenUploadFileDialog, CanOpenFileDialog); }
         }
 
         private void OnUploadDataUpdate(object sender, DataSentEventArgs e)
@@ -142,7 +139,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private bool CanUploadTask()
         {
-            return !UploadTaskModel.IsUploading && !String.IsNullOrWhiteSpace(UploadTaskModel.FileToUploadLocation);
+            return !UploadTaskModel.IsUploading && !string.IsNullOrWhiteSpace(UploadTaskModel.FileToUploadLocation);
         }
 
         private bool CanOpenFileDialog()

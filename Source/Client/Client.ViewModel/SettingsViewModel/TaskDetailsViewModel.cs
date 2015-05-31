@@ -15,7 +15,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Creates a new <see cref="Task" /> Details View Model.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         /// <param name="task">The task to get the details for.</param>
         public TaskDetailsViewModel(IServiceRegistry serviceRegistry, Task task) : base(serviceRegistry)
         {

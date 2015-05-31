@@ -13,9 +13,6 @@ namespace ServerTest.MessageHandlerTests
     [TestFixture]
     public class ClientDisconnectionHandlerTest : MessageHandlerTestFixture
     {
-        private readonly ClientDisconnectionHandler clientDisconnectionHandler = new ClientDisconnectionHandler();
-        private ClientDisconnection clientDisconnection;
-
         [SetUp]
         public override void BeforeEachTest()
         {
@@ -23,6 +20,9 @@ namespace ServerTest.MessageHandlerTests
 
             clientDisconnection = new ClientDisconnection(DefaultUser.Id);
         }
+
+        private readonly ClientDisconnectionHandler clientDisconnectionHandler = new ClientDisconnectionHandler();
+        private ClientDisconnection clientDisconnection;
 
         public override void HandleMessage(IMessage message)
         {

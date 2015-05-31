@@ -5,7 +5,7 @@ using Shared.Message;
 namespace Shared
 {
     /// <summary>
-    /// Holds an <see cref="IMessage"/>.
+    /// Holds an <see cref="IMessage" />.
     /// </summary>
     public sealed class MessageEventArgs : EventArgs
     {

@@ -48,7 +48,7 @@ namespace Server.EntityChangedHandler
         }
 
         /// <summary>
-        /// Removes event subscriptions to <see cref="UserRepository" /> <see cref="Entity"/> changes.
+        /// Removes event subscriptions to <see cref="UserRepository" /> <see cref="Entity" /> changes.
         /// </summary>
         public override void StopOnMessageChangedHandling()
         {

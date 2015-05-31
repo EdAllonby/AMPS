@@ -50,7 +50,7 @@ namespace ConsoleClient
                 Log.InfoFormat("Testing Client {0}:", client.ClientUserId);
                 Validator.ValidateUserRepository(client.ClientServiceRegistry.GetService<RepositoryManager>().GetRepository<User>(), 55);
             }
-            
+
             // SimulatorUtilities.CreateTenFiveMemberBands(Clients);
 
             // SimulatorUtilities.CreateTwentyTasksPerBand(Clients);
@@ -64,7 +64,7 @@ namespace ConsoleClient
 
             for (int clientNumber = 0; clientNumber < TotalClients; clientNumber++)
             {
-                Clients[clientNumber].LogOn(new LoginDetails(String.Format("$TestUser{0}", clientNumber), "Password1!", ipAddress, 5004));
+                Clients[clientNumber].LogOn(new LoginDetails(string.Format("$TestUser{0}", clientNumber), "Password1!", ipAddress, 5004));
             }
 
             // Make sure all clients have finished running their initialisation threads.

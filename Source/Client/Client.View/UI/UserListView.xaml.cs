@@ -13,7 +13,7 @@ namespace Client.View.UI
         /// Create a list of connected <see cref="User" />s view.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
-        /// <param name="bandId">The <see cref="Band"/> context.</param>
+        /// <param name="bandId">The <see cref="Band" /> context.</param>
         public UserListView(IServiceRegistry serviceRegistry, int bandId)
         {
             InitializeComponent();

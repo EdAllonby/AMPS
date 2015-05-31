@@ -6,7 +6,7 @@ using Utility;
 namespace Client.Model.SettingsModel
 {
     /// <summary>
-    /// Model for <see cref="Jam"/> Maker Window.
+    /// Model for <see cref="Jam" /> Maker Window.
     /// </summary>
     public sealed class JamMakerModel : NotifiableModel
     {
@@ -14,9 +14,9 @@ namespace Client.Model.SettingsModel
         private int jamDayLength;
 
         /// <summary>
-        /// Creates a new <see cref="Jam"/> Maker Model with addable <see cref="Task"/>s.
+        /// Creates a new <see cref="Jam" /> Maker Model with addable <see cref="Task" />s.
         /// </summary>
-        /// <param name="addableTasks">The tasks that can be added to the <see cref="Jam"/>.</param>
+        /// <param name="addableTasks">The tasks that can be added to the <see cref="Jam" />.</param>
         public JamMakerModel(List<AddableTaskModel> addableTasks)
         {
             AddableTasks = addableTasks;
@@ -24,7 +24,7 @@ namespace Client.Model.SettingsModel
         }
 
         /// <summary>
-        /// A collection of addable <see cref="Task"/>s for the <see cref="Jam"/>.
+        /// A collection of addable <see cref="Task" />s for the <see cref="Jam" />.
         /// </summary>
         public List<AddableTaskModel> AddableTasks
         {

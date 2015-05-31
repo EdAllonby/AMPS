@@ -10,8 +10,8 @@ namespace Shared.Domain
     public sealed class TaskComment : Entity
     {
         private readonly string comment;
-        private readonly string title;
         private readonly int parentCommentId;
+        private readonly string title;
 
         /// <summary>
         /// Create a task comment for a task.
@@ -29,7 +29,7 @@ namespace Shared.Domain
 
         public TaskComment(int id, TaskComment incompleteTaskComment) : base(id)
         {
-            Contract.Requires(id>0);
+            Contract.Requires(id > 0);
             Contract.Requires(incompleteTaskComment != null);
 
             parentCommentId = incompleteTaskComment.ParentCommentId;

@@ -10,7 +10,7 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="JamRequest"/> the Server received.
+    /// Handles a <see cref="JamRequest" /> the Server received.
     /// </summary>
     internal sealed class JamRequestHandler : IMessageHandler
     {

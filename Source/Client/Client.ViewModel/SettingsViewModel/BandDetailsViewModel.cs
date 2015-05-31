@@ -8,7 +8,7 @@ using Shared.Repository;
 namespace Client.ViewModel.SettingsViewModel
 {
     /// <summary>
-    /// Holds the logic for the view. Accesses the Service manager to receive and send messages. 
+    /// Holds the logic for the view. Accesses the Service manager to receive and send messages.
     /// </summary>
     public sealed class BandDetailsViewModel : ViewModel
     {
@@ -17,7 +17,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Creates a new view model for band details.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         /// <param name="band">The context.</param>
         public BandDetailsViewModel(IServiceRegistry serviceRegistry, Band band)
             : base(serviceRegistry)

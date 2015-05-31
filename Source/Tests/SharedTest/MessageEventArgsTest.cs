@@ -10,21 +10,21 @@ namespace SharedTest
     public sealed class MessageEventArgsTest
     {
         [Test]
+        public void HoldsAnIMessage()
+        {
+            IMessage message = new LoginRequest("1", "1");
+
+            MessageEventArgs messageEventArgs = new MessageEventArgs(message);
+
+            Assert.AreEqual(message, messageEventArgs.Message);
+        }
+
+        [Test]
         public void IsAnEventArgs()
         {
             MessageEventArgs messageEventArgs = new MessageEventArgs(new LoginRequest("1", "1"));
 
             Assert.IsInstanceOf<EventArgs>(messageEventArgs);
-        }
-
-        [Test]
-        public void HoldsAnIMessage()
-        {
-            IMessage message = new LoginRequest("1", "1");
- 
-            MessageEventArgs messageEventArgs = new MessageEventArgs(message);
-
-            Assert.AreEqual(message, messageEventArgs.Message);
         }
     }
 }

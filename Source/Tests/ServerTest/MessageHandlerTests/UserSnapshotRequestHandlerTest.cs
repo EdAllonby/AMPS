@@ -11,14 +11,14 @@ namespace ServerTest.MessageHandlerTests
     [TestFixture]
     public class UserSnapshotRequestHandlerTest : MessageHandlerTestFixture
     {
-        private readonly UserSnapshotRequestHandler userSnapshotRequestHandler = new UserSnapshotRequestHandler();
-        private EntitySnapshotRequest<User> userSnapshotRequest;
-
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
             userSnapshotRequest = new EntitySnapshotRequest<User>(DefaultUser.Id);
         }
+
+        private readonly UserSnapshotRequestHandler userSnapshotRequestHandler = new UserSnapshotRequestHandler();
+        private EntitySnapshotRequest<User> userSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {

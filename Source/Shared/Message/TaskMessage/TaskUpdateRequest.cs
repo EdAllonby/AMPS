@@ -28,7 +28,7 @@ namespace Shared.Message.TaskMessage
         public Task UpdatedTask { get; set; }
 
         /// <summary>
-        /// The identifier associated with the particular <see cref="IMessage"/>.
+        /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
         public MessageIdentifier MessageIdentifier
         {

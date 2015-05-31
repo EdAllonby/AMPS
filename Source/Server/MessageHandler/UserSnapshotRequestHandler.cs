@@ -7,7 +7,7 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="EntitySnapshotRequest{T}"/> the Server received.
+    /// Handles a <see cref="EntitySnapshotRequest{T}" /> the Server received.
     /// </summary>
     internal sealed class UserSnapshotRequestHandler : IMessageHandler
     {

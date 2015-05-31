@@ -5,7 +5,7 @@ namespace Shared.Message
     /// <summary>
     /// Used to describe a client disconnection.
     /// This message is either gen when the Server decides a Client has disconnected (due to a socket disconnect exception)
-    /// by using the associated clientUserId in the <see cref="ConnectionHandler"/>, or when a client willingly logs out.
+    /// by using the associated clientUserId in the <see cref="ConnectionHandler" />, or when a client willingly logs out.
     /// </summary>
     [Serializable]
     public sealed class ClientDisconnection : IMessage

@@ -33,7 +33,7 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Left">
             <Label Content="Location:" />
-            <TextBox Text="{Binding DownloadTaskModel.DownloadLocation}" Width="200"  Height="20" />
+            <TextBox Text="{Binding DownloadTaskModel.DownloadLocation}" Width="200" Height="20" />
             <Button Command="{Binding BrowseDownloadLocation}" Width="74" Height="24" Content="Browse"
                     Margin="15,0,0,0" />
         </StackPanel>
@@ -43,15 +43,16 @@
             <Button Command="{Binding DownloadTask}" Content="Download" Width="74" Height="24" />
 
             <ProgressBar Width="100" Height="20" Margin="20,0,20,0"
-                         Minimum="0" 
-                         Maximum="{Binding DownloadTaskModel.TotalSize}" 
-                         Value="{Binding DownloadTaskModel.DownloadedSize}" 
+                         Minimum="0"
+                         Maximum="{Binding DownloadTaskModel.TotalSize}"
+                         Value="{Binding DownloadTaskModel.DownloadedSize}"
                          Visibility="{Binding DownloadTaskModel.IsDownloading, Converter={StaticResource BoolToVisibilityConverter}}" />
-            
+
             <Viewbox Width="20" Height="20" Margin="5,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                <ui:CircularProgressBar Visibility="{Binding DownloadTaskModel.IsDownloading, Converter={StaticResource BoolToVisibilityConverter}}" />
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center">
+                <ui:CircularProgressBar
+                    Visibility="{Binding DownloadTaskModel.IsDownloading, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Viewbox>
         </StackPanel>
 

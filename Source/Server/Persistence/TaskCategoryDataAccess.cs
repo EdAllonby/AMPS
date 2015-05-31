@@ -14,7 +14,7 @@ namespace Server.Persistence
         /// Gets the <see cref="TaskCategory" /> from its Id.
         /// </summary>
         /// <param name="categoryId">The category Id.</param>
-        /// <returns>The <see cref="TaskCategory"/>.</returns>
+        /// <returns>The <see cref="TaskCategory" />.</returns>
         public TaskCategory GetCategory(int categoryId)
         {
             TaskCategory taskCategory = TaskCategory.Other;

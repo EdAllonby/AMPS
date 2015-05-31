@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using log4net;
 
@@ -20,12 +19,12 @@ namespace Client.Service
         private string targetedUsername;
 
         /// <summary>
-        /// Tries to parse the command line arguments to a <see cref="LoginDetails"/> object.
+        /// Tries to parse the command line arguments to a <see cref="LoginDetails" /> object.
         /// </summary>
         /// <param name="commandLineArguments">A collection of command line arguments containing the login details.</param>
         /// <param name="loginDetails">An object to store the parsed login details.</param>
         /// <returns>Whether the parse was successful.</returns>
-        public bool TryParseCommandLineArguments(IEnumerable<String> commandLineArguments, out LoginDetails loginDetails)
+        public bool TryParseCommandLineArguments(IEnumerable<string> commandLineArguments, out LoginDetails loginDetails)
         {
             string parameterName = "";
 
@@ -66,7 +65,7 @@ namespace Client.Service
         }
 
         /// <summary>
-        /// Tries to parse the username, ipAddress and port strings to a <see cref="LoginDetails"/> object.
+        /// Tries to parse the username, ipAddress and port strings to a <see cref="LoginDetails" /> object.
         /// </summary>
         /// <param name="username">The username wanted to be set.</param>
         /// <param name="ipAddress">The IPAddress wanted to be set.</param>
@@ -97,7 +96,7 @@ namespace Client.Service
 
         private void ParseUsername(string username)
         {
-            if (String.IsNullOrEmpty(username))
+            if (string.IsNullOrEmpty(username))
             {
                 isParsed = false;
             }
@@ -110,7 +109,7 @@ namespace Client.Service
 
         private void ParsePassword(string password)
         {
-            if (String.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(password))
             {
                 isParsed = false;
             }

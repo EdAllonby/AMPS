@@ -5,7 +5,8 @@ using Shared.Domain;
 namespace Shared.Message
 {
     /// <summary>
-    /// Gets the correct <see cref="MessageIdentifier" /> for the <see cref="EntitySnapshotRequest{T}" /> <see cref="IMessage" />.
+    /// Gets the correct <see cref="MessageIdentifier" /> for the <see cref="EntitySnapshotRequest{T}" />
+    /// <see cref="IMessage" />.
     /// </summary>
     [Serializable]
     public sealed class SnapshotRequestMessageIdentifierFactory
@@ -27,7 +28,10 @@ namespace Shared.Message
         /// <summary>
         /// Returns the correct <see cref="MessageIdentifier" /> from the <see cref="EntitySnapshotRequest{T}" /> type.
         /// </summary>
-        /// <param name="snapshotType">The <see cref="EntitySnapshotRequest{T}" /> type to get the correct <see cref="MessageIdentifier" />.</param>
+        /// <param name="snapshotType">
+        /// The <see cref="EntitySnapshotRequest{T}" /> type to get the correct
+        /// <see cref="MessageIdentifier" />.
+        /// </param>
         /// <returns>The <see cref="MessageIdentifier" /> linked to the <see cref="EntitySnapshotRequest{T}" /> Type.</returns>
         public MessageIdentifier GetIdentifierBySnapshotType(Type snapshotType)
         {

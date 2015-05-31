@@ -72,7 +72,7 @@ namespace Client.ViewModel.SettingsViewModel
         }
 
         /// <summary>
-        /// Fires when the <see cref="Task"/> maker view model requests a close.
+        /// Fires when the <see cref="Task" /> maker view model requests a close.
         /// </summary>
         public event EventHandler CloseTaskMakerViewRequest;
 

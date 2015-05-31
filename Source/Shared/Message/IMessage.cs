@@ -11,7 +11,7 @@ namespace Shared.Message
     public interface IMessage
     {
         /// <summary>
-        /// The identifier associated with the particular <see cref="IMessage"/>.
+        /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
         MessageIdentifier MessageIdentifier { get; }
     }

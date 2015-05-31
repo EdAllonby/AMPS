@@ -41,7 +41,7 @@ namespace Client.View.UI
         {
             if (e.StatusCode == FtpStatusCode.CommandOK || e.StatusCode == FtpStatusCode.ClosingData)
             {
-                MessageBox.Show(string.Format("File successfully downloaded from server!"), string.Format("Response status code: {0}", ((int) e.StatusCode)), MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("File successfully downloaded from server!", string.Format("Response status code: {0}", ((int) e.StatusCode)), MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {

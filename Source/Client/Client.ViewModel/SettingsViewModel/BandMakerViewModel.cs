@@ -14,7 +14,7 @@ using Utility;
 namespace Client.ViewModel.SettingsViewModel
 {
     /// <summary>
-    /// Holds the logic for the view. Accesses the Service manager to receive and send messages. 
+    /// Holds the logic for the view. Accesses the Service manager to receive and send messages.
     /// </summary>
     public class BandMakerViewModel : ViewModel
     {
@@ -28,7 +28,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Creates a new view model for band maker.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         public BandMakerViewModel(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {

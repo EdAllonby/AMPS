@@ -61,10 +61,7 @@ namespace Server
 
                         return storedPasswordHash;
                     }
-                    else
-                    {
-                        return null;
-                    }
+                    return null;
                 }
             }
         }

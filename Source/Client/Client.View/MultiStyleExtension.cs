@@ -15,7 +15,10 @@ namespace Client.View
         /// <summary>
         /// Public constructor.
         /// </summary>
-        /// <param name="inputResourceKeys">The constructor input should be a string consisting of one or more style names separated by spaces.</param>
+        /// <param name="inputResourceKeys">
+        /// The constructor input should be a string consisting of one or more style names
+        /// separated by spaces.
+        /// </param>
         public MultiStyleExtension(string inputResourceKeys)
         {
             if (inputResourceKeys == null)
@@ -70,7 +73,7 @@ namespace Client.View
     public static class MultiStyleMethods
     {
         /// <summary>
-        /// Merges the two styles passed as parameters. The first style will be modified to include any 
+        /// Merges the two styles passed as parameters. The first style will be modified to include any
         /// information present in the second. If there are collisions, the second style takes priority.
         /// </summary>
         /// <param name="style1">First style to merge, which will be modified to include information from the second one.</param>

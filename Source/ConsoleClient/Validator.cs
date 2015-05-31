@@ -1,6 +1,5 @@
 ﻿using System.Linq;
 using log4net;
-using Shared;
 using Shared.Domain;
 using Shared.Repository;
 

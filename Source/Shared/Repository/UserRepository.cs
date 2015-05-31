@@ -12,7 +12,7 @@ namespace Shared.Repository
         /// <summary>
         /// Create a repository for storing <see cref="User" />s with a data mapping implementation.
         /// </summary>
-        /// <param name="entityPersister">The <see cref="IEntityDataMapper{User}"/> implementation to use.</param>
+        /// <param name="entityPersister">The <see cref="IEntityDataMapper{User}" /> implementation to use.</param>
         public UserRepository(IEntityPersister<User> entityPersister) : base(entityPersister)
         {
             Contract.Requires(entityPersister != null);

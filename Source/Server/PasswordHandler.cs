@@ -1,5 +1,4 @@
-﻿using System;
-using Shared;
+﻿using Shared;
 using Shared.Domain;
 
 namespace Server
@@ -10,8 +9,7 @@ namespace Server
     public sealed class PasswordHandler : IService
     {
         private readonly IPasswordHash passwordHash = new Pbkdf2PasswordHash();
-
-        private IPasswordPersister passwordPersister;
+        private readonly IPasswordPersister passwordPersister;
 
         /// <summary>
         /// Creates a new Password Handler with a desired persistence strategy.

@@ -7,7 +7,7 @@ using Shared.Domain;
 namespace Server
 {
     /// <summary>
-    /// Holds the <see cref="UserIdGenerator"/>s for each entity type that needs one.
+    /// Holds the <see cref="UserIdGenerator" />s for each entity type that needs one.
     /// </summary>
     internal sealed class EntityIdGeneratorRegistry
     {

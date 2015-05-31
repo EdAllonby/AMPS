@@ -29,7 +29,8 @@ namespace Client.View
         }
 
         /// <summary>
-        /// If the process has a console attached to it, it will be detached and no longer visible. Writing to the System.Console is still possible, but no output will be shown.
+        /// If the process has a console attached to it, it will be detached and no longer visible. Writing to the System.Console
+        /// is still possible, but no output will be shown.
         /// </summary>
         public static void Hide()
         {

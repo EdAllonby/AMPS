@@ -11,9 +11,10 @@ using Shared.Serialiser.MessageSerialiser;
 namespace Shared
 {
     /// <summary>
-    /// This is in charge of abstracting away the <see cref="TcpClient"/> work for sending and receiving <see cref="IMessage"/>s.
-    /// This class has no logic other than to send and receive messages to and from a <see cref="NetworkStream"/>.
-    /// This class is identified by the <see cref="clientUserId"/>.
+    /// This is in charge of abstracting away the <see cref="TcpClient" /> work for sending and receiving
+    /// <see cref="IMessage" />s.
+    /// This class has no logic other than to send and receive messages to and from a <see cref="NetworkStream" />.
+    /// This class is identified by the <see cref="clientUserId" />.
     /// </summary>
     public sealed class ConnectionHandler : IDisposable
     {
@@ -25,7 +26,7 @@ namespace Shared
         private readonly TcpClient tcpClient;
 
         /// <summary>
-        /// Initialises the object so it can begin to send and receive <see cref="IMessage"/>s through <see cref="tcpClient"/>.
+        /// Initialises the object so it can begin to send and receive <see cref="IMessage" />s through <see cref="tcpClient" />.
         /// </summary>
         /// <param name="clientUserId">A unique value that identifies the client.</param>
         /// <param name="tcpClient">The connection between the server and the client.</param>
@@ -50,7 +51,7 @@ namespace Shared
         }
 
         /// <summary>
-        /// Closes the <see cref="TcpClient"/>.
+        /// Closes the <see cref="TcpClient" />.
         /// </summary>
         public void Dispose()
         {
@@ -63,7 +64,7 @@ namespace Shared
         public event EventHandler<MessageEventArgs> MessageReceived;
 
         /// <summary>
-        /// Sends an <see cref="IMessage"/> across the <see cref="ConnectionHandler"/>'s <see cref="NetworkStream"/>.
+        /// Sends an <see cref="IMessage" /> across the <see cref="ConnectionHandler" />'s <see cref="NetworkStream" />.
         /// </summary>
         /// <param name="message">The message to send across the socket connection defined for this object.</param>
         public void SendMessage(IMessage message)

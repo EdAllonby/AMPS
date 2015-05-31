@@ -17,7 +17,8 @@ namespace Server.EntityChangedHandler
         private readonly TaskRepository taskRepository;
 
         /// <summary>
-        /// Creates a new <see cref="ParticipationRepository" /> <see cref="Entity" /> changed handler and wires up the change events.
+        /// Creates a new <see cref="ParticipationRepository" /> <see cref="Entity" /> changed handler and wires up the change
+        /// events.
         /// </summary>
         /// <param name="serviceRegistry">The server's service registry.</param>
         public OnParticipationChangedHandler(IServiceRegistry serviceRegistry)
@@ -92,7 +93,7 @@ namespace Server.EntityChangedHandler
         }
 
         /// <summary>
-        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity"/> changes.
+        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity" /> changes.
         /// </summary>
         public override void StopOnMessageChangedHandling()
         {

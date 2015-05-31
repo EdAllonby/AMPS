@@ -7,6 +7,20 @@ namespace SharedTest.DomainTest
     public class ParticipationTest
     {
         [Test]
+        public void CreateIncompleteParticipationTest()
+        {
+            const int UserId = 1;
+            const int BandId = 2;
+            const bool IsLeader = true;
+
+            var incompleteParticipation = new Participation(UserId, BandId, IsLeader);
+            Assert.IsTrue(incompleteParticipation.IsNew);
+            Assert.AreEqual(incompleteParticipation.UserId, UserId);
+            Assert.AreEqual(incompleteParticipation.BandId, BandId);
+            Assert.AreEqual(incompleteParticipation.IsLeader, IsLeader);
+        }
+
+        [Test]
         public void ParticipationEqualsTest()
         {
             const int ParticipationId = 1;
@@ -25,20 +39,6 @@ namespace SharedTest.DomainTest
         }
 
         [Test]
-        public void CreateIncompleteParticipationTest()
-        {
-            const int UserId = 1;
-            const int BandId = 2;
-            const bool IsLeader = true;
-
-            var incompleteParticipation = new Participation(UserId, BandId, IsLeader);
-            Assert.IsTrue(incompleteParticipation.IsNew);
-            Assert.AreEqual(incompleteParticipation.UserId, UserId);
-            Assert.AreEqual(incompleteParticipation.BandId, BandId);
-            Assert.AreEqual(incompleteParticipation.IsLeader, IsLeader);
-        }
-
-        [Test]
         public void ParticipationHashCodeTest()
         {
             const int ParticipationId = 1;
@@ -49,6 +49,20 @@ namespace SharedTest.DomainTest
             var participation = new Participation(ParticipationId, UserId, BandId, IsLeader);
             var participation2 = new Participation(ParticipationId, UserId, BandId, IsLeader);
             Assert.AreEqual(participation.GetHashCode(), participation2.GetHashCode());
+        }
+
+        [Test]
+        public void ParticipationHoldsInformationCorrectly()
+        {
+            const int ParticipationId = 1;
+            const int UserId = 1;
+            const int BandId = 2;
+            const bool IsLeader = false;
+
+            var participation = new Participation(ParticipationId, UserId, BandId, IsLeader);
+            Assert.AreEqual(participation.UserId, UserId);
+            Assert.AreEqual(participation.BandId, BandId);
+            Assert.AreEqual(participation.IsLeader, IsLeader);
         }
 
         [Test]
@@ -70,20 +84,6 @@ namespace SharedTest.DomainTest
 
             Assert.IsFalse(participationObject.Equals(2));
             Assert.IsFalse(participationObject.Equals(null));
-        }
-
-        [Test]
-        public void ParticipationHoldsInformationCorrectly()
-        {
-            const int ParticipationId = 1;
-            const int UserId = 1;
-            const int BandId = 2;
-            const bool IsLeader = false;
-
-            var participation = new Participation(ParticipationId, UserId, BandId, IsLeader);
-            Assert.AreEqual(participation.UserId, UserId);
-            Assert.AreEqual(participation.BandId, BandId);
-            Assert.AreEqual(participation.IsLeader, IsLeader);
         }
     }
 }

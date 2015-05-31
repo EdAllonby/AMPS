@@ -1,5 +1,4 @@
 ﻿using System.Net.Sockets;
-using System.Threading;
 using log4net;
 using Shared;
 using Shared.Domain;
@@ -19,7 +18,7 @@ namespace Server
         private static readonly ILog Log = LogManager.GetLogger(typeof (ClientLoginHandler));
 
         /// <summary>
-        /// From a <see cref="TcpClient"/> object, attempt to initialise a new <see cref="User"/> <see cref="Entity"/>.
+        /// From a <see cref="TcpClient" /> object, attempt to initialise a new <see cref="User" /> <see cref="Entity" />.
         /// </summary>
         /// <param name="tcpClient">The connection between the attempting-to-connect client.</param>
         /// <param name="serviceRegistry">Holds services to initialise client</param>

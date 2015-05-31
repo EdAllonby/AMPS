@@ -27,14 +27,6 @@ namespace SharedTest.DomainTest
         }
 
         [Test]
-        public void UserHasUserNameTest()
-        {
-            const string Username = "user's name";
-            var user = new User(1, Username, new ConnectionStatus(1, ConnectionStatus.Status.Connected));
-            Assert.AreEqual(user.Username, Username);
-        }
-
-        [Test]
         public void UserEqualsTest()
         {
             const int User1Id = 1;
@@ -57,6 +49,14 @@ namespace SharedTest.DomainTest
             var user2 = new User(1, "User", new ConnectionStatus(1, ConnectionStatus.Status.Connected));
 
             Assert.AreEqual(user1.GetHashCode(), user2.GetHashCode());
+        }
+
+        [Test]
+        public void UserHasUserNameTest()
+        {
+            const string Username = "user's name";
+            var user = new User(1, Username, new ConnectionStatus(1, ConnectionStatus.Status.Connected));
+            Assert.AreEqual(user.Username, Username);
         }
 
         [Test]

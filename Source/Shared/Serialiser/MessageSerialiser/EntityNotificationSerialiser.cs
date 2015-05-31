@@ -24,7 +24,10 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <summary>
         /// Deserialises a <see cref="EntityNotification{T}" /> from the <see cref="NetworkStream" />.
         /// </summary>
-        /// <param name="networkStream">The <see cref="NetworkStream" /> containing the serialised <see cref="EntityNotification{T}" />.</param>
+        /// <param name="networkStream">
+        /// The <see cref="NetworkStream" /> containing the serialised
+        /// <see cref="EntityNotification{T}" />.
+        /// </param>
         /// <returns>The deserialised <see cref="EntityNotification{T}" />.</returns>
         public override IMessage Deserialise(NetworkStream networkStream)
         {

@@ -30,7 +30,7 @@ namespace Client.ViewModel.MainViewModel
         private int totalPoints;
 
         /// <summary>
-        /// Create a new View Model for the <see cref="Jam"/> Tasks View.
+        /// Create a new View Model for the <see cref="Jam" /> Tasks View.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         /// <param name="managedBand">The <see cref="Band" /> context.</param>
@@ -134,7 +134,7 @@ namespace Client.ViewModel.MainViewModel
 
         // ReSharper restore CollectionNeverQueried.Global
         /// <summary>
-        /// The total points in this <see cref="Jam"/>.
+        /// The total points in this <see cref="Jam" />.
         /// </summary>
         public int CompletedPoints
         {
@@ -148,7 +148,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// The total points in this <see cref="Jam"/>.
+        /// The total points in this <see cref="Jam" />.
         /// </summary>
         public int RemainingPoints
         {
@@ -162,7 +162,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// The total points in this <see cref="Jam"/>.
+        /// The total points in this <see cref="Jam" />.
         /// </summary>
         public int TotalPoints
         {

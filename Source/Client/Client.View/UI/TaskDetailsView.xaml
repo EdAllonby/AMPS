@@ -14,7 +14,7 @@
     <Window.Resources>
         <converter:CategoryToIconConverter x:Key="CategoryToIconConverter" />
     </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -25,43 +25,51 @@
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal">
-            
+
             <Canvas Width="40" Margin="15,0,5,0" Height="40">
-                <Path Width="40" Height="40" Data="{Binding TaskModel.Category, Converter={StaticResource CategoryToIconConverter}}" Stretch="Uniform" Stroke="Black" StrokeThickness="1" Fill="#e74c3c" />
+                <Path Width="40" Height="40"
+                      Data="{Binding TaskModel.Category, Converter={StaticResource CategoryToIconConverter}}"
+                      Stretch="Uniform" Stroke="Black" StrokeThickness="1" Fill="#e74c3c" />
             </Canvas>
-            
-            <Label Content="{Binding TaskModel.Category}" FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40" HorizontalAlignment="Left"/>
-            <Label Content="Task" FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40" HorizontalAlignment="Left"/>
+
+            <Label Content="{Binding TaskModel.Category}"
+                   FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40"
+                   HorizontalAlignment="Left" />
+            <Label Content="Task" FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin"
+                   FontSize="40" HorizontalAlignment="Left" />
 
         </StackPanel>
-        
+
         <StackPanel Grid.Row="1" Orientation="Vertical">
             <Label Content="Task Title:" />
             <Label Content="{Binding TaskModel.Title}" />
         </StackPanel>
-        
+
         <Label Grid.Row="2" Content="Task Description:" />
 
-        <TextBox Grid.Row="3" Text="{Binding TaskModel.Description, Mode=OneWay}" Width="Auto" 
+        <TextBox Grid.Row="3" Text="{Binding TaskModel.Description, Mode=OneWay}" Width="Auto"
                  Margin="10,0,10,0" IsReadOnly="True"
                  TextWrapping="Wrap"
-                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                 VerticalScrollBarVisibility="Auto"/>
+                 HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                 VerticalScrollBarVisibility="Auto" />
 
         <StackPanel Grid.Row="4" Orientation="Horizontal" Margin="0,0,0,10">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Assigned to:" />
-                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="70" Content="{Binding TaskModel.AssignedMember.Username}" />
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="70"
+                       Content="{Binding TaskModel.AssignedMember.Username}" />
             </StackPanel>
 
             <StackPanel Orientation="Horizontal">
                 <Label Content="Points:" />
-                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="25"  Content="{Binding TaskModel.Points}" />
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="25"
+                       Content="{Binding TaskModel.Points}" />
             </StackPanel>
-            
+
             <StackPanel Orientation="Horizontal">
                 <Label Content="Category:" />
-                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="50"  Content="{Binding TaskModel.Category}" />
+                <Label HorizontalAlignment="Left" VerticalAlignment="Center" Width="50"
+                       Content="{Binding TaskModel.Category}" />
             </StackPanel>
         </StackPanel>
     </Grid>

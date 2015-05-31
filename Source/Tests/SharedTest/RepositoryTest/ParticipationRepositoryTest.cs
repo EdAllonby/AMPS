@@ -9,18 +9,6 @@ namespace SharedTest.RepositoryTest
     public class ParticipationRepositoryTest
     {
         [Test]
-        public void AddParticipationTest()
-        {
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
-
-            const bool IsLeader = true;
-            const int ParticipationId = 1;
-            var participation = new Participation(ParticipationId, 1, 1, IsLeader);
-            participationRepository.AddEntity(participation);
-            Assert.AreEqual(participation, participationRepository.FindEntityById(ParticipationId));
-        }
-
-        [Test]
         public void AddParticipationsTest()
         {
             var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
@@ -39,6 +27,18 @@ namespace SharedTest.RepositoryTest
             }
 
             Assert.AreEqual(participations, participationRepository.GetAllEntities());
+        }
+
+        [Test]
+        public void AddParticipationTest()
+        {
+            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+
+            const bool IsLeader = true;
+            const int ParticipationId = 1;
+            var participation = new Participation(ParticipationId, 1, 1, IsLeader);
+            participationRepository.AddEntity(participation);
+            Assert.AreEqual(participation, participationRepository.FindEntityById(ParticipationId));
         }
 
         [Test]

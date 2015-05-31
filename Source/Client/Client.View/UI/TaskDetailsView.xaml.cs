@@ -10,7 +10,7 @@ namespace Client.View.UI
     public partial class TaskDetailsView
     {
         /// <summary>
-        /// Creates a new view to display <see cref="Task"/> details.
+        /// Creates a new view to display <see cref="Task" /> details.
         /// </summary>
         /// <param name="sserviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         /// <param name="task">The Task to display details for.</param>

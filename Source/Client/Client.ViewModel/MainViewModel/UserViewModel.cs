@@ -9,7 +9,7 @@ using Shared.Repository;
 namespace Client.ViewModel.MainViewModel
 {
     /// <summary>
-    /// Translates the <see cref="User"/> domain object for the View Model to use.
+    /// Translates the <see cref="User" /> domain object for the View Model to use.
     /// </summary>
     public sealed class UserViewModel : ViewModel
     {
@@ -19,9 +19,9 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Creates a new view model with reference to the <see cref="Band" /> it is managing for.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         /// <param name="user">The <see cref="User" /> to display on the view.</param>
-        /// <param name="bandId">The <see cref="Band"/> Id to manage.</param>
+        /// <param name="bandId">The <see cref="Band" /> Id to manage.</param>
         public UserViewModel(IServiceRegistry serviceRegistry, User user, int bandId)
             : base(serviceRegistry)
         {

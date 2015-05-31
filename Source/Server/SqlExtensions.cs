@@ -3,12 +3,12 @@
 namespace Server
 {
     /// <summary>
-    /// Extension methods for SQL functions. 
+    /// Extension methods for SQL functions.
     /// </summary>
     public static class SqlExtensions
     {
         /// <summary>
-        /// Safely gets a possible nullable <see langword="int"/>.
+        /// Safely gets a possible nullable <see langword="int" />.
         /// </summary>
         /// <param name="reader">The data reader.</param>
         /// <param name="colIndex">Return nullable int with potential column value.</param>

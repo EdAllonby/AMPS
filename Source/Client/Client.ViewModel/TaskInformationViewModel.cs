@@ -50,7 +50,7 @@ namespace Client.ViewModel
         }
 
         /// <summary>
-        /// Fires when requested a new window with more <see cref="Task"/> details.
+        /// Fires when requested a new window with more <see cref="Task" /> details.
         /// </summary>
         public event EventHandler<WindowRequestedEventArgs> OpenTaskDetailsViewRequested;
 

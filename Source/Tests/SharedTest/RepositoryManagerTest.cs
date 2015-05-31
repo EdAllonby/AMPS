@@ -1,5 +1,4 @@
-﻿using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using Shared;
 using Shared.Domain;
 using Shared.Repository;
@@ -25,7 +24,7 @@ namespace SharedTest
         public void ReturnsNullWhenRepositoryCanNotBeFound()
         {
             RepositoryManager repositoryManager = new RepositoryManager();
-         
+
             Assert.IsNull(repositoryManager.GetRepository<Task>());
         }
     }

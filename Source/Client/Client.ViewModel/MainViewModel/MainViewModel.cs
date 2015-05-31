@@ -27,8 +27,8 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Creates a new view model with reference to the <see cref="Band" /> it is managing for.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
-        /// <param name="band">The <see cref="Band"/> to manage.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
+        /// <param name="band">The <see cref="Band" /> to manage.</param>
         public MainViewModel(IServiceRegistry serviceRegistry, Band band)
             : base(serviceRegistry)
         {
@@ -102,7 +102,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// Open a new <see cref="Task"/> creator window.
+        /// Open a new <see cref="Task" /> creator window.
         /// </summary>
         public ICommand CreateTask
         {
@@ -110,7 +110,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// Open a new <see cref="Band"/> <see cref="Task"/> backlog information window.
+        /// Open a new <see cref="Band" /> <see cref="Task" /> backlog information window.
         /// </summary>
         public ICommand OpenTaskBacklog
         {
@@ -142,7 +142,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// Returns whether the user is a leader and can see the Create <see cref="Jam"/> button.
+        /// Returns whether the user is a leader and can see the Create <see cref="Jam" /> button.
         /// </summary>
         public Visibility IsCreateJamVisible { get; private set; }
 

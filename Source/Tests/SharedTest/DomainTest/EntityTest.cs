@@ -7,14 +7,6 @@ namespace SharedTest.DomainTest
     public class EntityTest
     {
         [Test]
-        public void NewEntitySetsIsNewFlag()
-        {
-            Entity user = new User("TestNewUser");
-
-            Assert.IsTrue(user.IsNew);
-        }
-
-        [Test]
         public void EntityWithIdHasId()
         {
             const int IdToSet = 3;
@@ -30,6 +22,14 @@ namespace SharedTest.DomainTest
             Entity user = new User(IdToSet, "TestNewUser", new ConnectionStatus(IdToSet, ConnectionStatus.Status.Connected));
 
             Assert.IsFalse(user.IsNew);
+        }
+
+        [Test]
+        public void NewEntitySetsIsNewFlag()
+        {
+            Entity user = new User("TestNewUser");
+
+            Assert.IsTrue(user.IsNew);
         }
     }
 }

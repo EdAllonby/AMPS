@@ -54,7 +54,7 @@ namespace Server.MessageHandler
         }
 
         /// <summary>
-        /// Checks if the <see cref="JamRequest"/> band is available.
+        /// Checks if the <see cref="JamRequest" /> band is available.
         /// </summary>
         /// <param name="jamRequest">The request for a new <see cref="Jam" />.</param>
         /// <param name="bandRepository">Where <see cref="Band" /> entities live.</param>

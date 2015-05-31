@@ -7,7 +7,7 @@ using Shared.Repository;
 namespace Client.ViewModel.SettingsViewModel
 {
     /// <summary>
-    /// Displays the current tasks in the <see cref="Band"/>'s backlog.
+    /// Displays the current tasks in the <see cref="Band" />'s backlog.
     /// </summary>
     public sealed class TaskBacklogViewModel : TaskInformationViewModel
     {
@@ -16,8 +16,8 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Creates a new Backlog View Model.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
-        /// <param name="bandId">The <see cref="Band" />'s Id to display Backlog <see cref="Task"/>s.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
+        /// <param name="bandId">The <see cref="Band" />'s Id to display Backlog <see cref="Task" />s.</param>
         public TaskBacklogViewModel(IServiceRegistry serviceRegistry, int bandId) : base(serviceRegistry)
         {
             var userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();

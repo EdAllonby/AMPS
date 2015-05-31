@@ -11,7 +11,7 @@ using Shared.Message.TaskMessage;
 namespace Client.Service
 {
     /// <summary>
-    /// API to create a Client <see cref="IService"/> to communicate with a Server.
+    /// API to create a Client <see cref="IService" /> to communicate with a Server.
     /// </summary>
     public interface IClientService : IService
     {
@@ -21,7 +21,7 @@ namespace Client.Service
         IPEndPoint ServerEndPoint { get; }
 
         /// <summary>
-        /// This Client's unique <see cref="User"/> Id.
+        /// This Client's unique <see cref="User" /> Id.
         /// </summary>
         int ClientUserId { get; }
 
@@ -37,7 +37,7 @@ namespace Client.Service
 
         /// <summary>
         /// Connects the Client to the server using the parameters as connection details
-        /// and gets the state of <see cref="ClientService"/> up to date with the user status'. 
+        /// and gets the state of <see cref="ClientService" /> up to date with the user status'.
         /// </summary>
         /// <param name="loginDetails">The details used to log in to the server.</param>
         LoginResult LogOn(LoginDetails loginDetails);
@@ -48,21 +48,21 @@ namespace Client.Service
         void LogOff();
 
         /// <summary>
-        /// Create a new <see cref="Band"/>.
+        /// Create a new <see cref="Band" />.
         /// </summary>
-        /// <param name="userIds">The users to include in the <see cref="Band"/>.</param>
-        /// <param name="name">The name of the <see cref="Band"/>.</param>
-        /// <param name="leaderId">The leader of the <see cref="Band"/>.</param>
+        /// <param name="userIds">The users to include in the <see cref="Band" />.</param>
+        /// <param name="name">The name of the <see cref="Band" />.</param>
+        /// <param name="leaderId">The leader of the <see cref="Band" />.</param>
         void CreateBand(List<int> userIds, string name, int leaderId);
 
         /// <summary>
-        /// Sends a <see cref="TaskRequest"/> message to the server.
+        /// Sends a <see cref="TaskRequest" /> message to the server.
         /// </summary>
-        /// <param name="bandId">The Id of the <see cref="Shared.Domain.Task"/> the Client wants to send the message to.</param>
-        /// <param name="taskTitle">The title of the <see cref="Shared.Domain.Task"/>.</param>
-        /// <param name="taskDescription">The description of the <see cref="Shared.Domain.Task"/>.</param>
-        /// <param name="taskPoints">How many points the <see cref="Shared.Domain.Task"/> is estimated as.</param>
-        /// <param name="assignedUserId">The member who will complete the <see cref="Shared.Domain.Task"/>.</param>
+        /// <param name="bandId">The Id of the <see cref="Shared.Domain.Task" /> the Client wants to send the message to.</param>
+        /// <param name="taskTitle">The title of the <see cref="Shared.Domain.Task" />.</param>
+        /// <param name="taskDescription">The description of the <see cref="Shared.Domain.Task" />.</param>
+        /// <param name="taskPoints">How many points the <see cref="Shared.Domain.Task" /> is estimated as.</param>
+        /// <param name="assignedUserId">The member who will complete the <see cref="Shared.Domain.Task" />.</param>
         /// <param name="taskCategory">The <see cref="Shared.Domain.Task" />'s category.</param>
         void AddTaskToBacklog(int bandId, string taskTitle, string taskDescription, int taskPoints, int assignedUserId, TaskCategory taskCategory);
 
@@ -73,11 +73,11 @@ namespace Client.Service
         void UpdateTask(Task task);
 
         /// <summary>
-        /// Sends a <see cref="ParticipationRequest"/> message to the server to add a user to an existing <see cref="Band"/>.
+        /// Sends a <see cref="ParticipationRequest" /> message to the server to add a user to an existing <see cref="Band" />.
         /// </summary>
-        /// <param name="userId">The participant that will be added to the <see cref="Band"/>.</param>
-        /// <param name="bandId">The targetted <see cref="Band"/> the participant will be added to.</param>
-        /// <param name="isLeader">Is this <see cref="User"/> a leader of the <see cref="Band"/>?</param>
+        /// <param name="userId">The participant that will be added to the <see cref="Band" />.</param>
+        /// <param name="bandId">The targetted <see cref="Band" /> the participant will be added to.</param>
+        /// <param name="isLeader">Is this <see cref="User" /> a leader of the <see cref="Band" />?</param>
         void AddUserToBand(int userId, int bandId, bool isLeader);
 
         /// <summary>

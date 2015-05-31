@@ -20,18 +20,6 @@ namespace ServerTest
         }
 
         [Test]
-        public void ReturnsTrueWhenCorrectHashIsSuppliedForPassword()
-        {
-            Pbkdf2PasswordHash pbkdf2PasswordHash = new Pbkdf2PasswordHash();
-
-            const string Password = "Password1!";
-
-            string hash = pbkdf2PasswordHash.CreateHash(Password);
-
-            Assert.IsTrue(pbkdf2PasswordHash.ValidatePassword(Password, hash));
-        }
-
-        [Test]
         public void ReturnsFalseWhenIncorrectHashIsSuppliedForPassword()
         {
             Pbkdf2PasswordHash pbkdf2PasswordHash = new Pbkdf2PasswordHash();
@@ -41,6 +29,18 @@ namespace ServerTest
             string hash = pbkdf2PasswordHash.CreateHash(Password + "1");
 
             Assert.IsFalse(pbkdf2PasswordHash.ValidatePassword(Password, hash));
+        }
+
+        [Test]
+        public void ReturnsTrueWhenCorrectHashIsSuppliedForPassword()
+        {
+            Pbkdf2PasswordHash pbkdf2PasswordHash = new Pbkdf2PasswordHash();
+
+            const string Password = "Password1!";
+
+            string hash = pbkdf2PasswordHash.CreateHash(Password);
+
+            Assert.IsTrue(pbkdf2PasswordHash.ValidatePassword(Password, hash));
         }
     }
 }

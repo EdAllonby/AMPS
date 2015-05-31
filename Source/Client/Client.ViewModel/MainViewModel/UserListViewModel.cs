@@ -9,7 +9,7 @@ using Shared.Repository;
 namespace Client.ViewModel.MainViewModel
 {
     /// <summary>
-    /// Holds the logic for the view. Accesses the Service manager to receive and send messages. 
+    /// Holds the logic for the view. Accesses the Service manager to receive and send messages.
     /// </summary>
     public class UserListViewModel : ViewModel
     {
@@ -22,8 +22,8 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Creates a new view model with reference to the <see cref="Band" /> it is managing for.
         /// </summary>
-        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry"/>.</param>
-        /// <param name="bandId">The <see cref="Band"/> Id to manage.</param>
+        /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
+        /// <param name="bandId">The <see cref="Band" /> Id to manage.</param>
         public UserListViewModel(IServiceRegistry serviceRegistry, int bandId)
             : base(serviceRegistry)
         {
@@ -46,7 +46,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// The members of the <see cref="Band"/>.
+        /// The members of the <see cref="Band" />.
         /// </summary>
         public IList<UserViewModel> ConnectedUsers
         {

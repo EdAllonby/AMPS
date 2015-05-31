@@ -34,10 +34,10 @@ namespace Shared.Domain
         private readonly int userId;
 
         /// <summary>
-        /// Creates a new status for an associated <see cref="User"/>.
+        /// Creates a new status for an associated <see cref="User" />.
         /// </summary>
-        /// <param name="userId">The associated <see cref="User"/>'s Id.</param>
-        /// <param name="userConnectionStatus">The <see cref="Status"/> of the <see cref="User"/>.</param>
+        /// <param name="userId">The associated <see cref="User" />'s Id.</param>
+        /// <param name="userConnectionStatus">The <see cref="Status" /> of the <see cref="User" />.</param>
         public ConnectionStatus(int userId, Status userConnectionStatus)
         {
             this.userId = userId;

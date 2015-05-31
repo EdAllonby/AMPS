@@ -11,15 +11,15 @@ namespace ServerTest.MessageHandlerTests
     [TestFixture]
     public class BandSnapshotRequestHandlerTest : MessageHandlerTestFixture
     {
-        private readonly BandSnapshotRequestHandler bandSnapshotRequestHandler = new BandSnapshotRequestHandler();
-        private EntitySnapshotRequest<Band> bandSnapshotRequest;
-
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
 
             bandSnapshotRequest = new EntitySnapshotRequest<Band>(DefaultUser.Id);
         }
+
+        private readonly BandSnapshotRequestHandler bandSnapshotRequestHandler = new BandSnapshotRequestHandler();
+        private EntitySnapshotRequest<Band> bandSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {

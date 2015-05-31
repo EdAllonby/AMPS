@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Client.Model.Properties;
 
@@ -106,19 +105,19 @@ namespace Client.Model.LoginModel
         {
             get
             {
-                Error = String.Empty;
+                Error = string.Empty;
 
-                if (String.IsNullOrEmpty(Username))
+                if (string.IsNullOrEmpty(Username))
                 {
                     Error = "Username is required.";
                 }
 
-                if (String.IsNullOrEmpty(ExposedPassword))
+                if (string.IsNullOrEmpty(ExposedPassword))
                 {
                     Error = "Password is required.";
                 }
 
-                if (String.IsNullOrEmpty(IPAddress))
+                if (string.IsNullOrEmpty(IPAddress))
                 {
                     Error = "IP Address is required.";
                 }

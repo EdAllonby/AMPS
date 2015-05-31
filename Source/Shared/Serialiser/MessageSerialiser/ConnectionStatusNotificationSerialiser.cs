@@ -26,7 +26,10 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <summary>
         /// Deserialises a <see cref="ConnectionStatusNotification" /> from the <see cref="NetworkStream" />.
         /// </summary>
-        /// <param name="networkStream">The <see cref="NetworkStream" /> containing the serialised <see cref="ConnectionStatusNotification" />.</param>
+        /// <param name="networkStream">
+        /// The <see cref="NetworkStream" /> containing the serialised
+        /// <see cref="ConnectionStatusNotification" />.
+        /// </param>
         /// <returns>The deserialised <see cref="ConnectionStatusNotification" />.</returns>
         public override IMessage Deserialise(NetworkStream networkStream)
         {

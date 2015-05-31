@@ -42,7 +42,7 @@ namespace Shared.Repository
         /// <summary>
         /// Find all <see cref="Task" />s that match a <see cref="Jam" />'s Id.
         /// </summary>
-        /// <param name="jamId">The <see cref="Jam"/>'s Id to get <see cref="Task" />s.</param>
+        /// <param name="jamId">The <see cref="Jam" />'s Id to get <see cref="Task" />s.</param>
         /// <returns><see cref="Task" />s in the specified <see cref="Jam" />.</returns>
         public IEnumerable<Task> GetTasksInJam(int jamId)
         {

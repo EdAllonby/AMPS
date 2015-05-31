@@ -14,7 +14,7 @@ namespace Client.View.UI
         private readonly IServiceRegistry serviceRegistry;
 
         /// <summary>
-        /// Create a new view for creating <see cref="Jam"/>s and initialises its View Model.
+        /// Create a new view for creating <see cref="Jam" />s and initialises its View Model.
         /// </summary>
         public JamMakerView(IServiceRegistry serviceRegistry, Band band)
         {

@@ -55,7 +55,7 @@ namespace Client.ViewModel.SettingsViewModel
         }
 
         /// <summary>
-        /// Models a <see cref="Jam"/> Maker.
+        /// Models a <see cref="Jam" /> Maker.
         /// </summary>
         public JamMakerModel JamMakerModel
         {

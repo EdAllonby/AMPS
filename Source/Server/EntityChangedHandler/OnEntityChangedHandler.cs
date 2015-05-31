@@ -5,7 +5,7 @@ using Shared.Repository;
 namespace Server.EntityChangedHandler
 {
     /// <summary>
-    /// Handles entities that have changed in the <see cref="EntityRepository{T}"/>
+    /// Handles entities that have changed in the <see cref="EntityRepository{T}" />
     /// </summary>
     internal abstract class OnEntityChangedHandler
     {
@@ -29,7 +29,7 @@ namespace Server.EntityChangedHandler
         }
 
         /// <summary>
-        /// Removes event subscriptions to <see cref="EntityRepository{T}"/> <see cref="Entity"/> changes.
+        /// Removes event subscriptions to <see cref="EntityRepository{T}" /> <see cref="Entity" /> changes.
         /// </summary>
         public abstract void StopOnMessageChangedHandling();
     }

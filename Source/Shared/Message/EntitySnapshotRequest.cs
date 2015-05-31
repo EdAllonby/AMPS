@@ -27,7 +27,7 @@ namespace Shared.Message
         public int UserId { get; private set; }
 
         /// <summary>
-        /// The identifier associated with the particular <see cref="IMessage"/>.
+        /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
         public MessageIdentifier MessageIdentifier
         {

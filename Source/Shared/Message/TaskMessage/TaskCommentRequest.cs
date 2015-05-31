@@ -1,8 +1,6 @@
-﻿using Shared.Domain;
-
-namespace Shared.Message.TaskMessage
+﻿namespace Shared.Message.TaskMessage
 {
-    class TaskCommentRequest: IMessage
+    internal class TaskCommentRequest : IMessage
     {
         public MessageIdentifier MessageIdentifier { get; private set; }
     }

@@ -35,7 +35,7 @@ namespace Server.Persistence
         protected abstract string FindStatement { get; }
 
         /// <summary>
-        /// The <see cref="Entity"/> insert statement
+        /// The <see cref="Entity" /> insert statement
         /// </summary>
         protected abstract string InsertStatement { get; }
 
@@ -155,7 +155,7 @@ namespace Server.Persistence
         /// <summary>
         /// Prepare the insert command.
         /// </summary>
-        /// <param name="entity">The <paramref name="entity"/> to insert.</param>
+        /// <param name="entity">The <paramref name="entity" /> to insert.</param>
         /// <param name="insertCommand">The insert command.</param>
         protected abstract void DoInsert(T entity, SqlCommand insertCommand);
 

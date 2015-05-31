@@ -10,7 +10,7 @@ namespace Server
     public partial class ProjectInstaller : Installer
     {
         /// <summary>
-        ///Run the installer for the server.
+        /// Run the installer for the server.
         /// </summary>
         public ProjectInstaller()
         {

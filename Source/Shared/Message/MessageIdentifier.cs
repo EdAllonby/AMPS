@@ -1,7 +1,7 @@
 ﻿namespace Shared.Message
 {
     /// <summary>
-    /// Gives definitions for the types of <see cref="IMessage"/>, avoiding the introduction of magic numbers.
+    /// Gives definitions for the types of <see cref="IMessage" />, avoiding the introduction of magic numbers.
     /// </summary>
     public enum MessageIdentifier
     {

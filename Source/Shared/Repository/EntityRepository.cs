@@ -9,9 +9,9 @@ using Utility;
 namespace Shared.Repository
 {
     /// <summary>
-    /// Models a <see cref="Repository"/> for an <see cref="Entity"/>.
+    /// Models a <see cref="Repository" /> for an <see cref="Entity" />.
     /// </summary>
-    /// <typeparam name="T">An <see cref="Entity"/>.</typeparam>
+    /// <typeparam name="T">An <see cref="Entity" />.</typeparam>
     public abstract class EntityRepository<T> : IEntityRepository<T> where T : Entity
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (EntityRepository<T>));
@@ -29,7 +29,7 @@ namespace Shared.Repository
         }
 
         /// <summary>
-        /// Gets the <see cref="Entity"/> type that is held in the repository.
+        /// Gets the <see cref="Entity" /> type that is held in the repository.
         /// </summary>
         public Type EnclosedEntityType
         {
@@ -52,9 +52,9 @@ namespace Shared.Repository
         public event EventHandler<EntityChangedEventArgs<T>> EntityRemoved;
 
         /// <summary>
-        /// Adds an <see cref="Entity"/> to the repository.
+        /// Adds an <see cref="Entity" /> to the repository.
         /// </summary>
-        /// <param name="entity">The <see cref="Entity"/> to add.</param>
+        /// <param name="entity">The <see cref="Entity" /> to add.</param>
         public void AddEntity(T entity)
         {
             bool didInsert = entityPersister.InsertEntity(entity);
@@ -74,7 +74,7 @@ namespace Shared.Repository
         /// <summary>
         /// Updates an <see cref="Entity" /> in the <see cref="EntityRepository{T}" />.
         /// </summary>
-        /// <typeparam name="T">The <see cref="Entity"/> that the <see cref="EntityRepository{T}" /> holds.</typeparam>
+        /// <typeparam name="T">The <see cref="Entity" /> that the <see cref="EntityRepository{T}" /> holds.</typeparam>
         public void UpdateEntity(T entity)
         {
             bool didUpdate = entityPersister.UpdateEntity(entity);
@@ -96,19 +96,19 @@ namespace Shared.Repository
         }
 
         /// <summary>
-        /// Retrieves an <see cref="Entity"/> entity from the repository.
+        /// Retrieves an <see cref="Entity" /> entity from the repository.
         /// </summary>
-        /// <param name="entityId">The <see cref="Entity"/> entity Id to find.</param>
-        /// <returns>The <see cref="Entity"/> which matches the ID. If no <see cref="Entity"/> is found, return null.</returns>
+        /// <param name="entityId">The <see cref="Entity" /> entity Id to find.</param>
+        /// <returns>The <see cref="Entity" /> which matches the ID. If no <see cref="Entity" /> is found, return null.</returns>
         public T FindEntityById(int entityId)
         {
             return entityPersister.GetEntityById(entityId);
         }
 
         /// <summary>
-        /// Retrieves all <see cref="Entity"/>s from the repository.
+        /// Retrieves all <see cref="Entity" />s from the repository.
         /// </summary>
-        /// <returns>A collection of all <see cref="Entity"/>s in the repository.</returns>
+        /// <returns>A collection of all <see cref="Entity" />s in the repository.</returns>
         public IEnumerable<T> GetAllEntities()
         {
             return entityPersister.GetAllEntities();
@@ -143,7 +143,7 @@ namespace Shared.Repository
         }
 
         /// <summary>
-        /// Fires an <see cref="EntityUpdated"/> event.
+        /// Fires an <see cref="EntityUpdated" /> event.
         /// </summary>
         /// <param name="entity">The current state of the Entity.</param>
         /// <param name="previousEntity">The previous state of the Entity, before being updated.</param>

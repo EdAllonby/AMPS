@@ -11,15 +11,15 @@ namespace ServerTest.MessageHandlerTests
     [TestFixture]
     public class JamSnaphotRequestHandlerTest : MessageHandlerTestFixture
     {
-        private readonly JamSnapshotRequestHandler jamSnapshotRequestHandler = new JamSnapshotRequestHandler();
-        private EntitySnapshotRequest<Jam> jamSnapshotRequest;
-
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
 
             jamSnapshotRequest = new EntitySnapshotRequest<Jam>(DefaultUser.Id);
         }
+
+        private readonly JamSnapshotRequestHandler jamSnapshotRequestHandler = new JamSnapshotRequestHandler();
+        private EntitySnapshotRequest<Jam> jamSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {
@@ -29,6 +29,44 @@ namespace ServerTest.MessageHandlerTests
         [TestFixture]
         public class HandleMessageTest : JamSnaphotRequestHandlerTest
         {
+            [Test]
+            public void CanManuallySetJamToInActiveIfAfterActivePeriod()
+            {
+                var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
+                Jam jam = new Jam(1, 1, jamEndDate);
+
+                jam.IsActive = false;
+
+                Assert.IsFalse(jam.IsActive);
+            }
+
+            [Test]
+            public void JamEndDateTest()
+            {
+                var jamEndDate = new DateTime(1, 1, 1);
+                Jam jam = new Jam(1, 1, jamEndDate);
+
+                Assert.AreEqual(jam.JamEndDate, jamEndDate);
+            }
+
+            [Test]
+            public void JamIsActiveBeforeSpecifiedEndDateTest()
+            {
+                var jamEndDate = DateTime.UtcNow.AddMinutes(60);
+                Jam jam = new Jam(1, 1, jamEndDate);
+
+                Assert.IsTrue(jam.IsActive);
+            }
+
+            [Test]
+            public void JamIsNotActiveAfterSpecifiedEndDateTest()
+            {
+                var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
+                Jam jam = new Jam(1, 1, jamEndDate);
+
+                Assert.IsTrue(jam.IsActive);
+            }
+
             [Test]
             public void JamSnapshotSentContainsAllJamsUserIsIn()
             {
@@ -73,44 +111,6 @@ namespace ServerTest.MessageHandlerTests
             {
                 var participationSnapshotRequest = new EntitySnapshotRequest<Participation>(DefaultUser.Id);
                 Assert.Throws<InvalidCastException>(() => HandleMessage(participationSnapshotRequest));
-            }
-
-            [Test]
-            public void JamEndDateTest()
-            {
-                var jamEndDate = new DateTime(1, 1, 1);
-                Jam jam = new Jam(1, 1, jamEndDate);
-
-                Assert.AreEqual(jam.JamEndDate, jamEndDate);
-            }
-
-            [Test]
-            public void JamIsActiveBeforeSpecifiedEndDateTest()
-            {
-                var jamEndDate = DateTime.UtcNow.AddMinutes(60);
-                Jam jam = new Jam(1, 1, jamEndDate);
-
-                Assert.IsTrue(jam.IsActive);
-            }
-
-            [Test]
-            public void JamIsNotActiveAfterSpecifiedEndDateTest()
-            {
-                var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
-                Jam jam = new Jam(1, 1, jamEndDate);
-
-                Assert.IsTrue(jam.IsActive);
-            }
-
-            [Test]
-            public void CanManuallySetJamToInActiveIfAfterActivePeriod()
-            {
-                var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
-                Jam jam = new Jam(1, 1, jamEndDate);
-
-                jam.IsActive = false;
-
-                Assert.IsFalse(jam.IsActive);
             }
         }
     }

@@ -43,7 +43,6 @@ namespace Client.Model.SettingsModel
             get { return taskId; }
         }
 
-
         /// <summary>
         /// The title of the <see cref="Task" />.
         /// </summary>

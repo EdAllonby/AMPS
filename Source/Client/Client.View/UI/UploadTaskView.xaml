@@ -24,7 +24,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        
+
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10" HorizontalAlignment="Left">
             <Label Content="Name:" />
@@ -34,28 +34,30 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="10" HorizontalAlignment="Left">
             <Label Content="Location:" />
-            <TextBox Text="{Binding UploadTaskModel.FileToUploadLocation}" Width="200"  Height="20" />
+            <TextBox Text="{Binding UploadTaskModel.FileToUploadLocation}" Width="200" Height="20" />
             <Button Command="{Binding BrowseTaskToUpload}" Width="74" Height="24" Content="Browse" Margin="15,0,0,0" />
         </StackPanel>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-            
+
             <Button Command="{Binding UploadTask}" Content="Upload" Width="74" Height="24" />
 
             <ProgressBar Width="100" Height="20" Margin="20,0,20,0"
-                         Minimum="0" 
-                         Maximum="{Binding UploadTaskModel.TotalSize}" 
-                         Value="{Binding UploadTaskModel.UploadSize}" 
+                         Minimum="0"
+                         Maximum="{Binding UploadTaskModel.TotalSize}"
+                         Value="{Binding UploadTaskModel.UploadSize}"
                          Visibility="{Binding UploadTaskModel.IsUploading, Converter={StaticResource BoolToVisibilityConverter}}" />
 
             <Viewbox Width="20" Height="20" Margin="5,0,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
-                <ui:CircularProgressBar Visibility="{Binding UploadTaskModel.IsUploading, Converter={StaticResource BoolToVisibilityConverter}}" />
+                     HorizontalAlignment="Center"
+                     VerticalAlignment="Center">
+                <ui:CircularProgressBar
+                    Visibility="{Binding UploadTaskModel.IsUploading, Converter={StaticResource BoolToVisibilityConverter}}" />
             </Viewbox>
         </StackPanel>
 
-        <Button Grid.Row="3" Command="{Binding CompleteTaskWithoutUpload}" Margin="0,10,25,0" Content="Continue (No Upload)" Width="130" Height="24" />
+        <Button Grid.Row="3" Command="{Binding CompleteTaskWithoutUpload}" Margin="0,10,25,0"
+                Content="Continue (No Upload)" Width="130" Height="24" />
 
     </Grid>
 </Window>

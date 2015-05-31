@@ -10,19 +10,19 @@ namespace SharedTest
     public sealed class SerialiserFactoryTest
     {
         [Test]
-        public void GetSerialiserByType()
-        {
-            MessageSerialiser<LoginRequest> loginRequestSerialiser = SerialiserFactory.GetSerialiser<LoginRequest>();
-
-            Assert.IsNotNull(loginRequestSerialiser);
-        }
-
-        [Test]
         public void GetSerialiserByMessageIdentifier()
         {
             IMessageSerialiser message = SerialiserFactory.GetSerialiser(MessageIdentifier.LoginRequest);
 
             Assert.IsNotNull(message);
+        }
+
+        [Test]
+        public void GetSerialiserByType()
+        {
+            MessageSerialiser<LoginRequest> loginRequestSerialiser = SerialiserFactory.GetSerialiser<LoginRequest>();
+
+            Assert.IsNotNull(loginRequestSerialiser);
         }
     }
 }

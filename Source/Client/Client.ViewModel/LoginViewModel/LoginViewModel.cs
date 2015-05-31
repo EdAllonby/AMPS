@@ -170,7 +170,7 @@ namespace Client.ViewModel.LoginViewModel
 
         private bool CanLogin()
         {
-            return (String.IsNullOrWhiteSpace(LoginModel.Error));
+            return (string.IsNullOrWhiteSpace(LoginModel.Error));
         }
     }
 }

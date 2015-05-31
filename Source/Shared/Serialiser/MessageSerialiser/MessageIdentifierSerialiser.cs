@@ -7,7 +7,8 @@ using Shared.Message;
 namespace Shared.Serialiser.MessageSerialiser
 {
     /// <summary>
-    /// Defines what message gets what identifier, and used to serialise and deserialise Message Identifiers to their related Type.
+    /// Defines what message gets what identifier, and used to serialise and deserialise Message Identifiers to their related
+    /// Type.
     /// </summary>
     public static class MessageIdentifierSerialiser
     {
@@ -29,7 +30,10 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <summary>
         /// Deserialises a <see cref="MessageIdentifier" /> from the <see cref="NetworkStream" />.
         /// </summary>
-        /// <param name="networkStream">The <see cref="NetworkStream" /> containing the serialised <see cref="MessageIdentifier" />.</param>
+        /// <param name="networkStream">
+        /// The <see cref="NetworkStream" /> containing the serialised <see cref="MessageIdentifier" />
+        /// .
+        /// </param>
         /// <returns>The deserialised <see cref="MessageIdentifier" />.</returns>
         public static MessageIdentifier DeserialiseMessageIdentifier(NetworkStream networkStream)
         {

@@ -9,13 +9,13 @@ namespace Shared.Repository
     public interface IEntityRepository
     {
         /// <summary>
-        /// Gets the <see cref="Entity"/> type that is held in the repository.
+        /// Gets the <see cref="Entity" /> type that is held in the repository.
         /// </summary>
         Type EnclosedEntityType { get; }
     }
 
     /// <summary>
-    /// Generic <see cref="Entity"/> <see cref="Repository"/> <see langword="iinterface" />.
+    /// Generic <see cref="Entity" /> <see cref="Repository" /> <see langword="iinterface" />.
     /// </summary>
     /// <typeparam name="T">The <see cref="Entity" /> type.</typeparam>
     public interface IEntityRepository<T> : IReadOnlyEntityRepository<T>, IEntityRepository where T : Entity
@@ -23,13 +23,13 @@ namespace Shared.Repository
         /// <summary>
         /// Adds an <see cref="Entity" /> to the repository.
         /// </summary>
-        /// <param name="entity">The <see cref="Entity"/> to add.</param>
+        /// <param name="entity">The <see cref="Entity" /> to add.</param>
         void AddEntity(T entity);
 
         /// <summary>
-        /// Updates an <see cref="Entity"/> in the repository.
+        /// Updates an <see cref="Entity" /> in the repository.
         /// </summary>
-        /// <param name="entity">The <see cref="Entity"/> to update. Uses its Id as the comparer.</param>
+        /// <param name="entity">The <see cref="Entity" /> to update. Uses its Id as the comparer.</param>
         void UpdateEntity(T entity);
 
         /// <summary>

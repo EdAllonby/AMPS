@@ -22,7 +22,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Content="Join a Band" FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40" HorizontalAlignment="Center"/>
+        <Label Grid.Row="0" Content="Join a Band"
+               FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40"
+               HorizontalAlignment="Center" />
 
         <GroupBox Grid.Row="1" Header="Create a band" HorizontalAlignment="Center" Width="340">
             <Grid>
@@ -34,16 +36,21 @@
 
                 <StackPanel Grid.Row="0" Orientation="Horizontal">
                     <Label Content="Choose a Band name: " VerticalAlignment="Center" />
-                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="150" Text="{Binding BandMakerModel.BandName, UpdateSourceTrigger=PropertyChanged}" />
+                    <TextBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="150"
+                             Text="{Binding BandMakerModel.BandName, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
 
-                <ListView Grid.Row="1" ItemsSource="{Binding BandMakerModel.BandMakerUsers, UpdateSourceTrigger=Default}" HorizontalAlignment="Stretch">
+                <ListView Grid.Row="1"
+                          ItemsSource="{Binding BandMakerModel.BandMakerUsers, UpdateSourceTrigger=Default}"
+                          HorizontalAlignment="Stretch">
                     <ListView.View>
                         <GridView>
-                          <GridViewColumn Header="Leader" Width="50">
+                            <GridViewColumn Header="Leader" Width="50">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <RadioButton GroupName="leaderSelection" IsEnabled="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" IsChecked="{Binding IsLeader, UpdateSourceTrigger=PropertyChanged}" />
+                                        <RadioButton GroupName="leaderSelection"
+                                                     IsEnabled="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                                                     IsChecked="{Binding IsLeader, UpdateSourceTrigger=PropertyChanged}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -51,7 +58,8 @@
                             <GridViewColumn Header="Add" Width="40">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsSelectedEnabled}" />
+                                        <CheckBox IsChecked="{Binding IsSelected, UpdateSourceTrigger=PropertyChanged}"
+                                                  IsEnabled="{Binding IsSelectedEnabled}" />
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -62,7 +70,8 @@
                 </ListView>
 
                 <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Content="Create" Width="50" Height="20" IsDefault="True" Command="{Binding CreateBand}" Margin="5" />
+                    <Button Content="Create" Width="50" Height="20" IsDefault="True" Command="{Binding CreateBand}"
+                            Margin="5" />
                 </StackPanel>
             </Grid>
         </GroupBox>
@@ -70,7 +79,9 @@
         <GroupBox Grid.Row="2" Header="Join a band" Margin="10,0,10,0" HorizontalAlignment="Center" Height="70">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Choose a Band to enter: " VerticalAlignment="Center" />
-                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120" ItemsSource="{Binding BandMakerModel.Bands}" SelectedItem="{Binding BandMakerModel.SelectedBand}" DisplayMemberPath="Name"/>
+                <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="120"
+                          ItemsSource="{Binding BandMakerModel.Bands}"
+                          SelectedItem="{Binding BandMakerModel.SelectedBand}" DisplayMemberPath="Name" />
                 <Button Content="Enter" Margin="20,5,5,5" Width="50" Height="20" Command="{Binding JoinBand}" />
             </StackPanel>
         </GroupBox>

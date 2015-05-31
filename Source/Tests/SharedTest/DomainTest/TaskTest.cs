@@ -7,13 +7,25 @@ namespace SharedTest.DomainTest
     public class TaskTest
     {
         [Test]
-        public void TaskIsAnEntity()
+        public void CannotSetCompletedTaskToIncompletedTest()
         {
-            const int TaskId = 2;
-            var incompleteTask = new Task("this is a title", "this is a description", 13, 1, 1, TaskCategory.Other);
+            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other);
 
-            var task = new Task(TaskId, incompleteTask);
-            Assert.IsInstanceOf<Entity>(task);
+            task.IsCompleted = true;
+
+            task.IsCompleted = false;
+
+            Assert.IsTrue(task.IsCompleted);
+        }
+
+        [Test]
+        public void CanSetTaskToCompletedTest()
+        {
+            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other);
+
+            task.IsCompleted = true;
+
+            Assert.IsTrue(task.IsCompleted);
         }
 
         [Test]
@@ -36,19 +48,19 @@ namespace SharedTest.DomainTest
         }
 
         [Test]
+        public void NewTaskWithoutIdIsSetAsNew()
+        {
+            var task = new Task("this is a title", "this is a description", 13, 1, 1, TaskCategory.Other);
+            Assert.IsTrue(task.IsNew);
+        }
+
+        [Test]
         public void TaskHasAssignedId()
         {
             const int TaskId = 120;
             var incompleteTask = new Task("this is a title", "this is a description", 13, 1, 1, TaskCategory.Other);
             var task = new Task(TaskId, incompleteTask);
             Assert.AreEqual(TaskId, task.Id);
-        }
-
-        [Test]
-        public void NewTaskWithoutIdIsSetAsNew()
-        {
-            var task = new Task("this is a title", "this is a description", 13, 1, 1, TaskCategory.Other);
-            Assert.IsTrue(task.IsNew);
         }
 
         [Test]
@@ -61,14 +73,6 @@ namespace SharedTest.DomainTest
         }
 
         [Test]
-        public void TaskHasNoUserIfnoIdIsAssignedTest()
-        {
-            var task = new Task("hello", "description", 3, 1, 0, TaskCategory.Other);
-
-            Assert.IsFalse(task.HasAssignedUser);
-        }
-
-        [Test]
         public void TaskHasNoPointsTest()
         {
             var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other);
@@ -77,25 +81,21 @@ namespace SharedTest.DomainTest
         }
 
         [Test]
-        public void CanSetTaskToCompletedTest()
+        public void TaskHasNoUserIfnoIdIsAssignedTest()
         {
-            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other);
+            var task = new Task("hello", "description", 3, 1, 0, TaskCategory.Other);
 
-            task.IsCompleted = true;
-
-            Assert.IsTrue(task.IsCompleted);
+            Assert.IsFalse(task.HasAssignedUser);
         }
 
         [Test]
-        public void CannotSetCompletedTaskToIncompletedTest()
+        public void TaskIsAnEntity()
         {
-            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other);
+            const int TaskId = 2;
+            var incompleteTask = new Task("this is a title", "this is a description", 13, 1, 1, TaskCategory.Other);
 
-            task.IsCompleted = true;
-
-            task.IsCompleted = false;
-
-            Assert.IsTrue(task.IsCompleted);
+            var task = new Task(TaskId, incompleteTask);
+            Assert.IsInstanceOf<Entity>(task);
         }
     }
 }

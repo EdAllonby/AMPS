@@ -6,7 +6,7 @@ using Shared.Domain;
 namespace Shared.Message.BandMessage
 {
     /// <summary>
-    /// Packages a List of user Ids that should be part of a new Band. A <see cref="Band"/> must have a leader.
+    /// Packages a List of user Ids that should be part of a new Band. A <see cref="Band" /> must have a leader.
     /// </summary>
     [Serializable]
     public sealed class BandRequest : IMessage
@@ -51,7 +51,7 @@ namespace Shared.Message.BandMessage
         }
 
         /// <summary>
-        /// The message identifier for this <see cref="IMessage"/> request.
+        /// The message identifier for this <see cref="IMessage" /> request.
         /// </summary>
         public MessageIdentifier MessageIdentifier
         {

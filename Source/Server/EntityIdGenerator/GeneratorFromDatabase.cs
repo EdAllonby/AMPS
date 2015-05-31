@@ -10,7 +10,7 @@ namespace Server.EntityIdGenerator
     public sealed class GeneratorFromDatabase : IGeneratorStrategy
     {
         /// <summary>
-        /// Gets the current highest Id for the 
+        /// Gets the current highest Id for the
         /// </summary>
         /// <returns></returns>
         public int GetCurrentHighestId(string table)

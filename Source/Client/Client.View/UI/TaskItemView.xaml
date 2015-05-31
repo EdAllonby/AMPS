@@ -83,7 +83,8 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <TextBlock Text="Comments" Foreground="Black" Margin="10" />
-                        <xctk:WatermarkTextBox Watermark="Reply..." Margin="10,0,10,0" Height="24" Width="300" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}">
+                        <xctk:WatermarkTextBox Watermark="Reply..." Margin="10,0,10,0" Height="24" Width="300"
+                                               Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}">
                             <TextBox.InputBindings>
                                 <KeyBinding Command="{Binding AddComment}" Key="Return" />
                             </TextBox.InputBindings>

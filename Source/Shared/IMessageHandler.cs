@@ -3,7 +3,7 @@
 namespace Shared
 {
     /// <summary>
-    /// Defines an <see langword="object"/> that is to be used for handling incoming <see cref="IMessage" />s.
+    /// Defines an <see langword="object" /> that is to be used for handling incoming <see cref="IMessage" />s.
     /// </summary>
     public interface IMessageHandler
     {

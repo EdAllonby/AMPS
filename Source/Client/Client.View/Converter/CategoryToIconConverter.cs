@@ -12,7 +12,7 @@ namespace Client.View.Converter
     internal sealed class CategoryToIconConverter : IValueConverter
     {
         /// <summary>
-        /// Coverts a <see cref="TaskCategory"/> into a static resource icon.
+        /// Coverts a <see cref="TaskCategory" /> into a static resource icon.
         /// </summary>
         /// <param name="value">The Category to convert.</param>
         /// <param name="targetType">No specified target type.</param>

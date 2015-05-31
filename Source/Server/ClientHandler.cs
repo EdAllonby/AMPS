@@ -22,11 +22,11 @@ namespace Server
         public event EventHandler<MessageEventArgs> MessageReceived;
 
         /// <summary>
-        /// Logs in a requested Client to the <see cref="Server"/>.
+        /// Logs in a requested Client to the <see cref="Server" />.
         /// </summary>
         /// <param name="tcpClient">The client's connection.</param>
         /// <param name="serviceRegistry">Holds services to initialise client</param>
-        /// <returns>A login response <see cref="IMessage"/> with the details of the login attempt.</returns>
+        /// <returns>A login response <see cref="IMessage" /> with the details of the login attempt.</returns>
         public LoginResponse InitialiseClient(TcpClient tcpClient, IServiceRegistry serviceRegistry)
         {
             LoginResponse loginResponse = ClientLoginHandler.InitialiseNewClient(tcpClient, serviceRegistry);
@@ -45,9 +45,9 @@ namespace Server
         }
 
         /// <summary>
-        /// Send an <see cref="IMessage"/> to the client.
+        /// Send an <see cref="IMessage" /> to the client.
         /// </summary>
-        /// <param name="message">The <see cref="IMessage"/> to send to the client.</param>
+        /// <param name="message">The <see cref="IMessage" /> to send to the client.</param>
         public void SendMessage(IMessage message)
         {
             connectionHandler.SendMessage(message);
@@ -70,7 +70,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Creates a new <see cref="ConnectionHandler"/> to connect the client and the server.
+        /// Creates a new <see cref="ConnectionHandler" /> to connect the client and the server.
         /// </summary>
         /// <param name="userId">The user id to link this connection handler with.</param>
         /// <param name="tcpClient">The TCP connection between this client and the Server.</param>

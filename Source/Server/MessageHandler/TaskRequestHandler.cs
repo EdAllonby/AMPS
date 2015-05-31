@@ -7,7 +7,7 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="TaskRequest"/> the Server recieved.
+    /// Handles a <see cref="TaskRequest" /> the Server recieved.
     /// </summary>
     internal sealed class TaskRequestHandler : IMessageHandler
     {

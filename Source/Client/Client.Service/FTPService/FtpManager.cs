@@ -207,7 +207,7 @@ namespace Client.Service.FTPService
                 using (Stream responseStream = responseFileDownload.GetResponseStream())
                 using (FileStream writeStream = new FileStream(localFile, FileMode.Create))
                 {
-                    Byte[] buffer = new Byte[BufferSize];
+                    byte[] buffer = new byte[BufferSize];
 
                     if (responseStream == null)
                     {

@@ -12,12 +12,13 @@ namespace Shared.Domain
     {
         private readonly int bandId;
         private readonly TaskCategory category;
+        private readonly List<TaskComment> comments = new List<TaskComment>();
         private readonly string description;
         private readonly string title;
         private int assignedUserId;
         private bool isCompleted;
         private int points;
-        private readonly List<TaskComment> comments = new List<TaskComment>(); 
+
         /// <summary>
         /// Creates a new <see cref="Task" /> with no assigned Id.
         /// </summary>

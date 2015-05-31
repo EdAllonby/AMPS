@@ -12,10 +12,10 @@ namespace Shared.Domain
         private readonly string name;
 
         /// <summary>
-        /// Creates a new <see cref="Band"/> which has an Id.
+        /// Creates a new <see cref="Band" /> which has an Id.
         /// </summary>
-        /// <param name="id">The Id assigned to the <see cref="Band"/>.</param>
-        /// <param name="name">The name of the <see cref="Band"/>.</param>
+        /// <param name="id">The Id assigned to the <see cref="Band" />.</param>
+        /// <param name="name">The name of the <see cref="Band" />.</param>
         public Band(int id, string name) : base(id)
         {
             Contract.Requires(id > 0);

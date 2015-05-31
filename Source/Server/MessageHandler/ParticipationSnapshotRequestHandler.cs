@@ -7,14 +7,17 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="EntitySnapshotRequest{T}"/> the Server received.
+    /// Handles a <see cref="EntitySnapshotRequest{T}" /> the Server received.
     /// </summary>
     internal sealed class ParticipationSnapshotRequestHandler : IMessageHandler
     {
         /// <summary>
         /// Handles the incoming <see cref="EntitySnapshotRequest{Participation}" />.
         /// </summary>
-        /// <param name="message">The <see cref="EntitySnapshotRequest{Participation}" /> that has been received and needs to be handled.</param>
+        /// <param name="message">
+        /// The <see cref="EntitySnapshotRequest{Participation}" /> that has been received and needs to be
+        /// handled.
+        /// </param>
         /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
         public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
         {

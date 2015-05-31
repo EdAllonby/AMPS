@@ -13,7 +13,7 @@ using Shared.Repository;
 namespace Server
 {
     /// <summary>
-    /// Handles the logic for incoming <see cref="IMessage"/> passed from ConnectionHandler.
+    /// Handles the logic for incoming <see cref="IMessage" /> passed from ConnectionHandler.
     /// </summary>
     public sealed class Server
     {
@@ -29,9 +29,9 @@ namespace Server
         private bool isServerRunning;
 
         /// <summary>
-        /// Creates a new <see cref="Server"/> instance, and sets up the Repository Change Handlers.
+        /// Creates a new <see cref="Server" /> instance, and sets up the Repository Change Handlers.
         /// </summary>
-        /// <param name="serviceRegistry">The <see cref="Server"/>'s services.</param>
+        /// <param name="serviceRegistry">The <see cref="Server" />'s services.</param>
         public Server(IServiceRegistry serviceRegistry)
         {
             this.serviceRegistry = serviceRegistry;
@@ -49,7 +49,7 @@ namespace Server
         }
 
         /// <summary>
-        /// Starts the <see cref="Server"/>, where it begins to listen to new clients.
+        /// Starts the <see cref="Server" />, where it begins to listen to new clients.
         /// </summary>
         public void Start()
         {

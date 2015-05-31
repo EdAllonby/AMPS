@@ -37,7 +37,7 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// The name of the <see cref="User"/>.
+        /// The name of the <see cref="User" />.
         /// </summary>
         public string Username
         {
@@ -45,7 +45,7 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// The current status of the <see cref="User"/>.
+        /// The current status of the <see cref="User" />.
         /// </summary>
         public ConnectionStatus ConnectionStatus { get; set; }
     }

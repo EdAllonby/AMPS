@@ -34,7 +34,7 @@ namespace Client.ViewModel.SettingsViewModel
         }
 
         /// <summary>
-        /// Browse a <see cref="Task"/> file to upload.
+        /// Browse a <see cref="Task" /> file to upload.
         /// </summary>
         public ICommand BrowseDownloadLocation
         {
@@ -76,7 +76,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private bool CanDownloadTask()
         {
-            return !DownloadTaskModel.IsDownloading && !String.IsNullOrWhiteSpace(DownloadTaskModel.DownloadLocation);
+            return !DownloadTaskModel.IsDownloading && !string.IsNullOrWhiteSpace(DownloadTaskModel.DownloadLocation);
         }
 
         private async void DownloadTaskFromServer()

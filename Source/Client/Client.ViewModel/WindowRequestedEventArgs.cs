@@ -32,7 +32,7 @@ namespace Client.ViewModel
         public Band Band { get; private set; }
 
         /// <summary>
-        /// The <see cref="Task"/> packaged.  
+        /// The <see cref="Task" /> packaged.
         /// </summary>
         public Task Task { get; private set; }
     }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Shared.Domain;
 
@@ -11,7 +10,7 @@ namespace Client.Model.SettingsModel
     public sealed class BandMakerModel : NotifiableModel
     {
         private List<BandMakerUserModel> bandMakerUsers = new List<BandMakerUserModel>();
-        private string bandName = String.Empty;
+        private string bandName = string.Empty;
         private List<Band> bands;
         private Band selectedBand;
 

@@ -8,7 +8,7 @@ namespace Utility
     public static class EventUtility
     {
         /// <summary>
-        /// Safely fires an event with no <see cref="EventArgs"/>.
+        /// Safely fires an event with no <see cref="EventArgs" />.
         /// </summary>
         /// <param name="unsafeEvent">The event to safely fire.</param>
         /// <param name="sender">The class that sent the event.</param>
@@ -23,12 +23,12 @@ namespace Utility
         }
 
         /// <summary>
-        /// Safely fires an event with type <see cref="EventArgs"/>.
+        /// Safely fires an event with type <see cref="EventArgs" />.
         /// </summary>
-        /// <typeparam name="T">The type of <see cref="EventArgs"/> to fire.</typeparam>
+        /// <typeparam name="T">The type of <see cref="EventArgs" /> to fire.</typeparam>
         /// <param name="unsafeEvent">The event to safely fire.</param>
         /// <param name="sender">The class that called the event.</param>
-        /// <param name="eventArgs">The <see cref="EventArgs"/> the event has.</param>
+        /// <param name="eventArgs">The <see cref="EventArgs" /> the event has.</param>
         public static void SafeFireEvent<T>(EventHandler<T> unsafeEvent, object sender, T eventArgs) where T : EventArgs
         {
             var eventCopy = unsafeEvent;

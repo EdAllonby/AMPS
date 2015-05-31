@@ -6,16 +6,16 @@ using Shared.Domain;
 namespace Shared.Serialiser.EntitySerialiser
 {
     /// <summary>
-    /// Serialises an <see cref="Entity"/>across the stream.
+    /// Serialises an <see cref="Entity" />across the stream.
     /// </summary>
-    /// <typeparam name="T">The <see cref="Entity"/> to serialise.</typeparam>
+    /// <typeparam name="T">The <see cref="Entity" /> to serialise.</typeparam>
     internal sealed class EntitySerialiser<T> where T : Entity
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (EntitySerialiser<T>));
         private readonly ISerialisationType serialiser = new BinarySerialiser();
 
         /// <summary>
-        /// Serialises an <see cref="Entity"/> through the <see cref="NetworkStream" />.
+        /// Serialises an <see cref="Entity" /> through the <see cref="NetworkStream" />.
         /// </summary>
         /// <param name="networkStream">The <see cref="NetworkStream" /> to serialise the <see cref="Entity" /> across.</param>
         /// <param name="entity">The <see cref="Entity" /> to serialise.</param>

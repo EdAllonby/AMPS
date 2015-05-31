@@ -11,7 +11,7 @@ namespace Server.Persistence
     internal sealed class UserMapper : EntityMapper<User>
     {
         /// <summary>
-        /// Columns for <see cref="User"/>.
+        /// Columns for <see cref="User" />.
         /// </summary>
         private const string Columns = " Id, Username ";
 

@@ -24,13 +24,13 @@ namespace Shared.Serialiser
         /// Returns the correct MessageSerialiser for the <see cref="IMessage" /> object identifier
         /// defined in the <see cref="MessageIdentifierSerialiser" /> class.
         /// </summary>
-        /// <param name="identifier">The unique name of the <see cref="IMessage"/>.</param>
-        /// <returns>The MessageSerialiser to get for the <see cref="IMessage"/>.</returns>
+        /// <param name="identifier">The unique name of the <see cref="IMessage" />.</param>
+        /// <returns>The MessageSerialiser to get for the <see cref="IMessage" />.</returns>
         public static IMessageSerialiser GetSerialiser(MessageIdentifier identifier)
         {
             if (identifier == MessageIdentifier.UnrecognisedMessage)
             {
-                throw new ArgumentException(String.Format("A MessageSerialiser does not exist for message type {0}.", identifier));
+                throw new ArgumentException(string.Format("A MessageSerialiser does not exist for message type {0}.", identifier));
             }
 
             return SerialiserRegistry.SerialisersByMessageIdentifier[identifier];
