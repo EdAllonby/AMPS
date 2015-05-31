@@ -11,11 +11,12 @@ using Utility;
 namespace Client.ViewModel.MainViewModel
 {
     /// <summary>
-    /// The View Model for the a <see cref="Task"/> Item.
+    /// The View Model for the a <see cref="Task" /> Item.
     /// </summary>
     public sealed class TaskItemViewModel : TaskInformationViewModel, IEquatable<TaskItemViewModel>
     {
         private readonly Task task;
+        private string comment = string.Empty;
 
         /// <summary>
         /// Create a new View Model for the Jam Tasks View.
@@ -49,10 +50,25 @@ namespace Client.ViewModel.MainViewModel
             get { return new RelayCommand(SendTaskCompletion, CanCompleteTask); }
         }
 
+        public string Comment
+        {
+            get { return comment; }
+            set
+            {
+                comment = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Underlying model.
         /// </summary>
         public TaskModel TaskModel { get; private set; }
+
+        public ICommand AddComment
+        {
+            get { return new RelayCommand(AddCommentToTask, CanAddCommentToTask); }
+        }
 
         /// <summary>
         /// Checks if two task items are equal based on their underlying <see cref="Task" /> Id.
@@ -88,11 +104,16 @@ namespace Client.ViewModel.MainViewModel
             EventUtility.SafeFireEvent(OpenUploadTaskViewRequested, this, new WindowRequestedEventArgs(task));
         }
 
-        private void AddCommentToTask(string title, string comment, int parentCommentId = 0)
+        private bool CanAddCommentToTask()
+        {
+            return !string.IsNullOrWhiteSpace(Comment);
+        }
+
+        private void AddCommentToTask()
         {
             IClientService clientService = ServiceRegistry.GetService<IClientService>();
 
-            task.Comments.Add(new TaskComment(parentCommentId, title, comment));
+            task.Comments.Add(new TaskComment(string.Empty, Comment, 0));
 
             clientService.UpdateTask(task);
         }

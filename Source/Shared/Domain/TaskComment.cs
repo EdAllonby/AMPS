@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Contracts;
 
 namespace Shared.Domain
 {
@@ -15,23 +16,26 @@ namespace Shared.Domain
         /// <summary>
         /// Create a task comment for a task.
         /// </summary>
-        /// <param name="parentCommentId">If this comment is replying to a previous comment.</param>
         /// <param name="title">Title of the comment.</param>
         /// <param name="comment">The details of the comment.</param>
-        public TaskComment(int parentCommentId, string title, string comment) : this(title, comment)
+        /// <param name="parentCommentId">If this comment is replying to a previous comment.</param>
+        public TaskComment(string title, string comment, int parentCommentId = 0)
         {
             this.parentCommentId = parentCommentId;
-        }
 
-        /// <summary>
-        /// Create a task comment for a task.
-        /// </summary>
-        /// <param name="title">Title of the comment.</param>
-        /// <param name="comment">The details of the comment.</param>
-        public TaskComment(string title, string comment)
-        {
             this.title = title;
             this.comment = comment;
+        }
+
+        public TaskComment(int id, TaskComment incompleteTaskComment) : base(id)
+        {
+            Contract.Requires(id>0);
+            Contract.Requires(incompleteTaskComment != null);
+
+            parentCommentId = incompleteTaskComment.ParentCommentId;
+
+            title = incompleteTaskComment.Title;
+            comment = incompleteTaskComment.Comment;
         }
 
         /// <summary>

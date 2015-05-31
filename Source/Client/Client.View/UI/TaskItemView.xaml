@@ -23,10 +23,10 @@
                 <ColumnDefinition MinWidth="300" Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Tag="{Binding TaskModel.TaskId}"
@@ -76,27 +76,32 @@
 
             </StackPanel>
 
-            <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ExpandDirection="Down" IsExpanded="False" HorizontalAlignment="Stretch">
+            <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ExpandDirection="Down" IsExpanded="False"
+                      HorizontalAlignment="Stretch">
 
                 <Expander.Header>
-                    
+
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <TextBlock Text="Comments" Foreground="Black" Margin="10" />
-                        <xctk:WatermarkTextBox Watermark="Reply..." Margin="10,0,10,0" Height="24" Width="300" />
+                        <xctk:WatermarkTextBox Watermark="Reply..." Margin="10,0,10,0" Height="24" Width="300" Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}">
+                            <TextBox.InputBindings>
+                                <KeyBinding Command="{Binding AddComment}" Key="Return" />
+                            </TextBox.InputBindings>
+                        </xctk:WatermarkTextBox>
                     </StackPanel>
                 </Expander.Header>
 
                 <Expander.Content>
                     <StackPanel>
-                        <Label Content="Comment 1"/>
-                        <Label Content="Sub Comment 1" Margin="25,0,0,0"/>
-                        <Label Content="Sub Comment 1-2" Margin="25,0,0,0"/>
+                        <Label Content="Comment 1" />
+                        <Label Content="Sub Comment 1" Margin="25,0,0,0" />
+                        <Label Content="Sub Comment 1-2" Margin="25,0,0,0" />
 
-                        <Label Content="Comment 2"/>
-                        <Label Content="Sub Comment 2" Margin="25,0,0,0"/>
-                        <Label Content="Sub Comment 2-2" Margin="25,0,0,0"/>
-                        <Label Content="Sub Comment 2-2-1" Margin="50,0,0,0"/>
-                        <Label Content="Sub Comment 2-3" Margin="25,0,0,0"/>
+                        <Label Content="Comment 2" />
+                        <Label Content="Sub Comment 2" Margin="25,0,0,0" />
+                        <Label Content="Sub Comment 2-2" Margin="25,0,0,0" />
+                        <Label Content="Sub Comment 2-2-1" Margin="50,0,0,0" />
+                        <Label Content="Sub Comment 2-3" Margin="25,0,0,0" />
                     </StackPanel>
 
                 </Expander.Content>

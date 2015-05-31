@@ -29,7 +29,8 @@ namespace Server
                     {typeof (Band), new BandIdGenerator(generatorStrategy)},
                     {typeof (Jam), new JamIdGenerator(generatorStrategy)},
                     {typeof (Participation), new ParticipationIdGenerator(generatorStrategy)},
-                    {typeof (Task), new TaskIdGenerator(generatorStrategy)}
+                    {typeof (Task), new TaskIdGenerator(generatorStrategy)},
+                    {typeof (TaskComment), new TaskCommentIdGenerator(generatorStrategy)}
                 };
         }
     }
