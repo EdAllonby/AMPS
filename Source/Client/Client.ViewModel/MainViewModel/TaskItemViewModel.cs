@@ -87,5 +87,14 @@ namespace Client.ViewModel.MainViewModel
         {
             EventUtility.SafeFireEvent(OpenUploadTaskViewRequested, this, new WindowRequestedEventArgs(task));
         }
+
+        private void AddCommentToTask(string title, string comment, int parentCommentId = 0)
+        {
+            IClientService clientService = ServiceRegistry.GetService<IClientService>();
+
+            task.Comments.Add(new TaskComment(parentCommentId, title, comment));
+
+            clientService.UpdateTask(task);
+        }
     }
 }
