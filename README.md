@@ -1,4 +1,4 @@
-# AMPS - Agile Project Management Suite
+# AMPS - Agile Music Project Suite
 
 ## Predefined Port: **5004** (Can be changed in [`Server.cs`](https://github.com/EdAllonby/AMPS/blob/master/Source/Server/Server.cs))
 
