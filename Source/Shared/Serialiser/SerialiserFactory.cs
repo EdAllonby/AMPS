@@ -1,5 +1,6 @@
 ﻿using System;
 using Shared.Message;
+using Shared.Serialiser.MessageSerialiser;
 
 namespace Shared.Serialiser
 {

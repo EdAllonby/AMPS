@@ -8,11 +8,6 @@ using Shared.Message.LoginMessage;
 using Shared.Message.ParticipationMessage;
 using Shared.Message.TaskMessage;
 using Shared.Serialiser.MessageSerialiser;
-using Shared.Serialiser.MessageSerialiser.BandMessageSerialiser;
-using Shared.Serialiser.MessageSerialiser.JamMessageSerialiser;
-using Shared.Serialiser.MessageSerialiser.LoginMessageSerialiser;
-using Shared.Serialiser.MessageSerialiser.ParticipationMessageSerialiser;
-using Shared.Serialiser.MessageSerialiser.TaskMessageSerialiser;
 
 namespace Shared.Serialiser
 {
@@ -22,32 +17,34 @@ namespace Shared.Serialiser
     public static class SerialiserRegistry
     {
         /// <summary>
-        /// A read only version of an <see cref="IMessageSerialiser"/> by Message Identifier dictionary. No one can alter this dictionary after compiling.
+        /// A read only version of an <see cref="IMessageSerialiser" /> by Message Identifier dictionary. No one can alter this
+        /// dictionary after compiling.
         /// </summary>
         public static readonly IReadOnlyDictionary<MessageIdentifier, IMessageSerialiser> SerialisersByMessageIdentifier =
             new Dictionary<MessageIdentifier, IMessageSerialiser>
             {
                 // Entity Snapshot Request
-                {MessageIdentifier.UserSnapshotRequest, new EntitySnapshotRequestSerialiser<User>()},
-                {MessageIdentifier.JamSnapshotRequest, new EntitySnapshotRequestSerialiser<Jam>()},
-                {MessageIdentifier.ParticipationSnapshotRequest, new EntitySnapshotRequestSerialiser<Participation>()},
-                {MessageIdentifier.BandSnapshotRequest, new EntitySnapshotRequestSerialiser<Band>()},
-                {MessageIdentifier.TaskSnapshotRequest, new EntitySnapshotRequestSerialiser<Task>()},
+                {MessageIdentifier.UserSnapshotRequest, new MessageSerialiser<EntitySnapshotRequest<User>>()},
+                {MessageIdentifier.JamSnapshotRequest, new MessageSerialiser<EntitySnapshotRequest<Jam>>()},
+                {MessageIdentifier.ParticipationSnapshotRequest, new MessageSerialiser<EntitySnapshotRequest<Participation>>()},
+                {MessageIdentifier.BandSnapshotRequest, new MessageSerialiser<EntitySnapshotRequest<Band>>()},
+                {MessageIdentifier.TaskSnapshotRequest, new MessageSerialiser<EntitySnapshotRequest<Task>>()},
 
                 // Entity Snapshot
-                {MessageIdentifier.ParticipationSnapshot, new EntitySnapshotSerialiser<Participation>()},
-                {MessageIdentifier.UserSnapshot, new EntitySnapshotSerialiser<User>()},
-                {MessageIdentifier.BandSnapshot, new EntitySnapshotSerialiser<Band>()},
-                {MessageIdentifier.TaskSnapshot, new EntitySnapshotSerialiser<Task>()},
-                {MessageIdentifier.JamSnapshot, new EntitySnapshotSerialiser<Jam>()},
+                {MessageIdentifier.ParticipationSnapshot, new MessageSerialiser<EntitySnapshot<Participation>>()},
+                {MessageIdentifier.UserSnapshot, new MessageSerialiser<EntitySnapshot<User>>()},
+                {MessageIdentifier.BandSnapshot, new MessageSerialiser<EntitySnapshot<Band>>()},
+                {MessageIdentifier.TaskSnapshot, new MessageSerialiser<EntitySnapshot<Task>>()},
+                {MessageIdentifier.JamSnapshot, new MessageSerialiser<EntitySnapshot<Jam>>()},
 
                 // Request
-                {MessageIdentifier.LoginRequest, new LoginRequestSerialiser()},
-                {MessageIdentifier.JamRequest, new JamRequestSerialiser()},
-                {MessageIdentifier.BandRequest, new BandRequestSerialiser()},
-                {MessageIdentifier.TaskRequest, new TaskRequestSerialiser()},
-                {MessageIdentifier.ParticipationRequest, new ParticipationRequestSerialiser()},
-                {MessageIdentifier.TaskUpdateRequest, new TaskUpdateRequestSerialiser()},
+                {MessageIdentifier.LoginRequest, new MessageSerialiser<LoginRequest>()},
+                {MessageIdentifier.JamRequest, new MessageSerialiser<JamRequest>()},
+                {MessageIdentifier.BandRequest, new MessageSerialiser<BandRequest>()},
+                {MessageIdentifier.TaskRequest, new MessageSerialiser<TaskRequest>()},
+                {MessageIdentifier.ParticipationRequest, new MessageSerialiser<ParticipationRequest>()},
+                {MessageIdentifier.TaskUpdateRequest, new MessageSerialiser<TaskUpdateRequest>()},
+                {MessageIdentifier.TaskCommentRequest, new MessageSerialiser<TaskCommentRequest>()},
 
                 // Notification 
                 {MessageIdentifier.UserNotification, new EntityNotificationSerialiser<User>()},
@@ -58,10 +55,10 @@ namespace Shared.Serialiser
                 {MessageIdentifier.ConnectionStatusNotification, new ConnectionStatusNotificationSerialiser()},
 
                 // Response
-                {MessageIdentifier.LoginResponse, new LoginResponseSerialiser()},
+                {MessageIdentifier.LoginResponse, new MessageSerialiser<LoginResponse>()},
 
                 //Disconnection
-                {MessageIdentifier.ClientDisconnection, new ClientDisconnectionSerialiser()}
+                {MessageIdentifier.ClientDisconnection, new MessageSerialiser<ClientDisconnection>()}
             };
 
         /// <summary>
@@ -73,26 +70,27 @@ namespace Shared.Serialiser
             new Dictionary<Type, IMessageSerialiser>
             {
                 // Entity Snapshot Request
-                {typeof (EntitySnapshotRequest<User>), new EntitySnapshotRequestSerialiser<User>()},
-                {typeof (EntitySnapshotRequest<Jam>), new EntitySnapshotRequestSerialiser<Jam>()},
-                {typeof (EntitySnapshotRequest<Participation>), new EntitySnapshotRequestSerialiser<Participation>()},
-                {typeof (EntitySnapshotRequest<Band>), new EntitySnapshotRequestSerialiser<Band>()},
-                {typeof (EntitySnapshotRequest<Task>), new EntitySnapshotRequestSerialiser<Task>()},
+                {typeof (EntitySnapshotRequest<User>), new MessageSerialiser<EntitySnapshotRequest<User>>()},
+                {typeof (EntitySnapshotRequest<Jam>), new MessageSerialiser<EntitySnapshotRequest<Jam>>()},
+                {typeof (EntitySnapshotRequest<Participation>), new MessageSerialiser<EntitySnapshotRequest<Participation>>()},
+                {typeof (EntitySnapshotRequest<Band>), new MessageSerialiser<EntitySnapshotRequest<Band>>()},
+                {typeof (EntitySnapshotRequest<Task>), new MessageSerialiser<EntitySnapshotRequest<Task>>()},
 
                 // Entity Snapshot
-                {typeof (EntitySnapshot<User>), new EntitySnapshotSerialiser<User>()},
-                {typeof (EntitySnapshot<Jam>), new EntitySnapshotSerialiser<Jam>()},
-                {typeof (EntitySnapshot<Participation>), new EntitySnapshotSerialiser<Participation>()},
-                {typeof (EntitySnapshot<Band>), new EntitySnapshotSerialiser<Band>()},
-                {typeof (EntitySnapshot<Task>), new EntitySnapshotSerialiser<Task>()},
+                {typeof (EntitySnapshot<User>), new MessageSerialiser<EntitySnapshotRequest<User>>()},
+                {typeof (EntitySnapshot<Jam>), new MessageSerialiser<EntitySnapshotRequest<Jam>>()},
+                {typeof (EntitySnapshot<Participation>), new MessageSerialiser<EntitySnapshotRequest<Participation>>()},
+                {typeof (EntitySnapshot<Band>), new MessageSerialiser<EntitySnapshotRequest<Band>>()},
+                {typeof (EntitySnapshot<Task>), new MessageSerialiser<EntitySnapshotRequest<Task>>()},
 
                 // Request
-                {typeof (LoginRequest), new LoginRequestSerialiser()},
-                {typeof (BandRequest), new BandRequestSerialiser()},
-                {typeof (ParticipationRequest), new ParticipationRequestSerialiser()},
-                {typeof (TaskRequest), new TaskRequestSerialiser()},
-                {typeof (JamRequest), new JamRequestSerialiser()},
-                {typeof (TaskUpdateRequest), new TaskUpdateRequestSerialiser()},
+                {typeof (LoginRequest), new MessageSerialiser<LoginRequest>()},
+                {typeof (BandRequest), new MessageSerialiser<BandRequest>()},
+                {typeof (ParticipationRequest), new MessageSerialiser<ParticipationRequest>()},
+                {typeof (TaskRequest), new MessageSerialiser<TaskRequest>()},
+                {typeof (JamRequest), new MessageSerialiser<JamRequest>()},
+                {typeof (TaskUpdateRequest), new MessageSerialiser<TaskUpdateRequest>()},
+                {typeof (TaskCommentRequest), new MessageSerialiser<TaskCommentRequest>()},
 
                 // Notification
                 {typeof (EntityNotification<User>), new EntityNotificationSerialiser<User>()},
@@ -103,10 +101,10 @@ namespace Shared.Serialiser
                 {typeof (ConnectionStatusNotification), new ConnectionStatusNotificationSerialiser()},
 
                 // Response
-                {typeof (LoginResponse), new LoginResponseSerialiser()},
+                {typeof (LoginResponse), new MessageSerialiser<LoginResponse>()},
 
                 // Disconnection
-                {typeof (ClientDisconnection), new ClientDisconnectionSerialiser()}
+                {typeof (ClientDisconnection), new MessageSerialiser<ClientDisconnection>()}
             };
     }
 }

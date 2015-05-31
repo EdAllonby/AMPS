@@ -1,7 +1,7 @@
 ﻿using System.Net.Sockets;
 using Shared.Message;
 
-namespace Shared.Serialiser
+namespace Shared.Serialiser.MessageSerialiser
 {
     /// <summary>
     /// Defines an <see cref="IMessage" /> MessageSerialiser together.

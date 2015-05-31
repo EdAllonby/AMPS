@@ -8,6 +8,7 @@ using Shared.Domain;
 using Shared.Message;
 using Shared.Message.LoginMessage;
 using Shared.Serialiser;
+using Shared.Serialiser.MessageSerialiser;
 using Utility;
 
 namespace Client.Service

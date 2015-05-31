@@ -2,6 +2,7 @@
 using Shared.Message;
 using Shared.Message.LoginMessage;
 using Shared.Serialiser;
+using Shared.Serialiser.MessageSerialiser;
 
 namespace SharedTest
 {

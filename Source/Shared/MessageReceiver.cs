@@ -5,6 +5,7 @@ using System.Net.Sockets;
 using log4net;
 using Shared.Message;
 using Shared.Serialiser;
+using Shared.Serialiser.MessageSerialiser;
 using Utility;
 
 namespace Shared

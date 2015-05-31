@@ -2,18 +2,20 @@
 using log4net;
 using Shared.Message;
 
-namespace Shared.Serialiser
+namespace Shared.Serialiser.MessageSerialiser
 {
     /// <summary>
     /// Generic MessageSerialiser which serialises a type which inherits <see cref="IMessage" /> down the networkStream.
     /// </summary>
     /// <typeparam name="T"><see cref="IMessage" /> object which is any message that can be used in this protocol.</typeparam>
-    public abstract class MessageSerialiser<T> : IMessageSerialiser where T : IMessage
+    public class MessageSerialiser<T> : IMessageSerialiser where T : IMessage
     {
         /// <summary>
         /// The <see cref="MessageSerialiser{T}" /> Log.
         /// </summary>
         protected static readonly ILog Log = LogManager.GetLogger(typeof (MessageSerialiser<T>));
+
+        protected readonly ISerialisationType Serialiser = new BinarySerialiser();
 
         /// <summary>
         /// Serialise the <see cref="IMessage" /> down the wire.
@@ -34,13 +36,21 @@ namespace Shared.Serialiser
         /// </summary>
         /// <param name="networkStream">The stream that connects the Client and Server.</param>
         /// <returns>The <see cref="IMessage" /> that was received from the networkStream.</returns>
-        public abstract IMessage Deserialise(NetworkStream networkStream);
+        public virtual IMessage Deserialise(NetworkStream networkStream)
+        {
+            var requestMessage = (IMessage) Serialiser.Deserialise(networkStream);
+            Log.InfoFormat("Network stream has received data and deserialised to a {0} object", requestMessage.MessageIdentifier);
+            return requestMessage;
+        }
 
         /// <summary>
         /// Serialise <see cref="T" /> down the wire.
         /// </summary>
         /// <param name="networkStream">The networkStream that connects the Client and Server.</param>
         /// <param name="message">The message which inherits from <see cref="IMessage" />.</param>
-        protected abstract void Serialise(NetworkStream networkStream, T message);
+        protected virtual void Serialise(NetworkStream networkStream, T message)
+        {
+            Serialiser.Serialise(networkStream, message);
+        }
     }
 }

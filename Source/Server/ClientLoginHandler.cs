@@ -7,6 +7,7 @@ using Shared.Message;
 using Shared.Message.LoginMessage;
 using Shared.Repository;
 using Shared.Serialiser;
+using Shared.Serialiser.MessageSerialiser;
 
 namespace Server
 {

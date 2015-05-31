@@ -6,6 +6,7 @@ using System.Threading;
 using log4net;
 using Shared.Message;
 using Shared.Serialiser;
+using Shared.Serialiser.MessageSerialiser;
 
 namespace Shared
 {

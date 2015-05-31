@@ -29,6 +29,7 @@
         TaskNotification,
         TaskSnapshotRequest,
         TaskSnapshot,
-        TaskUpdateRequest
+        TaskUpdateRequest,
+        TaskCommentRequest
     }
 }

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 using log4net;
 using Shared.Message;
 
-namespace Shared.Serialiser
+namespace Shared.Serialiser.MessageSerialiser
 {
     /// <summary>
     /// Defines what message gets what identifier, and used to serialise and deserialise Message Identifiers to their related Type.

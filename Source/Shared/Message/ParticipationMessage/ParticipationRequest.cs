@@ -5,7 +5,7 @@ using Shared.Domain;
 namespace Shared.Message.ParticipationMessage
 {
     /// <summary>
-    /// Packages <see cref="Participation"/>s related by Jam Id for the Server to send to the Client
+    /// Packages <see cref="Participation" />s related by Jam Id for the Server to send to the Client
     /// </summary>
     [Serializable]
     public sealed class ParticipationRequest : IMessage
@@ -26,9 +26,6 @@ namespace Shared.Message.ParticipationMessage
         /// </summary>
         public Participation Participation { get; private set; }
 
-        /// <summary>
-        /// The identifier associated with the particular <see cref="IMessage"/>.
-        /// </summary>
         public MessageIdentifier MessageIdentifier
         {
             get { return MessageIdentifier.ParticipationRequest; }
