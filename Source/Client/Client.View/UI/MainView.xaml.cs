@@ -58,11 +58,7 @@ namespace Client.View.UI
 
         private void NotificationReceived(object sender, TostNotificationEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                growlNotifications.AddNotification(new Notification(e.Message, "pack://application:,,,/Resources/notification-icon.png", "Mesage"));
-
-            });
+            Application.Current.Dispatcher.Invoke(() => { growlNotifications.AddNotification(new Notification(e.Message, "pack://application:,,,/Resources/notification-icon.png", "Mesage")); });
         }
 
         private void OnCloseMainAndOpenLoginViewRequested(object sender, EventArgs e)

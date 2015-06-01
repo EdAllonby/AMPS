@@ -72,8 +72,14 @@
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="MahApps.Metro">
+      <HintPath>..\..\packages\MahApps.Metro.1.1.2.0\lib\net45\MahApps.Metro.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\MahApps.Metro.1.1.2.0\lib\net45\System.Windows.Interactivity.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
@@ -97,6 +103,7 @@
     </Compile>
     <Compile Include="ApplicationExitHelper.cs" />
     <Compile Include="ConsoleManager.cs" />
+    <Compile Include="Converter\RatioConverter.cs" />
     <Compile Include="Converter\CategoryToIconConverter.cs" />
     <Compile Include="Converter\BoolToIconConverter.cs" />
     <Compile Include="UI\AdminView.xaml.cs">
@@ -169,6 +176,14 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="ResourceDictionaries\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\Skin.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -279,6 +294,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Entypo.ttf" />
     <Resource Include="Resources\Fonts\Roboto\Roboto-Black.ttf" />
     <Resource Include="Resources\Fonts\Roboto\Roboto-BlackItalic.ttf" />
     <Resource Include="Resources\Fonts\Roboto\Roboto-Bold.ttf" />
@@ -350,6 +366,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\notification-icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\WindowsIcons-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

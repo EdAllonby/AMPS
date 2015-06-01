@@ -24,6 +24,8 @@ namespace Client.ViewModel.MainViewModel
         private readonly int userId;
         private readonly IReadOnlyEntityRepository<User> userRepository;
 
+        private string memberSearchTerm = string.Empty;
+
         /// <summary>
         /// Creates a new view model with reference to the <see cref="Band" /> it is managing for.
         /// </summary>
@@ -91,6 +93,16 @@ namespace Client.ViewModel.MainViewModel
         public string ServerConnectionStatus
         {
             get { return string.Format("Connected to Server at {0}:{1}", clientService.ServerEndPoint.Address, clientService.ServerEndPoint.Port); }
+        }
+
+        public string MemberSearchTerm
+        {
+            get { return memberSearchTerm; }
+            set
+            {
+                memberSearchTerm = value;
+                OnPropertyChanged();
+            }
         }
 
         /// <summary>

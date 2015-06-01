@@ -16,9 +16,7 @@
         }
 
         public string Message { get; private set; }
-
         public int Id { get; private set; }
-
         public string ImageUrl { get; private set; }
         public string Title { get; private set; }
     }

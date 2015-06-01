@@ -4,11 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
              xmlns:mainViewModel="clr-namespace:Client.ViewModel.MainViewModel;assembly=Client.ViewModel"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:converter="clr-namespace:Client.View.Converter"
              TextOptions.TextFormattingMode="Display"
              TextOptions.TextRenderingMode="ClearType"
+             d:DesignWidth="200"
+             d:DesignHeight="400"
              d:DataContext="{d:DesignInstance mainViewModel:UserListViewModel}">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Skin.xaml" />
+                <ResourceDictionary Source="/Resources/Icons.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <converter:RatioConverter x:Key="RatioConverter" />
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -19,8 +32,50 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <xctk:WatermarkTextBox Watermark="Search band members..." Margin="10,5,10,5" Grid.Row="0"
-                               Text="{Binding UserFilter, UpdateSourceTrigger= PropertyChanged, ValidatesOnDataErrors=True}" />
+        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+            <Grid Name="TopLeftBar" Height="70"
+                  Grid.Column="0"
+                  Grid.Row="0"
+                  Background="#2980b9">
+
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Members" HorizontalAlignment="Center" Foreground="White" FontSize="20"
+                           FontFamily="/GymTracker;component/Resources/Fonts/Roboto/#Roboto Condensed" />
+
+                    <Border BorderThickness="0,0,0,1"
+                            BorderBrush="White"
+                            Width="{Binding ElementName=SearchBox, Path=Width }"
+                            Height="25">
+
+                        <TextBox Name="SearchBox" controls:TextBoxHelper.Watermark="Search members..."
+                                 controls:TextBoxHelper.ClearTextButton="True"
+                                 Foreground="White"
+                                 Width="{Binding ElementName=TopLeftBar, Path=ActualWidth, Converter={StaticResource RatioConverter}, ConverterParameter=0.8}"
+                                 MaxLength="20"
+                                 Background="Transparent"
+                                 BorderThickness="0"
+                                 Text="{Binding UserFilter, UpdateSourceTrigger= PropertyChanged, ValidatesOnDataErrors=True}">
+                            <TextBox.Style>
+                                <Style TargetType="{x:Type TextBox}"
+                                       BasedOn="{StaticResource SearchMetroTextBox}">
+                                    <Style.Triggers>
+                                        <Trigger Property="controls:TextBoxHelper.HasText"
+                                                 Value="True">
+                                            <Setter Property="controls:TextBoxHelper.ButtonTemplate"
+                                                    Value="{DynamicResource ChromelessButtonTemplate}" />
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                            <TextBox.InputBindings>
+                                <KeyBinding Key="Enter" />
+                                <KeyBinding Key="Tab" />
+                            </TextBox.InputBindings>
+                        </TextBox>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </Grid>
 
         <ListBox Grid.Row="1" Grid.Column="0" FontFamily="Yu Gothic Light" BorderBrush="#e74c3c"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"

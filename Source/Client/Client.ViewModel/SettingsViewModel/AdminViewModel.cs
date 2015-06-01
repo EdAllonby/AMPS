@@ -31,13 +31,16 @@ namespace Client.ViewModel.SettingsViewModel
 
             Jam currentJam = jamRepository.GetCurrentActiveJamInBand(band.Id);
 
-            foreach (Task completedJamTasks in taskRepository.GetTasksInJam(currentJam.Id).Where(task => task.IsCompleted))
+            if (taskRepository.GetTasksInJam(currentJam.Id) != null)
             {
-                User assignedUser = userRepository.FindEntityById(completedJamTasks.AssignedUserId);
+                foreach (Task completedJamTasks in taskRepository.GetTasksInJam(currentJam.Id).Where(task => task.IsCompleted))
+                {
+                    User assignedUser = userRepository.FindEntityById(completedJamTasks.AssignedUserId);
 
-                TaskModel taskModel = new TaskModel(completedJamTasks, assignedUser);
+                    TaskModel taskModel = new TaskModel(completedJamTasks, assignedUser);
 
-                taskModels.Add(taskModel);
+                    taskModels.Add(taskModel);
+                }
             }
 
             adminModel = new AdminModel(taskModels);

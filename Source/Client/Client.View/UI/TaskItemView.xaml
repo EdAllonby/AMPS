@@ -77,7 +77,7 @@
             </StackPanel>
 
             <Expander Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" ExpandDirection="Down" IsExpanded="False"
-                      HorizontalAlignment="Stretch">
+                      HorizontalAlignment="Stretch" Style="{x:Null}">
 
                 <Expander.Header>
 
