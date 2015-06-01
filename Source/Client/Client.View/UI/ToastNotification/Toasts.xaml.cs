@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -7,9 +8,9 @@ namespace Client.View.UI.ToastNotification
     public partial class Toasts
     {
         private const byte MaxNotifications = 4;
+        private readonly ObservableCollection<Notification> buffer = new ObservableCollection<Notification>();
+        private readonly ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
         private int count;
-        private readonly Notifications notifications = new Notifications();
-        private readonly Notifications buffer = new Notifications();
 
         public Toasts()
         {
@@ -17,23 +18,32 @@ namespace Client.View.UI.ToastNotification
             NotificationsControl.DataContext = notifications;
         }
 
-        public void AddNotification(Notification notification)
+        public void AddNotification(Notification newNotification)
         {
-            notification.Id = count++;
+            Notification notification = new Notification(count++, newNotification);
+
             if (notifications.Count + 1 > MaxNotifications)
+            {
                 buffer.Add(notification);
+            }
             else
+            {
                 notifications.Add(notification);
+            }
 
             //Show window if there're notifications
             if (notifications.Count > 0 && !IsActive)
+            {
                 Show();
+            }
         }
 
         private void RemoveNotification(Notification notification)
         {
             if (notifications.Contains(notification))
+            {
                 notifications.Remove(notification);
+            }
 
             if (buffer.Count > 0)
             {
@@ -43,7 +53,9 @@ namespace Client.View.UI.ToastNotification
 
             //Close window if there's nothing to show
             if (notifications.Count < 1)
+            {
                 Hide();
+            }
         }
 
         private void NotificationWindowSizeChanged(object sender, SizeChangedEventArgs e)

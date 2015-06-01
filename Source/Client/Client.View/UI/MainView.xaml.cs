@@ -60,10 +60,8 @@ namespace Client.View.UI
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                growlNotifications.AddNotification(new Notification
-                {
-                    Title = "Mesage", ImageUrl = "pack://application:,,,/Resources/notification-icon.png", Message = e.Message
-                });
+                growlNotifications.AddNotification(new Notification(e.Message, "pack://application:,,,/Resources/notification-icon.png", "Mesage"));
+
             });
         }
 

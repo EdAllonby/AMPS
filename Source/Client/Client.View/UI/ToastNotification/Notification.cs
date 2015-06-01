@@ -1,70 +1,25 @@
-﻿using System.Collections.ObjectModel;
-using System.ComponentModel;
-
-namespace Client.View.UI.ToastNotification
+﻿namespace Client.View.UI.ToastNotification
 {
-    public sealed class Notification : INotifyPropertyChanged
+    public sealed class Notification
     {
-        private string message;
-        public string Message
+        public Notification(string message, string imageUrl, string title)
         {
-            get { return message; }
-
-            set
-            {
-                if (message == value) return;
-                message = value;
-                OnPropertyChanged("Message");
-            }
+            Message = message;
+            ImageUrl = imageUrl;
+            Title = title;
         }
 
-        private int id;
-        public int Id
+        public Notification(int id, Notification incompleNotification)
+            : this(incompleNotification.Message, incompleNotification.ImageUrl, incompleNotification.Title)
         {
-            get { return id; }
-
-            set
-            {
-                if (id == value) return;
-                id = value;
-                OnPropertyChanged("Id");
-            }
+            Id = id;
         }
 
-        private string imageUrl;
-        public string ImageUrl
-        {
-            get { return imageUrl; }
+        public string Message { get; private set; }
 
-            set
-            {
-                if (imageUrl == value) return;
-                imageUrl = value;
-                OnPropertyChanged("ImageUrl");
-            }
-        }
+        public int Id { get; private set; }
 
-        private string title;
-        public string Title
-        {
-            get { return title; }
-
-            set
-            {
-                if (title == value) return;
-                title = value;
-                OnPropertyChanged("Title");
-            }
-        }
-
-        private void OnPropertyChanged(string propertyName)
-        {
-            var handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string ImageUrl { get; private set; }
+        public string Title { get; private set; }
     }
-
-    public class Notifications : ObservableCollection<Notification> { }
 }
