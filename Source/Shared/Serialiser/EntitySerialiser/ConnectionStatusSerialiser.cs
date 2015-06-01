@@ -11,7 +11,7 @@ namespace Shared.Serialiser.EntitySerialiser
     public sealed class ConnectionStatusSerialiser
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (ConnectionStatusSerialiser));
-        private readonly ISerialisationType serialiser = new BinarySerialiser();
+        private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>
         /// Serialises a <see cref="ConnectionStatus" /> through the <see cref="NetworkStream" />.

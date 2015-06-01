@@ -11,7 +11,7 @@ namespace Shared.Serialiser.MessageSerialiser
     internal sealed class NotificationTypeSerialiser
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (NotificationType));
-        private readonly ISerialisationType serialiser = new BinarySerialiser();
+        private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>
         /// Serialise a <see cref="NotificationType" /> down the wire.

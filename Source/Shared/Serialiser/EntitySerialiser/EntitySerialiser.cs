@@ -12,7 +12,7 @@ namespace Shared.Serialiser.EntitySerialiser
     internal sealed class EntitySerialiser<T> where T : Entity
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (EntitySerialiser<T>));
-        private readonly ISerialisationType serialiser = new BinarySerialiser();
+        private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>
         /// Serialises an <see cref="Entity" /> through the <see cref="NetworkStream" />.

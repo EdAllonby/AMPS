@@ -137,7 +137,7 @@
     <Compile Include="Serialiser\BinarySerialiser.cs" />
     <Compile Include="Serialiser\EntitySerialiser\ConnectionStatusSerialiser.cs" />
     <Compile Include="Serialiser\EntitySerialiser\EntitySerialiser.cs" />
-    <Compile Include="Serialiser\ISerialisationType.cs" />
+    <Compile Include="Serialiser\ISerialiser.cs" />
     <Compile Include="Serialiser\MessageSerialiser\IMessageSerialiser.cs" />
     <Compile Include="IService.cs" />
     <Compile Include="Serialiser\MessageSerialiser\MessageIdentifierSerialiser.cs" />

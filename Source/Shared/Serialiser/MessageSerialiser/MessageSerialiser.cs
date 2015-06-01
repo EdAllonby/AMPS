@@ -15,7 +15,7 @@ namespace Shared.Serialiser.MessageSerialiser
         /// </summary>
         protected static readonly ILog Log = LogManager.GetLogger(typeof (MessageSerialiser<T>));
 
-        protected readonly ISerialisationType Serialiser = new BinarySerialiser();
+        private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>
         /// Serialise the <see cref="IMessage" /> down the wire.
@@ -38,7 +38,7 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <returns>The <see cref="IMessage" /> that was received from the networkStream.</returns>
         public virtual IMessage Deserialise(NetworkStream networkStream)
         {
-            var requestMessage = (IMessage) Serialiser.Deserialise(networkStream);
+            var requestMessage = (IMessage) serialiser.Deserialise(networkStream);
             Log.InfoFormat("Network stream has received data and deserialised to a {0} object", requestMessage.MessageIdentifier);
             return requestMessage;
         }
@@ -50,7 +50,7 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <param name="message">The message which inherits from <see cref="IMessage" />.</param>
         protected virtual void Serialise(NetworkStream networkStream, T message)
         {
-            Serialiser.Serialise(networkStream, message);
+            serialiser.Serialise(networkStream, message);
         }
     }
 }

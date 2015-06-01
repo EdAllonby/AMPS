@@ -5,7 +5,7 @@ namespace Shared.Serialiser
     /// <summary>
     /// Serialise and Deserialise an <see langword="object" /> across a <see cref="NetworkStream" />.
     /// </summary>
-    public interface ISerialisationType
+    public interface ISerialiser
     {
         /// <summary>
         /// Serialise an <see langword="object" /> across the stream.
