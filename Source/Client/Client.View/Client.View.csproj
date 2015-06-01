@@ -108,6 +108,10 @@
     <Compile Include="UI\DownloadTaskView.xaml.cs">
       <DependentUpon>DownloadTaskView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\ToastNotification\Notification.cs" />
+    <Compile Include="UI\ToastNotification\Toasts.xaml.cs">
+      <DependentUpon>Toasts.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UnsafeNativeMethods.cs" />
     <Compile Include="UI\BandChooserView.xaml.cs">
       <DependentUpon>BandChooserView.xaml</DependentUpon>
@@ -157,6 +161,10 @@
       <DependentUpon>AboutBox.xaml</DependentUpon>
     </Compile>
     <Page Include="ResourceDictionaries\Icons.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="ResourceDictionaries\ToastStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -221,6 +229,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TaskMakerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\ToastNotification\DesignTimeNotificationData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\ToastNotification\Toasts.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -332,6 +348,12 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\notification-icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

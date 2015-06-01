@@ -13,13 +13,14 @@ namespace Client.Service.MessageHandler
         public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
         {
             var jamNotification = (EntityNotification<Jam>) message;
-
+            var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
             var jamRepository = (JamRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
 
             switch (jamNotification.NotificationType)
             {
                 case NotificationType.Create:
                     jamRepository.AddEntity(jamNotification.Entity);
+                    toastNotifier.Notify("A Jam has been created");
                     break;
 
                 case NotificationType.Update:

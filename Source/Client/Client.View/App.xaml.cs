@@ -72,6 +72,7 @@ namespace Client.View
             serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
             serviceRegistry.RegisterService<IClientService>(new ClientService(serviceRegistry));
             serviceRegistry.RegisterService<IFtpManager>(new FtpManager());
+            serviceRegistry.RegisterService<ToastNotificationManager>(new ToastNotificationManager());
 
             return serviceRegistry;
         }

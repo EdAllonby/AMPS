@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Windows;
+using Client.Service;
+using Client.View.UI.ToastNotification;
 using Client.ViewModel;
 using Client.ViewModel.MainViewModel;
 using Shared;
@@ -12,9 +14,13 @@ namespace Client.View.UI
     /// </summary>
     public partial class MainView
     {
+        private const double TopOffset = 20;
+        private const double LeftOffset = 380;
         private readonly ApplicationExitHelper applicationExitHelper = new ApplicationExitHelper();
         private readonly Band band;
+        private readonly Toasts growlNotifications = new Toasts();
         private readonly IServiceRegistry serviceRegistry;
+        private readonly ToastNotificationManager toastNotifier;
 
         /// <summary>
         /// Creates a new instance of a Main View for a <see cref="Band" />.
@@ -43,6 +49,22 @@ namespace Client.View.UI
             viewModel.CloseMainAndOpenLoginViewRequested += OnCloseMainAndOpenLoginViewRequested;
 
             DataContext = viewModel;
+
+            toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
+            toastNotifier.ToastNotificationRequested += NotificationReceived;
+            growlNotifications.Top = SystemParameters.WorkArea.Top + TopOffset;
+            growlNotifications.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - LeftOffset;
+        }
+
+        private void NotificationReceived(object sender, TostNotificationEventArgs e)
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                growlNotifications.AddNotification(new Notification
+                {
+                    Title = "Mesage", ImageUrl = "pack://application:,,,/Resources/notification-icon.png", Message = e.Message
+                });
+            });
         }
 
         private void OnCloseMainAndOpenLoginViewRequested(object sender, EventArgs e)
@@ -51,6 +73,8 @@ namespace Client.View.UI
 
             LoginView loginWindow = new LoginView(serviceRegistry);
 
+            toastNotifier.ToastNotificationRequested -= NotificationReceived;
+            growlNotifications.Close();
             Close();
 
             loginWindow.Show();

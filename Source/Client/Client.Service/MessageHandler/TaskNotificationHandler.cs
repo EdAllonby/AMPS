@@ -13,7 +13,7 @@ namespace Client.Service.MessageHandler
         public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
         {
             var taskNotification = (EntityNotification<Task>) message;
-
+            var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
             var taskRepository = (IEntityRepository<Task>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
             Task task = taskNotification.Entity;
@@ -22,9 +22,11 @@ namespace Client.Service.MessageHandler
             {
                 case NotificationType.Create:
                     taskRepository.AddEntity(task);
+                    toastNotifier.Notify("A task has been created.");
                     break;
                 case NotificationType.Update:
                     taskRepository.UpdateEntity(task);
+                    toastNotifier.Notify("A task has been updated.");
                     break;
             }
         }
