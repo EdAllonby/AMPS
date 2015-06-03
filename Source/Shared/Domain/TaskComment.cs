@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 
 namespace Shared.Domain
@@ -10,21 +11,22 @@ namespace Shared.Domain
     public sealed class TaskComment : Entity
     {
         private readonly string comment;
-        private readonly int parentCommentId;
         private readonly string title;
+
+        private readonly List<TaskComment> replies = new List<TaskComment>();
+        private readonly TaskComment parentComment;
 
         /// <summary>
         /// Create a task comment for a task.
         /// </summary>
         /// <param name="title">Title of the comment.</param>
         /// <param name="comment">The details of the comment.</param>
-        /// <param name="parentCommentId">If this comment is replying to a previous comment.</param>
-        public TaskComment(string title, string comment, int parentCommentId = 0)
+        /// <param name="parentComment">If this comment is replying to a previous comment, that comment.</param>
+        public TaskComment(string title, string comment, TaskComment parentComment)
         {
-            this.parentCommentId = parentCommentId;
-
             this.title = title;
             this.comment = comment;
+            this.parentComment = parentComment;
         }
 
         public TaskComment(int id, TaskComment incompleteTaskComment) : base(id)
@@ -32,7 +34,7 @@ namespace Shared.Domain
             Contract.Requires(id > 0);
             Contract.Requires(incompleteTaskComment != null);
 
-            parentCommentId = incompleteTaskComment.ParentCommentId;
+            parentComment = incompleteTaskComment.ParentComment;
 
             title = incompleteTaskComment.Title;
             comment = incompleteTaskComment.Comment;
@@ -57,9 +59,19 @@ namespace Shared.Domain
         /// <summary>
         /// If equal 0, no parent.
         /// </summary>
-        public int ParentCommentId
+        public TaskComment ParentComment
         {
-            get { return parentCommentId; }
+            get { return parentComment; }
+        }
+
+        public void AddReply(TaskComment taskComment)
+        {
+            replies.Add(taskComment);
+        }
+
+        public IEnumerable<TaskComment> Replies
+        {
+            get { return replies; }
         }
     }
 }

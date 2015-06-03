@@ -113,7 +113,7 @@ namespace Client.ViewModel.MainViewModel
         {
             IClientService clientService = ServiceRegistry.GetService<IClientService>();
 
-            task.Comments.Add(new TaskComment(string.Empty, Comment, 0));
+            task.Comments.Add(new TaskComment(string.Empty, Comment, null));
 
             clientService.UpdateTask(task);
         }
