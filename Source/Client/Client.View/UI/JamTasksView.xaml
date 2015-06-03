@@ -21,12 +21,12 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left" Margin="10,10,0,5">
-            <TextBlock FontSize="16" Text="Show: "
+            <TextBlock FontSize="16" Text="Show: " VerticalAlignment="Center"
                        FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Light" />
             <ComboBox HorizontalAlignment="Left" VerticalAlignment="Center" Width="110"
                       ItemsSource="{Binding TaskFilters}" SelectedItem="{Binding SelectedTaskFilter}" />
 
-            <TextBlock FontSize="16" Text="Category: " Margin="10,0,0,0"
+            <TextBlock FontSize="16" Text="Category: " Margin="10,0,0,0" VerticalAlignment="Center"
                        FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Light" />
             <ui:MultiSelectComboBox ItemsSource="{Binding TaskCategories}" Width="150"
                                     SelectedItems="{Binding SelectedTaskCategories, Mode=TwoWay}" />
@@ -53,8 +53,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Command="{Binding OpenAdminView}" Width="30" Height="30" Margin="10,5,50,5">
-                <Path Data="{StaticResource DownloadIcon}" Width="27" Height="27" Fill="Tomato" Stretch="Fill"
+            <Button Grid.Column="0" Command="{Binding OpenAdminView}" Width="35" Height="35" Margin="10,5,50,5">
+                <Path Data="{StaticResource DownloadIcon}" Width="24" Height="24" Fill="Tomato" Stretch="Fill"
                       Stroke="Black" StrokeThickness="1" />
             </Button>
 
@@ -81,7 +81,7 @@
                            FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Light" />
                 <TextBlock VerticalAlignment="Center" FontSize="16"
                            Text="{Binding TotalPoints, UpdateSourceTrigger=PropertyChanged}"
-                           FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Rob\oto Light" />
+                           FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Light" />
             </StackPanel>
 
         </Grid>
