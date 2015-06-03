@@ -19,6 +19,7 @@ namespace Client.View.UI.ToastNotification
             this.notificationManager = notificationManager;
   
             InitializeComponent();
+            
             NotificationsControl.DataContext = notifications;
         }
 
