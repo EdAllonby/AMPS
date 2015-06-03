@@ -31,7 +31,7 @@ namespace Client.ViewModel.SettingsViewModel
 
             Jam currentJam = jamRepository.GetCurrentActiveJamInBand(band.Id);
 
-            if (taskRepository.GetTasksInJam(currentJam.Id) != null)
+            if (currentJam != null && taskRepository.GetTasksInJam(currentJam.Id) != null)
             {
                 foreach (Task completedJamTasks in taskRepository.GetTasksInJam(currentJam.Id).Where(task => task.IsCompleted))
                 {
