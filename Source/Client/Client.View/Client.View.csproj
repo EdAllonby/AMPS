@@ -115,6 +115,9 @@
     <Compile Include="UI\DownloadTaskView.xaml.cs">
       <DependentUpon>DownloadTaskView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToastNotification\Notification.cs" />
     <Compile Include="UI\ToastNotification\Toasts.xaml.cs">
       <DependentUpon>Toasts.xaml</DependentUpon>
@@ -182,6 +185,10 @@
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UI\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\Skin.xaml">
       <Generator>MSBuild:Compile</Generator>

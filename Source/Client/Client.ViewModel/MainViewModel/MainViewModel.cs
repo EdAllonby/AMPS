@@ -23,7 +23,6 @@ namespace Client.ViewModel.MainViewModel
         private readonly ParticipationRepository participationRepository;
         private readonly int userId;
         private readonly IReadOnlyEntityRepository<User> userRepository;
-
         private string memberSearchTerm = string.Empty;
 
         /// <summary>
@@ -130,6 +129,14 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
+        /// Open a new settings window.
+        /// </summary>
+        public ICommand OpenSettings
+        {
+            get { return new RelayCommand(OpenSettingsView); }
+        }
+
+        /// <summary>
         /// Log off the User and go to the login screen.
         /// </summary>
         public ICommand LogOffUser
@@ -157,6 +164,11 @@ namespace Client.ViewModel.MainViewModel
         /// Returns whether the user is a leader and can see the Create <see cref="Jam" /> button.
         /// </summary>
         public Visibility IsCreateJamVisible { get; private set; }
+
+        private void OpenSettingsView()
+        {
+            Application.Current.Dispatcher.Invoke(() => EventUtility.SafeFireEvent(OpenSettingsViewRequested, this));
+        }
 
         private void OnClientDisconnected(object sender, EventArgs e)
         {
@@ -187,6 +199,11 @@ namespace Client.ViewModel.MainViewModel
         /// Fires when a <see cref="Task" /> backlog view is requested.
         /// </summary>
         public event EventHandler<WindowRequestedEventArgs> OpenTaskBacklogViewRequested;
+
+        /// <summary>
+        /// Fires when requesting a settings view.
+        /// </summary>
+        public event EventHandler OpenSettingsViewRequested;
 
         /// <summary>
         /// Fires when the application About Box view is requested.

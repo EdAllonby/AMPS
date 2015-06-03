@@ -18,7 +18,7 @@ namespace Client.View.UI
         private const double LeftOffset = 380;
         private readonly ApplicationExitHelper applicationExitHelper = new ApplicationExitHelper();
         private readonly Band band;
-        private readonly Toasts growlNotifications = new Toasts();
+        private readonly Toasts growlNotifications;
         private readonly IServiceRegistry serviceRegistry;
         private readonly ToastNotificationManager toastNotifier;
 
@@ -29,6 +29,8 @@ namespace Client.View.UI
         /// <param name="band">The <see cref="Band" /> context.</param>
         public MainView(IServiceRegistry serviceRegistry, Band band)
         {
+            growlNotifications = new Toasts(serviceRegistry.GetService<ToastNotificationManager>());
+
             this.band = band;
 
             InitializeComponent();
@@ -45,6 +47,8 @@ namespace Client.View.UI
             viewModel.OpenTaskBacklogViewRequested += OnOpenTaskBacklogViewRequested;
             viewModel.OpenJamMakerViewRequested += OnOpenJamMakerViewRequested;
             viewModel.OpenAboutBoxViewRequested += OnOpenAboutBoxRequested;
+            viewModel.OpenSettingsViewRequested += OnOpenSettingsRequested;
+
             viewModel.OnJamEnded += OnOpenJamEndedDialog;
             viewModel.CloseMainAndOpenLoginViewRequested += OnCloseMainAndOpenLoginViewRequested;
 
@@ -108,6 +112,13 @@ namespace Client.View.UI
             AboutBox aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
+
+        void OnOpenSettingsRequested(object sender, EventArgs e)
+        {
+            SettingsView settingsView = new SettingsView(serviceRegistry);
+            settingsView.ShowDialog();
+        }
+
 
         private void CreateUserListDock()
         {

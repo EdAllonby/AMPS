@@ -5,7 +5,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mainViewModel="clr-namespace:Client.ViewModel.MainViewModel;assembly=Client.ViewModel"
-    xmlns:converter="clr-namespace:Client.View.Converter"
     x:Class="Client.View.UI.MainView"
     mc:Ignorable="d"
     Title="{Binding Path=Title}"
@@ -25,7 +24,7 @@
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button>
+            <Button Command="{Binding OpenSettings}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
                                Fill="{Binding RelativeSource={RelativeSource AncestorType=Button}, Path=Foreground}">

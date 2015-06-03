@@ -1,19 +1,23 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using Client.Service;
 
 namespace Client.View.UI.ToastNotification
 {
     public partial class Toasts
     {
-        private const byte MaxNotifications = 4;
         private readonly ObservableCollection<Notification> buffer = new ObservableCollection<Notification>();
         private readonly ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
         private int count;
+        private readonly ToastNotificationManager notificationManager;
 
-        public Toasts()
+        public Toasts(ToastNotificationManager notificationManager)
         {
+            this.notificationManager = notificationManager;
+  
             InitializeComponent();
             NotificationsControl.DataContext = notifications;
         }
@@ -22,7 +26,7 @@ namespace Client.View.UI.ToastNotification
         {
             Notification notification = new Notification(count++, newNotification);
 
-            if (notifications.Count + 1 > MaxNotifications)
+            if (notifications.Count + 1 > notificationManager.TotalToastsToDisplay)
             {
                 buffer.Add(notification);
             }
@@ -60,7 +64,7 @@ namespace Client.View.UI.ToastNotification
 
         private void NotificationWindowSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (e.NewSize.Height != 0.0)
+            if (Math.Abs(e.NewSize.Height) > double.Epsilon)
             {
                 return;
             }

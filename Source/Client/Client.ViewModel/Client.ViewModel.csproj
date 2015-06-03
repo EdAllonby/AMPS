@@ -58,6 +58,7 @@
     <Compile Include="SettingsViewModel\DownloadTaskViewModel.cs" />
     <Compile Include="SettingsViewModel\FtpStatusEventArgs.cs" />
     <Compile Include="SettingsViewModel\JamMakerViewModel.cs" />
+    <Compile Include="SettingsViewModel\SettingsViewModel.cs" />
     <Compile Include="SettingsViewModel\UploadTaskViewModel.cs" />
     <Compile Include="TaskInformationViewModel.cs" />
     <Compile Include="WindowRequestedEventArgs.cs" />

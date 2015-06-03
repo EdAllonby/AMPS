@@ -8,10 +8,33 @@ namespace Client.Service
     public sealed class ToastNotificationManager : IService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (ToastNotificationManager));
+        private int totalToastsToDisplay = 4;
 
         public ToastNotificationManager()
         {
             SendNotifications = true;
+        }
+
+        /// <summary>
+        /// Can send notifications to subscribed clients.
+        /// </summary>
+        public bool SendNotifications { get; set; }
+
+        public int TotalToastsToDisplay
+        {
+            get { return totalToastsToDisplay; }
+            set
+            {
+                if (value > 0 || value < MaxNotificationsToDisplay)
+                {
+                    totalToastsToDisplay = value;
+                }
+            }
+        }
+
+        public int MaxNotificationsToDisplay
+        {
+            get { return 15; }
         }
 
         public event EventHandler<TostNotificationEventArgs> ToastNotificationRequested;
@@ -28,10 +51,5 @@ namespace Client.Service
                 EventUtility.SafeFireEvent(ToastNotificationRequested, this, new TostNotificationEventArgs(message));
             }
         }
-
-        /// <summary>
-        /// Can send notifications to subscribed clients.
-        /// </summary>
-        public bool SendNotifications { get; set; }
     }
 }

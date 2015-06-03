@@ -1,0 +1,45 @@
+﻿<Window xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mainViewModel="clr-namespace:Client.ViewModel.SettingsViewModel;assembly=Client.ViewModel"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        x:Class="Client.View.UI.SettingsView"
+        mc:Ignorable="d"
+        RenderOptions.BitmapScalingMode="Fant"
+        TextOptions.TextRenderingMode="ClearType"
+        WindowState="Normal" Width="250" Height="190"
+        d:DataContext="{d:DesignInstance {x:Type mainViewModel:SettingsViewModel}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0" Content="Settings" HorizontalAlignment="Center"
+               FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40" />
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content="Enable Toasts:" />
+            <CheckBox IsChecked="{Binding IsNotificationsEnabled}" VerticalAlignment="Center" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
+            <Label Content="Toasts To Display:" />
+            <xctk:IntegerUpDown Value="{Binding ToastsToDisplay}"
+                                IsEnabled="{Binding IsNotificationsEnabled}"
+                                Increment="1"
+                                Maximum="{Binding MaxToastsToDisplay}" Minimum="1"
+                                Height="24" />
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,0">
+            <Button Height="24" Width="70" Content="OK" Margin="0,0,20,0" Command="{Binding ApplySettings}" />
+            <Button Height="24" Width="70" Content=" Cancel" Command="{Binding DiscardSettings}" />
+        </StackPanel>
+
+    </Grid>
+</Window>
