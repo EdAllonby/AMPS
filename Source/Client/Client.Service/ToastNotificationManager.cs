@@ -32,7 +32,7 @@ namespace Client.Service
             }
         }
 
-        public int MaxNotificationsToDisplay
+        public static int MaxNotificationsToDisplay
         {
             get { return 15; }
         }
@@ -42,13 +42,13 @@ namespace Client.Service
         /// <summary>
         /// Notify observers of a new Toast Notification.
         /// </summary>
-        /// <param name="message">The message to add to the toast.</param>
-        public void Notify(string message)
+        /// <param name="notification">The notification to send.</param>
+        public void Notify(Notification notification)
         {
             if (SendNotifications)
             {
+                EventUtility.SafeFireEvent(ToastNotificationRequested, this, new TostNotificationEventArgs(notification));
                 Log.Debug("Sent a toast message notification.");
-                EventUtility.SafeFireEvent(ToastNotificationRequested, this, new TostNotificationEventArgs(message));
             }
         }
     }

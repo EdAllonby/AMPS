@@ -118,7 +118,6 @@
     <Compile Include="UI\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UI\ToastNotification\Notification.cs" />
     <Compile Include="UI\ToastNotification\Toasts.xaml.cs">
       <DependentUpon>Toasts.xaml</DependentUpon>
     </Compile>

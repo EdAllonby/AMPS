@@ -1,23 +1,27 @@
-﻿namespace Client.View.UI.ToastNotification
+﻿namespace Client.Service
 {
     public sealed class Notification
     {
-        public Notification(string message, string imageUrl, string title)
+        public Notification(string title, string message)
         {
             Message = message;
-            ImageUrl = imageUrl;
             Title = title;
         }
 
         public Notification(int id, Notification incompleNotification)
-            : this(incompleNotification.Message, incompleNotification.ImageUrl, incompleNotification.Title)
+            : this(incompleNotification.Title, incompleNotification.Message)
         {
             Id = id;
         }
 
         public string Message { get; private set; }
         public int Id { get; private set; }
-        public string ImageUrl { get; private set; }
+
+        public static string ImageUrl
+        {
+            get { return "pack://application:,,,/Resources/notification-icon.png"; }
+        }
+
         public string Title { get; private set; }
     }
 }

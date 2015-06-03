@@ -22,11 +22,11 @@ namespace Client.Service.MessageHandler
             {
                 case NotificationType.Create:
                     taskRepository.AddEntity(task);
-                    toastNotifier.Notify("A task has been created.");
+                    toastNotifier.Notify(new Notification("A Task has been created", "A task has been created."));
                     break;
                 case NotificationType.Update:
                     taskRepository.UpdateEntity(task);
-                    toastNotifier.Notify("A task has been updated.");
+                    toastNotifier.Notify(new Notification("A Task has been updated", "A task has been updated."));
                     break;
             }
         }

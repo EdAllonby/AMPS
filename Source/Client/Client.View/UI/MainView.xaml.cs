@@ -62,7 +62,7 @@ namespace Client.View.UI
 
         private void NotificationReceived(object sender, TostNotificationEventArgs e)
         {
-            Application.Current.Dispatcher.Invoke(() => { growlNotifications.AddNotification(new Notification(e.Message, "pack://application:,,,/Resources/notification-icon.png", "Mesage")); });
+            Application.Current.Dispatcher.Invoke(() => { growlNotifications.AddNotification(e.Notification); });
         }
 
         private void OnCloseMainAndOpenLoginViewRequested(object sender, EventArgs e)
@@ -113,12 +113,11 @@ namespace Client.View.UI
             aboutBox.ShowDialog();
         }
 
-        void OnOpenSettingsRequested(object sender, EventArgs e)
+        private void OnOpenSettingsRequested(object sender, EventArgs e)
         {
             SettingsView settingsView = new SettingsView(serviceRegistry);
             settingsView.ShowDialog();
         }
-
 
         private void CreateUserListDock()
         {

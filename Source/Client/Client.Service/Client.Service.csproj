@@ -49,6 +49,7 @@
     <Compile Include="LoginDetails.cs" />
     <Compile Include="MessageHandler\ConnectionStatusNotificationHandler.cs" />
     <Compile Include="MessageHandler\MessageHandlerRegistry.cs" />
+    <Compile Include="Notification.cs" />
     <Compile Include="MessageHandler\ParticipationNotificationHandler.cs" />
     <Compile Include="MessageHandler\JamNotificationHandler.cs" />
     <Compile Include="MessageHandler\BandNotificationHandler.cs" />

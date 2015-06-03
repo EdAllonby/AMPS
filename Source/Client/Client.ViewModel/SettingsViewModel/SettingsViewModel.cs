@@ -19,7 +19,7 @@ namespace Client.ViewModel.SettingsViewModel
 
             isNotificationsEnabled = notifier.SendNotifications;
             ToastsToDisplay = notifier.TotalToastsToDisplay;
-            MaxToastsToDisplay = notifier.MaxNotificationsToDisplay;
+            MaxToastsToDisplay = ToastNotificationManager.MaxNotificationsToDisplay;
         }
 
         public bool IsNotificationsEnabled

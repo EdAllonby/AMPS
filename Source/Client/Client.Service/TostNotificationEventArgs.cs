@@ -4,16 +4,16 @@ namespace Client.Service
 {
     public sealed class TostNotificationEventArgs : EventArgs
     {
-        private readonly string message;
+        private readonly Notification notification;
 
-        public TostNotificationEventArgs(string message)
+        public TostNotificationEventArgs(Notification notification)
         {
-            this.message = message;
+            this.notification = notification;
         }
 
-        public string Message
+        public Notification Notification
         {
-            get { return message; }
+            get { return notification; }
         }
     }
 }
