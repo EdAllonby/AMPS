@@ -1,10 +1,11 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using Shared;
 using Shared.Domain;
 
 namespace Client.ViewModel.MainViewModel
 {
-    public sealed class TaskCommentViewModel : ViewModel
+    public sealed class TaskCommentViewModel : ViewModel, IEquatable<TaskCommentViewModel>
     {
         private readonly TaskComment comment;
         private const int IndentationFactor = 30;
@@ -20,6 +21,11 @@ namespace Client.ViewModel.MainViewModel
         public string Comment
         {
             get { return comment.Comment; }
+        }
+
+        public bool Equals(TaskCommentViewModel other)
+        {
+            return Comment.Equals(other.Comment);
         }
     }
 }

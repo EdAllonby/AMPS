@@ -95,25 +95,28 @@ namespace Client.ViewModel.MainViewModel
             return TaskModel.TaskId == other.TaskModel.TaskId;
         }
 
-       public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels{get; private set; }
+        public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; private set; }
 
         private void UpdateComments()
         {
-            TaskCommentViewModels.Clear();
-
             foreach (TaskComment taskComment in task.Comments)
             {
                 AddCommentTree(taskComment, 0);
             }
         }
 
-        private void AddCommentTree(TaskComment node, int level)
+        private void AddCommentTree(TaskComment taskComment, int level)
         {
-            TaskCommentViewModels.Add(new TaskCommentViewModel(ServiceRegistry, node, level));
+            TaskCommentViewModel viewModel = new TaskCommentViewModel(ServiceRegistry, taskComment, level);
 
-            foreach (TaskComment reply in node.Replies)
+            if (!TaskCommentViewModels.Contains(viewModel))
             {
-                AddCommentTree(reply, level + 1); //<-- recursive
+                TaskCommentViewModels.Add(viewModel);
+            }
+
+            foreach (TaskComment reply in taskComment.Replies)
+            {
+                AddCommentTree(reply, level + 1);
             }
         }
 
