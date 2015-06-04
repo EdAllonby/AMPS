@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Input;
 using Client.Model.SettingsModel;
 using Client.Service;
@@ -28,10 +30,23 @@ namespace Client.ViewModel.MainViewModel
             this.task = task;
 
             var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+
+            taskRepository.EntityUpdated += TaskUpdated;
 
             var assignedMember = userRepository.FindEntityById(task.AssignedUserId);
 
             TaskModel = new TaskModel(task, assignedMember);
+            TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
+            UpdateComments();
+        }
+
+        private void TaskUpdated(object sender, EntityChangedEventArgs<Task> e)
+        {
+            if (e.Entity.Equals(task))
+            {
+                Application.Current.Dispatcher.Invoke(UpdateComments);
+            }
         }
 
         /// <summary>
@@ -78,6 +93,28 @@ namespace Client.ViewModel.MainViewModel
         public bool Equals(TaskItemViewModel other)
         {
             return TaskModel.TaskId == other.TaskModel.TaskId;
+        }
+
+       public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels{get; private set; }
+
+        private void UpdateComments()
+        {
+            TaskCommentViewModels.Clear();
+
+            foreach (TaskComment taskComment in task.Comments)
+            {
+                AddCommentTree(taskComment, 0);
+            }
+        }
+
+        private void AddCommentTree(TaskComment node, int level)
+        {
+            TaskCommentViewModels.Add(new TaskCommentViewModel(ServiceRegistry, node, level));
+
+            foreach (TaskComment reply in node.Replies)
+            {
+                AddCommentTree(reply, level + 1); //<-- recursive
+            }
         }
 
         /// <summary>

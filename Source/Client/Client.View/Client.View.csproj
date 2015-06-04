@@ -118,6 +118,9 @@
     <Compile Include="UI\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\TaskCommentView.xaml.cs">
+      <DependentUpon>TaskCommentView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UI\ToastNotification\Toasts.xaml.cs">
       <DependentUpon>Toasts.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UI\TaskBacklogView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UI\TaskCommentView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

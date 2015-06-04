@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="Client.View.UI.TaskCommentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModel="clr-namespace:Client.ViewModel.MainViewModel;assembly=Client.ViewModel"
+             TextOptions.TextFormattingMode="Display"
+             TextOptions.TextRenderingMode="ClearType"
+             d:DesignWidth="200" d:DesignHeight="50"
+             d:DataContext="{d:DesignInstance viewModel:TaskCommentViewModel}">
+    <Grid>
+        <StackPanel Orientation="Horizontal">
+            <Label Margin="{Binding LeftMargin}" Content="{Binding Comment}" />
+            <Button Margin="10,0,0,0" Content="Reply" Height="24" Width="70" />
+            <Button Content="Like" Margin="10,0,0,0" Height="24" Width="70" />
+        </StackPanel>
+    </Grid>
+</UserControl>

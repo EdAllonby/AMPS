@@ -52,6 +52,7 @@
     <Compile Include="MainViewModel\AudioUtilities.cs" />
     <Compile Include="MainViewModel\JamTasksViewModel.cs" />
     <Compile Include="MainViewModel\MainViewModel.cs" />
+    <Compile Include="MainViewModel\TaskCommentViewModel.cs" />
     <Compile Include="MainViewModel\TaskItemViewModel.cs" />
     <Compile Include="MainViewModel\UserViewModel.cs" />
     <Compile Include="SettingsViewModel\AdminViewModel.cs" />
