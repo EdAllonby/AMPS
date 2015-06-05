@@ -24,7 +24,7 @@ namespace Client.ViewModel
         /// <summary>
         /// <para>
         /// Filter the displayed tasks in the
-        /// <see cref="System.Collections.ObjectModel.ObservableCollection`1" />
+        /// <see cref="System.Collections.ObjectModel.ObservableCollection" />
         /// </para>
         /// <para>.</para>
         /// </summary>
@@ -62,7 +62,7 @@ namespace Client.ViewModel
 
         private static void PopulateCompleted(IServiceRegistry serviceRegistry, IEnumerable<Task> jamTasks, ICollection<TaskCategory> taskCategoriesToDisplay, ICollection<TaskItemViewModel> tasksInCurrentJam)
         {
-            foreach (var jamTask in jamTasks)
+            foreach (Task jamTask in jamTasks)
             {
                 if (!DoesCollectionContainTask(tasksInCurrentJam, jamTask) && jamTask.IsCompleted && taskCategoriesToDisplay.Contains(jamTask.Category))
                 {
@@ -79,7 +79,7 @@ namespace Client.ViewModel
 
         private static void PopulateUncompleted(IServiceRegistry serviceRegistry, IEnumerable<Task> jamTasks, ICollection<TaskCategory> taskCategoriesToDisplay, ICollection<TaskItemViewModel> tasksInCurrentJam)
         {
-            foreach (var jamTask in jamTasks)
+            foreach (Task jamTask in jamTasks)
             {
                 if (!DoesCollectionContainTask(tasksInCurrentJam, jamTask) && !jamTask.IsCompleted)
                 {
@@ -96,18 +96,12 @@ namespace Client.ViewModel
 
         private static void PopulateAll(IServiceRegistry serviceRegistry, IEnumerable<Task> jamTasks, ICollection<TaskCategory> taskCategoriesToDisplay, ICollection<TaskItemViewModel> tasksInCurrentJam)
         {
-            foreach (var jamTask in jamTasks)
+            foreach (Task jamTask in jamTasks)
             {
                 if (!DoesCollectionContainTask(tasksInCurrentJam, jamTask) && taskCategoriesToDisplay.Contains(jamTask.Category))
                 {
                     Application.Current.Dispatcher.Invoke(() => tasksInCurrentJam.Add(new TaskItemViewModel(serviceRegistry, jamTask)));
                     Log.DebugFormat("Added task with id {0} to display.", jamTask.Id);
-                }
-                if (DoesCollectionContainTask(tasksInCurrentJam, jamTask) && taskCategoriesToDisplay.Contains(jamTask.Category))
-                {
-                    var currentTask = tasksInCurrentJam.First(model => model.TaskModel.TaskId.Equals(jamTask.Id));
-                    currentTask.TaskModel.IsCompleted = jamTask.IsCompleted;
-                    Log.DebugFormat("Updated task with id {0} to display.", jamTask.Id);
                 }
                 if (DoesCollectionContainTask(tasksInCurrentJam, jamTask) && !taskCategoriesToDisplay.Contains(jamTask.Category))
                 {

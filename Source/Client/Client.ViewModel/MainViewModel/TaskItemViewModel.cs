@@ -7,7 +7,6 @@ using System.Windows.Input;
 using Client.Model.SettingsModel;
 using Client.Service;
 using Client.ViewModel.Commands;
-using Client.ViewModel.SettingsViewModel;
 using Shared;
 using Shared.Domain;
 using Shared.Repository;
@@ -16,22 +15,27 @@ using Utility;
 namespace Client.ViewModel.MainViewModel
 {
     /// <summary>
-    /// The View Model for the a <see cref="Task" /> Item.
+    /// The View Model for the a <see cref="Shared.Domain.Task" /> Item.
     /// </summary>
     public sealed class TaskItemViewModel : TaskInformationViewModel, IEquatable<TaskItemViewModel>
     {
-        private readonly Task task;
         private readonly IReadOnlyEntityRepository<Task> taskRepository;
         private string comment = string.Empty;
+        private readonly int taskId;
+
+        private Task Task
+        {
+            get { return taskRepository.FindEntityById(taskId); }
+        }
 
         /// <summary>
         /// Create a new View Model for the Jam Tasks View.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
-        /// <param name="task">The <see cref="Task" /> to create a view model for.</param>
+        /// <param name="task">The <see cref="Shared.Domain.Task" /> to create a view model for.</param>
         public TaskItemViewModel(IServiceRegistry serviceRegistry, Task task) : base(serviceRegistry)
         {
-            this.task = task;
+            taskId = task.Id;
 
             var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
             taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
@@ -42,7 +46,7 @@ namespace Client.ViewModel.MainViewModel
 
             TaskModel = new TaskModel(task, assignedMember);
             TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
-            UpdateComments(task.Comments);
+            UpdateComments();
         }
 
         /// <summary>
@@ -54,7 +58,7 @@ namespace Client.ViewModel.MainViewModel
         }
 
         /// <summary>
-        /// Executed when this <see cref="Task" /> is wanting to be completed.
+        /// Executed when this <see cref="Shared.Domain.Task" /> is wanting to be completed.
         /// </summary>
         public ICommand CompleteTask
         {
@@ -84,7 +88,7 @@ namespace Client.ViewModel.MainViewModel
         public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; private set; }
 
         /// <summary>
-        /// Checks if two task items are equal based on their underlying <see cref="Task" /> Id.
+        /// Checks if two task items are equal based on their underlying <see cref="Shared.Domain.Task" /> Id.
         /// </summary>
         /// <param name="other">The other view model to compare.</param>
         /// <returns></returns>
@@ -100,15 +104,17 @@ namespace Client.ViewModel.MainViewModel
 
         private void TaskUpdated(object sender, EntityChangedEventArgs<Task> e)
         {
-            if (e.Entity.Equals(task))
+            if (e.Entity.Id.Equals(TaskModel.TaskId))
             {
-                Application.Current.Dispatcher.Invoke(() => UpdateComments(e.Entity.Comments));
+                TaskModel.IsCompleted = Task.IsCompleted;
+
+                Application.Current.Dispatcher.Invoke(UpdateComments);
             }
         }
 
-        private void UpdateComments(IEnumerable<TaskComment> comments)
+        private void UpdateComments()
         {
-            foreach (var taskComment in comments)
+            foreach (TaskComment taskComment in Task.Comments)
             {
                 AddCommentTree(taskComment, 0);
             }
@@ -120,7 +126,8 @@ namespace Client.ViewModel.MainViewModel
 
             if (!TaskCommentViewModels.Contains(viewModel))
             {
-                var parentViewmodel = TaskCommentViewModels.FirstOrDefault(x => x.TaskComment.Equals(taskComment.ParentComment));
+                TaskCommentViewModel parentViewmodel = TaskCommentViewModels.FirstOrDefault(x => x.TaskComment.Equals(taskComment.ParentComment));
+
                 if (parentViewmodel != null)
                 {
                     int indexOfParent = TaskCommentViewModels.IndexOf(parentViewmodel);
@@ -133,7 +140,7 @@ namespace Client.ViewModel.MainViewModel
                 }
             }
 
-            foreach (var reply in taskComment.Replies)
+            foreach (TaskComment reply in taskComment.Replies)
             {
                 AddCommentTree(reply, level + 1);
             }
@@ -160,7 +167,7 @@ namespace Client.ViewModel.MainViewModel
 
         private void SendTaskCompletion()
         {
-            EventUtility.SafeFireEvent(OpenUploadTaskViewRequested, this, new WindowRequestedEventArgs(task));
+            EventUtility.SafeFireEvent(OpenUploadTaskViewRequested, this, new WindowRequestedEventArgs(Task));
         }
 
         private bool CanAddCommentToTask()
@@ -172,7 +179,7 @@ namespace Client.ViewModel.MainViewModel
         {
             var clientService = ServiceRegistry.GetService<IClientService>();
 
-            clientService.AddTaskComment(task.Id, Comment, null);
+            clientService.AddTaskComment(TaskModel.TaskId, Comment, null);
 
             Comment = String.Empty;
         }

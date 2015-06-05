@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using System;
+using Shared;
 using Shared.Domain;
 using Shared.Message;
 using Shared.Message.TaskMessage;
@@ -17,7 +18,14 @@ namespace Server.MessageHandler
 
             var taskUpdateRequest = (TaskUpdateRequest) message;
 
-            taskRepository.UpdateEntity(taskUpdateRequest.UpdatedTask);
+            Task updatedTask = taskUpdateRequest.UpdatedTask;
+
+            if (updatedTask.IsCompleted && updatedTask.CompletedDate == DateTime.MinValue)
+            {
+                updatedTask.CompletedDate = DateTime.Now;
+            }
+
+            taskRepository.UpdateEntity(updatedTask);
         }
     }
 }

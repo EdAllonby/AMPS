@@ -16,18 +16,31 @@ namespace Shared.Domain
         private readonly string description;
         private readonly string title;
         private int assignedUserId;
+        private DateTime completedDate = DateTime.MinValue;
         private bool isCompleted;
         private int points;
 
         /// <summary>
         /// Creates a new <see cref="Task" /> with no assigned Id.
         /// </summary>
-        /// <param name="title">The title of the <see cref="Task" />.</param>
-        /// <param name="description">The description of the <see cref="Task" />.</param>
-        /// <param name="points">The number of points the <see cref="Task" /> has.</param>
-        /// <param name="bandId">The <see cref="Band" /> associated with the <see cref="Task" />.</param>
-        /// <param name="assignedUserId">The <see cref="User" /> who needs to complete the <see cref="Task" />.</param>
-        /// <param name="category">The <see cref="Task" />'s <see cref="Category" />.</param>
+        /// <param name="title">The title of the <see cref="Task" /> .</param>
+        /// <param name="description">
+        /// The description of the <see cref="Task" /> .
+        /// </param>
+        /// <param name="points">
+        /// The number of points the <see cref="Task" /> has.
+        /// </param>
+        /// <param name="bandId">
+        /// The <see cref="Band" /> associated with the <see cref="Task" /> .
+        /// </param>
+        /// <param name="assignedUserId">
+        /// The <see cref="User" /> who needs to complete the
+        /// <see cref="Task" /> .
+        /// </param>
+        /// <param name="category">
+        /// The <see cref="Task" /> 's
+        /// <see cref="Shared.Domain.Task.Category" /> .
+        /// </param>
         public Task(string title, string description, int points, int bandId, int assignedUserId, TaskCategory category)
         {
             Contract.Requires(bandId > 0);
@@ -46,7 +59,9 @@ namespace Shared.Domain
         /// Creates a <see cref="Task" /> with an Id.
         /// </summary>
         /// <param name="id">The assigned <see cref="Task" /> Id.</param>
-        /// <param name="incompleteTask">The previous incomplete <see cref="Task" />.</param>
+        /// <param name="incompleteTask">
+        /// The previous incomplete <see cref="Task" /> .
+        /// </param>
         public Task(int id, Task incompleteTask) : base(id)
         {
             Contract.Requires(incompleteTask != null);
@@ -61,7 +76,7 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// Returns whether this task belongs in a <see cref="Jam" />.
+        /// Returns whether this task belongs in a <see cref="Jam" /> .
         /// </summary>
         public bool IsInJam
         {
@@ -69,7 +84,8 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// Returns whether the <see cref="Task" /> has an assigned <see cref="User" />.
+        /// Returns whether the <see cref="Task" /> has an assigned
+        /// <see cref="User" /> .
         /// </summary>
         public bool HasAssignedUser
         {
@@ -77,7 +93,11 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// Returns whether the <see cref="Task" /> has points given to it.
+        /// <para>
+        /// Returns whether the <see cref="Task" /> has
+        /// <see cref="Shared.Domain.Task.points" />
+        /// </para>
+        /// <para>given to it.</para>
         /// </summary>
         public bool HasPoints
         {
@@ -85,7 +105,7 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// The overview of the <see cref="Task" />.
+        /// The overview of the <see cref="Task" /> .
         /// </summary>
         public string Title
         {
@@ -93,7 +113,8 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// The detailed description of the <see cref="Task" />.
+        /// The detailed <see cref="Shared.Domain.Task.description" /> of the
+        /// <see cref="Task" /> .
         /// </summary>
         public string Description
         {
@@ -101,7 +122,8 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// The number of points this <see cref="Task" /> has.
+        /// The number of <see cref="Shared.Domain.Task.points" /> this
+        /// <see cref="Task" /> has.
         /// </summary>
         public int Points
         {
@@ -144,7 +166,8 @@ namespace Shared.Domain
         public int JamId { get; private set; }
 
         /// <summary>
-        /// Comments for the <see cref="Task" />.
+        /// <see cref="Shared.Domain.Task.Comments" /> for the
+        /// <see cref="Task" /> .
         /// </summary>
         public List<TaskComment> Comments
         {
@@ -152,7 +175,8 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// The <see cref="Task" />'s <see cref="Category" />.
+        /// The <see cref="Task" /> 's
+        /// <see cref="Shared.Domain.Task.Category" /> .
         /// </summary>
         public TaskCategory Category
         {
@@ -174,8 +198,38 @@ namespace Shared.Domain
             }
         }
 
+        /// <summary>
+        /// The date the <see cref="Task" /> was completed, if completed.
+        /// </summary>
+        public DateTime CompletedDate
+        {
+            get { return completedDate; }
+            set
+            {
+                if (CompletedDate == DateTime.MinValue && IsCompleted)
+                {
+                    completedDate = value;
+                }
+            }
+        }
 
+        /// <summary>
+        /// Give the task a <see cref="Jam" /> .
+        /// </summary>
+        /// <param name="newTaskJamId">
+        /// The <see cref="Jam" /> Id the task is assigned with.
+        /// </param>
+        public void AssignTaskToJam(int newTaskJamId)
+        {
+            Contract.Requires(newTaskJamId > 0);
 
+            JamId = newTaskJamId;
+        }
+
+        /// <summary>
+        /// Find and add a <paramref name="reply" /> to a comment.
+        /// </summary>
+        /// <param name="reply"></param>
         public void AddCommentToRelevantParent(TaskComment reply)
         {
             foreach (TaskComment taskComment in Comments)
@@ -184,35 +238,36 @@ namespace Shared.Domain
             }
         }
 
-        private void TryFindParent(TaskComment reply, TaskComment comment)
+        private static void TryFindParent(TaskComment reply, TaskComment comment)
+        {
+            var added = TryAddReply(reply, comment);
+
+            if (!added)
+            {
+                foreach (TaskComment possibleParent in comment.Replies)
+                {
+                    added = TryAddReply(reply, comment);
+
+                    if (added)
+                    {
+                        return;
+                    }
+
+                    TryFindParent(reply, possibleParent);
+                }
+            }
+        }
+
+        private static bool TryAddReply(TaskComment reply, TaskComment comment)
         {
             if (comment.Equals(reply.ParentComment))
             {
                 comment.AddReply(reply);
-                return;
+
+                return true;
             }
 
-            foreach (TaskComment possibleParent in comment.Replies)
-            {
-                if (possibleParent.Equals(reply.ParentComment))
-                {
-                    possibleParent.AddReply(reply);
-                    return;
-                }
-
-                TryFindParent(reply, possibleParent);
-            }
-        }
-
-        /// <summary>
-        /// Give the task a <see cref="Jam" />.
-        /// </summary>
-        /// <param name="newTaskJamId">The <see cref="Jam" /> Id the task is assigned with.</param>
-        public void AssignTaskToJam(int newTaskJamId)
-        {
-            Contract.Requires(newTaskJamId > 0);
-
-            JamId = newTaskJamId;
+            return false;
         }
     }
 }
