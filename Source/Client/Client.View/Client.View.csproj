@@ -103,6 +103,7 @@
     </Compile>
     <Compile Include="ApplicationExitHelper.cs" />
     <Compile Include="ConsoleManager.cs" />
+    <Compile Include="Converter\BoolToVisibilityConverter.cs" />
     <Compile Include="Converter\RatioConverter.cs" />
     <Compile Include="Converter\CategoryToIconConverter.cs" />
     <Compile Include="Converter\BoolToIconConverter.cs" />

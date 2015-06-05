@@ -174,9 +174,25 @@ namespace Shared.Domain
             }
         }
 
+
+
         public void AddCommentToRelevantParent(TaskComment reply)
         {
-            foreach (TaskComment possibleParent in Comments)
+            foreach (TaskComment taskComment in Comments)
+            {
+                TryFindParent(reply, taskComment);
+            }
+        }
+
+        private void TryFindParent(TaskComment reply, TaskComment comment)
+        {
+            if (comment.Equals(reply.ParentComment))
+            {
+                comment.AddReply(reply);
+                return;
+            }
+
+            foreach (TaskComment possibleParent in comment.Replies)
             {
                 if (possibleParent.Equals(reply.ParentComment))
                 {
@@ -184,7 +200,7 @@ namespace Shared.Domain
                     return;
                 }
 
-                AddCommentToRelevantParent(reply);
+                TryFindParent(reply, possibleParent);
             }
         }
 

@@ -1,19 +1,17 @@
-﻿#region
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 using Client.Model.SettingsModel;
 using Client.Service;
 using Client.ViewModel.Commands;
+using Client.ViewModel.SettingsViewModel;
 using Shared;
 using Shared.Domain;
 using Shared.Repository;
 using Utility;
-
-#endregion
 
 namespace Client.ViewModel.MainViewModel
 {
@@ -104,13 +102,13 @@ namespace Client.ViewModel.MainViewModel
         {
             if (e.Entity.Equals(task))
             {
-                Application.Current.Dispatcher.Invoke(()=>UpdateComments(e.Entity.Comments));
+                Application.Current.Dispatcher.Invoke(() => UpdateComments(e.Entity.Comments));
             }
         }
 
         private void UpdateComments(IEnumerable<TaskComment> comments)
         {
-            foreach (TaskComment taskComment in comments)
+            foreach (var taskComment in comments)
             {
                 AddCommentTree(taskComment, 0);
             }
@@ -122,7 +120,17 @@ namespace Client.ViewModel.MainViewModel
 
             if (!TaskCommentViewModels.Contains(viewModel))
             {
-                TaskCommentViewModels.Add(viewModel);
+                var parentViewmodel = TaskCommentViewModels.FirstOrDefault(x => x.TaskComment.Equals(taskComment.ParentComment));
+                if (parentViewmodel != null)
+                {
+                    int indexOfParent = TaskCommentViewModels.IndexOf(parentViewmodel);
+
+                    TaskCommentViewModels.Insert(indexOfParent + 1, viewModel);
+                }
+                else
+                {
+                    TaskCommentViewModels.Add(viewModel);
+                }
             }
 
             foreach (var reply in taskComment.Replies)
