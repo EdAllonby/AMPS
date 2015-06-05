@@ -32,7 +32,7 @@ namespace Client.ViewModel.MainViewModel
             var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
             IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
-            taskRepository.EntityUpdated += TaskUpdated;
+            //taskRepository.EntityUpdated += TaskUpdated;
 
             var assignedMember = userRepository.FindEntityById(task.AssignedUserId);
 
@@ -40,6 +40,7 @@ namespace Client.ViewModel.MainViewModel
             TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
             UpdateComments();
         }
+/*
 
         private void TaskUpdated(object sender, EntityChangedEventArgs<Task> e)
         {
@@ -48,6 +49,7 @@ namespace Client.ViewModel.MainViewModel
                 Application.Current.Dispatcher.Invoke(UpdateComments);
             }
         }
+*/
 
         /// <summary>
         /// The client's service registry.
@@ -153,9 +155,7 @@ namespace Client.ViewModel.MainViewModel
         {
             IClientService clientService = ServiceRegistry.GetService<IClientService>();
 
-            task.Comments.Add(new TaskComment(string.Empty, Comment, null));
-
-            clientService.UpdateTask(task);
+            clientService.AddTaskComment(task.Id, Comment, null);
         }
     }
 }

@@ -11,22 +11,22 @@ namespace Shared.Domain
     public sealed class TaskComment : Entity
     {
         private readonly string comment;
-        private readonly string title;
 
         private readonly List<TaskComment> replies = new List<TaskComment>();
         private readonly TaskComment parentComment;
+        private readonly int taskId;
 
         /// <summary>
         /// Create a task comment for a task.
         /// </summary>
-        /// <param name="title">Title of the comment.</param>
         /// <param name="comment">The details of the comment.</param>
+        /// <param name="taskId">Related task.</param>
         /// <param name="parentComment">If this comment is replying to a previous comment, that comment.</param>
-        public TaskComment(string title, string comment, TaskComment parentComment)
+        public TaskComment(string comment, int taskId, TaskComment parentComment)
         {
-            this.title = title;
             this.comment = comment;
             this.parentComment = parentComment;
+            this.taskId = taskId;
         }
 
         public TaskComment(int id, TaskComment incompleteTaskComment) : base(id)
@@ -36,16 +36,8 @@ namespace Shared.Domain
 
             parentComment = incompleteTaskComment.ParentComment;
 
-            title = incompleteTaskComment.Title;
             comment = incompleteTaskComment.Comment;
-        }
-
-        /// <summary>
-        /// Title of the comment.
-        /// </summary>
-        public string Title
-        {
-            get { return title; }
+            taskId = incompleteTaskComment.taskId;
         }
 
         /// <summary>
@@ -72,6 +64,11 @@ namespace Shared.Domain
         public IEnumerable<TaskComment> Replies
         {
             get { return replies; }
+        }
+
+        public int TaskId
+        {
+            get { return taskId; }
         }
     }
 }

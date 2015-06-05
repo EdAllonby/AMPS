@@ -1,7 +1,21 @@
-﻿namespace Shared.Message.TaskMessage
+﻿using System;
+using Shared.Domain;
+
+namespace Shared.Message.TaskMessage
 {
-    internal class TaskCommentRequest : IMessage
+    [Serializable]
+    public class TaskCommentRequest : IMessage
     {
-        public MessageIdentifier MessageIdentifier { get; private set; }
+        public TaskCommentRequest(TaskComment taskComment)
+        {
+            TaskComment = taskComment;
+        }
+
+        public TaskComment TaskComment { get; private set; }
+
+        public MessageIdentifier MessageIdentifier
+        {
+            get { return MessageIdentifier.TaskCommentRequest; }
+        }
     }
 }

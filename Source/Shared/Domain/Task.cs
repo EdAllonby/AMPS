@@ -174,6 +174,20 @@ namespace Shared.Domain
             }
         }
 
+        public void AddCommentToRelevantParent(TaskComment reply)
+        {
+            foreach (TaskComment possibleParent in Comments)
+            {
+                if (possibleParent.Equals(reply.ParentComment))
+                {
+                    possibleParent.AddReply(reply);
+                    return;
+                }
+
+                AddCommentToRelevantParent(reply);
+            }
+        }
+
         /// <summary>
         /// Give the task a <see cref="Jam" />.
         /// </summary>

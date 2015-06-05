@@ -153,6 +153,11 @@ namespace Client.Service
             connectionHandler.SendMessage(new JamRequest(bandId, taskIds, jamEndDate));
         }
 
+        public void AddTaskComment(int taskId, string comment, TaskComment parent)
+        {
+            connectionHandler.SendMessage(new TaskCommentRequest(new TaskComment(comment, taskId, parent)));
+        }
+
         /// <summary>
         /// Sends a <see cref="TaskRequest" /> message to the server.
         /// </summary>
