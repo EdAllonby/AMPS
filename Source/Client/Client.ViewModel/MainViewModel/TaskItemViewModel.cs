@@ -165,6 +165,8 @@ namespace Client.ViewModel.MainViewModel
             var clientService = ServiceRegistry.GetService<IClientService>();
 
             clientService.AddTaskComment(task.Id, Comment, null);
+
+            Comment = String.Empty;
         }
     }
 }
