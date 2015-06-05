@@ -42,7 +42,7 @@ namespace Client.ViewModel.MainViewModel
 
             DisplayedTasksInCurrentJam = new ObservableCollection<TaskItemViewModel>();
 
-            UpdateDisplayedTasks();
+            RedisplayTasks();
 
             TaskCategories = new List<string>();
 
@@ -104,7 +104,7 @@ namespace Client.ViewModel.MainViewModel
                     }
                 }
 
-                UpdateDisplayedTasks();
+                RedisplayTasks();
 
                 OnPropertyChanged();
             }
@@ -121,7 +121,7 @@ namespace Client.ViewModel.MainViewModel
                 if (Equals(value, selectedTaskFilter)) return;
 
                 selectedTaskFilter = value;
-                UpdateDisplayedTasks();
+                RedisplayTasks();
                 OnPropertyChanged();
             }
         }
@@ -200,18 +200,18 @@ namespace Client.ViewModel.MainViewModel
 
         private void OnTaskUpdated(object sender, EntityChangedEventArgs<Task> e)
         {
-            UpdateDisplayedTasks();
+            RedisplayTasks();
         }
 
         private void OnJamAdded(object sender, EntityChangedEventArgs<Jam> e)
         {
             if (e.Entity.BandId == managedBand.Id)
             {
-                UpdateDisplayedTasks();
+                RedisplayTasks();
             }
         }
 
-        private void UpdateDisplayedTasks()
+        private void RedisplayTasks()
         {
             Jam activeJam = jamRepository.GetCurrentActiveJamInBand(managedBand.Id);
 

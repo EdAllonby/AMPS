@@ -7,25 +7,25 @@ namespace Client.ViewModel.MainViewModel
 {
     public sealed class TaskCommentViewModel : ViewModel, IEquatable<TaskCommentViewModel>
     {
-        private readonly TaskComment comment;
+        private readonly TaskComment taskComment;
         private const int IndentationFactor = 30;
 
         public TaskCommentViewModel(IServiceRegistry serviceRegistry, TaskComment comment, int child) : base(serviceRegistry)
         {
             LeftMargin = new Thickness(child*IndentationFactor, 0, 0, 0);
-            this.comment = comment;
+            this.taskComment = comment;
         }
 
         public Thickness LeftMargin { get; private set; }
 
         public string Comment
         {
-            get { return comment.Comment; }
+            get { return taskComment.Comment; }
         }
 
         public bool Equals(TaskCommentViewModel other)
         {
-            return Comment.Equals(other.Comment);
+            return taskComment.Equals(other.taskComment);
         }
     }
 }

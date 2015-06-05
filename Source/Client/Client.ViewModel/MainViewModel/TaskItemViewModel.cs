@@ -1,4 +1,7 @@
-﻿using System;
+﻿#region
+
+using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -10,6 +13,8 @@ using Shared.Domain;
 using Shared.Repository;
 using Utility;
 
+#endregion
+
 namespace Client.ViewModel.MainViewModel
 {
     /// <summary>
@@ -18,6 +23,7 @@ namespace Client.ViewModel.MainViewModel
     public sealed class TaskItemViewModel : TaskInformationViewModel, IEquatable<TaskItemViewModel>
     {
         private readonly Task task;
+        private readonly IReadOnlyEntityRepository<Task> taskRepository;
         private string comment = string.Empty;
 
         /// <summary>
@@ -30,26 +36,16 @@ namespace Client.ViewModel.MainViewModel
             this.task = task;
 
             var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
-            //taskRepository.EntityUpdated += TaskUpdated;
+            taskRepository.EntityUpdated += TaskUpdated;
 
             var assignedMember = userRepository.FindEntityById(task.AssignedUserId);
 
             TaskModel = new TaskModel(task, assignedMember);
             TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
-            UpdateComments();
+            UpdateComments(task.Comments);
         }
-/*
-
-        private void TaskUpdated(object sender, EntityChangedEventArgs<Task> e)
-        {
-            if (e.Entity.Equals(task))
-            {
-                Application.Current.Dispatcher.Invoke(UpdateComments);
-            }
-        }
-*/
 
         /// <summary>
         /// The client's service registry.
@@ -87,6 +83,8 @@ namespace Client.ViewModel.MainViewModel
             get { return new RelayCommand(AddCommentToTask, CanAddCommentToTask); }
         }
 
+        public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; private set; }
+
         /// <summary>
         /// Checks if two task items are equal based on their underlying <see cref="Task" /> Id.
         /// </summary>
@@ -97,11 +95,22 @@ namespace Client.ViewModel.MainViewModel
             return TaskModel.TaskId == other.TaskModel.TaskId;
         }
 
-        public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; private set; }
-
-        private void UpdateComments()
+        public void UnsubscribeEvents()
         {
-            foreach (TaskComment taskComment in task.Comments)
+            taskRepository.EntityUpdated -= TaskUpdated;
+        }
+
+        private void TaskUpdated(object sender, EntityChangedEventArgs<Task> e)
+        {
+            if (e.Entity.Equals(task))
+            {
+                Application.Current.Dispatcher.Invoke(()=>UpdateComments(e.Entity.Comments));
+            }
+        }
+
+        private void UpdateComments(IEnumerable<TaskComment> comments)
+        {
+            foreach (TaskComment taskComment in comments)
             {
                 AddCommentTree(taskComment, 0);
             }
@@ -109,14 +118,14 @@ namespace Client.ViewModel.MainViewModel
 
         private void AddCommentTree(TaskComment taskComment, int level)
         {
-            TaskCommentViewModel viewModel = new TaskCommentViewModel(ServiceRegistry, taskComment, level);
+            var viewModel = new TaskCommentViewModel(ServiceRegistry, taskComment, level);
 
             if (!TaskCommentViewModels.Contains(viewModel))
             {
                 TaskCommentViewModels.Add(viewModel);
             }
 
-            foreach (TaskComment reply in taskComment.Replies)
+            foreach (var reply in taskComment.Replies)
             {
                 AddCommentTree(reply, level + 1);
             }
@@ -134,9 +143,9 @@ namespace Client.ViewModel.MainViewModel
                 return false;
             }
 
-            IClientService clientService = ServiceRegistry.GetService<IClientService>();
+            var clientService = ServiceRegistry.GetService<IClientService>();
 
-            int clientUserId = clientService.ClientUserId;
+            var clientUserId = clientService.ClientUserId;
 
             return clientUserId.Equals(TaskModel.AssignedMember.Id);
         }
@@ -153,7 +162,7 @@ namespace Client.ViewModel.MainViewModel
 
         private void AddCommentToTask()
         {
-            IClientService clientService = ServiceRegistry.GetService<IClientService>();
+            var clientService = ServiceRegistry.GetService<IClientService>();
 
             clientService.AddTaskComment(task.Id, Comment, null);
         }
