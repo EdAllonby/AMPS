@@ -82,7 +82,9 @@
                         </GridView>
                     </ListView.View>
                 </ListView>
-
+                
+                <CheckBox Content="Add All" Grid.Row="1" VerticalContentAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding AddAllTasks}" HorizontalAlignment="Left" />
+                
                 <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Label Content="Jam Length (Days):" Margin="5" />
                     <ComboBox HorizontalAlignment="Stretch" Width="50" VerticalAlignment="Center"

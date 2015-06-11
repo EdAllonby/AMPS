@@ -26,6 +26,8 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public EventHandler RequestJamMakerClose;
 
+        private bool addAllTasks = false;
+
         /// <summary>
         /// Creates a new View Model for the <see cref="Jam" /> Maker.
         /// </summary>
@@ -64,6 +66,21 @@ namespace Client.ViewModel.SettingsViewModel
             {
                 if (Equals(value, jamMakerModel)) return;
                 jamMakerModel = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public bool AddAllTasks
+        {
+            get { return addAllTasks; }
+            set
+            {
+                addAllTasks = value;
+                foreach (AddableTaskModel addableTaskModel in JamMakerModel.AddableTasks)
+                {
+                    addableTaskModel.Add = value;
+                }
+
                 OnPropertyChanged();
             }
         }
