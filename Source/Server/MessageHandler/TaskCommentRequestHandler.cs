@@ -1,4 +1,5 @@
-﻿using Shared;
+﻿using System;
+using Shared;
 using Shared.Domain;
 using Shared.Message;
 using Shared.Message.TaskMessage;
@@ -16,7 +17,7 @@ namespace Server.MessageHandler
 
             EntityIdAllocatorFactory entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
 
-            TaskComment taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), incompleteTaskComment);
+            TaskComment taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), incompleteTaskComment, DateTime.Now);
 
             Task task = taskRepository.FindEntityById(taskComment.TaskId);
 

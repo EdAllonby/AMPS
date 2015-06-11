@@ -6,7 +6,6 @@ namespace Utility
     {
         public static string ToDays(this TimeSpan timeSpan, bool capitalise)
         {
-            
             const string singular = "Day";
             const string plural = "Days";
 

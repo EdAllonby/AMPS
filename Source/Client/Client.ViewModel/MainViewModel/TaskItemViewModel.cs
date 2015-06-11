@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -181,7 +180,7 @@ namespace Client.ViewModel.MainViewModel
 
             clientService.AddTaskComment(TaskModel.TaskId, Comment, null);
 
-            Comment = String.Empty;
+            Comment = string.Empty;
         }
     }
 }

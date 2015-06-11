@@ -155,7 +155,7 @@ namespace Client.Service
 
         public void AddTaskComment(int taskId, string comment, TaskComment parent)
         {
-            connectionHandler.SendMessage(new TaskCommentRequest(new TaskComment(comment, taskId, parent)));
+            connectionHandler.SendMessage(new TaskCommentRequest(new TaskComment(comment, taskId, ClientUserId, parent)));
         }
 
         /// <summary>

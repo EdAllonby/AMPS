@@ -222,7 +222,13 @@ namespace Client.ViewModel.MainViewModel
 
         private bool CanOpenJamMakerView()
         {
+            if (!participationRepository.IsParticipantLeaderOfBand(userId, band.Id))
+            {
+                return false;
+            }
+
             Jam currentJam = jamRepository.GetCurrentActiveJamInBand(band.Id);
+
             return currentJam == null || !currentJam.IsActive;
         }
 

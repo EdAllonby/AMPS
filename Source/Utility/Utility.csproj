@@ -78,6 +78,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DateTimeFormatter.cs" />
     <Compile Include="EventUtility.cs" />
     <Compile Include="NumbersGenerator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

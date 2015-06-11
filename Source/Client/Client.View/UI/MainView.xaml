@@ -16,12 +16,16 @@
     TextOptions.TextRenderingMode="ClearType"
     WindowState="Maximized" MinWidth="600" MinHeight="400"
     d:DataContext="{d:DesignInstance {x:Type mainViewModel:MainViewModel}}">
-    
+
     <Window.InputBindings>
         <KeyBinding Modifiers="Control"
                     Key="T"
                     Command="{Binding CreateTask}" />
-        
+
+        <KeyBinding Modifiers="Control"
+                    Key="J"
+                    Command="{Binding OpenJamMaker}" />
+
         <KeyBinding Modifiers="Control"
                     Key="O"
                     Command="{Binding OpenBandDetails}" />
@@ -29,7 +33,7 @@
         <KeyBinding Key="F1"
                     Command="{Binding OpenAboutBox}" />
     </Window.InputBindings>
-    
+
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

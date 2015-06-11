@@ -19,6 +19,14 @@
 
         <StackPanel Orientation="Horizontal" Grid.Row="0">
             <Label Content="{Binding Comment}" />
+            <Label Content="{Binding Username}" FontSize="10" Foreground="DodgerBlue" VerticalAlignment="Bottom"
+                   VerticalContentAlignment="Bottom" />
+            <Label Content="{Binding RelativeTime}" FontSize="10" Foreground="DodgerBlue" VerticalAlignment="Bottom"
+                   VerticalContentAlignment="Bottom">
+                <Label.ToolTip>
+                    <TextBlock Text="{Binding TimePosted}" />
+                </Label.ToolTip>
+            </Label>
             <ToggleButton Margin="10,0,0,0" IsChecked="{Binding Reply}" Content="Reply" Height="24" Width="70" />
         </StackPanel>
 

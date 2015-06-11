@@ -11,25 +11,28 @@ namespace Shared.Domain
     public sealed class TaskComment : Entity
     {
         private readonly string comment;
-
-        private readonly List<TaskComment> replies = new List<TaskComment>();
+        private readonly int commenterId;
         private readonly TaskComment parentComment;
+        private readonly List<TaskComment> replies = new List<TaskComment>();
         private readonly int taskId;
+        private readonly DateTime timePosted;
 
         /// <summary>
         /// Create a task comment for a task.
         /// </summary>
         /// <param name="comment">The details of the comment.</param>
         /// <param name="taskId">Related task.</param>
+        /// <param name="commenterId">The user who created this comment.</param>
         /// <param name="parentComment">If this comment is replying to a previous comment, that comment.</param>
-        public TaskComment(string comment, int taskId, TaskComment parentComment)
+        public TaskComment(string comment, int taskId, int commenterId, TaskComment parentComment)
         {
             this.comment = comment;
             this.parentComment = parentComment;
             this.taskId = taskId;
+            this.commenterId = commenterId;
         }
 
-        public TaskComment(int id, TaskComment incompleteTaskComment) : base(id)
+        public TaskComment(int id, TaskComment incompleteTaskComment, DateTime timePosted) : base(id)
         {
             Contract.Requires(id > 0);
             Contract.Requires(incompleteTaskComment != null);
@@ -38,6 +41,8 @@ namespace Shared.Domain
 
             comment = incompleteTaskComment.Comment;
             taskId = incompleteTaskComment.taskId;
+            commenterId = incompleteTaskComment.commenterId;
+            this.timePosted = timePosted;
         }
 
         /// <summary>
@@ -48,17 +53,22 @@ namespace Shared.Domain
             get { return comment; }
         }
 
+        public int CommenterId
+        {
+            get { return commenterId; }
+        }
+
+        public DateTime TimePosted
+        {
+            get { return timePosted; }
+        }
+
         /// <summary>
-        /// If equal 0, no parent.
+        /// If null then has no parent.
         /// </summary>
         public TaskComment ParentComment
         {
             get { return parentComment; }
-        }
-
-        public void AddReply(TaskComment taskComment)
-        {
-            replies.Add(taskComment);
         }
 
         public IEnumerable<TaskComment> Replies
@@ -69,6 +79,11 @@ namespace Shared.Domain
         public int TaskId
         {
             get { return taskId; }
+        }
+
+        public void AddReply(TaskComment taskComment)
+        {
+            replies.Add(taskComment);
         }
     }
 }
