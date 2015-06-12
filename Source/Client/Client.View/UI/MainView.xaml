@@ -103,8 +103,24 @@
             </Grid>
         </DockPanel>
 
-        <DockPanel Grid.Row="2" Name="UserListDock" Grid.Column="1" HorizontalAlignment="Stretch"
+        <Grid Grid.Row="2" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+
+
+            <DockPanel Grid.Row="0" Name="UserListDock" HorizontalAlignment="Stretch"
                    VerticalAlignment="Stretch" x:FieldModifier="private" />
+
+            <DockPanel Grid.Row="1" Name="BurnDownDock" HorizontalAlignment="Stretch"
+                   VerticalAlignment="Stretch" x:FieldModifier="private" />
+
+            <GridSplitter Grid.Row="1" Height="1" VerticalAlignment="Top" HorizontalAlignment="Stretch" Foreground="LightGray"
+                       ResizeDirection="Rows" ShowsPreview="True" />
+
+        </Grid>
+     
 
         <GridSplitter Grid.Row="2" Width="1" VerticalAlignment="Stretch" Margin="0" Foreground="LightGray"
                       HorizontalAlignment="Left" ResizeDirection="Columns" ShowsPreview="True" Grid.Column="1" />

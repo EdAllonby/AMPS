@@ -39,6 +39,7 @@ namespace Client.View.UI
 
             CreateUserListDock();
             CreateJamTasksDock();
+            CreateBurnDownDock();
 
             var viewModel = new MainViewModel(serviceRegistry, band);
 
@@ -125,6 +126,12 @@ namespace Client.View.UI
             UserListDock.Children.Add(new UserListView(serviceRegistry, band.Id));
         }
 
+        private void CreateBurnDownDock()
+        {
+            //TODO: Find a workaround for this. Currently creating a UserControl that has a constructor with a parameter can't be done in XAML, so do it here.
+            BurnDownDock.Children.Add(new BurnDownView(serviceRegistry, band));
+        }
+        
         private void CreateJamTasksDock()
         {
             JamTasksDock.Children.Add(new JamTasksView(serviceRegistry, band));

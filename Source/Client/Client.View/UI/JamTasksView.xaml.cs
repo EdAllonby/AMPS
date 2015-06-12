@@ -26,16 +26,8 @@ namespace Client.View.UI
             var viewModel = new JamTasksViewModel(serviceRegistry, band);
 
             viewModel.OpenAdminViewRequested += OnOpenAdminViewRequested;
-            viewModel.OpenBurnDownViewRequested += OnOpenBurndownViewRequested;
-
 
             DataContext = viewModel;
-        }
-
-        void OnOpenBurndownViewRequested(object sender, WindowRequestedEventArgs e)
-        {
-            var burndownView = new BurnDownView(serviceRegistry, e.Band);
-            burndownView.ShowDialog();
         }
 
         private void OnOpenAdminViewRequested(object sender, WindowRequestedEventArgs e)

@@ -53,16 +53,11 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel Grid.Column="0" Orientation="Horizontal">
-                <Button Command="{Binding OpenAdminView}" Width="35" Height="35" Margin="10,5,50,5">
-                    <Path Data="{StaticResource DownloadIcon}" Width="24" Height="24" Fill="Tomato" Stretch="Fill"
+            <Button Grid.Column="0" Command="{Binding OpenAdminView}" Width="35" Height="35" Margin="10,5,50,5">
+                <Path Data="{StaticResource DownloadIcon}" Width="24" Height="24" Fill="Tomato" Stretch="Fill"
                       Stroke="Black" StrokeThickness="1" />
-                </Button>
+            </Button>
 
-                <Button Command="{Binding OpenBurnDownView}" Width="35" Height="24" Content="Graph" />
-
-            </StackPanel>
-           
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,0">
                 <TextBlock VerticalAlignment="Center" FontSize="16" Text="Completed Jam Points: "
                            FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Light" />
