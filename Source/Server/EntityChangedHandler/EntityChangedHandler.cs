@@ -7,12 +7,12 @@ namespace Server.EntityChangedHandler
     /// <summary>
     /// Handles entities that have changed in the <see cref="EntityRepository{T}" />
     /// </summary>
-    internal abstract class OnEntityChangedHandler
+    internal abstract class EntityChangedHandler
     {
         private readonly IClientManager clientManager;
         private readonly RepositoryManager repositoryManager;
 
-        protected OnEntityChangedHandler(IServiceRegistry serviceRegistry)
+        protected EntityChangedHandler(IServiceRegistry serviceRegistry)
         {
             repositoryManager = serviceRegistry.GetService<RepositoryManager>();
             clientManager = serviceRegistry.GetService<IClientManager>();

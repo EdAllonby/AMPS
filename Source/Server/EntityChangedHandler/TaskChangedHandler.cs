@@ -10,13 +10,13 @@ namespace Server.EntityChangedHandler
     /// <summary>
     /// Handles <see cref="Task" /> changes to the <see cref="TaskRepository" />.
     /// </summary>
-    internal sealed class OnTaskChangedHandler : OnEntityChangedHandler
+    internal sealed class TaskChangedHandler : EntityChangedHandler
     {
         private readonly ParticipationRepository participationRepository;
         private readonly TaskRepository taskRepository;
         private readonly IReadOnlyEntityRepository<User> userRepository;
 
-        public OnTaskChangedHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        public TaskChangedHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
             taskRepository = (TaskRepository) RepositoryManager.GetRepository<Task>();
 

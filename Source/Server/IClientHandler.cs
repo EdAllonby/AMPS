@@ -9,7 +9,7 @@ namespace Server
     /// <summary>
     /// Handles a client connected to the <see cref="Server" />.
     /// </summary>
-    public interface IClientHandler
+    internal interface IClientHandler
     {
         /// <summary>
         /// Fires when a message has been sent from the client.

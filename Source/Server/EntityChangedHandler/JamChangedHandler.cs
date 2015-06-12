@@ -10,7 +10,7 @@ namespace Server.EntityChangedHandler
     /// <summary>
     /// Handles <see cref="Entity" /> changes to the <see cref="JamRepository" />.
     /// </summary>
-    internal sealed class OnJamChangedHandler : OnEntityChangedHandler
+    internal sealed class JamChangedHandler : EntityChangedHandler
     {
         private readonly IReadOnlyEntityRepository<Jam> jamRepository;
         private readonly ParticipationRepository participationRepository;
@@ -19,7 +19,7 @@ namespace Server.EntityChangedHandler
         /// Creates a new <see cref="JamRepository" /> <see cref="Entity" /> changed handler and wires up the change events.
         /// </summary>
         /// <param name="serviceRegistry">The server's service registry.</param>
-        public OnJamChangedHandler(IServiceRegistry serviceRegistry)
+        public JamChangedHandler(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {
             jamRepository = RepositoryManager.GetRepository<Jam>();

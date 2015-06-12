@@ -19,11 +19,9 @@ namespace Server
     {
         private const int PortNumber = 5004;
         private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
-        private readonly OnEntityChangedHandler onBandChangedHandler;
-        private readonly OnEntityChangedHandler onJamChangedHandler;
-        private readonly OnEntityChangedHandler onParticipationChangedHandler;
-        private readonly OnEntityChangedHandler onTaskChangedHandler;
-        private readonly OnEntityChangedHandler onUserChangedHandler;
+
+        private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
+
         private readonly IServiceRegistry serviceRegistry;
         private TcpListener clientListener;
         private bool isServerRunning;
@@ -35,17 +33,12 @@ namespace Server
         public Server(IServiceRegistry serviceRegistry)
         {
             this.serviceRegistry = serviceRegistry;
+            entityChangedHandlerRegistry = new EntityChangedHandlerRegistry(serviceRegistry);
 
             JamManager jamManager = serviceRegistry.GetService<JamManager>();
             jamManager.JamEndDateSurpassed += OnJamDateSurpassed;
 
             jamManager.CheckDates();
-
-            onUserChangedHandler = new OnUserChangedHandler(serviceRegistry);
-            onJamChangedHandler = new OnJamChangedHandler(serviceRegistry);
-            onParticipationChangedHandler = new OnParticipationChangedHandler(serviceRegistry);
-            onBandChangedHandler = new OnBandChangedHandler(serviceRegistry);
-            onTaskChangedHandler = new OnTaskChangedHandler(serviceRegistry);
         }
 
         /// <summary>
@@ -68,11 +61,7 @@ namespace Server
             Log.Debug("Starting server shutdown.");
             isServerRunning = false;
 
-            onUserChangedHandler.StopOnMessageChangedHandling();
-            onJamChangedHandler.StopOnMessageChangedHandling();
-            onParticipationChangedHandler.StopOnMessageChangedHandling();
-            onBandChangedHandler.StopOnMessageChangedHandling();
-            onTaskChangedHandler.StopOnMessageChangedHandling();
+            entityChangedHandlerRegistry.StopListening();
 
             JamManager jamManager = serviceRegistry.GetService<JamManager>();
             jamManager.StopCheckingForDates();

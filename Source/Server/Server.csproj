@@ -50,10 +50,11 @@
     <Compile Include="ClientLoginHandler.cs" />
     <Compile Include="ClientManager.cs" />
     <Compile Include="DatabasePasswordPersister.cs" />
-    <Compile Include="EntityChangedHandler\OnParticipationChangedHandler.cs" />
-    <Compile Include="EntityChangedHandler\OnJamChangedHandler.cs" />
-    <Compile Include="EntityChangedHandler\OnBandChangedHandler.cs" />
-    <Compile Include="EntityChangedHandler\OnTaskChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\EntityChangedHandlerRegistry.cs" />
+    <Compile Include="EntityChangedHandler\ParticipationChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\JamChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\BandChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\TaskChangedHandler.cs" />
     <Compile Include="InMemoryPasswordPersister.cs" />
     <Compile Include="IPasswordPersister.cs" />
     <Compile Include="MessageHandler\TaskCommentRequestHandler.cs" />
@@ -92,8 +93,8 @@
     <Compile Include="MessageHandler\TaskSnapshotRequestHandler.cs" />
     <Compile Include="MessageHandler\TaskUpdateRequestHandler.cs" />
     <Compile Include="MessageHandler\UserSnapshotRequestHandler.cs" />
-    <Compile Include="EntityChangedHandler\OnEntityChangedHandler.cs" />
-    <Compile Include="EntityChangedHandler\OnUserChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\EntityChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\UserChangedHandler.cs" />
     <Compile Include="PasswordHandler.cs" />
     <Compile Include="Pbkdf2PasswordHash.cs" />
     <Compile Include="ProjectInstaller.cs">

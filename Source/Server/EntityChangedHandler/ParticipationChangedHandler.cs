@@ -10,7 +10,7 @@ namespace Server.EntityChangedHandler
     /// <summary>
     /// Handles <see cref="Entity" /> changes to the <see cref="ParticipationRepository" />.
     /// </summary>
-    internal sealed class OnParticipationChangedHandler : OnEntityChangedHandler
+    internal sealed class ParticipationChangedHandler : EntityChangedHandler
     {
         private readonly IReadOnlyEntityRepository<Band> bandRepository;
         private readonly ParticipationRepository participationRepository;
@@ -21,7 +21,7 @@ namespace Server.EntityChangedHandler
         /// events.
         /// </summary>
         /// <param name="serviceRegistry">The server's service registry.</param>
-        public OnParticipationChangedHandler(IServiceRegistry serviceRegistry)
+        public ParticipationChangedHandler(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {
             participationRepository = (ParticipationRepository) RepositoryManager.GetRepository<Participation>();

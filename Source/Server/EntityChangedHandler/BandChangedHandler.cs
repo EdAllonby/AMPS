@@ -11,7 +11,7 @@ namespace Server.EntityChangedHandler
     /// <summary>
     /// Handles <see cref="Entity" /> changes to the <see cref="BandRepository" />.
     /// </summary>
-    internal sealed class OnBandChangedHandler : OnEntityChangedHandler
+    internal sealed class BandChangedHandler : EntityChangedHandler
     {
         private readonly IReadOnlyEntityRepository<Band> bandRepository;
         private readonly ParticipationRepository participationRepository;
@@ -20,7 +20,7 @@ namespace Server.EntityChangedHandler
         /// Creates a new <see cref="TaskRepository" /> <see cref="Task" /> changed handler and wires up the change events.
         /// </summary>
         /// <param name="serviceRegistry">The server's service registry.</param>
-        public OnBandChangedHandler(IServiceRegistry serviceRegistry)
+        public BandChangedHandler(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {
             bandRepository = RepositoryManager.GetRepository<Band>();

@@ -8,7 +8,7 @@ namespace Server.EntityChangedHandler
     /// <summary>
     /// Handles <see cref="Entity" /> changes to the <see cref="UserRepository" />.
     /// </summary>
-    internal sealed class OnUserChangedHandler : OnEntityChangedHandler
+    internal sealed class UserChangedHandler : EntityChangedHandler
     {
         private readonly IReadOnlyEntityRepository<User> userRepository;
 
@@ -16,7 +16,7 @@ namespace Server.EntityChangedHandler
         /// Creates a new <see cref="UserRepository" /> <see cref="Entity" /> changed handler and wires up the change events.
         /// </summary>
         /// <param name="serviceRegistry">The server's service registry.</param>
-        public OnUserChangedHandler(IServiceRegistry serviceRegistry)
+        public UserChangedHandler(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {
             userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
