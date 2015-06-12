@@ -183,10 +183,22 @@ namespace Client.ViewModel.MainViewModel
             get { return new RelayCommand(OpenNewAdminView, CanOpenAdminView); }
         }
 
+        public ICommand OpenBurnDownView
+        {
+            get { return new RelayCommand(OpenGraphView);}
+        }
+
+        private void OpenGraphView()
+        {
+            EventUtility.SafeFireEvent(OpenBurnDownViewRequested, this, new WindowRequestedEventArgs(managedBand));
+        }
+
         /// <summary>
         /// Fires when an admin screen is requested to open.
         /// </summary>
         public event EventHandler<WindowRequestedEventArgs> OpenAdminViewRequested;
+
+        public event EventHandler<WindowRequestedEventArgs> OpenBurnDownViewRequested;
 
         private void OpenNewAdminView()
         {

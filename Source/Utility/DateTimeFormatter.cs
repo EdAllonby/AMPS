@@ -4,23 +4,27 @@ namespace Utility
 {
     public static class DateTimeFormatter
     {
+        private static int DaysInMonth = 30;
+        private const int DaysInYear = 365;
+
         public static string TimeAgo(this DateTime dt)
         {
             TimeSpan span = DateTime.Now - dt;
-            if (span.Days > 365)
-            {
-                int years = (span.Days/365);
 
-                if (span.Days%365 != 0)
+            if (span.Days > DaysInYear)
+            {
+                int years = (span.Days/DaysInYear);
+
+                if (span.Days%DaysInYear != 0)
                 {
                     years += 1;
                 }
 
                 return string.Format("about {0} {1} ago", years, years == 1 ? "year" : "years");
             }
-            if (span.Days > 30)
+            if (span.Days > DaysInMonth)
             {
-                int months = (span.Days/30);
+                int months = (span.Days/DaysInMonth);
 
                 if (span.Days%31 != 0)
                 {

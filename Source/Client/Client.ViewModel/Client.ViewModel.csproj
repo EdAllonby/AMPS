@@ -35,6 +35,9 @@
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="OxyPlot">
+      <HintPath>..\..\packages\OxyPlot.Core.2014.1.546\lib\portable-net4+sl4+wp71+win8\OxyPlot.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
@@ -56,6 +59,7 @@
     <Compile Include="MainViewModel\TaskItemViewModel.cs" />
     <Compile Include="MainViewModel\UserViewModel.cs" />
     <Compile Include="SettingsViewModel\AdminViewModel.cs" />
+    <Compile Include="SettingsViewModel\BurnDownViewModel.cs" />
     <Compile Include="SettingsViewModel\DownloadTaskViewModel.cs" />
     <Compile Include="SettingsViewModel\FtpStatusEventArgs.cs" />
     <Compile Include="SettingsViewModel\JamMakerViewModel.cs" />
