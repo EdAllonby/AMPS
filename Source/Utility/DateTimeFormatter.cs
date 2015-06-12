@@ -45,12 +45,7 @@ namespace Utility
             {
                 return string.Format("about {0} seconds ago", span.Seconds);
             }
-            if (span.Seconds <= 5)
-            {
-                return "just now";
-            }
-
-            return string.Empty;
+            return "just now";
         }
     }
 }
