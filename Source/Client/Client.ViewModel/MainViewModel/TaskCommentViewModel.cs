@@ -32,7 +32,7 @@ namespace Client.ViewModel.MainViewModel
             timePosted = comment.TimePosted.ToString();
             UpdateTimePosted();
 
-            Timer myTimer = new Timer(60 * 1000);
+            Timer myTimer = new Timer(30 * 1000);
             myTimer.Start();
             myTimer.Elapsed += (sender, args) => UpdateTimePosted();
 

@@ -21,6 +21,7 @@ namespace Client.ViewModel.MainViewModel
         private readonly IReadOnlyEntityRepository<Task> taskRepository;
         private string comment = string.Empty;
         private readonly int taskId;
+        private string totalTaskComments;
 
         private Task Task
         {
@@ -74,6 +75,16 @@ namespace Client.ViewModel.MainViewModel
             }
         }
 
+        public string TotalTaskComments
+        {
+            get { return totalTaskComments; }
+            set
+            {
+                totalTaskComments = value;
+                OnPropertyChanged();
+            }
+        }
+
         /// <summary>
         /// Underlying model.
         /// </summary>
@@ -113,13 +124,16 @@ namespace Client.ViewModel.MainViewModel
 
         private void UpdateComments()
         {
+            int count = 0;
             foreach (TaskComment taskComment in Task.Comments)
             {
-                AddCommentTree(taskComment, 0);
+                count = AddCommentTree(taskComment, 0, ++count);
             }
+
+            TotalTaskComments = count.AddSuffix("comment", "comments");
         }
 
-        private void AddCommentTree(TaskComment taskComment, int level)
+        private int AddCommentTree(TaskComment taskComment, int level, int count)
         {
             var viewModel = new TaskCommentViewModel(ServiceRegistry, taskComment, level);
 
@@ -141,8 +155,10 @@ namespace Client.ViewModel.MainViewModel
 
             foreach (TaskComment reply in taskComment.Replies)
             {
-                AddCommentTree(reply, level + 1);
+                count = AddCommentTree(reply, level + 1, ++count);
             }
+
+            return count;
         }
 
         /// <summary>

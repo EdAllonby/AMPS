@@ -84,20 +84,25 @@
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
                         <TextBlock Text="Comments" Foreground="Black" Margin="10" />
+
                         <xctk:WatermarkTextBox Watermark="Reply..." Margin="10,0,10,0" Height="24" Width="300"
                                                Text="{Binding Comment, UpdateSourceTrigger=PropertyChanged}">
                             <TextBox.InputBindings>
                                 <KeyBinding Command="{Binding AddComment}" Key="Return" />
                             </TextBox.InputBindings>
                         </xctk:WatermarkTextBox>
+
+                        <TextBlock Text="{Binding TotalTaskComments}" Foreground="Black" Margin="10" />
+
                     </StackPanel>
                 </Expander.Header>
 
                 <Expander.Content>
                     <ListBox ItemsSource="{Binding TaskCommentViewModels, UpdateSourceTrigger=Default}" Grid.Row="1"
-                 Grid.Column="0" FontFamily="Yu Gothic Light"
-                 ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="10,5"
-                 HorizontalContentAlignment="Stretch" ItemContainerStyle="{DynamicResource ListBoxNoFocusStyle}">
+                             Grid.Column="0" FontFamily="Yu Gothic Light"
+                             ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="10,5"
+                             HorizontalContentAlignment="Stretch"
+                             ItemContainerStyle="{DynamicResource ListBoxNoFocusStyle}">
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
