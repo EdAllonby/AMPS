@@ -62,9 +62,9 @@ namespace Shared.Repository
         /// <returns>Whether the user is a leader in a <see cref="Band" />.</returns>
         public bool IsParticipantLeaderOfBand(int userId, int bandId)
         {
-            var participation = GetParticipationByUserIdAndBandId(userId, bandId);
-
-            return participation.IsLeader;
+            Participation participation = GetParticipationByUserIdAndBandId(userId, bandId);
+            
+            return participation != null && participation.IsLeader;
         }
 
         /// <summary>

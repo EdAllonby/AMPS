@@ -43,15 +43,7 @@ namespace Client.View.UI
 
             var viewModel = new MainViewModel(serviceRegistry, band);
 
-            viewModel.OpenBandDetailsViewRequested += OnOpenBandDetailsViewRequested;
-            viewModel.OpenCreateTaskViewRequested += OnOpenCreateTaskViewRequested;
-            viewModel.OpenTaskBacklogViewRequested += OnOpenTaskBacklogViewRequested;
-            viewModel.OpenJamMakerViewRequested += OnOpenJamMakerViewRequested;
-            viewModel.OpenAboutBoxViewRequested += OnOpenAboutBoxRequested;
-            viewModel.OpenSettingsViewRequested += OnOpenSettingsRequested;
-
-            viewModel.OnJamEnded += OnOpenJamEndedDialog;
-            viewModel.CloseMainAndOpenLoginViewRequested += OnCloseMainAndOpenLoginViewRequested;
+            RegisterViewComponents(viewModel);
 
             DataContext = viewModel;
 
@@ -59,6 +51,30 @@ namespace Client.View.UI
             toastNotifier.ToastNotificationRequested += NotificationReceived;
             growlNotifications.Top = SystemParameters.WorkArea.Top + TopOffset;
             growlNotifications.Left = SystemParameters.WorkArea.Left + SystemParameters.WorkArea.Width - LeftOffset;
+        }
+
+        private void RegisterViewComponents(MainViewModel viewModel)
+        {
+            viewModel.OpenBandDetailsViewRequested += OnOpenBandDetailsViewRequested;
+            viewModel.OpenCreateTaskViewRequested += OnOpenCreateTaskViewRequested;
+            viewModel.OpenTaskBacklogViewRequested += OnOpenTaskBacklogViewRequested;
+            viewModel.OpenJamMakerViewRequested += OnOpenJamMakerViewRequested;
+            viewModel.OpenAboutBoxViewRequested += OnOpenAboutBoxRequested;
+            viewModel.OpenSettingsViewRequested += OnOpenSettingsRequested;
+            viewModel.OnJamEnded += OnOpenJamEndedDialog;
+            viewModel.CloseMainAndOpenLoginViewRequested += OnCloseMainAndOpenLoginViewRequested;
+        }
+
+        private void UnregisterViewComponents(MainViewModel viewModel)
+        {
+            viewModel.OpenBandDetailsViewRequested -= OnOpenBandDetailsViewRequested;
+            viewModel.OpenCreateTaskViewRequested -= OnOpenCreateTaskViewRequested;
+            viewModel.OpenTaskBacklogViewRequested -= OnOpenTaskBacklogViewRequested;
+            viewModel.OpenJamMakerViewRequested -= OnOpenJamMakerViewRequested;
+            viewModel.OpenAboutBoxViewRequested -= OnOpenAboutBoxRequested;
+            viewModel.OpenSettingsViewRequested -= OnOpenSettingsRequested;
+            viewModel.OnJamEnded -= OnOpenJamEndedDialog;
+            viewModel.CloseMainAndOpenLoginViewRequested -= OnCloseMainAndOpenLoginViewRequested;
         }
 
         private void NotificationReceived(object sender, TostNotificationEventArgs e)
@@ -139,6 +155,8 @@ namespace Client.View.UI
 
         private void OnMainWindowClosed(object sender, EventArgs e)
         {
+            UnregisterViewComponents((MainViewModel) DataContext);
+            
             applicationExitHelper.TryExitApplication();
         }
     }
