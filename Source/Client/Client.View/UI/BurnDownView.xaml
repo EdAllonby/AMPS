@@ -10,10 +10,8 @@
              xmlns:settingsViewModel="clr-namespace:Client.ViewModel.SettingsViewModel;assembly=Client.ViewModel"
              d:DataContext="{d:DesignInstance settingsViewModel:BurnDownViewModel}">
     <Grid>
-        <oxy:PlotView Title="Jam Burndown">
-            <oxy:PlotView.Series>
-                <oxy:LineSeries ItemsSource="{Binding Points}" />
-            </oxy:PlotView.Series>
-        </oxy:PlotView>
+        <Grid>
+            <oxy:PlotView Model="{Binding PlotModel}"/>
+        </Grid>
     </Grid>
 </UserControl>
