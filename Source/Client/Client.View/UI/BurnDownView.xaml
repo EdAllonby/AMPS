@@ -11,7 +11,7 @@
              d:DataContext="{d:DesignInstance settingsViewModel:BurnDownViewModel}">
     <Grid>
         <Grid>
-            <oxy:PlotView Model="{Binding PlotModel}"/>
+            <oxy:PlotView Model="{Binding PlotModel}" IsMouseWheelEnabled="False" />
         </Grid>
     </Grid>
 </UserControl>

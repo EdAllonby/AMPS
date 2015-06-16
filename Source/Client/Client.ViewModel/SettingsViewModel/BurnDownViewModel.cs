@@ -112,7 +112,7 @@ namespace Client.ViewModel.SettingsViewModel
                         }
                         else
                         {
-                          totalPoints -= projectedPointsPerDay;                            
+                            totalPoints -= projectedPointsPerDay;
                         }
                     }
 
@@ -134,7 +134,7 @@ namespace Client.ViewModel.SettingsViewModel
 
             var dateAxis = new DateTimeAxis {Title = "Projected Finish"};
             PlotModel.Axes.Add(dateAxis);
-            var valueAxis = new LinearAxis {MajorGridlineStyle = LineStyle.Solid, MinorGridlineStyle = LineStyle.Dot, Title = "Value"};
+            var valueAxis = new LinearAxis {Title = "Task Points Remaining"};
             PlotModel.Axes.Add(valueAxis);
 
             PlotModel.Series.Add(CreateExpectedBurndown());
