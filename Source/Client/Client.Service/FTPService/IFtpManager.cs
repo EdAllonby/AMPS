@@ -10,6 +10,10 @@ namespace Client.Service.FTPService
     /// </summary>
     public interface IFtpManager : IService
     {
+        string Address { get; set; }
+        string Username { get; set; }
+        string Password { get; set; }
+
         /// <summary>
         /// Updates for a data upload.
         /// </summary>

@@ -21,7 +21,7 @@
                            VerticalAlignment="Center" Margin="10,0,0,0" />
         </Grid>
 
-        <oxy:PlotView Margin="10" Grid.Row="1" Model="{Binding PlotModel}" IsMouseWheelEnabled="False" />
+        <oxy:PlotView Margin="10" Grid.Row="1" Model="{Binding PlotModel}" IsMouseWheelEnabled="False" Background="Transparent" />
 
     </Grid>
 </UserControl>

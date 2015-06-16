@@ -16,6 +16,42 @@ namespace Client.Service.FTPService
         private const int BufferSize = 2048;
         private static readonly ILog Log = LogManager.GetLogger(typeof (FtpManager));
 
+        public string Address
+        {
+            get { return ConfigurationManager.ConnectionStrings["FTPHost"].ConnectionString; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UpdateSetting("FTPHost", value);
+                }
+            }
+        }
+
+        public string Username
+        {
+            get { return ConfigurationManager.ConnectionStrings["FTPUsername"].ConnectionString; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UpdateSetting("FTPUsername", value);
+                }
+            }
+        }
+
+        public string Password
+        {
+            get { return ConfigurationManager.ConnectionStrings["FTPPassword"].ConnectionString; }
+            set
+            {
+                if (!string.IsNullOrWhiteSpace(value))
+                {
+                    UpdateSetting("FTPPassword", value);
+                }
+            }
+        }
+
         /// <summary>
         /// Updates for a data upload.
         /// </summary>
@@ -161,6 +197,22 @@ namespace Client.Service.FTPService
             }
         }
 
+        private static void UpdateSetting(string key, string value)
+        {
+            try
+            {
+                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
+                config.Save(ConfigurationSaveMode.Modified, true);
+
+                ConfigurationManager.RefreshSection("connectionStrings");
+            }
+            catch (Exception)
+            {
+                Log.ErrorFormat("Failed to change configuration setting for key {0}", key);
+            }
+        }
+
         /// <summary>
         /// Download a file from the FTP and store it in a location.
         /// </summary>
@@ -297,14 +349,10 @@ namespace Client.Service.FTPService
             return FtpStatusCode.Undefined;
         }
 
-        private static FtpWebRequest CreateRequest(string file, string requestMethod)
+        private FtpWebRequest CreateRequest(string file, string requestMethod)
         {
-            string host = ConfigurationManager.ConnectionStrings["FTPHost"].ConnectionString;
-            string username = ConfigurationManager.ConnectionStrings["FTPUsername"].ConnectionString;
-            string password = ConfigurationManager.ConnectionStrings["FTPPassword"].ConnectionString;
-
-            FtpWebRequest ftpRequest = (FtpWebRequest) WebRequest.Create(host + "/" + file);
-            ftpRequest.Credentials = new NetworkCredential(username, password);
+            FtpWebRequest ftpRequest = (FtpWebRequest) WebRequest.Create(Address + "/" + file);
+            ftpRequest.Credentials = new NetworkCredential(Username, Password);
 
             SetupRequestParameters(requestMethod, ftpRequest);
 

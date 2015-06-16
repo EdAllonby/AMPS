@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mainViewModel="clr-namespace:Client.ViewModel.SettingsViewModel;assembly=Client.ViewModel"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:ui="clr-namespace:Client.View.UI"
         x:Class="Client.View.UI.SettingsView"
         mc:Ignorable="d"
         RenderOptions.BitmapScalingMode="Fant"
         TextOptions.TextRenderingMode="ClearType"
-        WindowState="Normal" Width="250" Height="190"
+        WindowState="Normal" Width="250" Height="380"
         d:DataContext="{d:DesignInstance {x:Type mainViewModel:SettingsViewModel}}">
     <Grid>
         <Grid.RowDefinitions>
@@ -16,25 +17,60 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-
         </Grid.RowDefinitions>
+
         <Label Grid.Row="0" Content="Settings" HorizontalAlignment="Center"
                FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" FontSize="40" />
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
-            <Label Content="Enable Toasts:" />
-            <CheckBox IsChecked="{Binding IsNotificationsEnabled}" VerticalAlignment="Center" />
-        </StackPanel>
+        <GroupBox Margin="10" Grid.Row="1" Header="Toasts">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal" VerticalAlignment="Top">
-            <Label Content="Toasts To Display:" />
-            <xctk:IntegerUpDown Value="{Binding ToastsToDisplay}"
-                                IsEnabled="{Binding IsNotificationsEnabled}"
-                                Increment="1"
-                                Maximum="{Binding MaxToastsToDisplay}" Minimum="1"
-                                Height="24" />
+                <StackPanel Grid.Row="0" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Label Content="Enable Toasts:" />
+                    <CheckBox IsChecked="{Binding IsNotificationsEnabled}" VerticalAlignment="Center" />
+                </StackPanel>
 
-        </StackPanel>
+                <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Top">
+                    <Label Content="Toasts To Display:" />
+                    <xctk:IntegerUpDown Value="{Binding ToastsToDisplay}"
+                                        IsEnabled="{Binding IsNotificationsEnabled}"
+                                        Increment="1"
+                                        Maximum="{Binding MaxToastsToDisplay}" Minimum="1"
+                                        Height="24" />
+                </StackPanel>
+            </Grid>
+        </GroupBox>
+
+        <GroupBox Margin="10" Grid.Row="2" Header="FTP Credentials">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="5">
+                    <Label Content="Username:" />
+                    <TextBox Text="{Binding FTPUsername}" Width="120" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
+                    <Label Content="Password:" />
+                    <PasswordBox Width="120" ui:PasswordBoxAssistant.BindPassword="true" ui:PasswordBoxAssistant.BoundPassword="{Binding Path=FTPPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="5">
+                    <Label Content="Address:" />
+                    <TextBox Text="{Binding FTPAddress}" Width="120" />
+                </StackPanel>
+
+            </Grid>
+        </GroupBox>
 
         <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,10,0">
             <Button Height="24" Width="70" Content="OK" Margin="0,0,20,0" Command="{Binding ApplySettings}" />

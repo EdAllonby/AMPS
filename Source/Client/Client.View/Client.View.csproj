@@ -134,6 +134,7 @@
     <Compile Include="UI\DownloadTaskView.xaml.cs">
       <DependentUpon>DownloadTaskView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UI\PasswordBoxAssistant.cs" />
     <Compile Include="UI\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
