@@ -112,7 +112,7 @@
             <DockPanel Grid.Row="0" Name="UserListDock" HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch" x:FieldModifier="private" />
 
-            <DockPanel Margin="10" Grid.Row="1" Name="BurnDownDock" HorizontalAlignment="Stretch"
+            <DockPanel Grid.Row="1" Name="BurnDownDock" HorizontalAlignment="Stretch"
                        VerticalAlignment="Stretch" x:FieldModifier="private" />
 
             <GridSplitter Grid.Row="1" Height="1" VerticalAlignment="Top" HorizontalAlignment="Stretch"
@@ -120,7 +120,7 @@
                           ResizeDirection="Rows" ShowsPreview="True" />
         </Grid>
 
-        <GridSplitter Grid.Row="2" Width="1" VerticalAlignment="Stretch" Margin="0" Foreground="LightGray"
+        <GridSplitter Grid.Row="2" Width="1" VerticalAlignment="Stretch" Foreground="LightGray"
                       HorizontalAlignment="Left" ResizeDirection="Columns" ShowsPreview="True" Grid.Column="1" />
 
         <StatusBar Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">

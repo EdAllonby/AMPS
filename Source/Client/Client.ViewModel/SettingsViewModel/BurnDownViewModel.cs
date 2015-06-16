@@ -130,7 +130,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private void UpdateModel()
         {
-            PlotModel = new PlotModel {Title = "Jam Burndown"};
+            PlotModel = new PlotModel();
 
             var dateAxis = new DateTimeAxis {Title = "Projected Finish"};
             PlotModel.Axes.Add(dateAxis);

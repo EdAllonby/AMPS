@@ -10,8 +10,18 @@
              xmlns:settingsViewModel="clr-namespace:Client.ViewModel.SettingsViewModel;assembly=Client.ViewModel"
              d:DataContext="{d:DesignInstance settingsViewModel:BurnDownViewModel}">
     <Grid>
-        <Grid>
-            <oxy:PlotView Model="{Binding PlotModel}" IsMouseWheelEnabled="False" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
+            <Rectangle Fill="#2980b9" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+            <TextBlock Text="Jam Burndown" FontSize="12" Foreground="White" HorizontalAlignment="Left"
+                           VerticalAlignment="Center" Margin="10,0,0,0" />
         </Grid>
+
+        <oxy:PlotView Margin="10" Grid.Row="1" Model="{Binding PlotModel}" IsMouseWheelEnabled="False" />
+
     </Grid>
 </UserControl>
