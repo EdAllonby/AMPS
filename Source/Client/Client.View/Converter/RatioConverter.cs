@@ -8,15 +8,10 @@ namespace Client.View.Converter
     /// <summary>
     /// Convert double to double using a ratio parameter
     /// </summary>
-    [ValueConversion(typeof(string), typeof(string))]
+    [ValueConversion(typeof (string), typeof (string))]
     public class RatioConverter : MarkupExtension, IValueConverter
     {
         private static RatioConverter instance;
-
-        public override object ProvideValue(IServiceProvider serviceProvider)
-        {
-            return instance ?? (instance = new RatioConverter());
-        }
 
         /// <summary>
         /// Modify value with a ratio parameter
@@ -31,7 +26,7 @@ namespace Client.View.Converter
             var size = 0.0;
             if (value != null)
             {
-                size = System.Convert.ToDouble(value, CultureInfo.InvariantCulture) * System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture);
+                size = System.Convert.ToDouble(value, CultureInfo.InvariantCulture)*System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture);
             }
 
             return size;
@@ -47,6 +42,11 @@ namespace Client.View.Converter
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
+        }
+
+        public override object ProvideValue(IServiceProvider serviceProvider)
+        {
+            return instance ?? (instance = new RatioConverter());
         }
     }
 }

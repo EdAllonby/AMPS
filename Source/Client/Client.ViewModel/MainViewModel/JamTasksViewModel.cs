@@ -130,7 +130,7 @@ namespace Client.ViewModel.MainViewModel
         /// The current Tasks in the Jam.
         /// </summary>
         // ReSharper disable CollectionNeverQueried.Global
-        public ObservableCollection<TaskItemViewModel> DisplayedTasksInCurrentJam { get; private set; }
+        public ObservableCollection<TaskItemViewModel> DisplayedTasksInCurrentJam { get; }
 
         // ReSharper restore CollectionNeverQueried.Global
         /// <summary>

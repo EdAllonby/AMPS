@@ -10,14 +10,13 @@ namespace Client.ViewModel.SettingsViewModel
 {
     public sealed class SettingsViewModel : ViewModel
     {
-        private readonly ToastNotificationManager notifier;
         private readonly IFtpManager ftpManager;
+        private readonly ToastNotificationManager notifier;
+        private string ftpAddress;
+        private string ftpPassword;
+        private string ftpUsername;
         private bool isNotificationsEnabled;
         private int toastsToDisplay;
-
-        private string ftpUsername;
-        private string ftpPassword;
-        private string ftpAddress;
 
         public SettingsViewModel(IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
@@ -35,7 +34,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public bool IsNotificationsEnabled
         {
-            get { return isNotificationsEnabled;}
+            get { return isNotificationsEnabled; }
 
             set
             {
@@ -86,17 +85,17 @@ namespace Client.ViewModel.SettingsViewModel
             }
         }
 
-        public event EventHandler Close;
-
         public ICommand DiscardSettings
         {
-            get { return new RelayCommand(()=> EventUtility.SafeFireEvent(Close, this));}
+            get { return new RelayCommand(() => EventUtility.SafeFireEvent(Close, this)); }
         }
 
         public ICommand ApplySettings
         {
-            get { return new RelayCommand(ApplyNewSettings);}
+            get { return new RelayCommand(ApplyNewSettings); }
         }
+
+        public event EventHandler Close;
 
         private void ApplyNewSettings()
         {
@@ -106,7 +105,7 @@ namespace Client.ViewModel.SettingsViewModel
             ftpManager.Address = FTPAddress;
             ftpManager.Username = FTPUsername;
             ftpManager.Password = FTPPassword;
-            
+
             EventUtility.SafeFireEvent(Close, this);
         }
     }

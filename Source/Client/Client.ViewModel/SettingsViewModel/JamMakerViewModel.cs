@@ -18,6 +18,7 @@ namespace Client.ViewModel.SettingsViewModel
     public sealed class JamMakerViewModel : TaskInformationViewModel
     {
         private readonly int bandId;
+        private bool addAllTasks;
         private DateTime jamEndDate;
         private JamMakerModel jamMakerModel;
 
@@ -25,8 +26,6 @@ namespace Client.ViewModel.SettingsViewModel
         /// Fires when requested to close the Jam maker.
         /// </summary>
         public EventHandler RequestJamMakerClose;
-
-        private bool addAllTasks = false;
 
         /// <summary>
         /// Creates a new View Model for the <see cref="Jam" /> Maker.

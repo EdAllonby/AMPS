@@ -15,27 +15,24 @@ namespace Client.ViewModel.MainViewModel
     {
         private const int IndentationFactor = 30;
         public readonly TaskComment TaskComment;
+        private string relativeTime;
         private bool reply;
         private string replyComment;
-        private readonly string username;
-        private string relativeTime;
-        private readonly string timePosted;
 
         public TaskCommentViewModel(IServiceRegistry serviceRegistry, TaskComment comment, int child) : base(serviceRegistry)
         {
             IReadOnlyEntityRepository<User> userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
 
-            username = userRepository.FindEntityById(comment.CommenterId).Username;
+            Username = userRepository.FindEntityById(comment.CommenterId).Username;
             RelativeTime = comment.TimePosted.TimeAgo();
             LeftMargin = new Thickness(child*IndentationFactor, 0, 0, 0);
             TaskComment = comment;
-            timePosted = comment.TimePosted.ToString();
+            TimePosted = comment.TimePosted.ToString();
             UpdateTimePosted();
 
-            Timer myTimer = new Timer(30 * 1000);
+            Timer myTimer = new Timer(30*1000);
             myTimer.Start();
             myTimer.Elapsed += (sender, args) => UpdateTimePosted();
-
         }
 
         public Thickness LeftMargin { get; private set; }
@@ -50,10 +47,7 @@ namespace Client.ViewModel.MainViewModel
             }
         }
 
-        public string Username
-        {
-            get { return username; }
-        }
+        public string Username { get; }
 
         public string RelativeTime
         {
@@ -65,19 +59,11 @@ namespace Client.ViewModel.MainViewModel
             }
         }
 
-        public string TimePosted
-        {
-            get { return timePosted; }
-        }
+        public string TimePosted { get; }
 
         public string Comment
         {
             get { return TaskComment.Comment; }
-        }
-
-        public bool Equals(TaskCommentViewModel other)
-        {
-            return TaskComment.Equals(other.TaskComment);
         }
 
         public string ReplyComment
@@ -95,6 +81,11 @@ namespace Client.ViewModel.MainViewModel
             get { return new RelayCommand(AddReplyToComment, CanAddReplyToComment); }
         }
 
+        public bool Equals(TaskCommentViewModel other)
+        {
+            return TaskComment.Equals(other.TaskComment);
+        }
+
         private void UpdateTimePosted()
         {
             RelativeTime = TaskComment.TimePosted.TimeAgo();
@@ -105,7 +96,7 @@ namespace Client.ViewModel.MainViewModel
             IClientService clientService = ServiceRegistry.GetService<IClientService>();
 
             clientService.AddTaskComment(TaskComment.TaskId, ReplyComment, TaskComment);
-            
+
             ReplyComment = string.Empty;
             Reply = false;
         }

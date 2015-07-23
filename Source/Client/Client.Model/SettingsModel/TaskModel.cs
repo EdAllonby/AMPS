@@ -8,9 +8,6 @@ namespace Client.Model.SettingsModel
     /// </summary>
     public class TaskModel : NotifiableModel
     {
-        private readonly string description;
-        private readonly int taskId;
-        private readonly string title;
         private User assignedMember;
         private TaskCategory category;
         private bool isCompleted;
@@ -24,9 +21,9 @@ namespace Client.Model.SettingsModel
         /// <param name="assignedMember">the assigned member of this <see cref="Task" />.</param>
         public TaskModel(Task task, User assignedMember)
         {
-            taskId = task.Id;
-            title = task.Title;
-            description = task.Description;
+            TaskId = task.Id;
+            Title = task.Title;
+            Description = task.Description;
             AssignedMember = assignedMember;
             Points = task.Points;
             IsCompleted = task.IsCompleted;
@@ -38,26 +35,17 @@ namespace Client.Model.SettingsModel
         /// The Id of the <see cref="Task" />
         /// </summary>
         // ReSharper disable once UnusedMember.Global
-        public int TaskId
-        {
-            get { return taskId; }
-        }
+        public int TaskId { get; }
 
         /// <summary>
         /// The title of the <see cref="Task" />.
         /// </summary>
-        public string Title
-        {
-            get { return title; }
-        }
+        public string Title { get; }
 
         /// <summary>
         /// A description of the <see cref="Task" />.
         /// </summary>
-        public string Description
-        {
-            get { return description; }
-        }
+        public string Description { get; }
 
         /// <summary>
         /// The <see cref="Band" />  member who this <see cref="Task" /> is assigned to.

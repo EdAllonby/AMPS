@@ -9,8 +9,6 @@ namespace Shared.Domain
     [Serializable]
     public sealed class Jam : Entity
     {
-        private readonly int bandId;
-        private readonly DateTime jamEndDate;
         private bool isActive = true;
 
         /// <summary>
@@ -24,25 +22,19 @@ namespace Shared.Domain
             Contract.Requires(id > 0);
             Contract.Requires(bandId > 0);
 
-            this.bandId = bandId;
-            this.jamEndDate = jamEndDate;
+            this.BandId = bandId;
+            this.JamEndDate = jamEndDate;
         }
 
         /// <summary>
         /// The <see cref="Band" /> Id that this <see cref="Jam" /> belongs to.
         /// </summary>
-        public int BandId
-        {
-            get { return bandId; }
-        }
+        public int BandId { get; }
 
         /// <summary>
         /// The date in which the <see cref="Jam" /> ends.
         /// </summary>
-        public DateTime JamEndDate
-        {
-            get { return jamEndDate; }
-        }
+        public DateTime JamEndDate { get; }
 
         /// <summary>
         /// Is the current <see cref="Jam" /> active?
@@ -54,7 +46,7 @@ namespace Shared.Domain
             {
                 if (value.Equals(false))
                 {
-                    if (DateTime.UtcNow > jamEndDate)
+                    if (DateTime.UtcNow > JamEndDate)
                     {
                         isActive = value;
                     }

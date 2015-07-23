@@ -19,9 +19,7 @@ namespace Server
     {
         private const int PortNumber = 5004;
         private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
-
         private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
-
         private readonly IServiceRegistry serviceRegistry;
         private TcpListener clientListener;
         private bool isServerRunning;

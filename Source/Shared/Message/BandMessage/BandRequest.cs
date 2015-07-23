@@ -11,9 +11,6 @@ namespace Shared.Message.BandMessage
     [Serializable]
     public sealed class BandRequest : IMessage
     {
-        private readonly int leaderId;
-        private readonly string name;
-
         /// <summary>
         /// Defines a band request with a set of members.
         /// </summary>
@@ -25,17 +22,14 @@ namespace Shared.Message.BandMessage
             Contract.Requires(leaderId > 0);
 
             UserIds = userIds;
-            this.name = name;
-            this.leaderId = leaderId;
+            this.Name = name;
+            this.LeaderId = leaderId;
         }
 
         /// <summary>
         /// Requested name for new Band.
         /// </summary>
-        public string Name
-        {
-            get { return name; }
-        }
+        public string Name { get; }
 
         /// <summary>
         /// The users to add to the Band.
@@ -45,10 +39,7 @@ namespace Shared.Message.BandMessage
         /// <summary>
         /// The leader's Id.
         /// </summary>
-        public int LeaderId
-        {
-            get { return leaderId; }
-        }
+        public int LeaderId { get; }
 
         /// <summary>
         /// The message identifier for this <see cref="IMessage" /> request.

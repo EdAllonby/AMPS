@@ -8,7 +8,6 @@ namespace Client.Model.SettingsModel
     public sealed class BandMakerUserModel : NotifiableModel
     {
         private readonly int clientId;
-        private readonly User user;
         private bool isLeader;
         private bool isSelected;
 
@@ -19,7 +18,7 @@ namespace Client.Model.SettingsModel
         /// <param name="clientId">used to assertain if the current <see cref="User" /> is the client.</param>
         public BandMakerUserModel(User user, int clientId)
         {
-            this.user = user;
+            this.User = user;
             this.clientId = clientId;
 
             if (clientId == user.Id)
@@ -31,10 +30,7 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// A <see cref="User" /> who can enter the band.
         /// </summary>
-        public User User
-        {
-            get { return user; }
-        }
+        public User User { get; }
 
         /// <summary>
         /// If the <see cref="User" /> will enter the <see cref="Band" />.

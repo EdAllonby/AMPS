@@ -10,8 +10,6 @@ namespace Shared.Message.JamMessage
     [Serializable]
     public sealed class JamRequest : IMessage
     {
-        private readonly DateTime jamEndDate;
-
         /// <summary>
         /// Creates a new <see cref="Jam" /> Request.
         /// </summary>
@@ -20,7 +18,7 @@ namespace Shared.Message.JamMessage
         /// <param name="jamEndDate">The requested end date of the <see cref="Jam" />.</param>
         public JamRequest(int bandId, List<int> taskIds, DateTime jamEndDate)
         {
-            this.jamEndDate = jamEndDate;
+            this.JamEndDate = jamEndDate;
             BandId = bandId;
             TaskIds = taskIds;
         }
@@ -38,10 +36,7 @@ namespace Shared.Message.JamMessage
         /// <summary>
         /// The requested end date of the <see cref="Jam" />.
         /// </summary>
-        public DateTime JamEndDate
-        {
-            get { return jamEndDate; }
-        }
+        public DateTime JamEndDate { get; }
 
         /// <summary>
         /// The message identifier for this <see cref="IMessage" /> request.

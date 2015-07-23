@@ -4,8 +4,8 @@ namespace Utility
 {
     public static class DateTimeFormatter
     {
-        private static int DaysInMonth = 30;
         private const int DaysInYear = 365;
+        private static readonly int DaysInMonth = 30;
 
         public static string TimeAgo(this DateTime dt)
         {

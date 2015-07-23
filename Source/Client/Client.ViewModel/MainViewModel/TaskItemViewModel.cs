@@ -18,15 +18,10 @@ namespace Client.ViewModel.MainViewModel
     /// </summary>
     public sealed class TaskItemViewModel : TaskInformationViewModel, IEquatable<TaskItemViewModel>
     {
+        private readonly int taskId;
         private readonly IReadOnlyEntityRepository<Task> taskRepository;
         private string comment = string.Empty;
-        private readonly int taskId;
         private string totalTaskComments;
-
-        private Task Task
-        {
-            get { return taskRepository.FindEntityById(taskId); }
-        }
 
         /// <summary>
         /// Create a new View Model for the Jam Tasks View.
@@ -47,6 +42,11 @@ namespace Client.ViewModel.MainViewModel
             TaskModel = new TaskModel(task, assignedMember);
             TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
             UpdateComments();
+        }
+
+        private Task Task
+        {
+            get { return taskRepository.FindEntityById(taskId); }
         }
 
         /// <summary>
@@ -88,14 +88,14 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Underlying model.
         /// </summary>
-        public TaskModel TaskModel { get; private set; }
+        public TaskModel TaskModel { get; }
 
         public ICommand AddComment
         {
             get { return new RelayCommand(AddCommentToTask, CanAddCommentToTask); }
         }
 
-        public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; private set; }
+        public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; }
 
         /// <summary>
         /// Checks if two task items are equal based on their underlying <see cref="Shared.Domain.Task" /> Id.

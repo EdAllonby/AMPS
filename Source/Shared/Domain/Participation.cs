@@ -9,10 +9,6 @@ namespace Shared.Domain
     [Serializable]
     public class Participation : Entity
     {
-        private readonly int bandId;
-        private readonly bool isLeader;
-        private readonly int userId;
-
         /// <summary>
         /// Creates a new participation entity.
         /// </summary>
@@ -27,9 +23,9 @@ namespace Shared.Domain
             Contract.Requires(userId > 0);
             Contract.Requires(bandId > 0);
 
-            this.userId = userId;
-            this.bandId = bandId;
-            this.isLeader = isLeader;
+            this.UserId = userId;
+            this.BandId = bandId;
+            this.IsLeader = isLeader;
         }
 
         /// <summary>
@@ -43,33 +39,24 @@ namespace Shared.Domain
             Contract.Requires(userId > 0);
             Contract.Requires(bandId > 0);
 
-            this.userId = userId;
-            this.bandId = bandId;
-            this.isLeader = isLeader;
+            this.UserId = userId;
+            this.BandId = bandId;
+            this.IsLeader = isLeader;
         }
 
         /// <summary>
         /// Is this Participant a leader of the <see cref="Band" />?
         /// </summary>
-        public bool IsLeader
-        {
-            get { return isLeader; }
-        }
+        public bool IsLeader { get; }
 
         /// <summary>
         /// The participants <see cref="User" /> Id.
         /// </summary>
-        public int UserId
-        {
-            get { return userId; }
-        }
+        public int UserId { get; }
 
         /// <summary>
         /// The <see cref="Band" /> Id this <see cref="User" /> is participating in.
         /// </summary>
-        public int BandId
-        {
-            get { return bandId; }
-        }
+        public int BandId { get; }
     }
 }

@@ -8,23 +8,18 @@ namespace Shared
     /// </summary>
     public sealed class JamEndedEventArgs : EventArgs
     {
-        private readonly Jam finishedJam;
-
         /// <summary>
         /// Create a new <see cref="EventArgs" />
         /// </summary>
         /// <param name="finishedJam">The finished <see cref="Jam" />.</param>
         public JamEndedEventArgs(Jam finishedJam)
         {
-            this.finishedJam = finishedJam;
+            this.FinishedJam = finishedJam;
         }
 
         /// <summary>
         /// The packaged <see cref="Jam" /> that has ended.
         /// </summary>
-        public Jam FinishedJam
-        {
-            get { return finishedJam; }
-        }
+        public Jam FinishedJam { get; }
     }
 }

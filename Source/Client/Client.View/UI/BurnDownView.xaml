@@ -18,10 +18,11 @@
         <Grid VerticalAlignment="Top" DockPanel.Dock="Top">
             <Rectangle Fill="#2980b9" Height="20" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
             <TextBlock Text="Jam Burndown" FontSize="12" Foreground="White" HorizontalAlignment="Left"
-                           VerticalAlignment="Center" Margin="10,0,0,0" />
+                       VerticalAlignment="Center" Margin="10,0,0,0" />
         </Grid>
 
-        <oxy:PlotView Margin="10" Grid.Row="1" Model="{Binding PlotModel}" IsMouseWheelEnabled="False" Background="Transparent" />
+        <oxy:PlotView Margin="10" Grid.Row="1" Model="{Binding PlotModel}" IsMouseWheelEnabled="False"
+                      Background="Transparent" />
 
     </Grid>
 </UserControl>

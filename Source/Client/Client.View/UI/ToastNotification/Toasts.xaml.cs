@@ -10,16 +10,16 @@ namespace Client.View.UI.ToastNotification
     public partial class Toasts
     {
         private readonly ObservableCollection<Notification> buffer = new ObservableCollection<Notification>();
+        private readonly ToastNotificationManager notificationManager;
         private readonly ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
         private int count;
-        private readonly ToastNotificationManager notificationManager;
 
         public Toasts(ToastNotificationManager notificationManager)
         {
             this.notificationManager = notificationManager;
-  
+
             InitializeComponent();
-            
+
             NotificationsControl.DataContext = notifications;
         }
 

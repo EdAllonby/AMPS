@@ -9,8 +9,6 @@ namespace Shared.Domain
     [Serializable]
     public sealed class User : Entity
     {
-        private readonly string username;
-
         /// <summary>
         /// Creates an incomplete user entity.
         /// </summary>
@@ -18,7 +16,7 @@ namespace Shared.Domain
         {
             Contract.Requires(username != null);
 
-            this.username = username;
+            this.Username = username;
         }
 
         /// <summary>
@@ -32,17 +30,14 @@ namespace Shared.Domain
             Contract.Requires(username != null);
             Contract.Requires(id > 0);
 
-            this.username = username;
+            this.Username = username;
             ConnectionStatus = status;
         }
 
         /// <summary>
         /// The name of the <see cref="User" />.
         /// </summary>
-        public string Username
-        {
-            get { return username; }
-        }
+        public string Username { get; }
 
         /// <summary>
         /// The current status of the <see cref="User" />.

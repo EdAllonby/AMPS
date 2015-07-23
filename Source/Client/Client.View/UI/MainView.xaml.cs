@@ -147,7 +147,7 @@ namespace Client.View.UI
             //TODO: Find a workaround for this. Currently creating a UserControl that has a constructor with a parameter can't be done in XAML, so do it here.
             BurnDownDock.Children.Add(new BurnDownView(serviceRegistry, band));
         }
-        
+
         private void CreateJamTasksDock()
         {
             JamTasksDock.Children.Add(new JamTasksView(serviceRegistry, band));
@@ -156,7 +156,7 @@ namespace Client.View.UI
         private void OnMainWindowClosed(object sender, EventArgs e)
         {
             UnregisterViewComponents((MainViewModel) DataContext);
-            
+
             applicationExitHelper.TryExitApplication();
         }
     }

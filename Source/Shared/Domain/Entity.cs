@@ -17,9 +17,6 @@ namespace Shared.Domain
         /// </summary>
         protected static readonly ILog Log = LogManager.GetLogger(typeof (Entity));
 
-        private readonly int id;
-        private readonly bool isNew;
-
         /// <summary>
         /// Gives an entity an id
         /// </summary>
@@ -27,7 +24,7 @@ namespace Shared.Domain
         protected Entity(int id)
         {
             Contract.Requires(id > 0);
-            this.id = id;
+            this.Id = id;
         }
 
         /// <summary>
@@ -36,24 +33,18 @@ namespace Shared.Domain
         /// </summary>
         protected Entity()
         {
-            isNew = true;
+            IsNew = true;
         }
 
         /// <summary>
         /// An entity can be new if it has not yet been assigned an ID.
         /// </summary>
-        public bool IsNew
-        {
-            get { return isNew; }
-        }
+        public bool IsNew { get; }
 
         /// <summary>
         /// The unique Id of this entity.
         /// </summary>
-        public int Id
-        {
-            get { return id; }
-        }
+        public int Id { get; }
 
         /// <summary>
         /// Check for <see cref="Entity" /> equality.
@@ -72,7 +63,7 @@ namespace Shared.Domain
                 return true;
             }
 
-            return id == other.id;
+            return Id == other.Id;
         }
 
         /// <summary>
@@ -121,7 +112,7 @@ namespace Shared.Domain
         /// <returns>The hash code of the <see cref="Entity" />.</returns>
         public override int GetHashCode()
         {
-            return id;
+            return Id;
         }
     }
 }

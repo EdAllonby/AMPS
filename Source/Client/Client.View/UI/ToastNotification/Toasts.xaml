@@ -13,7 +13,7 @@
         <Storyboard x:Key="CollapseStoryboard">
             <DoubleAnimation From="100" To="0" Storyboard.TargetProperty="Height" Duration="0:0:1" />
         </Storyboard>
-        
+
         <DataTemplate x:Key="MessageTemplate" DataType="service:Notification">
             <Grid x:Name="NotificationWindow" Tag="{Binding Path=Id}" Background="Transparent"
                   SizeChanged="NotificationWindowSizeChanged">
@@ -35,7 +35,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
-                        
+
                         <Image Grid.RowSpan="2" Source="{Binding Path=ImageUrl}" Margin="4" Width="60" />
                         <TextBlock Grid.Row="0" Grid.Column="1" Text="{Binding Path=Title}"
                                    TextOptions.TextRenderingMode="ClearType" TextOptions.TextFormattingMode="Display"
@@ -52,7 +52,7 @@
                     </Grid>
                 </Border>
             </Grid>
-            
+
             <DataTemplate.Triggers>
                 <EventTrigger RoutedEvent="Window.Loaded" SourceName="NotificationWindow">
                     <BeginStoryboard x:Name="FadeInStoryBoard">
@@ -64,7 +64,7 @@
                         </Storyboard>
                     </BeginStoryboard>
                 </EventTrigger>
-                
+
                 <Trigger Property="IsMouseOver" Value="True">
                     <Trigger.EnterActions>
                         <SeekStoryboard Offset="0:0:3" BeginStoryboardName="FadeInStoryBoard" />
@@ -75,7 +75,7 @@
                         <ResumeStoryboard BeginStoryboardName="FadeInStoryBoard" />
                     </Trigger.ExitActions>
                 </Trigger>
-                
+
                 <EventTrigger RoutedEvent="Button.Click" SourceName="CloseButton">
                     <BeginStoryboard>
                         <Storyboard>

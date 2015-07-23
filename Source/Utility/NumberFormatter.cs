@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Utility
+﻿namespace Utility
 {
     public static class NumberFormatter
     {
@@ -22,7 +20,7 @@ namespace Utility
                         nounState = NounState.Plural;
                         break;
                     }
-                    
+
                     return specialCase;
                 case 1:
                     nounState = NounState.Singular;
@@ -56,6 +54,6 @@ namespace Utility
         {
             Singular,
             Plural
-        }   
+        }
     }
 }

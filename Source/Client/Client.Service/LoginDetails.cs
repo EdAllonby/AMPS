@@ -7,11 +7,6 @@ namespace Client.Service
     /// </summary>
     public class LoginDetails
     {
-        private readonly IPAddress address;
-        private readonly string password;
-        private readonly int port;
-        private readonly string username;
-
         /// <summary>
         /// Encapsulates Login information.
         /// </summary>
@@ -21,42 +16,30 @@ namespace Client.Service
         /// <param name="port">The port which the server is listening to.</param>
         public LoginDetails(string username, string password, IPAddress address, int port)
         {
-            this.username = username;
-            this.password = password;
-            this.address = address;
-            this.port = port;
+            this.Username = username;
+            this.Password = password;
+            this.Address = address;
+            this.Port = port;
         }
 
         /// <summary>
         /// The username used to login.
         /// </summary>
-        public string Username
-        {
-            get { return username; }
-        }
+        public string Username { get; }
 
         /// <summary>
         /// The password used to validate the login.
         /// </summary>
-        public string Password
-        {
-            get { return password; }
-        }
+        public string Password { get; }
 
         /// <summary>
         /// The IP targeted Address used to login.
         /// </summary>
-        public IPAddress Address
-        {
-            get { return address; }
-        }
+        public IPAddress Address { get; }
 
         /// <summary>
         /// The targeted Port used to login.
         /// </summary>
-        public int Port
-        {
-            get { return port; }
-        }
+        public int Port { get; }
     }
 }

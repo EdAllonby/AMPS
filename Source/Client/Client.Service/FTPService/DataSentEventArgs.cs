@@ -4,23 +4,13 @@ namespace Client.Service.FTPService
 {
     public sealed class DataSentEventArgs : EventArgs
     {
-        private readonly long bytesSent;
-        private readonly long totalBytes;
-
         public DataSentEventArgs(long bytesSent, long totalBytes)
         {
-            this.bytesSent = bytesSent;
-            this.totalBytes = totalBytes;
+            this.BytesSent = bytesSent;
+            this.TotalBytes = totalBytes;
         }
 
-        public long BytesSent
-        {
-            get { return bytesSent; }
-        }
-
-        public long TotalBytes
-        {
-            get { return totalBytes; }
-        }
+        public long BytesSent { get; }
+        public long TotalBytes { get; }
     }
 }

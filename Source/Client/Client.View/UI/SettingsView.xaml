@@ -60,7 +60,8 @@
 
                 <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="5">
                     <Label Content="Password:" />
-                    <PasswordBox Width="120" ui:PasswordBoxAssistant.BindPassword="true" ui:PasswordBoxAssistant.BoundPassword="{Binding Path=FTPPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <PasswordBox Width="120" ui:PasswordBoxAssistant.BindPassword="true"
+                                 ui:PasswordBoxAssistant.BoundPassword="{Binding Path=FTPPassword, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
                 </StackPanel>
 
 

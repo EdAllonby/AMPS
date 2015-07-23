@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using Client.ViewModel.SettingsViewModel;
+﻿using Client.ViewModel.SettingsViewModel;
 using Shared;
 using Shared.Domain;
 
@@ -15,7 +14,6 @@ namespace Client.View.UI
             InitializeComponent();
             var viewModel = new BurnDownViewModel(band, serviceRegistry);
             DataContext = viewModel;
-
         }
     }
 }

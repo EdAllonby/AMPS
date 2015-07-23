@@ -63,7 +63,7 @@ namespace Shared.Repository
         public bool IsParticipantLeaderOfBand(int userId, int bandId)
         {
             Participation participation = GetParticipationByUserIdAndBandId(userId, bandId);
-            
+
             return participation != null && participation.IsLeader;
         }
 

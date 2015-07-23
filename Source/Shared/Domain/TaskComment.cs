@@ -10,12 +10,7 @@ namespace Shared.Domain
     [Serializable]
     public sealed class TaskComment : Entity
     {
-        private readonly string comment;
-        private readonly int commenterId;
-        private readonly TaskComment parentComment;
         private readonly List<TaskComment> replies = new List<TaskComment>();
-        private readonly int taskId;
-        private readonly DateTime timePosted;
 
         /// <summary>
         /// Create a task comment for a task.
@@ -26,10 +21,10 @@ namespace Shared.Domain
         /// <param name="parentComment">If this comment is replying to a previous comment, that comment.</param>
         public TaskComment(string comment, int taskId, int commenterId, TaskComment parentComment)
         {
-            this.comment = comment;
-            this.parentComment = parentComment;
-            this.taskId = taskId;
-            this.commenterId = commenterId;
+            this.Comment = comment;
+            this.ParentComment = parentComment;
+            this.TaskId = taskId;
+            this.CommenterId = commenterId;
         }
 
         public TaskComment(int id, TaskComment incompleteTaskComment, DateTime timePosted) : base(id)
@@ -37,49 +32,33 @@ namespace Shared.Domain
             Contract.Requires(id > 0);
             Contract.Requires(incompleteTaskComment != null);
 
-            parentComment = incompleteTaskComment.ParentComment;
+            ParentComment = incompleteTaskComment.ParentComment;
 
-            comment = incompleteTaskComment.Comment;
-            taskId = incompleteTaskComment.taskId;
-            commenterId = incompleteTaskComment.commenterId;
-            this.timePosted = timePosted;
+            Comment = incompleteTaskComment.Comment;
+            TaskId = incompleteTaskComment.TaskId;
+            CommenterId = incompleteTaskComment.CommenterId;
+            this.TimePosted = timePosted;
         }
 
         /// <summary>
         /// Details of the comment.
         /// </summary>
-        public string Comment
-        {
-            get { return comment; }
-        }
+        public string Comment { get; }
 
-        public int CommenterId
-        {
-            get { return commenterId; }
-        }
-
-        public DateTime TimePosted
-        {
-            get { return timePosted; }
-        }
+        public int CommenterId { get; }
+        public DateTime TimePosted { get; }
 
         /// <summary>
         /// If null then has no parent.
         /// </summary>
-        public TaskComment ParentComment
-        {
-            get { return parentComment; }
-        }
+        public TaskComment ParentComment { get; }
 
         public IEnumerable<TaskComment> Replies
         {
             get { return replies; }
         }
 
-        public int TaskId
-        {
-            get { return taskId; }
-        }
+        public int TaskId { get; }
 
         public void AddReply(TaskComment taskComment)
         {

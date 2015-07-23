@@ -30,9 +30,6 @@ namespace Shared.Domain
             Disconnected
         }
 
-        private readonly Status userConnectionStatus;
-        private readonly int userId;
-
         /// <summary>
         /// Creates a new status for an associated <see cref="User" />.
         /// </summary>
@@ -40,24 +37,18 @@ namespace Shared.Domain
         /// <param name="userConnectionStatus">The <see cref="Status" /> of the <see cref="User" />.</param>
         public ConnectionStatus(int userId, Status userConnectionStatus)
         {
-            this.userId = userId;
-            this.userConnectionStatus = userConnectionStatus;
+            this.UserId = userId;
+            this.UserConnectionStatus = userConnectionStatus;
         }
 
         /// <summary>
         /// The associated <see cref="User" />.
         /// </summary>
-        public int UserId
-        {
-            get { return userId; }
-        }
+        public int UserId { get; }
 
         /// <summary>
         /// The current status of the user.
         /// </summary>
-        public Status UserConnectionStatus
-        {
-            get { return userConnectionStatus; }
-        }
+        public Status UserConnectionStatus { get; }
     }
 }

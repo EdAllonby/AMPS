@@ -7,9 +7,6 @@ namespace Shared.Message
     /// </summary>
     public sealed class ConnectionStatusNotification : IMessage
     {
-        private readonly ConnectionStatus connectionStatus;
-        private readonly NotificationType notificationType;
-
         /// <summary>
         /// Create a new <see cref="ConnectionStatus" /> notification <see cref="IMessage" />.
         /// </summary>
@@ -17,25 +14,19 @@ namespace Shared.Message
         /// <param name="notificationType">The entity modification to perform.</param>
         public ConnectionStatusNotification(ConnectionStatus connectionStatus, NotificationType notificationType)
         {
-            this.connectionStatus = connectionStatus;
-            this.notificationType = notificationType;
+            this.ConnectionStatus = connectionStatus;
+            this.NotificationType = notificationType;
         }
 
         /// <summary>
         /// The new <see cref="User" /> <see cref="ConnectionStatus" />.
         /// </summary>
-        public ConnectionStatus ConnectionStatus
-        {
-            get { return connectionStatus; }
-        }
+        public ConnectionStatus ConnectionStatus { get; }
 
         /// <summary>
         /// The entity modification to perform.
         /// </summary>
-        public NotificationType NotificationType
-        {
-            get { return notificationType; }
-        }
+        public NotificationType NotificationType { get; }
 
         /// <summary>
         /// The identifier for this message notification type..

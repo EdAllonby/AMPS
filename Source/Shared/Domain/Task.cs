@@ -10,11 +10,6 @@ namespace Shared.Domain
     [Serializable]
     public class Task : Entity
     {
-        private readonly int bandId;
-        private readonly TaskCategory category;
-        private readonly List<TaskComment> comments = new List<TaskComment>();
-        private readonly string description;
-        private readonly string title;
         private int assignedUserId;
         private DateTime completedDate = DateTime.MinValue;
         private bool isCompleted;
@@ -47,12 +42,12 @@ namespace Shared.Domain
             Contract.Requires(!string.IsNullOrWhiteSpace(title));
             Contract.Requires(!string.IsNullOrWhiteSpace(description));
 
-            this.title = title;
-            this.description = description;
+            this.Title = title;
+            this.Description = description;
             Points = points;
-            this.bandId = bandId;
+            this.BandId = bandId;
             AssignedUserId = assignedUserId;
-            this.category = category;
+            this.Category = category;
         }
 
         /// <summary>
@@ -67,12 +62,12 @@ namespace Shared.Domain
             Contract.Requires(incompleteTask != null);
             Contract.Requires(id > 0);
 
-            title = incompleteTask.Title;
-            description = incompleteTask.Description;
+            Title = incompleteTask.Title;
+            Description = incompleteTask.Description;
             points = incompleteTask.Points;
-            bandId = incompleteTask.BandId;
+            BandId = incompleteTask.BandId;
             assignedUserId = incompleteTask.AssignedUserId;
-            category = incompleteTask.Category;
+            Category = incompleteTask.Category;
         }
 
         /// <summary>
@@ -107,19 +102,13 @@ namespace Shared.Domain
         /// <summary>
         /// The overview of the <see cref="Task" /> .
         /// </summary>
-        public string Title
-        {
-            get { return title; }
-        }
+        public string Title { get; }
 
         /// <summary>
-        /// The detailed <see cref="Shared.Domain.Task.description" /> of the
+        /// The detailed <see cref="Description" /> of the
         /// <see cref="Task" /> .
         /// </summary>
-        public string Description
-        {
-            get { return description; }
-        }
+        public string Description { get; }
 
         /// <summary>
         /// The number of <see cref="Shared.Domain.Task.points" /> this
@@ -140,10 +129,7 @@ namespace Shared.Domain
         /// <summary>
         /// The <see cref="Band" /> Id this <see cref="Task" /> is in.
         /// </summary>
-        public int BandId
-        {
-            get { return bandId; }
-        }
+        public int BandId { get; }
 
         /// <summary>
         /// The <see cref="User" /> Id this <see cref="Task" /> is assigned to.
@@ -169,19 +155,13 @@ namespace Shared.Domain
         /// <see cref="Shared.Domain.Task.Comments" /> for the
         /// <see cref="Task" /> .
         /// </summary>
-        public List<TaskComment> Comments
-        {
-            get { return comments; }
-        }
+        public List<TaskComment> Comments { get; } = new List<TaskComment>();
 
         /// <summary>
         /// The <see cref="Task" /> 's
         /// <see cref="Shared.Domain.Task.Category" /> .
         /// </summary>
-        public TaskCategory Category
-        {
-            get { return category; }
-        }
+        public TaskCategory Category { get; }
 
         /// <summary>
         /// Has the <see cref="Task" /> been completed?

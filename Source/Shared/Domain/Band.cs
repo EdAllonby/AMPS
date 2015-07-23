@@ -9,8 +9,6 @@ namespace Shared.Domain
     [Serializable]
     public sealed class Band : Entity
     {
-        private readonly string name;
-
         /// <summary>
         /// Creates a new <see cref="Band" /> which has an Id.
         /// </summary>
@@ -20,15 +18,12 @@ namespace Shared.Domain
         {
             Contract.Requires(id > 0);
 
-            this.name = name;
+            this.Name = name;
         }
 
         /// <summary>
         /// The name of the <see cref="Band" />.
         /// </summary>
-        public string Name
-        {
-            get { return name; }
-        }
+        public string Name { get; }
     }
 }
