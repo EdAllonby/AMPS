@@ -48,7 +48,7 @@ namespace Client.ViewModel.MainViewModel
 
             List<string> defaultSelectedTaskCategories = new List<string> {"All"};
 
-            foreach (TaskCategory taskCategory in Enum.GetValues(typeof (TaskCategory)).Cast<TaskCategory>())
+            foreach (TaskCategory taskCategory in EnumUtility.EnumToEnumerable<TaskCategory>())
             {
                 TaskCategories.Add(taskCategory.ToString());
                 defaultSelectedTaskCategories.Add(taskCategory.ToString());
@@ -64,7 +64,7 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// The task filters available.
         /// </summary>
-        public static IEnumerable<TaskFilter> TaskFilters => Enum.GetValues(typeof (TaskFilter)).Cast<TaskFilter>();
+        public static IEnumerable<TaskFilter> TaskFilters => EnumUtility.EnumToEnumerable<TaskFilter>();
 
         /// <summary>
         /// The task catgories available.

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Shared.Domain;
 using Utility;
@@ -135,7 +134,7 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// Catagory types to choose from.
         /// </summary>
-        public static IEnumerable<TaskCategory> TaskCategories => Enum.GetValues(typeof (TaskCategory)).Cast<TaskCategory>();
+        public static IEnumerable<TaskCategory> TaskCategories => EnumUtility.EnumToEnumerable<TaskCategory>();
 
         /// <summary>
         /// The chosen <see cref="TaskCategory" />.
