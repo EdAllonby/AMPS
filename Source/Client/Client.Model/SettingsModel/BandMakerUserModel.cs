@@ -18,7 +18,7 @@ namespace Client.Model.SettingsModel
         /// <param name="clientId">used to assertain if the current <see cref="User" /> is the client.</param>
         public BandMakerUserModel(User user, int clientId)
         {
-            this.User = user;
+            User = user;
             this.clientId = clientId;
 
             if (clientId == user.Id)
@@ -55,12 +55,7 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// If it is possible to change selection.
         /// </summary>
-        // ReSharper disable UnusedMember.Global
-        public bool IsSelectedEnabled
-            // ReSharper restore UnusedMember.Global
-        {
-            get { return !User.Id.Equals(clientId); }
-        }
+        public bool IsSelectedEnabled => !User.Id.Equals(clientId);
 
         /// <summary>
         /// Will the <see cref="User" /> be the leader of the <see cref="Band" />.

@@ -39,9 +39,6 @@ namespace Shared.Message
         /// <summary>
         /// What the message identifier is.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return notificationMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T)); }
-        }
+        public MessageIdentifier MessageIdentifier => notificationMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T));
     }
 }

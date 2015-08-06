@@ -42,12 +42,12 @@ namespace Shared.Domain
             Contract.Requires(!string.IsNullOrWhiteSpace(title));
             Contract.Requires(!string.IsNullOrWhiteSpace(description));
 
-            this.Title = title;
-            this.Description = description;
+            Title = title;
+            Description = description;
             Points = points;
-            this.BandId = bandId;
+            BandId = bandId;
             AssignedUserId = assignedUserId;
-            this.Category = category;
+            Category = category;
         }
 
         /// <summary>
@@ -73,19 +73,13 @@ namespace Shared.Domain
         /// <summary>
         /// Returns whether this task belongs in a <see cref="Jam" /> .
         /// </summary>
-        public bool IsInJam
-        {
-            get { return JamId > 0; }
-        }
+        public bool IsInJam => JamId > 0;
 
         /// <summary>
         /// Returns whether the <see cref="Task" /> has an assigned
         /// <see cref="User" /> .
         /// </summary>
-        public bool HasAssignedUser
-        {
-            get { return AssignedUserId > 0; }
-        }
+        public bool HasAssignedUser => AssignedUserId > 0;
 
         /// <summary>
         /// <para>
@@ -94,10 +88,7 @@ namespace Shared.Domain
         /// </para>
         /// <para>given to it.</para>
         /// </summary>
-        public bool HasPoints
-        {
-            get { return Points > 0; }
-        }
+        public bool HasPoints => Points > 0;
 
         /// <summary>
         /// The overview of the <see cref="Task" /> .

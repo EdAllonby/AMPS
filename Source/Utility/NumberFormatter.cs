@@ -32,7 +32,7 @@
 
             string nounToUse = NounFinder(nounState, singularNoun, pluralNoun);
 
-            return string.Format("{0} {1}", timeUnitDistance, nounToUse);
+            return $"{timeUnitDistance} {nounToUse}";
         }
 
         private static string NounFinder(NounState nounState, string singularVersion, string pluralVersion)

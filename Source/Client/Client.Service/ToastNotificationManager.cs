@@ -32,10 +32,7 @@ namespace Client.Service
             }
         }
 
-        public static int MaxNotificationsToDisplay
-        {
-            get { return 15; }
-        }
+        public static int MaxNotificationsToDisplay => 15;
 
         public event EventHandler<TostNotificationEventArgs> ToastNotificationRequested;
 

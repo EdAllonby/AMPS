@@ -16,10 +16,10 @@ namespace Client.Service
         /// <param name="port">The port which the server is listening to.</param>
         public LoginDetails(string username, string password, IPAddress address, int port)
         {
-            this.Username = username;
-            this.Password = password;
-            this.Address = address;
-            this.Port = port;
+            Username = username;
+            Password = password;
+            Address = address;
+            Port = port;
         }
 
         /// <summary>

@@ -12,26 +12,18 @@ namespace Client.View.UI
     /// </summary>
     public partial class CircularProgressBar
     {
-        #region Data
-
         private readonly DispatcherTimer animationTimer;
 
-        #endregion
-
-        #region Constructor
 
         public CircularProgressBar()
         {
             InitializeComponent();
 
-            animationTimer = new DispatcherTimer(
-                DispatcherPriority.ContextIdle, Dispatcher);
-            animationTimer.Interval = new TimeSpan(0, 0, 0, 0, 75);
+            animationTimer = new DispatcherTimer(DispatcherPriority.ContextIdle, Dispatcher)
+            {
+                Interval = new TimeSpan(0, 0, 0, 0, 75)
+            };
         }
-
-        #endregion
-
-        #region Private Methods
 
         private void Start()
         {
@@ -68,14 +60,11 @@ namespace Client.View.UI
             SetPosition(C8, Offset, 8.0, Step);
         }
 
-        private static void SetPosition(DependencyObject ellipse, double offset,
-            double posOffSet, double step)
+        private static void SetPosition(DependencyObject ellipse, double offset, double posOffSet, double step)
         {
-            ellipse.SetValue(Canvas.LeftProperty, 50.0
-                                                  + Math.Sin(offset + posOffSet*step)*50.0);
+            ellipse.SetValue(Canvas.LeftProperty, 50.0 + Math.Sin(offset + posOffSet*step)*50.0);
 
-            ellipse.SetValue(Canvas.TopProperty, 50
-                                                 + Math.Cos(offset + posOffSet*step)*50.0);
+            ellipse.SetValue(Canvas.TopProperty, 50 + Math.Cos(offset + posOffSet*step)*50.0);
         }
 
         private void HandleUnloaded(object sender, RoutedEventArgs e)
@@ -83,17 +72,18 @@ namespace Client.View.UI
             Stop();
         }
 
-        private void HandleVisibleChanged(object sender,
-            DependencyPropertyChangedEventArgs e)
+        private void HandleVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
             bool isVisible = (bool) e.NewValue;
 
             if (isVisible)
+            {
                 Start();
+            }
             else
+            {
                 Stop();
+            }
         }
-
-        #endregion
     }
 }

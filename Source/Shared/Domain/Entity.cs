@@ -24,7 +24,7 @@ namespace Shared.Domain
         protected Entity(int id)
         {
             Contract.Requires(id > 0);
-            this.Id = id;
+            Id = id;
         }
 
         /// <summary>

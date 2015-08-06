@@ -58,10 +58,7 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// The name of the file to download.
         /// </summary>
-        public string TaskFileName
-        {
-            get { return string.Format("{0}_{1}_{2}_{3}{4}", taskToDownload.BandId, taskToDownload.Id, taskToDownload.Title, taskToDownload.AssignedUserId, FileExtension); }
-        }
+        public string TaskFileName => $"{taskToDownload.BandId}_{taskToDownload.Id}_{taskToDownload.Title}_{taskToDownload.AssignedUserId}{FileExtension}";
 
         /// <summary>
         /// Is the <see cref="Task" /> currently downloading?

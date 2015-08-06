@@ -68,6 +68,7 @@ namespace Client.Service
         /// Tries to parse the username, ipAddress and port strings to a <see cref="LoginDetails" /> object.
         /// </summary>
         /// <param name="username">The username wanted to be set.</param>
+        /// <param name="password">The password of the user.</param>
         /// <param name="ipAddress">The IPAddress wanted to be set.</param>
         /// <param name="port">The port wanted to be set.</param>
         /// <param name="loginDetails">An object to store the parsed login details.</param>

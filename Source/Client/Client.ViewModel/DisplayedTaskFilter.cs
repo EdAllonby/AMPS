@@ -1,6 +1,4 @@
-﻿#region
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
@@ -9,8 +7,6 @@ using Client.ViewModel.MainViewModel;
 using log4net;
 using Shared;
 using Shared.Domain;
-
-#endregion
 
 namespace Client.ViewModel
 {
@@ -24,7 +20,6 @@ namespace Client.ViewModel
         /// <summary>
         /// <para>
         /// Filter the displayed tasks in the
-        /// <see cref="System.Collections.ObjectModel.ObservableCollection" />
         /// </para>
         /// <para>.</para>
         /// </summary>

@@ -22,8 +22,8 @@ namespace Shared.Domain
             Contract.Requires(id > 0);
             Contract.Requires(bandId > 0);
 
-            this.BandId = bandId;
-            this.JamEndDate = jamEndDate;
+            BandId = bandId;
+            JamEndDate = jamEndDate;
         }
 
         /// <summary>

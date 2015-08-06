@@ -22,9 +22,6 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// The <see cref="Task" />s to display on the model.
         /// </summary>
-        public IEnumerable<TaskModel> TaskModels
-        {
-            get { return taskModels; }
-        }
+        public IEnumerable<TaskModel> TaskModels => taskModels;
     }
 }

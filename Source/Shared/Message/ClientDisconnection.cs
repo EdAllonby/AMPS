@@ -27,9 +27,6 @@ namespace Shared.Message
         /// <summary>
         /// <see cref="ClientDisconnection" /> message type.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.ClientDisconnection; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.ClientDisconnection;
     }
 }

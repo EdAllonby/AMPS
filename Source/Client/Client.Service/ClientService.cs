@@ -54,10 +54,7 @@ namespace Client.Service
         /// <summary>
         /// Information of the Server.
         /// </summary>
-        public IPEndPoint ServerEndPoint
-        {
-            get { return connectionHandler.RemoteEndPoint; }
-        }
+        public IPEndPoint ServerEndPoint => connectionHandler.RemoteEndPoint;
 
         /// <summary>
         /// This Client's unique User Id.

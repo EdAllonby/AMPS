@@ -15,24 +15,15 @@ namespace Server.Persistence
         /// </summary>
         private const string Columns = " Id, Username ";
 
-        protected override string FindStatement
-        {
-            get
-            {
-                return "SELECT " + Columns +
-                       " FROM Users" +
-                       " WHERE Id = @id ";
-            }
-        }
+        protected override string FindStatement => "SELECT " + Columns +
+                                                   " FROM Users" +
+                                                   " WHERE Id = @id ";
 
-        protected override string InsertStatement
-        {
-            get { return "INSERT INTO Users VALUES (@id,@username)"; }
-        }
+        protected override string InsertStatement => "INSERT INTO Users VALUES (@id,@username)";
 
         public override bool UpdateEntity(User entity)
         {
-            string updateUserQuery = string.Format("UPDATE Participations SET Id=@id,Username=@username WHERE Id = {0}", entity.Id);
+            string updateUserQuery = $"UPDATE Participations SET Id=@id,Username=@username WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -77,19 +68,10 @@ namespace Server.Persistence
 
         private class FindAllUsers : IStatementSource
         {
-            public string Sql
-            {
-                get
-                {
-                    return "SELECT " + Columns +
-                           " FROM Users ";
-                }
-            }
+            public string Sql => "SELECT " + Columns +
+                                 " FROM Users ";
 
-            public IList<string> Parameters
-            {
-                get { return new List<string>(); }
-            }
+            public IList<string> Parameters => new List<string>();
         }
     }
 }

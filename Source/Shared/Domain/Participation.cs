@@ -23,9 +23,9 @@ namespace Shared.Domain
             Contract.Requires(userId > 0);
             Contract.Requires(bandId > 0);
 
-            this.UserId = userId;
-            this.BandId = bandId;
-            this.IsLeader = isLeader;
+            UserId = userId;
+            BandId = bandId;
+            IsLeader = isLeader;
         }
 
         /// <summary>
@@ -39,9 +39,9 @@ namespace Shared.Domain
             Contract.Requires(userId > 0);
             Contract.Requires(bandId > 0);
 
-            this.UserId = userId;
-            this.BandId = bandId;
-            this.IsLeader = isLeader;
+            UserId = userId;
+            BandId = bandId;
+            IsLeader = isLeader;
         }
 
         /// <summary>

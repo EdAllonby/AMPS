@@ -6,8 +6,8 @@ namespace Client.Service.FTPService
     {
         public DataSentEventArgs(long bytesSent, long totalBytes)
         {
-            this.BytesSent = bytesSent;
-            this.TotalBytes = totalBytes;
+            BytesSent = bytesSent;
+            TotalBytes = totalBytes;
         }
 
         public long BytesSent { get; }

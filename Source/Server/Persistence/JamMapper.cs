@@ -16,24 +16,15 @@ namespace Server.Persistence
         /// </summary>
         private const string Columns = " Id, BandId, EndDate, IsActive ";
 
-        protected override string FindStatement
-        {
-            get
-            {
-                return "SELECT " + Columns +
-                       " FROM Tasks" +
-                       " WHERE Id = @id ";
-            }
-        }
+        protected override string FindStatement => "SELECT " + Columns +
+                                                   " FROM Tasks" +
+                                                   " WHERE Id = @id ";
 
-        protected override string InsertStatement
-        {
-            get { return "INSERT INTO Jams VALUES (@id,@bandId,@endDate,@isActive)"; }
-        }
+        protected override string InsertStatement => "INSERT INTO Jams VALUES (@id,@bandId,@endDate,@isActive)";
 
         public override bool UpdateEntity(Jam entity)
         {
-            string updateJamQuery = string.Format("UPDATE Jams SET Id=@id,BandId=@bandId,EndDate=@endDate,IsActive=@isActive WHERE Id = {0}", entity.Id);
+            string updateJamQuery = $"UPDATE Jams SET Id=@id,BandId=@bandId,EndDate=@endDate,IsActive=@isActive WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -82,19 +73,10 @@ namespace Server.Persistence
 
         private class FindAllJams : IStatementSource
         {
-            public string Sql
-            {
-                get
-                {
-                    return "SELECT " + Columns +
-                           " FROM Jams ";
-                }
-            }
+            public string Sql => "SELECT " + Columns +
+                                 " FROM Jams ";
 
-            public IList<string> Parameters
-            {
-                get { return new List<string>(); }
-            }
+            public IList<string> Parameters => new List<string>();
         }
     }
 }

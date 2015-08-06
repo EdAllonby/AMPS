@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Timers;
 using System.Windows;
 using System.Windows.Input;
@@ -27,7 +28,7 @@ namespace Client.ViewModel.MainViewModel
             RelativeTime = comment.TimePosted.TimeAgo();
             LeftMargin = new Thickness(child*IndentationFactor, 0, 0, 0);
             TaskComment = comment;
-            TimePosted = comment.TimePosted.ToString();
+            TimePosted = comment.TimePosted.ToString(CultureInfo.InvariantCulture);
             UpdateTimePosted();
 
             Timer myTimer = new Timer(30*1000);
@@ -61,10 +62,7 @@ namespace Client.ViewModel.MainViewModel
 
         public string TimePosted { get; }
 
-        public string Comment
-        {
-            get { return TaskComment.Comment; }
-        }
+        public string Comment => TaskComment.Comment;
 
         public string ReplyComment
         {
@@ -76,10 +74,7 @@ namespace Client.ViewModel.MainViewModel
             }
         }
 
-        public ICommand AddReply
-        {
-            get { return new RelayCommand(AddReplyToComment, CanAddReplyToComment); }
-        }
+        public ICommand AddReply => new RelayCommand(AddReplyToComment, CanAddReplyToComment);
 
         public bool Equals(TaskCommentViewModel other)
         {

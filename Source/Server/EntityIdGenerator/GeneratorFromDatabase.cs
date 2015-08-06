@@ -18,7 +18,7 @@ namespace Server.EntityIdGenerator
             int currentId = 0;
             string connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
 
-            string getMaxIdQuery = string.Format("SELECT MAX(Id) as Id FROM {0}", table);
+            string getMaxIdQuery = $"SELECT MAX(Id) as Id FROM {table}";
 
             using (var databaseConnection = new SqlConnection(connectionString))
             using (var getHighestIdCommand = new SqlCommand(getMaxIdQuery, databaseConnection))

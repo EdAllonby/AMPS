@@ -14,7 +14,7 @@ namespace SharedTest
         {
             IMessageSerialiser message = SerialiserFactory.GetSerialiser(MessageIdentifier.LoginRequest);
 
-            Assert.IsNotNull(message);
+            Assert.That(message, Is.Not.Null);
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace SharedTest
         {
             MessageSerialiser<LoginRequest> loginRequestSerialiser = SerialiserFactory.GetSerialiser<LoginRequest>();
 
-            Assert.IsNotNull(loginRequestSerialiser);
+            Assert.That(loginRequestSerialiser, Is.Not.Null);
         }
     }
 }

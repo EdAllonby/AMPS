@@ -64,7 +64,7 @@ namespace ConsoleClient
 
             for (int clientNumber = 0; clientNumber < TotalClients; clientNumber++)
             {
-                Clients[clientNumber].LogOn(new LoginDetails(string.Format("$TestUser{0}", clientNumber), "Password1!", ipAddress, 5004));
+                Clients[clientNumber].LogOn(new LoginDetails($"$TestUser{clientNumber}", "Password1!", ipAddress, 5004));
             }
 
             // Make sure all clients have finished running their initialisation threads.

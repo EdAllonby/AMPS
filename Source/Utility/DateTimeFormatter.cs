@@ -20,7 +20,7 @@ namespace Utility
                     years += 1;
                 }
 
-                return string.Format("about {0} {1} ago", years, years == 1 ? "year" : "years");
+                return $"about {years} {(years == 1 ? "year" : "years")} ago";
             }
             if (span.Days > DaysInMonth)
             {
@@ -31,23 +31,23 @@ namespace Utility
                     months += 1;
                 }
 
-                return string.Format("about {0} {1} ago", months, months == 1 ? "month" : "months");
+                return $"about {months} {(months == 1 ? "month" : "months")} ago";
             }
             if (span.Days > 0)
             {
-                return string.Format("about {0} {1} ago", span.Days, span.Days == 1 ? "day" : "days");
+                return $"about {span.Days} {(span.Days == 1 ? "day" : "days")} ago";
             }
             if (span.Hours > 0)
             {
-                return string.Format("about {0} {1} ago", span.Hours, span.Hours == 1 ? "hour" : "hours");
+                return $"about {span.Hours} {(span.Hours == 1 ? "hour" : "hours")} ago";
             }
             if (span.Minutes > 0)
             {
-                return string.Format("about {0} {1} ago", span.Minutes, span.Minutes == 1 ? "minute" : "minutes");
+                return $"about {span.Minutes} {(span.Minutes == 1 ? "minute" : "minutes")} ago";
             }
             if (span.Seconds > 5)
             {
-                return string.Format("about {0} seconds ago", span.Seconds);
+                return $"about {span.Seconds} seconds ago";
             }
             return "just now";
         }

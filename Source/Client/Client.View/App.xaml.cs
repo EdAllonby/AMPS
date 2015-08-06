@@ -6,7 +6,6 @@ using System.Windows;
 using Client.Service;
 using Client.Service.FTPService;
 using Client.View.UI;
-using log4net;
 using log4net.Config;
 using Shared;
 using Shared.Domain;
@@ -19,8 +18,6 @@ namespace Client.View
     /// </summary>
     public partial class App
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (App));
-
         /// <summary>
         /// When the application has started, give it an appropriate logging mechanism, and show the log in view.
         /// </summary>

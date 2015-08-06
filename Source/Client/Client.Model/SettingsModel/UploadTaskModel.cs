@@ -58,18 +58,12 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// The name of the file to upload.
         /// </summary>
-        public string TaskFileName
-        {
-            get { return string.Format("{0}_{1}_{2}_{3}{4}", task.BandId, task.Id, task.Title, task.AssignedUserId, FileExtension); }
-        }
+        public string TaskFileName => $"{task.BandId}_{task.Id}_{task.Title}_{task.AssignedUserId}{FileExtension}";
 
         /// <summary>
         /// The Id of the <see cref="Task" /> to upload.
         /// </summary>
-        public int TaskId
-        {
-            get { return task.Id; }
-        }
+        public int TaskId => task.Id;
 
         /// <summary>
         /// Is the <see cref="Task" /> currently uploading?

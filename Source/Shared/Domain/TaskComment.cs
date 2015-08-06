@@ -21,10 +21,10 @@ namespace Shared.Domain
         /// <param name="parentComment">If this comment is replying to a previous comment, that comment.</param>
         public TaskComment(string comment, int taskId, int commenterId, TaskComment parentComment)
         {
-            this.Comment = comment;
-            this.ParentComment = parentComment;
-            this.TaskId = taskId;
-            this.CommenterId = commenterId;
+            Comment = comment;
+            ParentComment = parentComment;
+            TaskId = taskId;
+            CommenterId = commenterId;
         }
 
         public TaskComment(int id, TaskComment incompleteTaskComment, DateTime timePosted) : base(id)
@@ -37,7 +37,7 @@ namespace Shared.Domain
             Comment = incompleteTaskComment.Comment;
             TaskId = incompleteTaskComment.TaskId;
             CommenterId = incompleteTaskComment.CommenterId;
-            this.TimePosted = timePosted;
+            TimePosted = timePosted;
         }
 
         /// <summary>
@@ -53,10 +53,7 @@ namespace Shared.Domain
         /// </summary>
         public TaskComment ParentComment { get; }
 
-        public IEnumerable<TaskComment> Replies
-        {
-            get { return replies; }
-        }
+        public IEnumerable<TaskComment> Replies => replies;
 
         public int TaskId { get; }
 

@@ -41,11 +41,11 @@ namespace Client.View.UI
         {
             if (e.StatusCode == FtpStatusCode.CommandOK)
             {
-                MessageBox.Show("File successfully uploaded to server!", string.Format("Response status code: {0}", ((int) e.StatusCode)), MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("File successfully uploaded to server!", $"Response status code: {((int) e.StatusCode)}", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show(string.Format("Could not upload file because {0} error", e.StatusCode), ((int) e.StatusCode).ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Could not upload file because {e.StatusCode} error", ((int) e.StatusCode).ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 

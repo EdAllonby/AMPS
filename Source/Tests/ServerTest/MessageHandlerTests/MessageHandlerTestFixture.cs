@@ -94,12 +94,12 @@ namespace ServerTest.MessageHandlerTests
             var band = new Band(bandId, "Band1");
             bandRepository.AddEntity(band);
 
-            const int leaderId = 1;
+            const int LeaderId = 1;
             bool isLeader = false;
 
             foreach (int userId in userIds)
             {
-                if (leaderId == userId)
+                if (LeaderId == userId)
                 {
                     isLeader = true;
                 }

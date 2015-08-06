@@ -64,10 +64,7 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// The task filters available.
         /// </summary>
-        public static IEnumerable<TaskFilter> TaskFilters
-        {
-            get { return Enum.GetValues(typeof (TaskFilter)).Cast<TaskFilter>(); }
-        }
+        public static IEnumerable<TaskFilter> TaskFilters => Enum.GetValues(typeof (TaskFilter)).Cast<TaskFilter>();
 
         /// <summary>
         /// The task catgories available.
@@ -178,10 +175,7 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Open the admin view.
         /// </summary>
-        public ICommand OpenAdminView
-        {
-            get { return new RelayCommand(OpenNewAdminView, CanOpenAdminView); }
-        }
+        public ICommand OpenAdminView => new RelayCommand(OpenNewAdminView, CanOpenAdminView);
 
         /// <summary>
         /// Fires when an admin screen is requested to open.

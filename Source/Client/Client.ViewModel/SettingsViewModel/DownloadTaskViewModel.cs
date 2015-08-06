@@ -36,18 +36,12 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Browse a <see cref="Task" /> file to upload.
         /// </summary>
-        public ICommand BrowseDownloadLocation
-        {
-            get { return new RelayCommand(OpenSaveFileDialog, CanOpenSaveFileDialog); }
-        }
+        public ICommand BrowseDownloadLocation => new RelayCommand(OpenSaveFileDialog, CanOpenSaveFileDialog);
 
         /// <summary>
         /// Download a <see cref="Task" /> from the server.
         /// </summary>
-        public ICommand DownloadTask
-        {
-            get { return new RelayCommand(DownloadTaskFromServer, CanDownloadTask); }
-        }
+        public ICommand DownloadTask => new RelayCommand(DownloadTaskFromServer, CanDownloadTask);
 
         /// <summary>
         /// Fires when a show FTP error is requested.

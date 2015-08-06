@@ -44,26 +44,17 @@ namespace Client.ViewModel.MainViewModel
             UpdateComments();
         }
 
-        private Task Task
-        {
-            get { return taskRepository.FindEntityById(taskId); }
-        }
+        private Task Task => taskRepository.FindEntityById(taskId);
 
         /// <summary>
         /// The client's service registry.
         /// </summary>
-        public IServiceRegistry ClientServiceRegistry
-        {
-            get { return ServiceRegistry; }
-        }
+        public IServiceRegistry ClientServiceRegistry => ServiceRegistry;
 
         /// <summary>
         /// Executed when this <see cref="Shared.Domain.Task" /> is wanting to be completed.
         /// </summary>
-        public ICommand CompleteTask
-        {
-            get { return new RelayCommand(SendTaskCompletion, CanCompleteTask); }
-        }
+        public ICommand CompleteTask => new RelayCommand(SendTaskCompletion, CanCompleteTask);
 
         public string Comment
         {
@@ -90,10 +81,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public TaskModel TaskModel { get; }
 
-        public ICommand AddComment
-        {
-            get { return new RelayCommand(AddCommentToTask, CanAddCommentToTask); }
-        }
+        public ICommand AddComment => new RelayCommand(AddCommentToTask, CanAddCommentToTask);
 
         public ObservableCollection<TaskCommentViewModel> TaskCommentViewModels { get; }
 
@@ -124,11 +112,7 @@ namespace Client.ViewModel.MainViewModel
 
         private void UpdateComments()
         {
-            int count = 0;
-            foreach (TaskComment taskComment in Task.Comments)
-            {
-                count = AddCommentTree(taskComment, 0, ++count);
-            }
+            int count = Task.Comments.Aggregate(0, (current, taskComment) => AddCommentTree(taskComment, 0, ++current));
 
             TotalTaskComments = count.AddSuffix("comment", "comments");
         }
@@ -153,12 +137,7 @@ namespace Client.ViewModel.MainViewModel
                 }
             }
 
-            foreach (TaskComment reply in taskComment.Replies)
-            {
-                count = AddCommentTree(reply, level + 1, ++count);
-            }
-
-            return count;
+            return taskComment.Replies.Aggregate(count, (current, reply) => AddCommentTree(reply, level + 1, ++current));
         }
 
         /// <summary>

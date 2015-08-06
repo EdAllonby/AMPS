@@ -15,24 +15,15 @@ namespace Server.Persistence
         /// </summary>
         private const string Columns = " Id, UserId, BandId, IsLeader ";
 
-        protected override string FindStatement
-        {
-            get
-            {
-                return "SELECT " + Columns +
-                       " FROM Participations" +
-                       " WHERE Id = @id ";
-            }
-        }
+        protected override string FindStatement => "SELECT " + Columns +
+                                                   " FROM Participations" +
+                                                   " WHERE Id = @id ";
 
-        protected override string InsertStatement
-        {
-            get { return "INSERT INTO Participations VALUES (@id,@userId,@bandId,@isLeader)"; }
-        }
+        protected override string InsertStatement => "INSERT INTO Participations VALUES (@id,@userId,@bandId,@isLeader)";
 
         public override bool UpdateEntity(Participation entity)
         {
-            string updateParticipationQuery = string.Format("UPDATE Participations SET Id=@id,UserId=@userId,BandId=@bandId,IsLeader=@isLeader WHERE Id = {0}", entity.Id);
+            string updateParticipationQuery = $"UPDATE Participations SET Id=@id,UserId=@userId,BandId=@bandId,IsLeader=@isLeader WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -81,24 +72,10 @@ namespace Server.Persistence
 
         private class FindAllParticipations : IStatementSource
         {
-            public string Sql
-            {
-                get
-                {
-                    return "SELECT " + Columns +
-                           " FROM Participations";
-                }
-            }
+            public string Sql => "SELECT " + Columns +
+                                 " FROM Participations";
 
-            public IList<string> Parameters
-            {
-                get
-                {
-                    {
-                        return new List<string>();
-                    }
-                }
-            }
+            public IList<string> Parameters => new List<string>();
         }
     }
 }

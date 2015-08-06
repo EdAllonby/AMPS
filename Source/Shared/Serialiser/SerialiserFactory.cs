@@ -30,7 +30,7 @@ namespace Shared.Serialiser
         {
             if (identifier == MessageIdentifier.UnrecognisedMessage)
             {
-                throw new ArgumentException(string.Format("A MessageSerialiser does not exist for message type {0}.", identifier));
+                throw new ArgumentException($"A MessageSerialiser does not exist for message type {identifier}.");
             }
 
             return SerialiserRegistry.SerialisersByMessageIdentifier[identifier];

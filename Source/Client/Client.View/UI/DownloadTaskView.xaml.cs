@@ -41,24 +41,23 @@ namespace Client.View.UI
         {
             if (e.StatusCode == FtpStatusCode.CommandOK || e.StatusCode == FtpStatusCode.ClosingData)
             {
-                MessageBox.Show("File successfully downloaded from server!", string.Format("Response status code: {0}", ((int) e.StatusCode)), MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("File successfully downloaded from server!", $"Response status code: {((int) e.StatusCode)}", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show(string.Format("Could not download file because {0} error", e.StatusCode), ((int) e.StatusCode).ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Could not download file because {e.StatusCode} error", ((int) e.StatusCode).ToString(), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
         private void OnSaveFileDialogRequested(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog();
-
-            saveFileDialog.Filter = "Zip Files|*.zip";
-
-            saveFileDialog.DefaultExt = ".zip";
-
-            saveFileDialog.AddExtension = true;
-
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Zip Files|*.zip",
+                DefaultExt = ".zip",
+                AddExtension = true
+            };
+            
             bool? showDialog = saveFileDialog.ShowDialog();
 
             if (showDialog != null && showDialog.Value)

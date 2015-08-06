@@ -135,10 +135,7 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// Catagory types to choose from.
         /// </summary>
-        public static IEnumerable<TaskCategory> TaskCategories
-        {
-            get { return Enum.GetValues(typeof (TaskCategory)).Cast<TaskCategory>(); }
-        }
+        public static IEnumerable<TaskCategory> TaskCategories => Enum.GetValues(typeof (TaskCategory)).Cast<TaskCategory>();
 
         /// <summary>
         /// The chosen <see cref="TaskCategory" />.

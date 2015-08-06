@@ -19,7 +19,7 @@ namespace Server.Persistence
         {
             TaskCategory taskCategory = TaskCategory.Other;
 
-            var getTaskCategoryQuery = string.Format("SELECT Category FROM TaskCategories where Id = {0}", categoryId);
+            var getTaskCategoryQuery = $"SELECT Category FROM TaskCategories where Id = {categoryId}";
 
             using (var databaseConnection = new SqlConnection(connectionString))
             using (var getTaskCommand = new SqlCommand(getTaskCategoryQuery, databaseConnection))

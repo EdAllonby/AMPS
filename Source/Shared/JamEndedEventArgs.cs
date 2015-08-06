@@ -14,7 +14,7 @@ namespace Shared
         /// <param name="finishedJam">The finished <see cref="Jam" />.</param>
         public JamEndedEventArgs(Jam finishedJam)
         {
-            this.FinishedJam = finishedJam;
+            FinishedJam = finishedJam;
         }
 
         /// <summary>

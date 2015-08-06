@@ -36,9 +36,6 @@ namespace Shared.Message.LoginMessage
         /// <summary>
         /// The message identifier for this <see cref="IMessage" /> request.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.LoginRequest; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.LoginRequest;
     }
 }

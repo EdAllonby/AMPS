@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using Utility;
 
 namespace Client.View.UI
 {
@@ -52,10 +53,7 @@ namespace Client.View.UI
 
         private void NotifyPropertyChanged(string propertyName)
         {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-            }
+            EventUtility.SafeFireEvent(PropertyChanged, this, propertyName);
         }
     }
 }

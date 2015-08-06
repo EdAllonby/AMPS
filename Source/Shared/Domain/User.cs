@@ -16,7 +16,7 @@ namespace Shared.Domain
         {
             Contract.Requires(username != null);
 
-            this.Username = username;
+            Username = username;
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Shared.Domain
             Contract.Requires(username != null);
             Contract.Requires(id > 0);
 
-            this.Username = username;
+            Username = username;
             ConnectionStatus = status;
         }
 

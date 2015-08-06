@@ -29,9 +29,6 @@ namespace Shared.Message
         /// <summary>
         /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return snapshotRequestMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T)); }
-        }
+        public MessageIdentifier MessageIdentifier => snapshotRequestMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T));
     }
 }

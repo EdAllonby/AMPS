@@ -7,6 +7,7 @@ using log4net;
 using Shared.Message;
 using Shared.Serialiser;
 using Shared.Serialiser.MessageSerialiser;
+using Utility;
 
 namespace Shared
 {
@@ -45,10 +46,7 @@ namespace Shared
         /// <summary>
         /// Gets the IP details of the remove connections.
         /// </summary>
-        public IPEndPoint RemoteEndPoint
-        {
-            get { return (IPEndPoint) tcpClient.Client.RemoteEndPoint; }
-        }
+        public IPEndPoint RemoteEndPoint => (IPEndPoint) tcpClient.Client.RemoteEndPoint;
 
         /// <summary>
         /// Closes the <see cref="TcpClient" />.
@@ -99,12 +97,7 @@ namespace Shared
 
         private void OnMessageReceiverMessageReceived(object sender, MessageEventArgs e)
         {
-            EventHandler<MessageEventArgs> messageReceivedCopy = MessageReceived;
-
-            if (messageReceivedCopy != null)
-            {
-                messageReceivedCopy(sender, e);
-            }
+            EventUtility.SafeFireEvent(MessageReceived, sender, e);
         }
 
         /// <summary>

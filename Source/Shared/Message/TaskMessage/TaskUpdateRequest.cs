@@ -30,9 +30,6 @@ namespace Shared.Message.TaskMessage
         /// <summary>
         /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.TaskUpdateRequest; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.TaskUpdateRequest;
     }
 }

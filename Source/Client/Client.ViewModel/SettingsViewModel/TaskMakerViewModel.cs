@@ -58,18 +58,12 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Create a new <see cref="Task" /> for the <see cref="Band" /> backlog.
         /// </summary>
-        public ICommand ApplyCreateNewTaskAndClose
-        {
-            get { return new RelayCommand(SendTaskRequestAndClose, CanCreateNewTask); }
-        }
+        public ICommand ApplyCreateNewTaskAndClose => new RelayCommand(SendTaskRequestAndClose, CanCreateNewTask);
 
         /// <summary>
         /// Cancels creating a new <see cref="Task" /> for the backlog.
         /// </summary>
-        public ICommand CancelCreateNewTask
-        {
-            get { return new RelayCommand(OnCloseTaskMakerViewRequest); }
-        }
+        public ICommand CancelCreateNewTask => new RelayCommand(OnCloseTaskMakerViewRequest);
 
         /// <summary>
         /// Fires when the <see cref="Task" /> maker view model requests a close.
@@ -78,7 +72,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private void SendTaskRequestAndClose()
         {
-            var assignedMemberId = TaskMakerModel.AssignedMember != null ? TaskMakerModel.AssignedMember.Id : 0;
+            int assignedMemberId = TaskMakerModel.AssignedMember?.Id ?? 0;
 
             clientService.AddTaskToBacklog(bandId, TaskMakerModel.TaskTitle, TaskMakerModel.TaskDescription, TaskMakerModel.TaskPoints, assignedMemberId, TaskMakerModel.TaskCategory);
 

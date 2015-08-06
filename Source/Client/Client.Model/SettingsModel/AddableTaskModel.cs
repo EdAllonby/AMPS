@@ -30,7 +30,6 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// Whether the <see cref="Task" /> should be added in the given context.
         /// </summary>
-        // ReSharper disable once UnusedMember.Global
         public bool Add
         {
             get { return add; }

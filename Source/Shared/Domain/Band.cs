@@ -18,7 +18,7 @@ namespace Shared.Domain
         {
             Contract.Requires(id > 0);
 
-            this.Name = name;
+            Name = name;
         }
 
         /// <summary>

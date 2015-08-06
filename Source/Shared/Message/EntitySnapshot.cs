@@ -30,9 +30,6 @@ namespace Shared.Message
         /// <summary>
         /// The type of Snapshot.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return snapshotMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T)); }
-        }
+        public MessageIdentifier MessageIdentifier => snapshotMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T));
     }
 }

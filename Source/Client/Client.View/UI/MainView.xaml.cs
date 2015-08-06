@@ -97,7 +97,7 @@ namespace Client.View.UI
 
         private static void OnOpenJamEndedDialog(object sender, JamEndedEventArgs e)
         {
-            MessageBox.Show("Current jam has ended", string.Format("Jam with Id {0} has ended", e.FinishedJam.Id));
+            MessageBox.Show("Current jam has ended", $"Jam with Id {e.FinishedJam.Id} has ended");
         }
 
         private void OnOpenBandDetailsViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)

@@ -74,25 +74,19 @@ namespace Client.ViewModel.MainViewModel
                 {
                     extraInformation = "You are the leader of this Band.";
                 }
-                return string.Format("AMPS - Agile Music Project Suite: Welcome, {0}. {1}", userRepository.FindEntityById(userId).Username, extraInformation);
+                return $"AMPS - Agile Music Project Suite: Welcome, {userRepository.FindEntityById(userId).Username}. {extraInformation}";
             }
         }
 
         /// <summary>
         /// The name of the managed <see cref="Band" />.
         /// </summary>
-        public string BandName
-        {
-            get { return string.Format("Welcome to the Agile Music Project Suite for: {0}", bandRepository.FindEntityById(band.Id).Name); }
-        }
+        public string BandName => $"Welcome to the Agile Music Project Suite for: {bandRepository.FindEntityById(band.Id).Name}";
 
         /// <summary>
         /// The details of the connected server.
         /// </summary>
-        public string ServerConnectionStatus
-        {
-            get { return string.Format("Connected to Server at {0}:{1}", clientService.ServerEndPoint.Address, clientService.ServerEndPoint.Port); }
-        }
+        public string ServerConnectionStatus => $"Connected to Server at {clientService.ServerEndPoint.Address}:{clientService.ServerEndPoint.Port}";
 
         public string MemberSearchTerm
         {
@@ -107,58 +101,37 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Open a new <see cref="Band" /> details window.
         /// </summary>
-        public ICommand OpenBandDetails
-        {
-            get { return new RelayCommand(OpenBandDetailsView); }
-        }
+        public ICommand OpenBandDetails => new RelayCommand(OpenBandDetailsView);
 
         /// <summary>
         /// Open a new <see cref="Task" /> creator window.
         /// </summary>
-        public ICommand CreateTask
-        {
-            get { return new RelayCommand(OpenCreateTaskView); }
-        }
+        public ICommand CreateTask => new RelayCommand(OpenCreateTaskView);
 
         /// <summary>
         /// Open a new <see cref="Band" /> <see cref="Task" /> backlog information window.
         /// </summary>
-        public ICommand OpenTaskBacklog
-        {
-            get { return new RelayCommand(OpenTaskBacklogView); }
-        }
+        public ICommand OpenTaskBacklog => new RelayCommand(OpenTaskBacklogView);
 
         /// <summary>
         /// Open a new settings window.
         /// </summary>
-        public ICommand OpenSettings
-        {
-            get { return new RelayCommand(OpenSettingsView); }
-        }
+        public ICommand OpenSettings => new RelayCommand(OpenSettingsView);
 
         /// <summary>
         /// Log off the User and go to the login screen.
         /// </summary>
-        public ICommand LogOffUser
-        {
-            get { return new RelayCommand(LogOffUserFromServer); }
-        }
+        public ICommand LogOffUser => new RelayCommand(LogOffUserFromServer);
 
         /// <summary>
         /// Open a new application about box window.
         /// </summary>
-        public ICommand OpenAboutBox
-        {
-            get { return new RelayCommand(OpenAboutBoxView); }
-        }
+        public ICommand OpenAboutBox => new RelayCommand(OpenAboutBoxView);
 
         /// <summary>
         /// Opens a new <see cref="Jam" /> maker window.
         /// </summary>
-        public ICommand OpenJamMaker
-        {
-            get { return new RelayCommand(OpenJamMakerView, CanOpenJamMakerView); }
-        }
+        public ICommand OpenJamMaker => new RelayCommand(OpenJamMakerView, CanOpenJamMakerView);
 
         /// <summary>
         /// Returns whether the user is a leader and can see the Create <see cref="Jam" /> button.

@@ -48,26 +48,17 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Upload a <see cref="Task" /> to the server.
         /// </summary>
-        public ICommand UploadTask
-        {
-            get { return new RelayCommand(UploadTaskToServer, CanUploadTask); }
-        }
+        public ICommand UploadTask => new RelayCommand(UploadTaskToServer, CanUploadTask);
 
         /// <summary>
         /// Complete a task without uploading a file.
         /// </summary>
-        public ICommand CompleteTaskWithoutUpload
-        {
-            get { return new RelayCommand(CompleteTaskAndClose, CanCompleteTaskAndClose); }
-        }
+        public ICommand CompleteTaskWithoutUpload => new RelayCommand(CompleteTaskAndClose, CanCompleteTaskAndClose);
 
         /// <summary>
         /// Browse a <see cref="Task" /> file to upload.
         /// </summary>
-        public ICommand BrowseTaskToUpload
-        {
-            get { return new RelayCommand(OpenUploadFileDialog, CanOpenFileDialog); }
-        }
+        public ICommand BrowseTaskToUpload => new RelayCommand(OpenUploadFileDialog, CanOpenFileDialog);
 
         private bool CanCompleteTaskAndClose()
         {

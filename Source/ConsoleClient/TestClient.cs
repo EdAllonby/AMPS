@@ -9,9 +9,6 @@ namespace ConsoleClient
         {
         }
 
-        public IServiceRegistry ClientServiceRegistry
-        {
-            get { return ServiceRegistry; }
-        }
+        public IServiceRegistry ClientServiceRegistry => ServiceRegistry;
     }
 }

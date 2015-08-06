@@ -37,7 +37,7 @@ namespace Client.Service.MessageHandler
             Jam jam = jamNotification.Entity;
             TimeSpan jamLength = jam.JamEndDate - DateTime.Now;
 
-            toastNotifier.Notify(new Notification("A Jam has been created", string.Format("A jam has been created ending in {0}.", jamLength.ToDays(false))));
+            toastNotifier.Notify(new Notification("A Jam has been created", $"A jam has been created ending in {jamLength.ToDays(false)}."));
         }
     }
 }

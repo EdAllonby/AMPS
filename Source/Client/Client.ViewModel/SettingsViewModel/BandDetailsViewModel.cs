@@ -59,17 +59,11 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// The leader of the <see cref="Band" />.
         /// </summary>
-        public string DisplayBandLeader
-        {
-            get { return string.Format("Leader is {0}", bandDetailsModel.BandLeader.Username); }
-        }
+        public string DisplayBandLeader => $"Leader is {bandDetailsModel.BandLeader.Username}";
 
         /// <summary>
         /// The name of the <see cref="Band" />.
         /// </summary>
-        public string DisplayBandName
-        {
-            get { return string.Format("Band name is: {0}", BandMakerModel.Band.Name); }
-        }
+        public string DisplayBandName => $"Band name is: {BandMakerModel.Band.Name}";
     }
 }

@@ -90,10 +90,7 @@ namespace Client.ViewModel.SettingsViewModel
             get { return new RelayCommand(() => EventUtility.SafeFireEvent(Close, this)); }
         }
 
-        public ICommand ApplySettings
-        {
-            get { return new RelayCommand(ApplyNewSettings); }
-        }
+        public ICommand ApplySettings => new RelayCommand(ApplyNewSettings);
 
         public event EventHandler Close;
 

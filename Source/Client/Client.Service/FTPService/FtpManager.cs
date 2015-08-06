@@ -295,10 +295,7 @@ namespace Client.Service.FTPService
             using (Stream responseStream = response.GetResponseStream())
             using (FileStream fileStream = File.Create(localFile))
             {
-                if (responseStream != null)
-                {
-                    responseStream.CopyTo(fileStream);
-                }
+                responseStream?.CopyTo(fileStream);
 
                 return response.StatusCode;
             }
@@ -343,7 +340,7 @@ namespace Client.Service.FTPService
             {
                 var response = exception.Response as FtpWebResponse;
 
-                return response != null ? response.StatusCode : FtpStatusCode.Undefined;
+                return response?.StatusCode ?? FtpStatusCode.Undefined;
             }
 
             return FtpStatusCode.Undefined;

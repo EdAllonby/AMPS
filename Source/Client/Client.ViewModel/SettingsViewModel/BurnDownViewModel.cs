@@ -96,7 +96,7 @@ namespace Client.ViewModel.SettingsViewModel
 
                 projectedBurndownSeries.Points.Add(new DataPoint(DateTimeAxis.ToDouble(DateTime.Now.AddDays(daysAhead)), totalPoints));
 
-                const int projectedPointsPerDay = 7;
+                const int ProjectedPointsPerDay = 7;
 
                 while (totalPoints > 0)
                 {
@@ -106,13 +106,13 @@ namespace Client.ViewModel.SettingsViewModel
 
                     if (IsWorkingDay(nextDate))
                     {
-                        if (totalPoints <= projectedPointsPerDay)
+                        if (totalPoints <= ProjectedPointsPerDay)
                         {
                             totalPoints = 0;
                         }
                         else
                         {
-                            totalPoints -= projectedPointsPerDay;
+                            totalPoints -= ProjectedPointsPerDay;
                         }
                     }
 

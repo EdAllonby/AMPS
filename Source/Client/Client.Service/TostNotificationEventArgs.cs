@@ -6,7 +6,7 @@ namespace Client.Service
     {
         public TostNotificationEventArgs(Notification notification)
         {
-            this.Notification = notification;
+            Notification = notification;
         }
 
         public Notification Notification { get; }

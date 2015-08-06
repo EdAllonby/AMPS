@@ -22,8 +22,8 @@ namespace Shared.Message.BandMessage
             Contract.Requires(leaderId > 0);
 
             UserIds = userIds;
-            this.Name = name;
-            this.LeaderId = leaderId;
+            Name = name;
+            LeaderId = leaderId;
         }
 
         /// <summary>
@@ -44,9 +44,6 @@ namespace Shared.Message.BandMessage
         /// <summary>
         /// The message identifier for this <see cref="IMessage" /> request.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.BandRequest; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.BandRequest;
     }
 }

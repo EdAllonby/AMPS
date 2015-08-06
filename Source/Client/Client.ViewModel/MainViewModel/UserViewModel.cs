@@ -35,34 +35,22 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// The displayed <see cref="User" />'s Id.
         /// </summary>
-        public int UserId
-        {
-            get { return user.Id; }
-        }
+        public int UserId => user.Id;
 
         /// <summary>
         /// The colour of the button.
         /// </summary>
-        public Brush BorderColour
-        {
-            get { return ConnectionStatusToColour(); }
-        }
+        public Brush BorderColour => ConnectionStatusToColour();
 
         /// <summary>
         /// The user's name.
         /// </summary>
-        public string Username
-        {
-            get { return user.Username; }
-        }
+        public string Username => user.Username;
 
         /// <summary>
         /// The extra information to be displayed next to the <see cref="Username" />.
         /// </summary>
-        public string ExtraUserInformation
-        {
-            get { return GetExtraUsernameInformation(); }
-        }
+        public string ExtraUserInformation => GetExtraUsernameInformation();
 
         private string GetExtraUsernameInformation()
         {

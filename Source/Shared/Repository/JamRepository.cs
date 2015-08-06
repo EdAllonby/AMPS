@@ -39,7 +39,7 @@ namespace Shared.Repository
         /// </returns>
         public Jam GetCurrentActiveJamInBand(int bandId)
         {
-            var jamsInBand = GetAllEntities();
+            IEnumerable<Jam> jamsInBand = GetAllEntities();
 
             return jamsInBand.Where(jam => jam.BandId == bandId).FirstOrDefault(jam => jam.IsActive);
         }

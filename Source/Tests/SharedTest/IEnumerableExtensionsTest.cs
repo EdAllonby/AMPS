@@ -6,7 +6,7 @@ using Shared.Domain;
 namespace SharedTest
 {
     [TestFixture]
-    public sealed class IEnumerableExtensionsTest
+    public sealed class EnumerableExtensionsTest
     {
         [Test]
         public void ACollectionMissingAnElementReturnsFalse()

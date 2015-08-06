@@ -59,10 +59,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Try  to open band management screen.
         /// </summary>
-        public ICommand OpenBand
-        {
-            get { return new RelayCommand(OpenNewBand, CanOpenBand); }
-        }
+        public ICommand OpenBand => new RelayCommand(OpenNewBand, CanOpenBand);
 
         /// <summary>
         /// Fires when requesting to open the main band management view.

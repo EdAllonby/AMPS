@@ -23,7 +23,7 @@ namespace Client.View
         {
             if (inputResourceKeys == null)
             {
-                throw new ArgumentNullException("inputResourceKeys");
+                throw new ArgumentNullException(nameof(inputResourceKeys));
             }
 
             resourceKeys = inputResourceKeys.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
@@ -82,12 +82,12 @@ namespace Client.View
         {
             if (style1 == null)
             {
-                throw new ArgumentNullException("style1");
+                throw new ArgumentNullException(nameof(style1));
             }
 
             if (style2 == null)
             {
-                throw new ArgumentNullException("style2");
+                throw new ArgumentNullException(nameof(style2));
             }
 
             if (style1.TargetType.IsAssignableFrom(style2.TargetType))

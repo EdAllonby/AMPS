@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using Client.Model.Properties;
+using Utility;
 
 namespace Client.Model
 {
@@ -21,12 +22,8 @@ namespace Client.Model
         [NotifyPropertyChangedInvocator]
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
+            EventUtility.SafeFireEvent(PropertyChanged, this, propertyName);
 
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

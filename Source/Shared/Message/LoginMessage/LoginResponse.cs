@@ -33,9 +33,6 @@ namespace Shared.Message.LoginMessage
         /// <summary>
         /// The type of message this is.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.LoginResponse; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.LoginResponse;
     }
 }

@@ -6,7 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModel="clr-namespace:Client.ViewModel.MainViewModel;assembly=Client.ViewModel"
              xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
-             xmlns:global="clr-namespace:"
+             xmlns:converter="clr-namespace:Client.View.Converter"
              TextOptions.TextFormattingMode="Display"
              TextOptions.TextRenderingMode="ClearType"
              d:DesignWidth="400" d:DesignHeight="50"
@@ -31,7 +31,7 @@
         </StackPanel>
 
         <xctk:WatermarkTextBox Grid.Row="1"
-                               Visibility="{Binding Reply, Converter={global:BoolToVisibilityConverter FalseValue=Collapsed}}"
+                               Visibility="{Binding Reply, Converter={converter:BoolToVisibilityConverter FalseValue=Collapsed}}"
                                HorizontalAlignment="Left" Watermark="Reply..." Margin="10,0,10,0" Height="24"
                                Width="300"
                                Text="{Binding ReplyComment, UpdateSourceTrigger=PropertyChanged}">

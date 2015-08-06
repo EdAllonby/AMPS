@@ -5,6 +5,7 @@ using System.Windows;
 using Client.ViewModel.Properties;
 using log4net;
 using Shared;
+using Utility;
 
 namespace Client.ViewModel
 {
@@ -83,12 +84,7 @@ isInDesignMode = false;
         [NotifyPropertyChangedInvocator]
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
+            EventUtility.SafeFireEvent(PropertyChanged, this, propertyName);
         }
     }
 }

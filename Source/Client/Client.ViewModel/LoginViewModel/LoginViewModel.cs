@@ -70,10 +70,7 @@ namespace Client.ViewModel.LoginViewModel
         /// <summary>
         /// Attempt to log in.
         /// </summary>
-        public ICommand Login
-        {
-            get { return new RelayCommand(LoginToServer, CanLogin); }
-        }
+        public ICommand Login => new RelayCommand(LoginToServer, CanLogin);
 
         /// <summary>
         /// When the login view is requested to close.
@@ -110,7 +107,7 @@ namespace Client.ViewModel.LoginViewModel
                     break;
 
                 case LoginResult.AlreadyConnected:
-                    LoginErrored(this, new LoginErrorEventArgs(result, string.Format("User already connected with username: {0}", LoginModel.Username)));
+                    LoginErrored(this, new LoginErrorEventArgs(result, $"User already connected with username: {LoginModel.Username}"));
                     break;
 
                 case LoginResult.ServerNotFound:

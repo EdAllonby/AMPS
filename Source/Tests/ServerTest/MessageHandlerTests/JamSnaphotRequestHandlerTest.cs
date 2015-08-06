@@ -33,9 +33,7 @@ namespace ServerTest.MessageHandlerTests
             public void CanManuallySetJamToInActiveIfAfterActivePeriod()
             {
                 var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
-                Jam jam = new Jam(1, 1, jamEndDate);
-
-                jam.IsActive = false;
+                Jam jam = new Jam(1, 1, jamEndDate) {IsActive = false};
 
                 Assert.IsFalse(jam.IsActive);
             }

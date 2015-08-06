@@ -18,7 +18,7 @@ namespace Shared.Message.JamMessage
         /// <param name="jamEndDate">The requested end date of the <see cref="Jam" />.</param>
         public JamRequest(int bandId, List<int> taskIds, DateTime jamEndDate)
         {
-            this.JamEndDate = jamEndDate;
+            JamEndDate = jamEndDate;
             BandId = bandId;
             TaskIds = taskIds;
         }
@@ -41,9 +41,6 @@ namespace Shared.Message.JamMessage
         /// <summary>
         /// The message identifier for this <see cref="IMessage" /> request.
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.JamRequest; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.JamRequest;
     }
 }

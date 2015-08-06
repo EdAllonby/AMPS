@@ -11,10 +11,7 @@ namespace Client.View
     /// </summary>
     public static class ConsoleManager
     {
-        private static bool HasConsole
-        {
-            get { return UnsafeNativeMethods.GetConsoleWindow() != IntPtr.Zero; }
-        }
+        private static bool HasConsole => UnsafeNativeMethods.GetConsoleWindow() != IntPtr.Zero;
 
         /// <summary>
         /// Creates a new console instance if the process is not attached to a console already.

@@ -47,10 +47,7 @@ namespace Server
         /// </summary>
         protected override void OnStop()
         {
-            if (server != null)
-            {
-                server.Shutdown();
-            }
+            server?.Shutdown();
         }
     }
 }

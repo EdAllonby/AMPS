@@ -18,24 +18,15 @@ namespace Server.Persistence
 
         private readonly TaskCategoryDataAccess taskCategoryDataAccess = new TaskCategoryDataAccess();
 
-        protected override string FindStatement
-        {
-            get
-            {
-                return "SELECT " + Columns +
-                       " FROM Tasks" +
-                       " WHERE Id = @id ";
-            }
-        }
+        protected override string FindStatement => "SELECT " + Columns +
+                                                   " FROM Tasks" +
+                                                   " WHERE Id = @id ";
 
-        protected override string InsertStatement
-        {
-            get { return "INSERT INTO Tasks VALUES (@id,@bandId,@title,@description,@assignedUserId,@isCompleted,@points,@jamId,@taskCategoryId)"; }
-        }
+        protected override string InsertStatement => "INSERT INTO Tasks VALUES (@id,@bandId,@title,@description,@assignedUserId,@isCompleted,@points,@jamId,@taskCategoryId)";
 
         public override bool UpdateEntity(Task entity)
         {
-            var updateTaskQuery = string.Format("UPDATE Tasks SET Id=@id,BandId=@bandId,Title=@title,Description=@description,AssignedUserId=@assignedUserId,IsCompleted=@isCompleted,Points=@points,JamId=@jamId,TaskCategoryId=@taskCategoryId WHERE Id = {0}", entity.Id);
+            var updateTaskQuery = $"UPDATE Tasks SET Id=@id,BandId=@bandId,Title=@title,Description=@description,AssignedUserId=@assignedUserId,IsCompleted=@isCompleted,Points=@points,JamId=@jamId,TaskCategoryId=@taskCategoryId WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -113,19 +104,10 @@ namespace Server.Persistence
 
         private class FindAllTasks : IStatementSource
         {
-            public string Sql
-            {
-                get
-                {
-                    return "SELECT " + Columns +
-                           " FROM Tasks";
-                }
-            }
+            public string Sql => "SELECT " + Columns +
+                                 " FROM Tasks";
 
-            public IList<string> Parameters
-            {
-                get { return new List<string>(); }
-            }
+            public IList<string> Parameters => new List<string>();
         }
     }
 }

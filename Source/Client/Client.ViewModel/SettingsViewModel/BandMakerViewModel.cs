@@ -67,18 +67,12 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// try and create a new <see cref="Band" /> on the server.
         /// </summary>
-        public ICommand CreateBand
-        {
-            get { return new RelayCommand(CreateNewBand, CanCreateBand); }
-        }
+        public ICommand CreateBand => new RelayCommand(CreateNewBand, CanCreateBand);
 
         /// <summary>
         /// Try to join membership with a <see cref="Band" />.
         /// </summary>
-        public ICommand JoinBand
-        {
-            get { return new RelayCommand(JoinNewBand, CanJoinBand); }
-        }
+        public ICommand JoinBand => new RelayCommand(JoinNewBand, CanJoinBand);
 
         /// <summary>
         /// Fires when requesting the main band management view.

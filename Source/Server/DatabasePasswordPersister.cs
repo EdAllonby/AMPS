@@ -43,7 +43,7 @@ namespace Server
         {
             string storedPasswordHash = null;
 
-            string getUserQuery = string.Format("SELECT PasswordHash FROM UserLogins where UserId = {0}", userId);
+            string getUserQuery = $"SELECT PasswordHash FROM UserLogins where UserId = {userId}";
 
             using (SqlConnection databaseConnection = new SqlConnection(connectionString))
             using (SqlCommand getUserCommand = new SqlCommand(getUserQuery, databaseConnection))

@@ -15,24 +15,15 @@ namespace Server.Persistence
         /// </summary>
         private const string Columns = " Id, Name ";
 
-        protected override string FindStatement
-        {
-            get
-            {
-                return "SELECT " + Columns +
-                       " FROM Bands" +
-                       " WHERE Id = @id ";
-            }
-        }
+        protected override string FindStatement => "SELECT " + Columns +
+                                                   " FROM Bands" +
+                                                   " WHERE Id = @id ";
 
-        protected override string InsertStatement
-        {
-            get { return "INSERT INTO Bands VALUES (@id,@name)"; }
-        }
+        protected override string InsertStatement => "INSERT INTO Bands VALUES (@id,@name)";
 
         public override bool UpdateEntity(Band entity)
         {
-            var updateBandQuery = string.Format("UPDATE Bands SET Id=@id,Name=@name WHERE Id = {0}", entity.Id);
+            var updateBandQuery = $"UPDATE Bands SET Id=@id,Name=@name WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -76,24 +67,10 @@ namespace Server.Persistence
 
         private class FindAllBands : IStatementSource
         {
-            public string Sql
-            {
-                get
-                {
-                    return "SELECT " + Columns +
-                           " FROM Bands";
-                }
-            }
+            public string Sql => "SELECT " + Columns +
+                                 " FROM Bands";
 
-            public IList<string> Parameters
-            {
-                get
-                {
-                    {
-                        return new List<string>();
-                    }
-                }
-            }
+            public IList<string> Parameters => new List<string>();
         }
     }
 }

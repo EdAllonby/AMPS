@@ -1,13 +1,11 @@
 ﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using Client.Model.Properties;
 
 namespace Client.Model.LoginModel
 {
     /// <summary>
     /// Models data for login.
     /// </summary>
-    public sealed class LoginModel : INotifyPropertyChanged, IDataErrorInfo
+    public sealed class LoginModel : NotifiableModel, IDataErrorInfo
     {
         private string exposedPassword;
         private string ipAddress;
@@ -141,11 +139,6 @@ namespace Client.Model.LoginModel
         /// </summary>
         public string Error { get; private set; }
 
-        /// <summary>
-        /// Fires when a model property has changed.
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
-
         private bool PasswordCharacterAdded(string value)
         {
             return value.Length > Password.Length;
@@ -166,17 +159,6 @@ namespace Client.Model.LoginModel
             }
 
             return asterisks;
-        }
-
-        [NotifyPropertyChangedInvocator]
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-
-            if (handler != null)
-            {
-                handler(this, new PropertyChangedEventArgs(propertyName));
-            }
         }
     }
 }

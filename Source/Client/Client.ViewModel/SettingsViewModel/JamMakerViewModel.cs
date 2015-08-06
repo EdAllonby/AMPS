@@ -87,10 +87,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// Submits a new <see cref="Jam" /> with the Jam Maker's current state.
         /// </summary>
-        public ICommand CreateJam
-        {
-            get { return new RelayCommand(SubmitJamRequest, CanSubmitJamRequest); }
-        }
+        public ICommand CreateJam => new RelayCommand(SubmitJamRequest, CanSubmitJamRequest);
 
         private bool CanSubmitJamRequest()
         {

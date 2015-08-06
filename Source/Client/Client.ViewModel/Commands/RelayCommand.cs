@@ -24,7 +24,7 @@ namespace Client.ViewModel.Commands
         {
             if (execute == null)
             {
-                throw new ArgumentNullException("execute");
+                throw new ArgumentNullException(nameof(execute));
             }
             this.execute = execute;
             this.canExecute = canExecute;

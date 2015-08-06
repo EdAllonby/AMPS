@@ -34,7 +34,6 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// The Id of the <see cref="Task" />
         /// </summary>
-        // ReSharper disable once UnusedMember.Global
         public int TaskId { get; }
 
         /// <summary>
@@ -143,10 +142,7 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// The task's background colour.
         /// </summary>
-        public Brush TaskBackgroundColour
-        {
-            get { return CategoryColour(); }
-        }
+        public Brush TaskBackgroundColour => CategoryColour();
 
         private Brush CategoryColour()
         {

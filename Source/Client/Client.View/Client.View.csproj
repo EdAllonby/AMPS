@@ -340,6 +340,7 @@
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="log4netDebug.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -381,6 +382,10 @@
     <ProjectReference Include="..\..\Shared\Shared.csproj">
       <Project>{E4649EF7-3B1D-4F05-A5BA-EE3174F924BD}</Project>
       <Name>Shared</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Utility\Utility.csproj">
+      <Project>{B0475856-33B2-4ACB-999C-1E231554EC98}</Project>
+      <Name>Utility</Name>
     </ProjectReference>
     <ProjectReference Include="..\Client.Model\Client.Model.csproj">
       <Project>{D4AD533B-DC9F-46B7-B586-1D4FC101732B}</Project>

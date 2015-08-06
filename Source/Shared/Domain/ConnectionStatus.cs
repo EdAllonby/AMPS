@@ -37,8 +37,8 @@ namespace Shared.Domain
         /// <param name="userConnectionStatus">The <see cref="Status" /> of the <see cref="User" />.</param>
         public ConnectionStatus(int userId, Status userConnectionStatus)
         {
-            this.UserId = userId;
-            this.UserConnectionStatus = userConnectionStatus;
+            UserId = userId;
+            UserConnectionStatus = userConnectionStatus;
         }
 
         /// <summary>

@@ -14,8 +14,8 @@ namespace Shared.Message
         /// <param name="notificationType">The entity modification to perform.</param>
         public ConnectionStatusNotification(ConnectionStatus connectionStatus, NotificationType notificationType)
         {
-            this.ConnectionStatus = connectionStatus;
-            this.NotificationType = notificationType;
+            ConnectionStatus = connectionStatus;
+            NotificationType = notificationType;
         }
 
         /// <summary>
@@ -31,9 +31,6 @@ namespace Shared.Message
         /// <summary>
         /// The identifier for this message notification type..
         /// </summary>
-        public MessageIdentifier MessageIdentifier
-        {
-            get { return MessageIdentifier.ConnectionStatusNotification; }
-        }
+        public MessageIdentifier MessageIdentifier => MessageIdentifier.ConnectionStatusNotification;
     }
 }

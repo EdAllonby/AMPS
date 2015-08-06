@@ -31,10 +31,7 @@ namespace Shared.Repository
         /// <summary>
         /// Gets the <see cref="Entity" /> type that is held in the repository.
         /// </summary>
-        public Type EnclosedEntityType
-        {
-            get { return typeof (T); }
-        }
+        public Type EnclosedEntityType => typeof (T);
 
         /// <summary>
         /// Gets raised when an entity in the repository has been added.
