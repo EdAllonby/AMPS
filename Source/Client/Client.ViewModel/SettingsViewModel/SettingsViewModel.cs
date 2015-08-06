@@ -85,13 +85,8 @@ namespace Client.ViewModel.SettingsViewModel
             }
         }
 
-        public ICommand DiscardSettings
-        {
-            get { return new RelayCommand(() => EventUtility.SafeFireEvent(Close, this)); }
-        }
-
+        public ICommand DiscardSettings => new RelayCommand(() => EventUtility.SafeFireEvent(Close, this));
         public ICommand ApplySettings => new RelayCommand(ApplyNewSettings);
-
         public event EventHandler Close;
 
         private void ApplyNewSettings()

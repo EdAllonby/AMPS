@@ -56,7 +56,7 @@
                            FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed" />
             </StackPanel>
 
-            <StackPanel Orientation="Horizontal" Grid.Column="1" Width="Auto" HorizontalAlignment="Right"
+            <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="1" Width="Auto" HorizontalAlignment="Right"
                         VerticalAlignment="Center" Margin="10,0,10,0">
                 <TextBlock Text="{Binding TaskModel.Points}" VerticalAlignment="Center"
                            FontFamily="/Agile Music Management Suite;component/Resources/Fonts/Roboto/#Roboto Condensed"

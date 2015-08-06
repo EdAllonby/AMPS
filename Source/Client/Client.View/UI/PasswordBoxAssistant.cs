@@ -26,16 +26,19 @@ namespace Client.View.UI
             }
 
             // avoid recursive updating by ignoring the box's changed event
-            box.PasswordChanged -= HandlePasswordChanged;
-
-            string newPassword = (string) e.NewValue;
-
-            if (!GetUpdatingPassword(box))
+            if (box != null)
             {
-                box.Password = newPassword;
-            }
+                box.PasswordChanged -= HandlePasswordChanged;
 
-            box.PasswordChanged += HandlePasswordChanged;
+                string newPassword = (string) e.NewValue;
+
+                if (!GetUpdatingPassword(box))
+                {
+                    box.Password = newPassword;
+                }
+
+                box.PasswordChanged += HandlePasswordChanged;
+            }
         }
 
         private static void OnBindPasswordChanged(DependencyObject dp, DependencyPropertyChangedEventArgs e)
@@ -71,8 +74,11 @@ namespace Client.View.UI
             // set a flag to indicate that we're updating the password
             SetUpdatingPassword(box, true);
             // push the new password into the BoundPassword property
-            SetBoundPassword(box, box.Password);
-            SetUpdatingPassword(box, false);
+            if (box != null)
+            {
+                SetBoundPassword(box, box.Password);
+                SetUpdatingPassword(box, false);
+            }
         }
 
         public static void SetBindPassword(DependencyObject dp, bool value)

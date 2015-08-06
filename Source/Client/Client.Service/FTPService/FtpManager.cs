@@ -98,28 +98,35 @@ namespace Client.Service.FTPService
                 FtpWebRequest ftpRequest = CreateRequest(directory, WebRequestMethods.Ftp.ListDirectory);
 
                 using (FtpWebResponse ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
-                using (StreamReader ftpReader = new StreamReader(ftpResponse.GetResponseStream()))
                 {
-                    string directoryRaw = null;
+                    Stream responseStream = ftpResponse.GetResponseStream();
 
-                    try
+                    if (responseStream != null)
                     {
-                        while (ftpReader.Peek() != -1)
+                        using (StreamReader ftpReader = new StreamReader(responseStream))
                         {
-                            directoryRaw += ftpReader.ReadLine() + "|";
-                        }
+                            string directoryRaw = null;
 
-                        if (directoryRaw != null)
-                        {
-                            directoryList = directoryRaw.Split("|".ToCharArray());
-                        }
+                            try
+                            {
+                                while (ftpReader.Peek() != -1)
+                                {
+                                    directoryRaw += ftpReader.ReadLine() + "|";
+                                }
 
-                        return directoryList;
-                    }
-                    catch (Exception ex)
-                    {
-                        Console.WriteLine(ex.Message);
-                        return new[] {""};
+                                if (directoryRaw != null)
+                                {
+                                    directoryList = directoryRaw.Split("|".ToCharArray());
+                                }
+
+                                return directoryList;
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                                return new[] {""};
+                            }
+                        }
                     }
                 }
             }

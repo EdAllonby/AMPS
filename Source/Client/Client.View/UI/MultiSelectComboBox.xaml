@@ -23,7 +23,6 @@
             <ControlTemplate TargetType="ComboBox">
                 <Grid>
                     <ToggleButton x:Name="ToggleButton"
-                                  Grid.Column="2"
                                   IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}"
                                   Focusable="false"
                                   ClickMode="Press" HorizontalContentAlignment="Left">

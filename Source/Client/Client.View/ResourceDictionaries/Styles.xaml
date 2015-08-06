@@ -81,7 +81,7 @@
         </Style.Triggers>
     </Style>
 
-    <Style TargetType="FrameworkElement" x:Key="animatedList">
+    <Style TargetType="FrameworkElement" x:Key="AnimatedList">
         <Setter Property="Visibility" Value="Hidden" />
         <Style.Triggers>
             <Trigger Property="Visibility" Value="Visible">

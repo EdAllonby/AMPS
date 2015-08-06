@@ -98,7 +98,6 @@ namespace Client.ViewModel.LoginViewModel
         private void AttemptLogin(LoginDetails loginDetails)
         {
             LoginResult result = clientService.LogOn(loginDetails);
-
             switch (result)
             {
                 case LoginResult.Success:
@@ -107,19 +106,19 @@ namespace Client.ViewModel.LoginViewModel
                     break;
 
                 case LoginResult.AlreadyConnected:
-                    LoginErrored(this, new LoginErrorEventArgs(result, $"User already connected with username: {LoginModel.Username}"));
+                    EventUtility.SafeFireEvent(LoginErrored, this, new LoginErrorEventArgs(result, $"User already connected with username: {LoginModel.Username}"));
                     break;
 
                 case LoginResult.ServerNotFound:
-                    LoginErrored(this, new LoginErrorEventArgs(result, "Could not find server, check connection settings."));
+                    EventUtility.SafeFireEvent(LoginErrored, this, new LoginErrorEventArgs(result, "Could not find server, check connection settings."));
                     break;
 
                 case LoginResult.IncorrectPassword:
-                    LoginErrored(this, new LoginErrorEventArgs(result, "The password is incorrect. Please try again."));
+                    EventUtility.SafeFireEvent(LoginErrored, this, new LoginErrorEventArgs(result, "The password is incorrect. Please try again."));
                     break;
 
                 case LoginResult.UnknownError:
-                    LoginErrored(this, new LoginErrorEventArgs(result, "There is a server-side error. Please report this."));
+                    EventUtility.SafeFireEvent(LoginErrored, this, new LoginErrorEventArgs(result, "There is a server-side error. Please report this."));
                     break;
             }
         }

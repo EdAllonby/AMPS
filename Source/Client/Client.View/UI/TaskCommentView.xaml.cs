@@ -1,6 +1,4 @@
-﻿using System.Windows.Controls;
-
-namespace Client.View.UI
+﻿namespace Client.View.UI
 {
     /// <summary>
     /// Interaction logic for TaskCommentView.xaml
