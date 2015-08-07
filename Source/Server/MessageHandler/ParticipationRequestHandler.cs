@@ -3,7 +3,6 @@ using System.Linq;
 using log4net;
 using Shared;
 using Shared.Domain;
-using Shared.Message;
 using Shared.Message.ParticipationMessage;
 using Shared.Repository;
 
@@ -12,7 +11,7 @@ namespace Server.MessageHandler
     /// <summary>
     /// Handles a <see cref="ParticipationRequest" /> the Server received.
     /// </summary>
-    internal sealed class ParticipationRequestHandler : IMessageHandler
+    internal sealed class ParticipationRequestHandler : MessageHandler<ParticipationRequest>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
 
@@ -21,16 +20,14 @@ namespace Server.MessageHandler
         /// </summary>
         /// <param name="message">The <see cref="ParticipationRequest" /> that has been received and needs to be handled.</param>
         /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(ParticipationRequest message, IServiceRegistry serviceRegistry)
         {
-            var participationRequest = (ParticipationRequest) message;
-
             var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
-            if (CheckUserCanEnterBand(participationRequest, participationRepository))
+            if (CheckUserCanEnterBand(message, participationRepository))
             {
                 var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
-                AddUserToBand(participationRequest, entityIdAllocatorFactory, participationRepository);
+                AddUserToBand(message, entityIdAllocatorFactory, participationRepository);
             }
         }
 

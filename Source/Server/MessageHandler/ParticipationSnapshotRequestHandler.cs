@@ -9,7 +9,7 @@ namespace Server.MessageHandler
     /// <summary>
     /// Handles a <see cref="EntitySnapshotRequest{T}" /> the Server received.
     /// </summary>
-    internal sealed class ParticipationSnapshotRequestHandler : IMessageHandler
+    internal sealed class ParticipationSnapshotRequestHandler : MessageHandler<EntitySnapshotRequest<Participation>>
     {
         /// <summary>
         /// Handles the incoming <see cref="EntitySnapshotRequest{Participation}" />.
@@ -19,23 +19,21 @@ namespace Server.MessageHandler
         /// handled.
         /// </param>
         /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntitySnapshotRequest<Participation> message, IServiceRegistry serviceRegistry)
         {
-            var participationSnapshotRequest = (EntitySnapshotRequest<Participation>) message;
-
             var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
             var clientManager = serviceRegistry.GetService<IClientManager>();
 
             var userParticipations = new List<Participation>();
 
-            foreach (int bandId in participationRepository.GetAllBandIdsByUserId(participationSnapshotRequest.UserId))
+            foreach (int bandId in participationRepository.GetAllBandIdsByUserId(message.UserId))
             {
                 userParticipations.AddRange(participationRepository.GetParticipationsByBandId(bandId));
             }
 
             var participationSnapshot = new EntitySnapshot<Participation>(userParticipations);
 
-            clientManager.SendMessageToClient(participationSnapshot, participationSnapshotRequest.UserId);
+            clientManager.SendMessageToClient(participationSnapshot, message.UserId);
         }
     }
 }

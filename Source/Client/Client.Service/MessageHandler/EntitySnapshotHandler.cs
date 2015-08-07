@@ -10,15 +10,13 @@ namespace Client.Service.MessageHandler
     /// <summary>
     /// Handles a <see cref="EntitySnapshot{T}" /> the Client received.
     /// </summary>
-    internal sealed class EntitySnapshotHandler<T> : IMessageHandler where T : Entity
+    internal sealed class EntitySnapshotHandler<T> : MessageHandler<EntitySnapshot<T>> where T : Entity
     {
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntitySnapshot<T> message, IServiceRegistry serviceRegistry)
         {
-            var entitySnapshot = (EntitySnapshot<T>) message;
-
             var entityRepository = (IEntityRepository<T>) serviceRegistry.GetService<RepositoryManager>().GetRepository<T>();
 
-            foreach (T entity in entitySnapshot.Entities)
+            foreach (T entity in message.Entities)
             {
                 entityRepository.AddEntity(entity);
             }

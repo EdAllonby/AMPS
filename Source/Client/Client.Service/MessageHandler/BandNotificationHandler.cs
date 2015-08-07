@@ -5,22 +5,20 @@ using Shared.Repository;
 
 namespace Client.Service.MessageHandler
 {
-    internal sealed class BandNotificationHandler : IMessageHandler
+    internal sealed class BandNotificationHandler : MessageHandler<EntityNotification<Band>>
     {
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntityNotification<Band> message, IServiceRegistry serviceRegistry)
         {
-            var bandNotification = (EntityNotification<Band>) message;
-
             var bandRepository = (IEntityRepository<Band>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
 
-            switch (bandNotification.NotificationType)
+            switch (message.NotificationType)
             {
                 case NotificationType.Create:
-                    bandRepository.AddEntity(bandNotification.Entity);
+                    bandRepository.AddEntity(message.Entity);
                     break;
 
                 case NotificationType.Update:
-                    bandRepository.UpdateEntity(bandNotification.Entity);
+                    bandRepository.UpdateEntity(message.Entity);
                     break;
             }
         }

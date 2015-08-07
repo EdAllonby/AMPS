@@ -8,18 +8,16 @@ namespace Client.Service.MessageHandler
     /// <summary>
     /// Handles a <see cref="EntityNotification{T}" /> the Client received.
     /// </summary>
-    internal sealed class UserNotificationHandler : IMessageHandler
+    internal sealed class UserNotificationHandler : MessageHandler<EntityNotification<User>>
     {
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntityNotification<User> message, IServiceRegistry serviceRegistry)
         {
-            var userNotification = (EntityNotification<User>) message;
-
             var userRepository = (IEntityRepository<User>) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
 
-            switch (userNotification.NotificationType)
+            switch (message.NotificationType)
             {
                 case NotificationType.Create:
-                    userRepository.AddEntity(userNotification.Entity);
+                    userRepository.AddEntity(message.Entity);
                     break;
             }
         }

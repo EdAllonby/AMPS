@@ -8,15 +8,13 @@ namespace Client.Service.MessageHandler
     /// <summary>
     /// Handles a <see cref="EntityNotification{T}" /> the Client received.
     /// </summary>
-    internal sealed class ParticipationNotificationHandler : IMessageHandler
+    internal sealed class ParticipationNotificationHandler : MessageHandler<EntityNotification<Participation>>
     {
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntityNotification<Participation> message, IServiceRegistry serviceRegistry)
         {
-            var participationNotification = (EntityNotification<Participation>) message;
-
             var participationRepository = (IEntityRepository<Participation>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
-            participationRepository.AddEntity(participationNotification.Entity);
+            participationRepository.AddEntity(message.Entity);
         }
     }
 }

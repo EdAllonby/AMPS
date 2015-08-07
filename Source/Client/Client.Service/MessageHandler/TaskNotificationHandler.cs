@@ -8,17 +8,16 @@ namespace Client.Service.MessageHandler
     /// <summary>
     /// Handles a <see cref="EntityNotification{T}" /> the Client received.
     /// </summary>
-    internal sealed class TaskNotificationHandler : IMessageHandler
+    internal sealed class TaskNotificationHandler : MessageHandler<EntityNotification<Task>>
     {
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntityNotification<Task> message, IServiceRegistry serviceRegistry)
         {
-            var taskNotification = (EntityNotification<Task>) message;
             var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
             var taskRepository = (IEntityRepository<Task>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
-            Task task = taskNotification.Entity;
+            Task task = message.Entity;
 
-            switch (taskNotification.NotificationType)
+            switch (message.NotificationType)
             {
                 case NotificationType.Create:
                     taskRepository.AddEntity(task);

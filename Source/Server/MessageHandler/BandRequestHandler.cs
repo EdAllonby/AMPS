@@ -3,7 +3,6 @@ using System.Linq;
 using log4net;
 using Shared;
 using Shared.Domain;
-using Shared.Message;
 using Shared.Message.BandMessage;
 using Shared.Repository;
 
@@ -12,7 +11,7 @@ namespace Server.MessageHandler
     /// <summary>
     /// Handles a <see cref="BandRequest" /> the Server received.
     /// </summary>
-    internal sealed class BandRequestHandler : IMessageHandler
+    internal sealed class BandRequestHandler : MessageHandler<BandRequest>
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (BandRequestHandler));
 
@@ -21,18 +20,16 @@ namespace Server.MessageHandler
         /// </summary>
         /// <param name="message">The <see cref="BandRequest" /> that has been received and needs to be handled.</param>
         /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(BandRequest message, IServiceRegistry serviceRegistry)
         {
             var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
 
             var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
             var bandRepository = (IEntityRepository<Band>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
 
-            var bandRequest = (BandRequest) message;
-
-            if (IsBandValid(bandRequest))
+            if (IsBandValid(message))
             {
-                CreateBandEntity(bandRequest, bandRepository, participationRepository, entityIdAllocatorFactory);
+                CreateBandEntity(message, bandRepository, participationRepository, entityIdAllocatorFactory);
             }
         }
 

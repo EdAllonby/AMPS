@@ -1,23 +1,20 @@
 ﻿using System;
 using Shared;
 using Shared.Domain;
-using Shared.Message;
 using Shared.Message.TaskMessage;
 using Shared.Repository;
 
 namespace Server.MessageHandler
 {
-    public sealed class TaskCommentRequestHandler : IMessageHandler
+    public sealed class TaskCommentRequestHandler : MessageHandler<TaskCommentRequest>
     {
-        public void HandleMessage(IMessage message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(TaskCommentRequest message, IServiceRegistry serviceRegistry)
         {
-            TaskComment incompleteTaskComment = ((TaskCommentRequest) message).TaskComment;
-
             TaskRepository taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
             EntityIdAllocatorFactory entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
 
-            TaskComment taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), incompleteTaskComment, DateTime.Now);
+            TaskComment taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), message.TaskComment, DateTime.Now);
 
             Task task = taskRepository.FindEntityById(taskComment.TaskId);
 

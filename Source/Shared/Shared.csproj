@@ -97,6 +97,7 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IGeneratorStrategy.cs" />
     <Compile Include="JamEndedEventArgs.cs" />
+    <Compile Include="MessageHandler.cs" />
     <Compile Include="Message\ConnectionStatusNotification.cs" />
     <Compile Include="Message\EntitySnapshot.cs" />
     <Compile Include="Message\EntityNotification.cs" />
