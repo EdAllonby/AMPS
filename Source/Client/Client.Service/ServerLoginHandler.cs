@@ -43,27 +43,34 @@ namespace Client.Service
             }
         }
 
-        private void EntityBootstrapCompleted(object sender, Type e)
+        private void EntityBootstrapCompleted(object sender, EntityBootstrapEventArgs e)
         {
-            if (e == typeof (User))
+            if (e.EntityType == typeof (User))
             {
                 hasReceivedUserSnapshot = true;
             }
-            else if (e == typeof (Jam))
+            else if (e.EntityType == typeof (Jam))
             {
                 hasReceivedJamSnapshot = true;
             }
-            else if (e == typeof (Participation))
+            else if (e.EntityType == typeof (Participation))
             {
                 hasReceivedParticipationSnapshot = true;
             }
-            else if (e == typeof (Band))
+            else if (e.EntityType == typeof (Band))
             {
                 hasReceivedBandSnapshot = true;
             }
-            else if (e == typeof (Task))
+            else if (e.EntityType == typeof (Task))
             {
                 hasReceivedTaskSnapshot = true;
+            }
+            else
+            {
+                string errorMessage = $"{typeof (ServerLoginHandler).Name} class should not be bootstrapping for an entity of type {e.EntityType.Name}";
+                Log.ErrorFormat(errorMessage);
+
+                throw new ArgumentException(errorMessage);
             }
 
             TrySendBootstrapCompleteEvent();
@@ -133,7 +140,7 @@ namespace Client.Service
 
         private bool CreateConnection(IPAddress targetAddress, int targetPort)
         {
-            const int TimeoutSeconds = 5;
+            const int timeoutSeconds = 5;
 
             Log.Info("ClientService looking for server with address: " + targetAddress + ":" + targetPort);
 
@@ -143,7 +150,7 @@ namespace Client.Service
             var waitHandle = asyncResult.AsyncWaitHandle;
             try
             {
-                if (!asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(TimeoutSeconds), false))
+                if (!asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(timeoutSeconds), false))
                 {
                     serverConnection.Close();
                     Log.Warn("Timed out trying to find server.");

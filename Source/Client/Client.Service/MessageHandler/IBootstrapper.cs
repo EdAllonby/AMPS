@@ -4,6 +4,6 @@ namespace Client.Service.MessageHandler
 {
     public interface IBootstrapper
     {
-        event EventHandler<Type> EntityBootstrapCompleted;
+        event EventHandler<EntityBootstrapEventArgs> EntityBootstrapCompleted;
     }
 }

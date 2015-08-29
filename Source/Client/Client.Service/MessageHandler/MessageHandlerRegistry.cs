@@ -22,11 +22,11 @@ namespace Client.Service.MessageHandler
             MessageHandlersIndexedByMessageIdentifier = new Dictionary<MessageIdentifier, IMessageHandler>
             {
                 // Snapshot Handlers
-                {MessageIdentifier.UserSnapshot, new EntitySnapshotHandler<User>(serviceRegistry)},
-                {MessageIdentifier.JamSnapshot, new EntitySnapshotHandler<Jam>(serviceRegistry)},
-                {MessageIdentifier.ParticipationSnapshot, new EntitySnapshotHandler<Participation>(serviceRegistry)},
-                {MessageIdentifier.BandSnapshot, new EntitySnapshotHandler<Band>(serviceRegistry)},
-                {MessageIdentifier.TaskSnapshot, new EntitySnapshotHandler<Task>(serviceRegistry)},
+                {MessageIdentifier.UserSnapshot, new EntityBootstrapper<User>(serviceRegistry)},
+                {MessageIdentifier.JamSnapshot, new EntityBootstrapper<Jam>(serviceRegistry)},
+                {MessageIdentifier.ParticipationSnapshot, new EntityBootstrapper<Participation>(serviceRegistry)},
+                {MessageIdentifier.BandSnapshot, new EntityBootstrapper<Band>(serviceRegistry)},
+                {MessageIdentifier.TaskSnapshot, new EntityBootstrapper<Task>(serviceRegistry)},
 
                 // Entity Notification Handlers
                 {MessageIdentifier.UserNotification, new UserNotificationHandler(serviceRegistry)},
@@ -38,7 +38,7 @@ namespace Client.Service.MessageHandler
             };
         }
 
-        public IList<IBootstrapper> Bootstrappers => new List<IBootstrapper>
+        public IReadOnlyCollection<IBootstrapper> Bootstrappers => new List<IBootstrapper>
         {
             (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.BandSnapshot],
             (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.JamSnapshot],
