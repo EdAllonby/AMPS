@@ -10,9 +10,13 @@ namespace Client.Service.MessageHandler
     /// <summary>
     /// Handles a <see cref="EntitySnapshot{T}" /> the Client received.
     /// </summary>
-    internal sealed class EntitySnapshotHandler<T> : MessageHandler<EntitySnapshot<T>> where T : Entity
+    internal sealed class EntitySnapshotHandler<T> : MessageHandler<EntitySnapshot<T>>, IBootstrapper where T : Entity
     {
-        public override void HandleMessage(EntitySnapshot<T> message, IServiceRegistry serviceRegistry)
+        public EntitySnapshotHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(EntitySnapshot<T> message)
         {
             var entityRepository = (IEntityRepository<T>) serviceRegistry.GetService<RepositoryManager>().GetRepository<T>();
 
@@ -27,11 +31,11 @@ namespace Client.Service.MessageHandler
         /// <summary>
         /// Fires when the snapshot process has complete.
         /// </summary>
-        public event EventHandler EntityBootstrapCompleted;
+        public event EventHandler<Type> EntityBootstrapCompleted;
 
         private void OnEntityBootstrapCompleted()
         {
-            EventUtility.SafeFireEvent(EntityBootstrapCompleted, this);
+            EventUtility.SafeFireEvent(EntityBootstrapCompleted, this, typeof(T));
         }
     }
 }

@@ -12,12 +12,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class TaskSnapshotRequestHandler : MessageHandler<EntitySnapshotRequest<Task>>
     {
+        public TaskSnapshotRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
         /// <summary>
         /// Handles the incoming <see cref="EntitySnapshotRequest{Task}" />.
         /// </summary>
         /// <param name="message">The <see cref="EntitySnapshotRequest{Task}" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(EntitySnapshotRequest<Task> message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntitySnapshotRequest<Task> message)
         {
             IReadOnlyEntityRepository<Task> taskRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
             var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();

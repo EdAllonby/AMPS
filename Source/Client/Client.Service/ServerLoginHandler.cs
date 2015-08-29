@@ -20,22 +20,9 @@ namespace Client.Service
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (ServerLoginHandler));
 
-        private readonly EntitySnapshotHandler<Band> bandSnapshotHandler = (EntitySnapshotHandler<Band>)
-            MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.BandSnapshot];
-
-        private readonly EntitySnapshotHandler<Jam> jamSnapshotHandler = (EntitySnapshotHandler<Jam>)
-            MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.JamSnapshot];
-
-        private readonly EntitySnapshotHandler<Participation> participationSnapshotHandler = (EntitySnapshotHandler<Participation>)
-            MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.ParticipationSnapshot];
+        private readonly MessageHandlerRegistry messageHandlerRegistry;
 
         private readonly TcpClient serverConnection = new TcpClient();
-
-        private readonly EntitySnapshotHandler<Task> taskSnapshotHandler = (EntitySnapshotHandler<Task>)
-            MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.TaskSnapshot];
-
-        private readonly EntitySnapshotHandler<User> userSnapshotHandler = (EntitySnapshotHandler<User>)
-            MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.UserSnapshot];
 
         private bool hasReceivedBandSnapshot;
         private bool hasReceivedJamSnapshot;
@@ -46,13 +33,40 @@ namespace Client.Service
         /// <summary>
         /// Initialises a server login helper.
         /// </summary>
-        public ServerLoginHandler()
+        public ServerLoginHandler(MessageHandlerRegistry messageHandlerRegistry)
         {
-            userSnapshotHandler.EntityBootstrapCompleted += OnUserBootstrapCompleted;
-            jamSnapshotHandler.EntityBootstrapCompleted += OnJamBootstrapCompleted;
-            participationSnapshotHandler.EntityBootstrapCompleted += OnParticipationBootstrapCompleted;
-            taskSnapshotHandler.EntityBootstrapCompleted += OnTaskBootstrapCompleted;
-            bandSnapshotHandler.EntityBootstrapCompleted += OnBandBootstrapCompleted;
+            this.messageHandlerRegistry = messageHandlerRegistry;
+
+            foreach (IBootstrapper bootstrapper in this.messageHandlerRegistry.Bootstrappers)
+            {
+                bootstrapper.EntityBootstrapCompleted += EntityBootstrapCompleted;
+            }
+        }
+
+        private void EntityBootstrapCompleted(object sender, Type e)
+        {
+            if (e == typeof (User))
+            {
+                hasReceivedUserSnapshot = true;
+            }
+            else if (e == typeof (Jam))
+            {
+                hasReceivedJamSnapshot = true;
+            }
+            else if (e == typeof (Participation))
+            {
+                hasReceivedParticipationSnapshot = true;
+            }
+            else if (e == typeof (Band))
+            {
+                hasReceivedBandSnapshot = true;
+            }
+            else if (e == typeof (Task))
+            {
+                hasReceivedTaskSnapshot = true;
+            }
+
+            TrySendBootstrapCompleteEvent();
         }
 
         /// <summary>
@@ -102,11 +116,10 @@ namespace Client.Service
         /// </summary>
         public void RemoveBootstrapEventSubscriptions()
         {
-            userSnapshotHandler.EntityBootstrapCompleted -= OnUserBootstrapCompleted;
-            jamSnapshotHandler.EntityBootstrapCompleted -= OnJamBootstrapCompleted;
-            participationSnapshotHandler.EntityBootstrapCompleted -= OnParticipationBootstrapCompleted;
-            bandSnapshotHandler.EntityBootstrapCompleted -= OnBandBootstrapCompleted;
-            taskSnapshotHandler.EntityBootstrapCompleted -= OnTaskBootstrapCompleted;
+            foreach (IBootstrapper bootstrapper in messageHandlerRegistry.Bootstrappers)
+            {
+                bootstrapper.EntityBootstrapCompleted -= EntityBootstrapCompleted;
+            }
         }
 
         private void BootstrapRepositories(int userId)
@@ -189,36 +202,6 @@ namespace Client.Service
         private void OnBootstrapCompleted()
         {
             EventUtility.SafeFireEvent(BootstrapCompleted, this);
-        }
-
-        private void OnUserBootstrapCompleted(object sender, EventArgs e)
-        {
-            hasReceivedUserSnapshot = true;
-            TrySendBootstrapCompleteEvent();
-        }
-
-        private void OnJamBootstrapCompleted(object sender, EventArgs e)
-        {
-            hasReceivedJamSnapshot = true;
-            TrySendBootstrapCompleteEvent();
-        }
-
-        private void OnParticipationBootstrapCompleted(object sender, EventArgs e)
-        {
-            hasReceivedParticipationSnapshot = true;
-            TrySendBootstrapCompleteEvent();
-        }
-
-        private void OnBandBootstrapCompleted(object sender, EventArgs e)
-        {
-            hasReceivedBandSnapshot = true;
-            TrySendBootstrapCompleteEvent();
-        }
-
-        private void OnTaskBootstrapCompleted(object sender, EventArgs e)
-        {
-            hasReceivedTaskSnapshot = true;
-            TrySendBootstrapCompleteEvent();
         }
     }
 }

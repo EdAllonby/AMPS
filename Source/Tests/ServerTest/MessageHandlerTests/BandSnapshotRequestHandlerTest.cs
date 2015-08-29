@@ -14,16 +14,16 @@ namespace ServerTest.MessageHandlerTests
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
-
+            bandSnapshotRequestHandler = new BandSnapshotRequestHandler(ServiceRegistry);
             bandSnapshotRequest = new EntitySnapshotRequest<Band>(DefaultUser.Id);
         }
 
-        private readonly BandSnapshotRequestHandler bandSnapshotRequestHandler = new BandSnapshotRequestHandler();
+        private BandSnapshotRequestHandler bandSnapshotRequestHandler;
         private EntitySnapshotRequest<Band> bandSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {
-            bandSnapshotRequestHandler.HandleMessage(message, ServiceRegistry);
+            bandSnapshotRequestHandler.HandleMessage(message);
         }
 
         [TestFixture]

@@ -17,16 +17,16 @@ namespace ServerTest.MessageHandlerTests
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
-
+            clientDisconnectionHandler = new ClientDisconnectionHandler(ServiceRegistry);
             clientDisconnection = new ClientDisconnection(DefaultUser.Id);
         }
 
-        private readonly ClientDisconnectionHandler clientDisconnectionHandler = new ClientDisconnectionHandler();
+        private ClientDisconnectionHandler clientDisconnectionHandler;
         private ClientDisconnection clientDisconnection;
 
         public override void HandleMessage(IMessage message)
         {
-            clientDisconnectionHandler.HandleMessage(message, ServiceRegistry);
+            clientDisconnectionHandler.HandleMessage(message);
         }
 
         [TestFixture]

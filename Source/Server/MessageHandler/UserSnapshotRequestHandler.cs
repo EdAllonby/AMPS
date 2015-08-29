@@ -11,12 +11,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class UserSnapshotRequestHandler : MessageHandler<EntitySnapshotRequest<User>>
     {
+        public UserSnapshotRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
         /// <summary>
         /// Handles the incoming <see cref="EntitySnapshotRequest{User}" />.
         /// </summary>
         /// <param name="message">The <see cref="EntitySnapshotRequest{User}" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(EntitySnapshotRequest<User> message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(EntitySnapshotRequest<User> message)
         {
             IReadOnlyEntityRepository<User> userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
             var clientManager = serviceRegistry.GetService<IClientManager>();

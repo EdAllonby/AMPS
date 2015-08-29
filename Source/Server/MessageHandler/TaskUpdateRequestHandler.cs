@@ -11,7 +11,11 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class TaskUpdateRequestHandler : MessageHandler<TaskUpdateRequest>
     {
-        public override void HandleMessage(TaskUpdateRequest message, IServiceRegistry serviceRegistry)
+        public TaskUpdateRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(TaskUpdateRequest message)
         {
             TaskRepository taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 

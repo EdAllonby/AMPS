@@ -13,14 +13,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class BandRequestHandler : MessageHandler<BandRequest>
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (BandRequestHandler));
+        public BandRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
 
         /// <summary>
         /// Handles the incoming <see cref="BandRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="BandRequest" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(BandRequest message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(BandRequest message)
         {
             var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
+using MediatR;
 using Shared.Domain;
 
 namespace Shared.Message.BandMessage

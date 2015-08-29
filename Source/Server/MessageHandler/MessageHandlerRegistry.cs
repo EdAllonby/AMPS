@@ -8,27 +8,31 @@ namespace Server.MessageHandler
     /// Holds the link between an <see cref="IMessage" /> and their implementation of an <see cref="IMessageHandler" /> to be
     /// used by the Server.
     /// </summary>
-    internal static class MessageHandlerRegistry
+    internal class MessageHandlerRegistry
     {
         /// <summary>
         /// A dictionary of <see cref="IMessageHandler" /> implementations indexed by their relevant
         /// <see cref="MessageIdentifier" /> to be used by the Server.
         /// </summary>
-        public static readonly IReadOnlyDictionary<MessageIdentifier, IMessageHandler>
+        public readonly IReadOnlyDictionary<MessageIdentifier, IMessageHandler> MessageHandlersIndexedByMessageIdentifier;
+
+        public MessageHandlerRegistry(IServiceRegistry serviceRegistry)
+        {
             MessageHandlersIndexedByMessageIdentifier = new Dictionary<MessageIdentifier, IMessageHandler>
             {
-                {MessageIdentifier.UserSnapshotRequest, new UserSnapshotRequestHandler()},
-                {MessageIdentifier.JamSnapshotRequest, new JamSnapshotRequestHandler()},
-                {MessageIdentifier.ParticipationSnapshotRequest, new ParticipationSnapshotRequestHandler()},
-                {MessageIdentifier.ClientDisconnection, new ClientDisconnectionHandler()},
-                {MessageIdentifier.JamRequest, new JamRequestHandler()},
-                {MessageIdentifier.BandSnapshotRequest, new BandSnapshotRequestHandler()},
-                {MessageIdentifier.BandRequest, new BandRequestHandler()},
-                {MessageIdentifier.ParticipationRequest, new ParticipationRequestHandler()},
-                {MessageIdentifier.TaskRequest, new TaskRequestHandler()},
-                {MessageIdentifier.TaskSnapshotRequest, new TaskSnapshotRequestHandler()},
-                {MessageIdentifier.TaskUpdateRequest, new TaskUpdateRequestHandler()},
-                {MessageIdentifier.TaskCommentRequest, new TaskCommentRequestHandler()}
+                {MessageIdentifier.UserSnapshotRequest, new UserSnapshotRequestHandler(serviceRegistry)},
+                {MessageIdentifier.JamSnapshotRequest, new JamSnapshotRequestHandler(serviceRegistry)},
+                {MessageIdentifier.ParticipationSnapshotRequest, new ParticipationSnapshotRequestHandler(serviceRegistry)},
+                {MessageIdentifier.ClientDisconnection, new ClientDisconnectionHandler(serviceRegistry)},
+                {MessageIdentifier.JamRequest, new JamRequestHandler(serviceRegistry)},
+                {MessageIdentifier.BandSnapshotRequest, new BandSnapshotRequestHandler(serviceRegistry)},
+                {MessageIdentifier.BandRequest, new BandRequestHandler(serviceRegistry)},
+                {MessageIdentifier.ParticipationRequest, new ParticipationRequestHandler(serviceRegistry)},
+                {MessageIdentifier.TaskRequest, new TaskRequestHandler(serviceRegistry)},
+                {MessageIdentifier.TaskSnapshotRequest, new TaskSnapshotRequestHandler(serviceRegistry)},
+                {MessageIdentifier.TaskUpdateRequest, new TaskUpdateRequestHandler(serviceRegistry)},
+                {MessageIdentifier.TaskCommentRequest, new TaskCommentRequestHandler(serviceRegistry)}
             };
+        }
     }
 }

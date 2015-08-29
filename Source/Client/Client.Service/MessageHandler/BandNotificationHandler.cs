@@ -7,7 +7,11 @@ namespace Client.Service.MessageHandler
 {
     internal sealed class BandNotificationHandler : MessageHandler<EntityNotification<Band>>
     {
-        public override void HandleMessage(EntityNotification<Band> message, IServiceRegistry serviceRegistry)
+        public BandNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(EntityNotification<Band> message)
         {
             var bandRepository = (IEntityRepository<Band>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
 

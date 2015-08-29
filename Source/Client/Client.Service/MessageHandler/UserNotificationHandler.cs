@@ -10,7 +10,11 @@ namespace Client.Service.MessageHandler
     /// </summary>
     internal sealed class UserNotificationHandler : MessageHandler<EntityNotification<User>>
     {
-        public override void HandleMessage(EntityNotification<User> message, IServiceRegistry serviceRegistry)
+        public UserNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(EntityNotification<User> message)
         {
             var userRepository = (IEntityRepository<User>) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
 

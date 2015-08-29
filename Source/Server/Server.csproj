@@ -58,6 +58,7 @@
     <Compile Include="EntityChangedHandler\TaskChangedHandler.cs" />
     <Compile Include="InMemoryPasswordPersister.cs" />
     <Compile Include="IPasswordPersister.cs" />
+    <Compile Include="MessageHandler\MessageHandlerRegistry.cs" />
     <Compile Include="MessageHandler\TaskCommentRequestHandler.cs" />
     <Compile Include="Persistence\BandMapper.cs" />
     <Compile Include="Persistence\DatabaseEntityPersister.cs" />
@@ -83,7 +84,6 @@
     <Compile Include="JamManager.cs" />
     <Compile Include="MessageHandler\ClientDisconnectionHandler.cs" />
     <Compile Include="MessageHandler\JamValidator.cs" />
-    <Compile Include="MessageHandler\MessageHandlerRegistry.cs" />
     <Compile Include="MessageHandler\ParticipationRequestHandler.cs" />
     <Compile Include="MessageHandler\JamRequestHandler.cs" />
     <Compile Include="MessageHandler\ParticipationSnapshotRequestHandler.cs" />

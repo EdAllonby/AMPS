@@ -10,12 +10,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class ClientDisconnectionHandler : MessageHandler<ClientDisconnection>
     {
+        public ClientDisconnectionHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
         /// <summary>
         /// Handles the incoming <see cref="ClientDisconnection" />.
         /// </summary>
         /// <param name="message">The <see cref="ClientDisconnection" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(ClientDisconnection message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(ClientDisconnection message)
         {
             var clientManager = serviceRegistry.GetService<IClientManager>();
 

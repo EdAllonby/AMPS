@@ -9,29 +9,42 @@ namespace Client.Service.MessageHandler
     /// Holds the link between an <see cref="IMessage" /> and their implementation of an <see cref="IMessageHandler" /> to be
     /// used by the Client.
     /// </summary>
-    internal static class MessageHandlerRegistry
+    public class MessageHandlerRegistry
     {
         /// <summary>
         /// A dictionary of <see cref="IMessageHandler" /> implementations indexed by their relevant
         /// <see cref="MessageIdentifier" /> to be used by the Client.
         /// </summary>
-        public static readonly IReadOnlyDictionary<MessageIdentifier, IMessageHandler>
+        public readonly IReadOnlyDictionary<MessageIdentifier, IMessageHandler> MessageHandlersIndexedByMessageIdentifier;
+
+        public MessageHandlerRegistry(IServiceRegistry serviceRegistry)
+        {
             MessageHandlersIndexedByMessageIdentifier = new Dictionary<MessageIdentifier, IMessageHandler>
             {
                 // Snapshot Handlers
-                {MessageIdentifier.UserSnapshot, new EntitySnapshotHandler<User>()},
-                {MessageIdentifier.JamSnapshot, new EntitySnapshotHandler<Jam>()},
-                {MessageIdentifier.ParticipationSnapshot, new EntitySnapshotHandler<Participation>()},
-                {MessageIdentifier.BandSnapshot, new EntitySnapshotHandler<Band>()},
-                {MessageIdentifier.TaskSnapshot, new EntitySnapshotHandler<Task>()},
+                {MessageIdentifier.UserSnapshot, new EntitySnapshotHandler<User>(serviceRegistry)},
+                {MessageIdentifier.JamSnapshot, new EntitySnapshotHandler<Jam>(serviceRegistry)},
+                {MessageIdentifier.ParticipationSnapshot, new EntitySnapshotHandler<Participation>(serviceRegistry)},
+                {MessageIdentifier.BandSnapshot, new EntitySnapshotHandler<Band>(serviceRegistry)},
+                {MessageIdentifier.TaskSnapshot, new EntitySnapshotHandler<Task>(serviceRegistry)},
 
                 // Entity Notification Handlers
-                {MessageIdentifier.UserNotification, new UserNotificationHandler()},
-                {MessageIdentifier.ConnectionStatusNotification, new ConnectionStatusNotificationHandler()},
-                {MessageIdentifier.JamNotification, new JamNotificationHandler()},
-                {MessageIdentifier.ParticipationNotification, new ParticipationNotificationHandler()},
-                {MessageIdentifier.BandNotification, new BandNotificationHandler()},
-                {MessageIdentifier.TaskNotification, new TaskNotificationHandler()}
+                {MessageIdentifier.UserNotification, new UserNotificationHandler(serviceRegistry)},
+                {MessageIdentifier.ConnectionStatusNotification, new ConnectionStatusNotificationHandler(serviceRegistry)},
+                {MessageIdentifier.JamNotification, new JamNotificationHandler(serviceRegistry)},
+                {MessageIdentifier.ParticipationNotification, new ParticipationNotificationHandler(serviceRegistry)},
+                {MessageIdentifier.BandNotification, new BandNotificationHandler(serviceRegistry)},
+                {MessageIdentifier.TaskNotification, new TaskNotificationHandler(serviceRegistry)}
             };
+        }
+
+        public IList<IBootstrapper> Bootstrappers => new List<IBootstrapper>
+        {
+            (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.BandSnapshot],
+            (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.JamSnapshot],
+            (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.ParticipationSnapshot],
+            (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.TaskSnapshot],
+            (IBootstrapper) MessageHandlersIndexedByMessageIdentifier[MessageIdentifier.UserSnapshot]
+        };
     }
 }

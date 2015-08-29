@@ -10,7 +10,11 @@ namespace Client.Service.MessageHandler
     /// </summary>
     internal sealed class ParticipationNotificationHandler : MessageHandler<EntityNotification<Participation>>
     {
-        public override void HandleMessage(EntityNotification<Participation> message, IServiceRegistry serviceRegistry)
+        public ParticipationNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(EntityNotification<Participation> message)
         {
             var participationRepository = (IEntityRepository<Participation>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 

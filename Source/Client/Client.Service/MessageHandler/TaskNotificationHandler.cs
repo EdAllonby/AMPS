@@ -10,7 +10,11 @@ namespace Client.Service.MessageHandler
     /// </summary>
     internal sealed class TaskNotificationHandler : MessageHandler<EntityNotification<Task>>
     {
-        public override void HandleMessage(EntityNotification<Task> message, IServiceRegistry serviceRegistry)
+        public TaskNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(EntityNotification<Task> message)
         {
             var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
             var taskRepository = (IEntityRepository<Task>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();

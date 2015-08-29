@@ -10,12 +10,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class TaskRequestHandler : MessageHandler<TaskRequest>
     {
+        public TaskRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
         /// <summary>
         /// Handles the incoming <see cref="TaskRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="TaskRequest" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(TaskRequest message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(TaskRequest message)
         {
             var taskRepository = (IEntityRepository<Task>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 

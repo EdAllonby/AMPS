@@ -14,15 +14,16 @@ namespace ServerTest.MessageHandlerTests
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
+            userSnapshotRequestHandler = new UserSnapshotRequestHandler(ServiceRegistry);
             userSnapshotRequest = new EntitySnapshotRequest<User>(DefaultUser.Id);
         }
 
-        private readonly UserSnapshotRequestHandler userSnapshotRequestHandler = new UserSnapshotRequestHandler();
+        private UserSnapshotRequestHandler userSnapshotRequestHandler;
         private EntitySnapshotRequest<User> userSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {
-            userSnapshotRequestHandler.HandleMessage(message, ServiceRegistry);
+            userSnapshotRequestHandler.HandleMessage(message);
         }
 
         [TestFixture]

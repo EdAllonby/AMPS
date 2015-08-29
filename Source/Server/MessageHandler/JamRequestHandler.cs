@@ -13,14 +13,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class JamRequestHandler : MessageHandler<JamRequest>
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (JamRequestHandler));
+        public JamRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
 
         /// <summary>
         /// Handles the incoming <see cref="JamRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="JamRequest" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(JamRequest message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(JamRequest message)
         {
             BandRepository bandRepository = (BandRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
 
@@ -32,7 +33,7 @@ namespace Server.MessageHandler
 
                     var jam = new Jam(entityIdAllocatorFactory.AllocateEntityId<Jam>(), message.BandId, message.JamEndDate);
 
-                    IEntityRepository<Jam> jamRepository = (IEntityRepository<Jam>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+                    var jamRepository = (IEntityRepository<Jam>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
 
                     TaskRepository taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 

@@ -27,7 +27,7 @@ namespace Utility
         /// <param name="unsafeEventHandler">The event to safely fire.</param>
         /// <param name="sender">The class that called the event.</param>
         /// <param name="eventArgs">The <see cref="EventArgs" /> the event has.</param>
-        public static void SafeFireEvent<T>(EventHandler<T> unsafeEventHandler, object sender, T eventArgs) where T : EventArgs
+        public static void SafeFireEvent<T>(EventHandler<T> unsafeEventHandler, object sender, T eventArgs)
         {
             var eventCopy = unsafeEventHandler;
 

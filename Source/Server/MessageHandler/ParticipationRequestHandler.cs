@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using Shared;
 using Shared.Domain;
 using Shared.Message.ParticipationMessage;
@@ -13,14 +12,15 @@ namespace Server.MessageHandler
     /// </summary>
     internal sealed class ParticipationRequestHandler : MessageHandler<ParticipationRequest>
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
+        public ParticipationRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
 
         /// <summary>
         /// Handles the incoming <see cref="ParticipationRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="ParticipationRequest" /> that has been received and needs to be handled.</param>
-        /// <param name="serviceRegistry">The services needed to handle the message correctly.</param>
-        public override void HandleMessage(ParticipationRequest message, IServiceRegistry serviceRegistry)
+        public override void HandleMessage(ParticipationRequest message)
         {
             var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 

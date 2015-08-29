@@ -29,6 +29,8 @@ namespace Client.Service
         /// </summary>
         protected readonly IServiceRegistry ServiceRegistry;
 
+        private readonly MessageHandlerRegistry messageHandlerRegistry;
+
         private ConnectionHandler connectionHandler;
         private ServerLoginHandler serverLoginHandler;
 
@@ -38,6 +40,7 @@ namespace Client.Service
         /// <param name="serviceRegistry">Contains a housing for client services.</param>
         public ClientService(IServiceRegistry serviceRegistry)
         {
+            messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             ServiceRegistry = serviceRegistry;
         }
 
@@ -68,7 +71,7 @@ namespace Client.Service
         /// <param name="loginDetails">The details used to log in to the server.</param>
         public LoginResult LogOn(LoginDetails loginDetails)
         {
-            serverLoginHandler = new ServerLoginHandler();
+            serverLoginHandler = new ServerLoginHandler(messageHandlerRegistry);
 
             serverLoginHandler.BootstrapCompleted += OnBootstrapCompleted;
 
@@ -175,9 +178,9 @@ namespace Client.Service
 
             try
             {
-                IMessageHandler handler = MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[message.MessageIdentifier];
+                IMessageHandler handler = messageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[message.MessageIdentifier];
 
-                handler.HandleMessage(message, ServiceRegistry);
+                handler.HandleMessage(message);
             }
             catch (KeyNotFoundException keyNotFoundException)
             {

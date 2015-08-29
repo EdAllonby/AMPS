@@ -15,15 +15,17 @@ namespace ServerTest.MessageHandlerTests
         {
             base.BeforeEachTest();
 
+            jamSnapshotRequestHandler = new JamSnapshotRequestHandler(ServiceRegistry);
+
             jamSnapshotRequest = new EntitySnapshotRequest<Jam>(DefaultUser.Id);
         }
 
-        private readonly JamSnapshotRequestHandler jamSnapshotRequestHandler = new JamSnapshotRequestHandler();
+        private JamSnapshotRequestHandler jamSnapshotRequestHandler;
         private EntitySnapshotRequest<Jam> jamSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {
-            jamSnapshotRequestHandler.HandleMessage(message, ServiceRegistry);
+            jamSnapshotRequestHandler.HandleMessage(message);
         }
 
         [TestFixture]

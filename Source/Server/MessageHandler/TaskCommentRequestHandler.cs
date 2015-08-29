@@ -8,7 +8,11 @@ namespace Server.MessageHandler
 {
     public sealed class TaskCommentRequestHandler : MessageHandler<TaskCommentRequest>
     {
-        public override void HandleMessage(TaskCommentRequest message, IServiceRegistry serviceRegistry)
+        public TaskCommentRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(TaskCommentRequest message)
         {
             TaskRepository taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 

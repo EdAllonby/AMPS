@@ -20,10 +20,11 @@ namespace Server
         private const int PortNumber = 5004;
         private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
         private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
+        private readonly MessageHandlerRegistry messageHandlerRegistry;
         private readonly IServiceRegistry serviceRegistry;
         private TcpListener clientListener;
         private bool isServerRunning;
-
+            
         /// <summary>
         /// Creates a new <see cref="Server" /> instance, and sets up the Repository Change Handlers.
         /// </summary>
@@ -31,6 +32,7 @@ namespace Server
         public Server(IServiceRegistry serviceRegistry)
         {
             this.serviceRegistry = serviceRegistry;
+            messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             entityChangedHandlerRegistry = new EntityChangedHandlerRegistry(serviceRegistry);
 
             JamManager jamManager = serviceRegistry.GetService<JamManager>();
@@ -117,9 +119,9 @@ namespace Server
 
             try
             {
-                IMessageHandler handler = MessageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[message.MessageIdentifier];
+                IMessageHandler handler = messageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[message.MessageIdentifier];
 
-                handler.HandleMessage(message, serviceRegistry);
+                handler.HandleMessage(message);
             }
             catch (KeyNotFoundException keyNotFoundException)
             {

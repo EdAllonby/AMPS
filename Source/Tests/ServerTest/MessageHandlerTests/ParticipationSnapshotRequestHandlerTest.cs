@@ -14,16 +14,16 @@ namespace ServerTest.MessageHandlerTests
         public override void BeforeEachTest()
         {
             base.BeforeEachTest();
-
+            participationSnapshotRequestHandler = new ParticipationSnapshotRequestHandler(ServiceRegistry);
             participationSnapshotRequest = new EntitySnapshotRequest<Participation>(DefaultUser.Id);
         }
 
-        private readonly ParticipationSnapshotRequestHandler participationSnapshotRequestHandler = new ParticipationSnapshotRequestHandler();
+        private ParticipationSnapshotRequestHandler participationSnapshotRequestHandler;
         private EntitySnapshotRequest<Participation> participationSnapshotRequest;
 
         public override void HandleMessage(IMessage message)
         {
-            participationSnapshotRequestHandler.HandleMessage(message, ServiceRegistry);
+            participationSnapshotRequestHandler.HandleMessage(message);
         }
 
         [TestFixture]

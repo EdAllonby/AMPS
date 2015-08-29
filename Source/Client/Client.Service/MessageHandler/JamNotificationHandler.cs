@@ -12,7 +12,11 @@ namespace Client.Service.MessageHandler
     /// </summary>
     internal sealed class JamNotificationHandler : MessageHandler<EntityNotification<Jam>>
     {
-        public override void HandleMessage(EntityNotification<Jam> message, IServiceRegistry serviceRegistry)
+        public JamNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(EntityNotification<Jam> message)
         {
             var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
 

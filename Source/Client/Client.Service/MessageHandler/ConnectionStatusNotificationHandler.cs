@@ -10,7 +10,11 @@ namespace Client.Service.MessageHandler
     /// </summary>
     internal sealed class ConnectionStatusNotificationHandler : MessageHandler<ConnectionStatusNotification>
     {
-        public override void HandleMessage(ConnectionStatusNotification message, IServiceRegistry serviceRegistry)
+        public ConnectionStatusNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        public override void HandleMessage(ConnectionStatusNotification message)
         {
             var userRepository = (UserRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
 
