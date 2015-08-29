@@ -41,6 +41,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AppConfigManager.cs" />
     <Compile Include="ClientLogOnParser.cs" />
     <Compile Include="ClientService.cs" />
     <Compile Include="FTPService\DataSentEventArgs.cs" />

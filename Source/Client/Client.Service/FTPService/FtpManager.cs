@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Threading.Tasks;
@@ -18,36 +17,36 @@ namespace Client.Service.FTPService
 
         public string Address
         {
-            get { return ConfigurationManager.ConnectionStrings["FTPHost"].ConnectionString; }
+            get { return AppConfigManager.FindStoredValue("FTPHost"); }
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    UpdateSetting("FTPHost", value);
+                    AppConfigManager.UpdateSetting("FTPHost", value);
                 }
             }
         }
 
         public string Username
         {
-            get { return ConfigurationManager.ConnectionStrings["FTPUsername"].ConnectionString; }
+            get { return AppConfigManager.FindStoredValue("FTPUsername"); }
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    UpdateSetting("FTPUsername", value);
+                    AppConfigManager.UpdateSetting("FTPUsername", value);
                 }
             }
         }
 
         public string Password
         {
-            get { return ConfigurationManager.ConnectionStrings["FTPPassword"].ConnectionString; }
+            get { return AppConfigManager.FindStoredValue("FTPPassword"); }
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    UpdateSetting("FTPPassword", value);
+                    AppConfigManager.UpdateSetting("FTPPassword", value);
                 }
             }
         }
@@ -201,22 +200,6 @@ namespace Client.Service.FTPService
             catch (WebException webException)
             {
                 return HandleException(webException);
-            }
-        }
-
-        private static void UpdateSetting(string key, string value)
-        {
-            try
-            {
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
-                config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
-                config.Save(ConfigurationSaveMode.Modified, true);
-
-                ConfigurationManager.RefreshSection("connectionStrings");
-            }
-            catch (Exception)
-            {
-                Log.ErrorFormat("Failed to change configuration setting for key {0}", key);
             }
         }
 
