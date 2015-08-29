@@ -4,11 +4,11 @@ using Shared.Domain;
 namespace Shared.Message
 {
     /// <summary>
-    /// Request for an entity snapshot where <see cref="T" /> is the <see cref="Entity" /> requested.
+    /// Request for an entity snapshot where <see cref="TEntity" /> is the <see cref="Entity" /> requested.
     /// </summary>
-    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="TEntity"></typeparam>
     [Serializable]
-    public sealed class EntitySnapshotRequest<T> : IMessage where T : Entity
+    public sealed class EntitySnapshotRequest<TEntity> : IMessage where TEntity : Entity
     {
         private readonly SnapshotRequestMessageIdentifierFactory snapshotRequestMessageIdentifierFactory = new SnapshotRequestMessageIdentifierFactory();
 
@@ -29,6 +29,6 @@ namespace Shared.Message
         /// <summary>
         /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
-        public MessageIdentifier MessageIdentifier => snapshotRequestMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T));
+        public MessageIdentifier MessageIdentifier => snapshotRequestMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (TEntity));
     }
 }

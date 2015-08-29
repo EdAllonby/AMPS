@@ -5,19 +5,19 @@ namespace Shared.Message
 {
     /// <summary>
     /// Packages an <see cref="Entity" /> with a <see cref="NotificationType" />.
-    /// Used to notify clients when an <see cref="Entity" /> of type <see cref="T" /> is changed Server side.
+    /// Used to notify clients when an <see cref="Entity" /> of type <see cref="TEntity" /> is changed Server side.
     /// </summary>
-    /// <typeparam name="T">The <see cref="Entity" /> changed.</typeparam>
-    public sealed class EntityNotification<T> : IMessage where T : Entity
+    /// <typeparam name="TEntity">The <see cref="Entity" /> changed.</typeparam>
+    public sealed class EntityNotification<TEntity> : IMessage where TEntity : Entity
     {
         private readonly NotificationMessageIdentifierFactory notificationMessageIdentifierFactory = new NotificationMessageIdentifierFactory();
 
         /// <summary>
-        /// Create a new notification object for <see cref="T" />.
+        /// Create a new notification object for <see cref="TEntity" />.
         /// </summary>
-        /// <param name="entity">The <see cref="T" /> changed.</param>
-        /// <param name="notificationType">What change the <see cref="T" /> <see cref="Entity" /> made.</param>
-        public EntityNotification(T entity, NotificationType notificationType)
+        /// <param name="entity">The <see cref="TEntity" /> changed.</param>
+        /// <param name="notificationType">What change the <see cref="TEntity" /> <see cref="Entity" /> made.</param>
+        public EntityNotification(TEntity entity, NotificationType notificationType)
         {
             Contract.Requires(entity != null);
             Contract.Requires(!entity.IsNew);
@@ -27,18 +27,18 @@ namespace Shared.Message
         }
 
         /// <summary>
-        /// What change the <see cref="T" /> <see cref="Entity" /> made.
+        /// What change the <see cref="TEntity" /> <see cref="Entity" /> made.
         /// </summary>
         public NotificationType NotificationType { get; private set; }
 
         /// <summary>
-        /// The <see cref="T" /> <see cref="Entity" /> changed.
+        /// The <see cref="TEntity" /> <see cref="Entity" /> changed.
         /// </summary>
-        public T Entity { get; private set; }
+        public TEntity Entity { get; private set; }
 
         /// <summary>
         /// What the message identifier is.
         /// </summary>
-        public MessageIdentifier MessageIdentifier => notificationMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (T));
+        public MessageIdentifier MessageIdentifier => notificationMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (TEntity));
     }
 }
