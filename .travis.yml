@@ -1,2 +1,4 @@
 language: csharp
 solution: ./Source/AMPS.sln
+mono:
+  - 4.2.0.179
