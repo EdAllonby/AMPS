@@ -1,2 +1,2 @@
-language csharp
-solution AMPS.sln
+language: csharp
+solution: ./Source/AMPS.sln
