@@ -12,41 +12,47 @@ namespace Client.Service.FTPService
     /// </summary>
     public class FtpManager : IFtpManager
     {
+        private readonly AppConfigManager configManager;
         private const int BufferSize = 2048;
         private static readonly ILog Log = LogManager.GetLogger(typeof (FtpManager));
 
+        public FtpManager(AppConfigManager configManager)
+        {
+            this.configManager = configManager;
+        }
+
         public string Address
         {
-            get { return AppConfigManager.FindStoredValue("FTPHost"); }
+            get { return configManager.FindStoredValue("FTPHost"); }
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    AppConfigManager.UpdateSetting("FTPHost", value);
+                    configManager.UpdateSetting("FTPHost", value);
                 }
             }
         }
 
         public string Username
         {
-            get { return AppConfigManager.FindStoredValue("FTPUsername"); }
+            get { return configManager.FindStoredValue("FTPUsername"); }
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    AppConfigManager.UpdateSetting("FTPUsername", value);
+                    configManager.UpdateSetting("FTPUsername", value);
                 }
             }
         }
 
         public string Password
         {
-            get { return AppConfigManager.FindStoredValue("FTPPassword"); }
+            get { return configManager.FindStoredValue("FTPPassword"); }
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
                 {
-                    AppConfigManager.UpdateSetting("FTPPassword", value);
+                    configManager.UpdateSetting("FTPPassword", value);
                 }
             }
         }

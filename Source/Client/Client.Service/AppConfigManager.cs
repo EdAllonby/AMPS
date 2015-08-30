@@ -1,18 +1,26 @@
 ﻿using System;
 using System.Configuration;
 using log4net;
+using Shared;
 
 namespace Client.Service
 {
-    public static class AppConfigManager
+    public class AppConfigManager : IService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof (AppConfigManager));
 
-        public static string FindStoredValue(string key)
+        private readonly IConfiguration configuration;
+
+        public AppConfigManager(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
+        public string FindStoredValue(string key)
         {
             try
             {
-                return ConfigurationManager.ConnectionStrings[key].ConnectionString;
+                return configuration.ConnectionString(key);
             }
             catch (NullReferenceException)
             {
@@ -23,15 +31,15 @@ namespace Client.Service
             }
         }
 
-        public static void UpdateSetting(string key, string value)
+        public void UpdateSetting(string key, string value)
         {
             try
             {
-                Configuration config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                Configuration config = configuration.OpenConfiguration(ConfigurationUserLevel.None);
                 config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
                 config.Save(ConfigurationSaveMode.Modified, true);
 
-                ConfigurationManager.RefreshSection("connectionStrings");
+                configuration.RefreshSection("connectionStrings");
             }
             catch (Exception)
             {

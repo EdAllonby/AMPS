@@ -32,8 +32,10 @@ namespace Client.ViewModel.LoginViewModel
         {
             if (!IsInDesignMode)
             {
-                LoginModel.IPAddress = AppConfigManager.FindStoredValue("DefaultIPAddress");
-                LoginModel.Port = AppConfigManager.FindStoredValue("DefaultPort");
+                AppConfigManager configManager = serviceRegistry.GetService<AppConfigManager>();
+
+                LoginModel.IPAddress = configManager.FindStoredValue("DefaultIPAddress");
+                LoginModel.Port = configManager.FindStoredValue("DefaultPort");
 
                 clientService = serviceRegistry.GetService<IClientService>();
 
