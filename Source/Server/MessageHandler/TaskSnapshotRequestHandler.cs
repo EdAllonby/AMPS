@@ -20,12 +20,12 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="EntitySnapshotRequest{Task}" />.
         /// </summary>
         /// <param name="message">The <see cref="EntitySnapshotRequest{Task}" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(EntitySnapshotRequest<Task> message)
+        protected override void HandleMessage(EntitySnapshotRequest<Task> message)
         {
-            IReadOnlyEntityRepository<Task> taskRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
-            var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
-            var clientManager = serviceRegistry.GetService<IClientManager>();
+            var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             List<int> bandIdsUserIsIn = participationRepository.GetAllBandIdsByUserId(message.UserId).ToList();
 

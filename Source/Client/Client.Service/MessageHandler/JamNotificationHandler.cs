@@ -16,11 +16,11 @@ namespace Client.Service.MessageHandler
         {
         }
 
-        public override void HandleMessage(EntityNotification<Jam> message)
+        protected override void HandleMessage(EntityNotification<Jam> message)
         {
-            var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
+            var toastNotifier = ServiceRegistry.GetService<ToastNotificationManager>();
 
-            var jamRepository = (JamRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            var jamRepository = (JamRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
 
             switch (message.NotificationType)
             {

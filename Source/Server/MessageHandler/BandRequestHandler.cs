@@ -21,12 +21,12 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="BandRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="BandRequest" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(BandRequest message)
+        protected override void HandleMessage(BandRequest message)
         {
-            var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
+            var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
 
-            var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-            var bandRepository = (IEntityRepository<Band>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
 
             if (IsBandValid(message))
             {

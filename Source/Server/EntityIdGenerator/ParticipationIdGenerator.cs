@@ -9,7 +9,7 @@ namespace Server.EntityIdGenerator
         /// </summary>
         public ParticipationIdGenerator(IGeneratorStrategy generatorStrategy)
         {
-            CurrentId = generatorStrategy.GetCurrentHighestId("Participations");
+            CurrentId = generatorStrategy.GetCurrentHighestId(EntityTable.Participations);
         }
     }
 }

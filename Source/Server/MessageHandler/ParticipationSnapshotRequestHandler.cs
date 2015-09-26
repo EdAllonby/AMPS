@@ -21,10 +21,10 @@ namespace Server.MessageHandler
         /// <param name="message">
         /// The <see cref="EntitySnapshotRequest{Participation}" /> that has been received and needs to be handled.
         /// </param>
-        public override void HandleMessage(EntitySnapshotRequest<Participation> message)
+        protected override void HandleMessage(EntitySnapshotRequest<Participation> message)
         {
-            var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-            var clientManager = serviceRegistry.GetService<IClientManager>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             var userParticipations = new List<Participation>();
 

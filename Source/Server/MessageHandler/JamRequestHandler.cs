@@ -21,21 +21,21 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="JamRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="JamRequest" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(JamRequest message)
+        protected override void HandleMessage(JamRequest message)
         {
-            BandRepository bandRepository = (BandRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            BandRepository bandRepository = (BandRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
 
             if (JamValidator.IsJamEndDateValid(message.JamEndDate))
             {
                 if (JamValidator.IsBandValid(message, bandRepository))
                 {
-                    var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
+                    var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
 
                     var jam = new Jam(entityIdAllocatorFactory.AllocateEntityId<Jam>(), message.BandId, message.JamEndDate);
 
-                    var jamRepository = (IEntityRepository<Jam>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+                    var jamRepository = (IEntityRepository<Jam>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
 
-                    TaskRepository taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+                    TaskRepository taskRepository = (TaskRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
                     List<Task> jamTasks = message.TaskIds.Select(taskId => taskRepository.FindEntityById(taskId)).ToList();
 

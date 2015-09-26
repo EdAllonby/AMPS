@@ -8,6 +8,6 @@
         /// <summary>
         /// </summary>
         /// <returns></returns>
-        int GetCurrentHighestId(string table);
+        int GetCurrentHighestId(EntityTable entityTable);
     }
 }

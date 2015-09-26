@@ -9,7 +9,7 @@ namespace Server.EntityIdGenerator
         /// </summary>
         public TaskIdGenerator(IGeneratorStrategy generatorStrategy)
         {
-            CurrentId = generatorStrategy.GetCurrentHighestId("Tasks");
+            CurrentId = generatorStrategy.GetCurrentHighestId(EntityTable.Tasks);
         }
     }
 }

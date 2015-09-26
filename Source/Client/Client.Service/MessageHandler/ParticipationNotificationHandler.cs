@@ -14,9 +14,9 @@ namespace Client.Service.MessageHandler
         {
         }
 
-        public override void HandleMessage(EntityNotification<Participation> message)
+        protected override void HandleMessage(EntityNotification<Participation> message)
         {
-            var participationRepository = (IEntityRepository<Participation>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            var participationRepository = (IEntityRepository<Participation>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
             participationRepository.AddEntity(message.Entity);
         }

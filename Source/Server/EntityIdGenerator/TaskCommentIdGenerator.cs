@@ -6,7 +6,7 @@ namespace Server.EntityIdGenerator
     {
         public TaskCommentIdGenerator(IGeneratorStrategy generatorStrategy)
         {
-            CurrentId = generatorStrategy.GetCurrentHighestId("TaskComments");
+            CurrentId = generatorStrategy.GetCurrentHighestId(EntityTable.TaskComments);
         }
     }
 }

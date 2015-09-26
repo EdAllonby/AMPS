@@ -13,7 +13,7 @@ namespace Server.EntityIdGenerator
         /// Gets the current highest Id for the
         /// </summary>
         /// <returns></returns>
-        public int GetCurrentHighestId(string table)
+        public int GetCurrentHighestId(EntityTable table)
         {
             int currentId = 0;
             string connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
@@ -25,7 +25,7 @@ namespace Server.EntityIdGenerator
             {
                 databaseConnection.Open();
 
-                using (var reader = getHighestIdCommand.ExecuteReader())
+                using (SqlDataReader reader = getHighestIdCommand.ExecuteReader())
                 {
                     if (reader.HasRows)
                     {

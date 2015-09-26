@@ -15,9 +15,9 @@ namespace Server.MessageHandler
         {
         }
 
-        public override void HandleMessage(TaskUpdateRequest message)
+        protected override void HandleMessage(TaskUpdateRequest message)
         {
-            TaskRepository taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            TaskRepository taskRepository = (TaskRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
             Task updatedTask = message.UpdatedTask;
 

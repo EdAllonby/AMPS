@@ -19,10 +19,10 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="EntitySnapshotRequest{Band}" />.
         /// </summary>
         /// <param name="message">The <see cref="EntitySnapshotRequest{Band}" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(EntitySnapshotRequest<Band> message)
+        protected override void HandleMessage(EntitySnapshotRequest<Band> message)
         {
-            IReadOnlyEntityRepository<Band> bandRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
-            var clientManager = serviceRegistry.GetService<IClientManager>();
+            IReadOnlyEntityRepository<Band> bandRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             IEnumerable<Band> currentUsers = bandRepository.GetAllEntities();
             var bandSnapshot = new EntitySnapshot<Band>(currentUsers);

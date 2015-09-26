@@ -12,7 +12,7 @@ namespace Server.EntityIdGenerator
         /// </summary>
         public UserIdGenerator(IGeneratorStrategy generatorStrategy)
         {
-            CurrentId = generatorStrategy.GetCurrentHighestId("Users");
+            CurrentId = generatorStrategy.GetCurrentHighestId(EntityTable.Users);
         }
     }
 }

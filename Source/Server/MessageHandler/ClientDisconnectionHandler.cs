@@ -18,15 +18,15 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="ClientDisconnection" />.
         /// </summary>
         /// <param name="message">The <see cref="ClientDisconnection" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(ClientDisconnection message)
+        protected override void HandleMessage(ClientDisconnection message)
         {
-            var clientManager = serviceRegistry.GetService<IClientManager>();
+            var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             clientManager.DisconnectClient(message.UserId);
 
             var connectionStatus = new ConnectionStatus(message.UserId, ConnectionStatus.Status.Disconnected);
 
-            var userRepository = (UserRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            var userRepository = (UserRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
 
             userRepository.UpdateUserConnectionStatus(connectionStatus);
         }

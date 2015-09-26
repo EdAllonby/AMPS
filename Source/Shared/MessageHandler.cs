@@ -10,11 +10,11 @@ namespace Shared
     {
         protected static readonly ILog Log = LogManager.GetLogger(typeof(MessageHandler<TMessage>));
 
-        protected readonly IServiceRegistry serviceRegistry;
+        protected readonly IServiceRegistry ServiceRegistry;
 
         protected MessageHandler(IServiceRegistry serviceRegistry)
         {
-            this.serviceRegistry = serviceRegistry;
+            ServiceRegistry = serviceRegistry;
         }
 
         /// <summary>
@@ -30,6 +30,6 @@ namespace Shared
         /// Handle the incoming message.
         /// </summary>
         /// <param name="message">The message to handle.</param>
-        public abstract void HandleMessage(TMessage message);
+        protected abstract void HandleMessage(TMessage message);
     }
 }

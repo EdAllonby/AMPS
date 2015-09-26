@@ -20,11 +20,11 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="EntitySnapshotRequest{Jam}" />.
         /// </summary>
         /// <param name="message">The <see cref="EntitySnapshotRequest{Jam}" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(EntitySnapshotRequest<Jam> message)
+        protected override void HandleMessage(EntitySnapshotRequest<Jam> message)
         {
-            var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-            IReadOnlyEntityRepository<Jam> jamRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
-            var clientManager = serviceRegistry.GetService<IClientManager>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            IReadOnlyEntityRepository<Jam> jamRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             IEnumerable<int> bandIds = participationRepository.GetAllBandIdsByUserId(message.UserId);
 

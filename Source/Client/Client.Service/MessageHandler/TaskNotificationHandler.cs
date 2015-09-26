@@ -14,10 +14,10 @@ namespace Client.Service.MessageHandler
         {
         }
 
-        public override void HandleMessage(EntityNotification<Task> message)
+        protected override void HandleMessage(EntityNotification<Task> message)
         {
-            var toastNotifier = serviceRegistry.GetService<ToastNotificationManager>();
-            var taskRepository = (IEntityRepository<Task>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var toastNotifier = ServiceRegistry.GetService<ToastNotificationManager>();
+            var taskRepository = (IEntityRepository<Task>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
             Task task = message.Entity;
 

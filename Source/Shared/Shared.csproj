@@ -99,6 +99,7 @@
     <Compile Include="Domain\Band.cs" />
     <Compile Include="Domain\Task.cs" />
     <Compile Include="Domain\TaskComment.cs" />
+    <Compile Include="EntityTable.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="IGeneratorStrategy.cs" />
     <Compile Include="JamEndedEventArgs.cs" />

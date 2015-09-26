@@ -20,13 +20,13 @@ namespace Server.MessageHandler
         /// Handles the incoming <see cref="ParticipationRequest" />.
         /// </summary>
         /// <param name="message">The <see cref="ParticipationRequest" /> that has been received and needs to be handled.</param>
-        public override void HandleMessage(ParticipationRequest message)
+        protected override void HandleMessage(ParticipationRequest message)
         {
-            var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
             if (CheckUserCanEnterBand(message, participationRepository))
             {
-                var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
+                var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
                 AddUserToBand(message, entityIdAllocatorFactory, participationRepository);
             }
         }

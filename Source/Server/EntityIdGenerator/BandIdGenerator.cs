@@ -12,7 +12,7 @@ namespace Server.EntityIdGenerator
         /// </summary>
         public BandIdGenerator(IGeneratorStrategy generatorStrategy)
         {
-            CurrentId = generatorStrategy.GetCurrentHighestId("Bands");
+            CurrentId = generatorStrategy.GetCurrentHighestId(EntityTable.Bands);
         }
     }
 }

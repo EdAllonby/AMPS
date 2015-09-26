@@ -16,9 +16,9 @@ namespace Client.Service.MessageHandler
         {
         }
 
-        public override void HandleMessage(EntitySnapshot<TEntity> message)
+        protected override void HandleMessage(EntitySnapshot<TEntity> message)
         {
-            var entityRepository = (IEntityRepository<TEntity>) serviceRegistry.GetService<RepositoryManager>().GetRepository<TEntity>();
+            var entityRepository = (IEntityRepository<TEntity>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<TEntity>();
 
             foreach (TEntity entity in message.Entities)
             {

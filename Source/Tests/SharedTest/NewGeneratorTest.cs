@@ -11,7 +11,7 @@ namespace SharedTest
         {
             NewGenerator newGenerator = new NewGenerator();
 
-            Assert.IsTrue(newGenerator.GetCurrentHighestId("").Equals(0));
+            Assert.IsTrue(newGenerator.GetCurrentHighestId().Equals(0));
         }
     }
 }

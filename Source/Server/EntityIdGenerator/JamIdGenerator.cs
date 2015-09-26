@@ -12,7 +12,7 @@ namespace Server.EntityIdGenerator
         /// </summary>
         public JamIdGenerator(IGeneratorStrategy generatorStrategy)
         {
-            CurrentId = generatorStrategy.GetCurrentHighestId("Jams");
+            CurrentId = generatorStrategy.GetCurrentHighestId(EntityTable.Jams);
         }
     }
 }
