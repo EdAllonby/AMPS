@@ -49,9 +49,9 @@ namespace Shared.Repository
         [Pure]
         public bool DoesBandWithUsersExist(IEnumerable<int> userIds)
         {
-            var userIdsIndexedByBandId = GetUserIdsIndexedByBandId();
+            Dictionary<int, List<int>> userIdsIndexedByBandId = GetUserIdsIndexedByBandId();
 
-            return userIdsIndexedByBandId.Select(ids => ids.Value.HasSameElementsAs(userIds)).Any(isBand => isBand);
+            return userIdsIndexedByBandId.Select(ids => ids.Value.AreSetsEqual(userIds)).Any(isBand => isBand);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Shared.Repository
         /// <returns>The <see cref="Participation" /> that matches the user Id and Jam Id.</returns>
         private Participation GetParticipationByUserIdAndBandId(int userId, int bandId)
         {
-            foreach (var possibleParticipation in GetAllEntities())
+            foreach (Participation possibleParticipation in GetAllEntities())
             {
                 if (possibleParticipation.UserId.Equals(userId) && possibleParticipation.BandId.Equals(bandId))
                 {
@@ -90,7 +90,7 @@ namespace Shared.Repository
         {
             var idsIndexedByBandId = new Dictionary<int, List<int>>();
 
-            foreach (var participation in GetAllEntities())
+            foreach (Participation participation in GetAllEntities())
             {
                 if (!idsIndexedByBandId.ContainsKey(participation.BandId))
                 {

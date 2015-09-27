@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using System.Linq;
 
@@ -10,22 +11,41 @@ namespace Shared
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// Checks if two lists contain the same items in any order.
+        /// Checks if two sets contain the same items in any order.
+        /// Example:
+        /// If,	F = {20, 60, 80}
+        /// And, G = {80, 60, 20}
+        /// Then, F=G, that is both sets are equal.
         /// </summary>
-        /// <typeparam name="T">Type of element in the collection.</typeparam>
+        /// <typeparam name="TElement">Type of element in the collection.</typeparam>
         /// <param name="first">The first list of unordered items.</param>
         /// <param name="second">The second list of unordered items.</param>
         /// <returns>Boolean result of if lists contain same elements.</returns>
-        public static bool HasSameElementsAs<T>(this IEnumerable<T> first, IEnumerable<T> second)
+        public static bool AreSetsEqual<TElement>(this IEnumerable<TElement> first, IEnumerable<TElement> second)
         {
             Contract.Requires(first != null);
             Contract.Requires(second != null);
 
-            Dictionary<T, int> firstMap = first.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
-            Dictionary<T, int> secondMap = second.GroupBy(x => x).ToDictionary(x => x.Key, x => x.Count());
+            IReadOnlyDictionary<TElement, int> firstMap = FindElementGroups(first);
+            IReadOnlyDictionary<TElement, int> secondMap = FindElementGroups(second);
 
-            return firstMap.Keys.All(x => secondMap.Keys.Contains(x) && firstMap[x] == secondMap[x]) &&
-                   secondMap.Keys.All(x => firstMap.Keys.Contains(x) && secondMap[x] == firstMap[x]);
+            return MapContainsAllElements(firstMap, secondMap)
+                   && MapContainsAllElements(secondMap, firstMap);
+        }
+
+        private static IReadOnlyDictionary<TElement, int> FindElementGroups<TElement>(IEnumerable<TElement> elements)
+        {
+            return elements.GroupBy(element => element).ToDictionary(elementGroup => elementGroup.Key, grouping => grouping.Count());
+        }
+
+        private static bool MapContainsAllElements<TElement>(IReadOnlyDictionary<TElement, int> firstMap, IReadOnlyDictionary<TElement, int> secondMap)
+        {
+            return firstMap.Keys.All(IsElementInBothMaps(firstMap, secondMap));
+        }
+
+        private static Func<TElement, bool> IsElementInBothMaps<TElement>(IReadOnlyDictionary<TElement, int> firstMap, IReadOnlyDictionary<TElement, int> secondMap)
+        {
+            return element => secondMap.Keys.Contains(element) && firstMap[element].Equals(secondMap[element]);
         }
     }
 }
