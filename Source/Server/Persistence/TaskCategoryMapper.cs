@@ -6,7 +6,7 @@ using Shared.Domain;
 
 namespace Server.Persistence
 {
-    internal sealed class TaskCategoryDataAccess
+    internal sealed class TaskCategoryMapper
     {
         private readonly string connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
 

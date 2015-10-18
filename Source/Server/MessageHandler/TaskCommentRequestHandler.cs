@@ -22,14 +22,7 @@ namespace Server.MessageHandler
 
             Task task = taskRepository.FindEntityById(taskComment.TaskId);
 
-            if (taskComment.ParentComment != null)
-            {
-                task.AddCommentToRelevantParent(taskComment);
-            }
-            else
-            {
-                task.Comments.Add(taskComment);
-            }
+            task.AddCommentToRelevantParent(taskComment);
 
             taskRepository.UpdateEntity(task);
         }

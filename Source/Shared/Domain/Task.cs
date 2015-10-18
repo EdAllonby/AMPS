@@ -198,14 +198,21 @@ namespace Shared.Domain
         }
 
         /// <summary>
-        /// Find and add a <paramref name="reply" /> to a comment.
+        /// Find and add a <paramref name="comment" /> to a comment.
         /// </summary>
-        /// <param name="reply"></param>
-        public void AddCommentToRelevantParent(TaskComment reply)
+        /// <param name="comment"></param>
+        public void AddCommentToRelevantParent(TaskComment comment)
         {
-            foreach (TaskComment taskComment in Comments)
+            if (comment.ParentComment != null)
             {
-                TryFindParent(reply, taskComment);
+                foreach (TaskComment taskComment in Comments)
+                {
+                    TryFindParent(comment, taskComment);
+                }
+            }
+            else
+            {
+                Comments.Add(comment);
             }
         }
 

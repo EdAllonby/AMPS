@@ -66,7 +66,8 @@
     <Compile Include="Persistence\IStatementSource.cs" />
     <Compile Include="Persistence\JamMapper.cs" />
     <Compile Include="Persistence\ParticipationMapper.cs" />
-    <Compile Include="Persistence\TaskCategoryDataAccess.cs" />
+    <Compile Include="Persistence\TaskCategoryMapper.cs" />
+    <Compile Include="Persistence\TaskCommentMapper.cs" />
     <Compile Include="Persistence\TaskMapper.cs" />
     <Compile Include="Persistence\UserMapper.cs" />
     <Compile Include="EntityIdAllocatorFactory.cs" />

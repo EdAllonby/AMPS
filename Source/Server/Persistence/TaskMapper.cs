@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using Shared.Domain;
 
 namespace Server.Persistence
@@ -11,12 +12,12 @@ namespace Server.Persistence
     /// </summary>
     internal sealed class TaskMapper : EntityMapper<Task>
     {
-        /// <summary>
-        /// Columns for User.
-        /// </summary>
+
+        private readonly EntityMapper<TaskComment> taskCommentMapper = new TaskCommentMapper();
+
         private const string Columns = " Id, BandId, Title, Description, AssignedUserId, IsCompleted, Points, JamId, TaskCategoryId ";
 
-        private readonly TaskCategoryDataAccess taskCategoryDataAccess = new TaskCategoryDataAccess();
+        private readonly TaskCategoryMapper taskCategoryMapper = new TaskCategoryMapper();
 
         protected override string FindStatement => "SELECT " + Columns +
                                                    " FROM Tasks" +
@@ -58,7 +59,7 @@ namespace Server.Persistence
             int points = reader.GetInt32(reader.GetOrdinal("Points"));
             int? possibleJamId = reader.GetNullableInt(reader.GetOrdinal("JamId"));
             int jamId = NullableColumnToInt(possibleJamId);
-            TaskCategory taskCategory = taskCategoryDataAccess.GetCategory(reader.GetInt32(reader.GetOrdinal("TaskCategoryId")));
+            TaskCategory taskCategory = taskCategoryMapper.GetCategory(reader.GetInt32(reader.GetOrdinal("TaskCategoryId")));
 
             Task task = new Task(id, new Task(title, description, points, bandId, assignedUserId, taskCategory)) {IsCompleted = isCompleted};
 
@@ -74,7 +75,21 @@ namespace Server.Persistence
 
         public override IEnumerable<Task> GetAllEntities()
         {
-            return FindMany(new FindAllTasks());
+            List<Task> allTasks = FindMany(new FindAllTasks());
+
+            List<TaskComment> allComments = taskCommentMapper.GetAllEntities().ToList();
+
+            foreach (Task task in allTasks)
+            {
+                IEnumerable<TaskComment> taskComments = allComments.Where(comment => comment.TaskId.Equals(task.Id));
+
+                foreach (TaskComment taskComment in taskComments)
+                {
+                    task.AddCommentToRelevantParent(taskComment);
+                }
+            }
+
+            return allTasks;
         }
 
         protected override void DoInsert(Task entity, SqlCommand insertCommand)
@@ -87,7 +102,7 @@ namespace Server.Persistence
             insertCommand.Parameters.Add("@isCompleted", SqlDbType.Bit).Value = entity.IsCompleted;
             insertCommand.Parameters.Add("@points", SqlDbType.Int).Value = entity.Points;
             insertCommand.Parameters.Add("@jamId", SqlDbType.Int).Value = entity.IsInJam ? (object) entity.JamId : DBNull.Value;
-            insertCommand.Parameters.Add("@taskCategoryId", SqlDbType.Int).Value = taskCategoryDataAccess.GetCategoryId(entity.Category);
+            insertCommand.Parameters.Add("@taskCategoryId", SqlDbType.Int).Value = taskCategoryMapper.GetCategoryId(entity.Category);
         }
 
         private static int NullableColumnToInt(int? possibleNullColumn)
