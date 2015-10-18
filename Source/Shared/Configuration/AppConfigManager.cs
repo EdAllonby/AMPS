@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Configuration;
 using log4net;
-using Shared;
 
-namespace Client.Service
+namespace Shared.Configuration
 {
     public class AppConfigManager : IService
     {
@@ -20,6 +19,8 @@ namespace Client.Service
         {
             try
             {
+                string value = configuration.ConnectionString(key);
+                Log.DebugFormat("Found stored configuration value [{0}] for key [{1}]", value, key);
                 return configuration.ConnectionString(key);
             }
             catch (NullReferenceException)
@@ -35,9 +36,12 @@ namespace Client.Service
         {
             try
             {
-                Configuration config = configuration.OpenConfiguration(ConfigurationUserLevel.None);
+                System.Configuration.Configuration config = configuration.OpenConfiguration(ConfigurationUserLevel.None);
                 config.ConnectionStrings.ConnectionStrings[key].ConnectionString = value;
                 config.Save(ConfigurationSaveMode.Modified, true);
+
+                Log.DebugFormat("Updated stored configuration value [{0}] for key [{1}]", value, key);
+
 
                 configuration.RefreshSection("connectionStrings");
             }

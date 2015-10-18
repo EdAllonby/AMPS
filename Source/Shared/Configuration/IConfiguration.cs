@@ -1,12 +1,12 @@
 ﻿using System.Configuration;
 
-namespace Client.Service
+namespace Shared.Configuration
 {
     public interface IConfiguration
     {
         string ConnectionString(string key);
 
-        Configuration OpenConfiguration(ConfigurationUserLevel userLevel);
+        System.Configuration.Configuration OpenConfiguration(ConfigurationUserLevel userLevel);
 
         void RefreshSection(string sectionName);
     }

@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace Client.Service
+namespace Shared.Configuration
 {
     /// <summary>
     /// A facade for the static ConfigurationManager
@@ -12,7 +12,7 @@ namespace Client.Service
             return ConfigurationManager.ConnectionStrings[key].ConnectionString;
         }
 
-        public Configuration OpenConfiguration(ConfigurationUserLevel userLevel)
+        public System.Configuration.Configuration OpenConfiguration(ConfigurationUserLevel userLevel)
         {
             return ConfigurationManager.OpenExeConfiguration(userLevel);
         }

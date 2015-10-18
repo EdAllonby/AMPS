@@ -7,6 +7,7 @@ using Client.Model.LoginModel;
 using Client.Service;
 using Client.ViewModel.Commands;
 using Shared;
+using Shared.Configuration;
 using Shared.Domain;
 using Shared.Message.LoginMessage;
 using Shared.Repository;

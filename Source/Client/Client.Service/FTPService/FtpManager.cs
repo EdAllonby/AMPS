@@ -3,6 +3,8 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using log4net;
+using Shared;
+using Shared.Configuration;
 using Utility;
 
 namespace Client.Service.FTPService

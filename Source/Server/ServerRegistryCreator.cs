@@ -1,6 +1,7 @@
 ﻿using Server.EntityIdGenerator;
 using Server.Persistence;
 using Shared;
+using Shared.Configuration;
 using Shared.Domain;
 using Shared.Repository;
 
@@ -36,6 +37,8 @@ namespace Server
             }
 
             serviceRegistry.RegisterService<JamManager>(new JamManager(repositoryManager.GetRepository<Jam>()));
+
+            serviceRegistry.RegisterService<AppConfigManager>(new AppConfigManager(new AppConfiguration()));
 
             return serviceRegistry;
         }

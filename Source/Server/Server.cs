@@ -5,6 +5,7 @@ using log4net;
 using Server.EntityChangedHandler;
 using Server.MessageHandler;
 using Shared;
+using Shared.Configuration;
 using Shared.Domain;
 using Shared.Message;
 using Shared.Message.LoginMessage;
@@ -17,7 +18,8 @@ namespace Server
     /// </summary>
     public sealed class Server
     {
-        private const int PortNumber = 5004;
+        private readonly int PortNumber;
+        private const int FallbackPortNumber = 3141;
         private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
         private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
         private readonly MessageHandlerRegistry messageHandlerRegistry;
@@ -32,6 +34,18 @@ namespace Server
         public Server(IServiceRegistry serviceRegistry)
         {
             this.serviceRegistry = serviceRegistry;
+
+            var configManager = serviceRegistry.GetService<AppConfigManager>();
+
+            string storedServerPort = configManager.FindStoredValue("ServerPort");
+
+            bool didParseServerPort = int.TryParse(storedServerPort, out PortNumber);
+
+            if (!didParseServerPort)
+            {
+                PortNumber = FallbackPortNumber;
+            }
+
             messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             entityChangedHandlerRegistry = new EntityChangedHandlerRegistry(serviceRegistry);
 

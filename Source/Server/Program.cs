@@ -39,8 +39,8 @@ namespace Server
         private static void RunInteractive(ServiceBase[] servicesToRun)
         {
             Console.WriteLine("Enter Persistence Strategy:");
-            Console.WriteLine("1 - Database Persistence (Warning: you need to have a database set up in app.config. Do not use for demonstration purposes.");
-            Console.WriteLine("2 - In Memory Persistence (Use this strategy without needing a database. Warning: All data lost after each server session.");
+            Console.WriteLine("1 - Database Persistence (Warning: you need to have a database set up in app.config. Do not use for demonstration purposes.)");
+            Console.WriteLine("2 - In Memory Persistence (Use this strategy without needing a database. Warning: All data lost after each server session.)");
 
             ConsoleKeyInfo keyPress = Console.ReadKey();
 

@@ -8,6 +8,7 @@ using Client.Service.FTPService;
 using Client.View.UI;
 using log4net.Config;
 using Shared;
+using Shared.Configuration;
 using Shared.Domain;
 using Shared.Repository;
 
