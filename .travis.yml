@@ -1,4 +1,8 @@
 language: csharp
-solution: ./Source/AMPS.sln
+dist: trusty
+os:
+  - linux
 mono:
-  - alpha
+  - 4.0.5
+  
+solution: ./Source/AMPS.sln
