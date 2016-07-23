@@ -54,3 +54,11 @@ install:
       echo "dotnet.exe not found"
       exit 1;
     fi
+    
+# Restore dependencies
+  - dotnet restore
+  # Build projects
+  - dotnet build -c $CONFIGURATION -f netcoreapp1.0 ./Source
+script:
+  # Run tests
+  - dotnet run -c $CONFIGURATION -f netcoreapp1.0 -p ./Source
