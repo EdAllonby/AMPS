@@ -3,5 +3,5 @@ dotnet: 1.0.0-preview2-003131
 mono: none
 dist: trusty
 sudo: required
-solution: Source/AMPS.sln
+solution: ./Source/AMPS.sln
 script: make build
