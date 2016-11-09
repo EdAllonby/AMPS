@@ -4,4 +4,3 @@ mono: none
 dist: trusty
 sudo: required
 solution: ./Source/AMPS.sln
-script: make build
