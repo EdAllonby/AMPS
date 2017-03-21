@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace Shared.Domain
 {
@@ -16,8 +15,6 @@ namespace Shared.Domain
         /// <param name="name">The name of the <see cref="Band" />.</param>
         public Band(int id, string name) : base(id)
         {
-            Contract.Requires(id > 0);
-
             Name = name;
         }
 

@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.Contracts;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Domain;
 
@@ -18,11 +18,8 @@ namespace Shared.Serialiser.EntitySerialiser
         /// </summary>
         /// <param name="networkStream">The <see cref="NetworkStream" /> to serialise the <see cref="ConnectionStatus" /> across.</param>
         /// <param name="connectionStatus">The <see cref="ConnectionStatus" /> to serialise.</param>
-        public void Serialise(NetworkStream networkStream, ConnectionStatus connectionStatus)
+        public void Serialise([NotNull] NetworkStream networkStream, [NotNull] ConnectionStatus connectionStatus)
         {
-            Contract.Requires(networkStream != null);
-            Contract.Requires(connectionStatus != null);
-
             serialiser.Serialise(networkStream, connectionStatus);
         }
 
@@ -33,8 +30,6 @@ namespace Shared.Serialiser.EntitySerialiser
         /// <returns>The deserialised <see cref="ConnectionStatus" />.</returns>
         public ConnectionStatus Deserialise(NetworkStream networkStream)
         {
-            Contract.Requires(networkStream != null);
-
             var connectionStatus = (ConnectionStatus) serialiser.Deserialise(networkStream);
 
             Log.Debug("Network stream has received data and deserialised to an ConnectionStatus object.");

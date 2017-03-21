@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Net.Sockets;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Message;
 
@@ -19,10 +19,8 @@ namespace Shared.Serialiser.MessageSerialiser
         /// </summary>
         /// <param name="networkStream">The <see cref="NetworkStream" /> to serialise the <see cref="MessageIdentifier" /> across.</param>
         /// <param name="messageIdentifier">The <see cref="MessageIdentifier" /> to serialise.</param>
-        public static void Serialise(NetworkStream networkStream, MessageIdentifier messageIdentifier)
+        public static void Serialise([NotNull] NetworkStream networkStream, MessageIdentifier messageIdentifier)
         {
-            Contract.Requires(networkStream != null);
-
             networkStream.Write(BitConverter.GetBytes((int) messageIdentifier), 0, 4);
             Log.DebugFormat("Sent Message Identifier: {0} to networkStream.", messageIdentifier);
         }
@@ -35,17 +33,15 @@ namespace Shared.Serialiser.MessageSerialiser
         /// .
         /// </param>
         /// <returns>The deserialised <see cref="MessageIdentifier" />.</returns>
-        public static MessageIdentifier DeserialiseMessageIdentifier(NetworkStream networkStream)
+        public static MessageIdentifier DeserialiseMessageIdentifier([NotNull] NetworkStream networkStream)
         {
-            Contract.Requires(networkStream != null);
-
             var messageTypeBuffer = new byte[4];
 
             networkStream.Read(messageTypeBuffer, 0, 4);
 
             int messageIdentifierNumber = BitConverter.ToInt32(messageTypeBuffer, 0);
 
-            MessageIdentifier messageIdentifier = MessageIdentifier.UnrecognisedMessage;
+            var messageIdentifier = MessageIdentifier.UnrecognisedMessage;
 
             if (Enum.IsDefined(typeof (MessageIdentifier), messageIdentifierNumber))
             {

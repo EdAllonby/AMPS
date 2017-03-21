@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.Contracts;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Message;
 
@@ -18,10 +18,8 @@ namespace Shared.Serialiser.MessageSerialiser
         /// </summary>
         /// <param name="networkStream">The networkStream that connects the Client and Server.</param>
         /// <param name="notificationType">The <see cref="NotificationType" /> to serialise.</param>
-        public void Serialise(NetworkStream networkStream, NotificationType notificationType)
+        public void Serialise([NotNull] NetworkStream networkStream, NotificationType notificationType)
         {
-            Contract.Requires(networkStream != null);
-
             serialiser.Serialise(networkStream, notificationType);
 
             Log.DebugFormat("Sent Message NotificationType: {0} to stream", notificationType);
@@ -32,10 +30,8 @@ namespace Shared.Serialiser.MessageSerialiser
         /// </summary>
         /// <param name="networkStream">The <see cref="NetworkStream" /> containing the serialised <see cref="NotificationType" />.</param>
         /// <returns>The deserialised <see cref="NotificationType" />.</returns>
-        public NotificationType Deserialise(NetworkStream networkStream)
+        public NotificationType Deserialise([NotNull] NetworkStream networkStream)
         {
-            Contract.Requires(networkStream != null);
-
             var notificationType = (NotificationType) serialiser.Deserialise(networkStream);
             return notificationType;
         }

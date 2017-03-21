@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
 using System.Windows;
-using Client.ViewModel.Properties;
+using JetBrains.Annotations;
 using log4net;
 using Shared;
 using Utility;

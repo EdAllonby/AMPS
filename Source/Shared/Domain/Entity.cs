@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using JetBrains.Annotations;
 using log4net;
 
 namespace Shared.Domain
@@ -23,7 +23,6 @@ namespace Shared.Domain
         /// <param name="id"></param>
         protected Entity(int id)
         {
-            Contract.Requires(id > 0);
             Id = id;
         }
 
@@ -72,9 +71,8 @@ namespace Shared.Domain
         /// <typeparam name="T">The type of <see cref="Entity" /> to clone.</typeparam>
         /// <param name="entity">The <see cref="Entity" /> to clone.</param>
         /// <returns>A cloned <see cref="Entity" />.</returns>
-        public static T DeepClone<T>(T entity) where T : Entity
+        public static T DeepClone<T>([NotNull] T entity) where T : Entity
         {
-            Contract.Requires(entity != null);
 
             using (var memoryStream = new MemoryStream())
             {

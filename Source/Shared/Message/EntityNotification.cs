@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.Contracts;
+﻿using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Message
@@ -17,11 +17,8 @@ namespace Shared.Message
         /// </summary>
         /// <param name="entity">The <see cref="TEntity" /> changed.</param>
         /// <param name="notificationType">What change the <see cref="TEntity" /> <see cref="Entity" /> made.</param>
-        public EntityNotification(TEntity entity, NotificationType notificationType)
+        public EntityNotification([NotNull] TEntity entity, NotificationType notificationType)
         {
-            Contract.Requires(entity != null);
-            Contract.Requires(!entity.IsNew);
-
             Entity = entity;
             NotificationType = notificationType;
         }

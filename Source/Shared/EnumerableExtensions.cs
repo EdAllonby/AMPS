@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
+using JetBrains.Annotations;
 
 namespace Shared
 {
@@ -21,11 +21,8 @@ namespace Shared
         /// <param name="first">The first list of unordered items.</param>
         /// <param name="second">The second list of unordered items.</param>
         /// <returns>Boolean result of if lists contain same elements.</returns>
-        public static bool AreSetsEqual<TElement>(this IEnumerable<TElement> first, IEnumerable<TElement> second)
+        public static bool AreSetsEqual<TElement>([NotNull] this IEnumerable<TElement> first, [NotNull] IEnumerable<TElement> second)
         {
-            Contract.Requires(first != null);
-            Contract.Requires(second != null);
-
             IReadOnlyDictionary<TElement, int> firstMap = FindElementGroups(first);
             IReadOnlyDictionary<TElement, int> secondMap = FindElementGroups(second);
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -14,9 +14,8 @@ namespace Shared.Repository
         /// Intialises the repository with any <see cref="Jam" /> entities it finds from the data layer.
         /// </summary>
         /// <param name="entityPersister">The <see cref="Jam" /> entity-to-table mapper to use.</param>
-        public JamRepository(IEntityPersister<Jam> entityPersister) : base(entityPersister)
+        public JamRepository([NotNull] IEntityPersister<Jam> entityPersister) : base(entityPersister)
         {
-            Contract.Requires(entityPersister != null);
         }
 
         /// <summary>

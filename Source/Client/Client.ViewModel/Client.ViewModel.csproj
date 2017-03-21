@@ -33,6 +33,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="JetBrains.Annotations, Version=10.2.1.0, Culture=neutral, PublicKeyToken=1010a0d8d6380325, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\JetBrains.Annotations.10.2.1\lib\net\JetBrains.Annotations.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
@@ -68,7 +71,6 @@
     <Compile Include="SettingsViewModel\UploadTaskViewModel.cs" />
     <Compile Include="TaskInformationViewModel.cs" />
     <Compile Include="WindowRequestedEventArgs.cs" />
-    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="MainViewModel\UserListViewModel.cs" />
     <Compile Include="SettingsViewModel\BandChooserViewModel.cs" />

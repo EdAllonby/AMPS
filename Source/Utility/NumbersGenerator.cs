@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 
 namespace Utility
 {
@@ -16,7 +15,7 @@ namespace Utility
         /// <returns></returns>
         public static IEnumerable<int> CreateFibonacciSequence(int highestNumber, bool createUniqueList)
         {
-            List<int> fibonacciNumbers = new List<int>();
+            var fibonacciNumbers = new List<int>();
 
             int number;
             int lastFibonacciNumber = 0;
@@ -52,9 +51,7 @@ namespace Utility
         /// <returns></returns>
         public static IEnumerable<int> CreateNumberSequence(int index, int count, int gap)
         {
-            Contract.Requires(count > 0);
-
-            List<int> numberSequence = new List<int>();
+            var numberSequence = new List<int>();
 
             int highestNumber = index + (count*gap);
 

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 using Shared.Message;
 
 namespace Shared
@@ -13,16 +13,14 @@ namespace Shared
         /// Create a new <see cref="EventArgs" /> containing the <see cref="IMessage" />.
         /// </summary>
         /// <param name="message">the <see cref="IMessage" /> to contain in the <see cref="EventArgs" />.</param>
-        public MessageEventArgs(IMessage message)
+        public MessageEventArgs([NotNull] IMessage message)
         {
-            Contract.Requires(message != null);
-
             Message = message;
         }
 
         /// <summary>
         /// The message being carried.
         /// </summary>
-        public IMessage Message { get; private set; }
+        public IMessage Message { get; }
     }
 }

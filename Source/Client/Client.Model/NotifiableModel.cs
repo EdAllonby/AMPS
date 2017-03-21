@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
-using Client.Model.Properties;
+using JetBrains.Annotations;
 using Utility;
 
 namespace Client.Model

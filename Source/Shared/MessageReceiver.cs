@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.IO;
 using System.Net.Sockets;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Message;
 using Shared.Serialiser;
@@ -29,11 +29,8 @@ namespace Shared
         /// </summary>
         /// <param name="clientUserId">The Id of the user the NetworkStream is linked to.</param>
         /// <param name="tcpClient">The stream between the Client and the Server.</param>
-        public void ReceiveMessages(int clientUserId, TcpClient tcpClient)
+        public void ReceiveMessages(int clientUserId, [NotNull] TcpClient tcpClient)
         {
-            Contract.Requires(clientUserId > 0);
-            Contract.Requires(tcpClient != null);
-
             using (NetworkStream networkStream = tcpClient.GetStream())
             {
                 try

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Message.TaskMessage
@@ -14,18 +14,15 @@ namespace Shared.Message.TaskMessage
         /// The <see cref="Task" /> to update request.
         /// </summary>
         /// <param name="updatedTask">The <see cref="Task" /> to update.</param>
-        public TaskUpdateRequest(Task updatedTask)
+        public TaskUpdateRequest([NotNull] Task updatedTask)
         {
-            Contract.Requires(updatedTask != null);
-            Contract.Requires(!updatedTask.IsNew);
-
             UpdatedTask = updatedTask;
         }
 
         /// <summary>
         /// The <see cref="Task" /> to update.
         /// </summary>
-        public Task UpdatedTask { get; set; }
+        public Task UpdatedTask { get; }
 
         /// <summary>
         /// The identifier associated with the particular <see cref="IMessage" />.

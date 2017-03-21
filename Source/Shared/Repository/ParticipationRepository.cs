@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Linq;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -14,9 +14,8 @@ namespace Shared.Repository
         /// Intialises the repository with any <see cref="Participation" /> entities it finds from the data layer.
         /// </summary>
         /// <param name="entityPersister">The <see cref="Participation" /> entity-to-table mapper to use.</param>
-        public ParticipationRepository(IEntityPersister<Participation> entityPersister) : base(entityPersister)
+        public ParticipationRepository([NotNull] IEntityPersister<Participation> entityPersister) : base(entityPersister)
         {
-            Contract.Requires(entityPersister != null);
         }
 
         /// <summary>
@@ -46,7 +45,6 @@ namespace Shared.Repository
         /// </summary>
         /// <param name="userIds">The group of participants to check if a <see cref="Band" /> exists for.</param>
         /// <returns>Whether or not a <see cref="Band" /> exists with the group of participants.</returns>
-        [Pure]
         public bool DoesBandWithUsersExist(IEnumerable<int> userIds)
         {
             Dictionary<int, List<int>> userIdsIndexedByBandId = GetUserIdsIndexedByBandId();

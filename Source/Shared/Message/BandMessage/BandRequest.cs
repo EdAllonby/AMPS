@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-using MediatR;
 using Shared.Domain;
 
 namespace Shared.Message.BandMessage
@@ -20,8 +18,6 @@ namespace Shared.Message.BandMessage
         /// <param name="leaderId"></param>
         public BandRequest(List<int> userIds, string name, int leaderId)
         {
-            Contract.Requires(leaderId > 0);
-
             UserIds = userIds;
             Name = name;
             LeaderId = leaderId;

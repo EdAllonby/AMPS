@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.Contracts;
+﻿using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -12,9 +12,8 @@ namespace Shared.Repository
         /// Intialises the repository with any <see cref="Band" /> entities it finds from the data layer.
         /// </summary>
         /// <param name="entityPersister">The <see cref="Band" /> persister to use.</param>
-        public BandRepository(IEntityPersister<Band> entityPersister) : base(entityPersister)
+        public BandRepository([NotNull] IEntityPersister<Band> entityPersister) : base(entityPersister)
         {
-            Contract.Requires(entityPersister != null);
         }
     }
 }

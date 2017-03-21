@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Domain;
 using Shared.Message;
@@ -21,10 +21,8 @@ namespace Shared.Repository
         /// Intialises the repository with any entities it finds from the data layer.
         /// </summary>
         /// <param name="entityPersister">The entity-to-table mapper to use.</param>
-        protected EntityRepository(IEntityPersister<T> entityPersister)
+        protected EntityRepository([NotNull] IEntityPersister<T> entityPersister)
         {
-            Contract.Requires(entityPersister != null);
-
             this.entityPersister = entityPersister;
         }
 

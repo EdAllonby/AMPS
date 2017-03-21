@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace Shared.Domain
 {
@@ -19,9 +18,6 @@ namespace Shared.Domain
         /// <param name="jamEndDate">The date in which the <see cref="Jam" /> ends.</param>
         public Jam(int id, int bandId, DateTime jamEndDate) : base(id)
         {
-            Contract.Requires(id > 0);
-            Contract.Requires(bandId > 0);
-
             BandId = bandId;
             JamEndDate = jamEndDate;
         }

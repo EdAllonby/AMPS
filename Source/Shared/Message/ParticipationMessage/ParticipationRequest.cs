@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Message.ParticipationMessage
@@ -14,17 +14,15 @@ namespace Shared.Message.ParticipationMessage
         /// A new <see cref="Participation" /> request.
         /// </summary>
         /// <param name="participation">The <see cref="Participation" /> to request to create.</param>
-        public ParticipationRequest(Participation participation)
+        public ParticipationRequest([NotNull] Participation participation)
         {
-            Contract.Requires(participation != null);
-
             Participation = participation;
         }
 
         /// <summary>
         /// The <see cref="Participation" /> to request to create.
         /// </summary>
-        public Participation Participation { get; private set; }
+        public Participation Participation { get; }
 
         public MessageIdentifier MessageIdentifier => MessageIdentifier.ParticipationRequest;
     }

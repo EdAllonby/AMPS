@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 
 namespace Shared.Domain
 {
@@ -36,12 +36,8 @@ namespace Shared.Domain
         /// The <see cref="Task" /> 's
         /// <see cref="Shared.Domain.Task.Category" /> .
         /// </param>
-        public Task(string title, string description, int points, int bandId, int assignedUserId, TaskCategory category)
+        public Task([NotNull] string title, [NotNull] string description, int points, int bandId, int assignedUserId, TaskCategory category)
         {
-            Contract.Requires(bandId > 0);
-            Contract.Requires(!string.IsNullOrWhiteSpace(title));
-            Contract.Requires(!string.IsNullOrWhiteSpace(description));
-
             Title = title;
             Description = description;
             Points = points;
@@ -57,11 +53,8 @@ namespace Shared.Domain
         /// <param name="incompleteTask">
         /// The previous incomplete <see cref="Task" /> .
         /// </param>
-        public Task(int id, Task incompleteTask) : base(id)
+        public Task(int id, [NotNull] Task incompleteTask) : base(id)
         {
-            Contract.Requires(incompleteTask != null);
-            Contract.Requires(id > 0);
-
             Title = incompleteTask.Title;
             Description = incompleteTask.Description;
             points = incompleteTask.Points;
@@ -192,8 +185,6 @@ namespace Shared.Domain
         /// </param>
         public void AssignTaskToJam(int newTaskJamId)
         {
-            Contract.Requires(newTaskJamId > 0);
-
             JamId = newTaskJamId;
         }
 

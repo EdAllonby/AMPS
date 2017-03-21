@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 
 namespace Shared.Domain
 {
@@ -27,11 +27,8 @@ namespace Shared.Domain
             CommenterId = commenterId;
         }
 
-        public TaskComment(int id, TaskComment incompleteTaskComment, DateTime timePosted) : base(id)
+        public TaskComment(int id, [NotNull] TaskComment incompleteTaskComment, DateTime timePosted) : base(id)
         {
-            Contract.Requires(id > 0);
-            Contract.Requires(incompleteTaskComment != null);
-
             ParentComment = incompleteTaskComment.ParentComment;
 
             Comment = incompleteTaskComment.Comment;

@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Message;
 using Shared.Serialiser;
@@ -65,10 +65,8 @@ namespace Shared
         /// Sends an <see cref="IMessage" /> across the <see cref="ConnectionHandler" />'s <see cref="NetworkStream" />.
         /// </summary>
         /// <param name="message">The message to send across the socket connection defined for this object.</param>
-        public void SendMessage(IMessage message)
+        public void SendMessage([NotNull] IMessage message)
         {
-            Contract.Requires(message != null);
-
             lock (messageSenderLock)
             {
                 IMessageSerialiser messageSerialiser = SerialiserFactory.GetSerialiser(message.MessageIdentifier);

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
+using JetBrains.Annotations;
 
 namespace Shared.Domain
 {
@@ -12,10 +12,8 @@ namespace Shared.Domain
         /// <summary>
         /// Creates an incomplete user entity.
         /// </summary>
-        public User(string username)
+        public User([NotNull] string username)
         {
-            Contract.Requires(username != null);
-
             Username = username;
         }
 
@@ -25,11 +23,8 @@ namespace Shared.Domain
         /// <param name="id">The unique Id of the user.</param>
         /// <param name="username">The name of the user.</param>
         /// <param name="status">The current status of the user.</param>
-        public User(int id, string username, ConnectionStatus status) : base(id)
+        public User(int id, [NotNull] string username, ConnectionStatus status) : base(id)
         {
-            Contract.Requires(username != null);
-            Contract.Requires(id > 0);
-
             Username = username;
             ConnectionStatus = status;
         }

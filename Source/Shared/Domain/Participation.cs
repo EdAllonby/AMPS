@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics.Contracts;
 
 namespace Shared.Domain
 {
@@ -19,10 +18,6 @@ namespace Shared.Domain
         public Participation(int id, int userId, int bandId, bool isLeader)
             : base(id)
         {
-            Contract.Requires(id > 0);
-            Contract.Requires(userId > 0);
-            Contract.Requires(bandId > 0);
-
             UserId = userId;
             BandId = bandId;
             IsLeader = isLeader;
@@ -36,9 +31,6 @@ namespace Shared.Domain
         /// <param name="isLeader">Defines if the participant is the leader of the <see cref="Band" />.</param>
         public Participation(int userId, int bandId, bool isLeader)
         {
-            Contract.Requires(userId > 0);
-            Contract.Requires(bandId > 0);
-
             UserId = userId;
             BandId = bandId;
             IsLeader = isLeader;

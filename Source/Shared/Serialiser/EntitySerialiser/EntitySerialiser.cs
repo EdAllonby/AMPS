@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.Contracts;
-using System.Net.Sockets;
+﻿using System.Net.Sockets;
+using JetBrains.Annotations;
 using log4net;
 using Shared.Domain;
 
@@ -19,11 +19,8 @@ namespace Shared.Serialiser.EntitySerialiser
         /// </summary>
         /// <param name="networkStream">The <see cref="NetworkStream" /> to serialise the <see cref="Entity" /> across.</param>
         /// <param name="entity">The <see cref="Entity" /> to serialise.</param>
-        public void Serialise(NetworkStream networkStream, T entity)
+        public void Serialise([NotNull] NetworkStream networkStream, [NotNull] T entity)
         {
-            Contract.Requires(entity != null);
-            Contract.Requires(networkStream != null);
-
             serialiser.Serialise(networkStream, entity);
             Log.DebugFormat("{0} entity serialised and sent to network stream", entity);
         }
@@ -33,10 +30,8 @@ namespace Shared.Serialiser.EntitySerialiser
         /// </summary>
         /// <param name="networkStream">The <see cref="NetworkStream" /> containing the serialised <see cref="Entity" />.</param>
         /// <returns>The deserialised <see cref="Entity" />.</returns>
-        public T Deserialise(NetworkStream networkStream)
+        public T Deserialise([NotNull] NetworkStream networkStream)
         {
-            Contract.Requires(networkStream != null);
-
             var entity = (T) serialiser.Deserialise(networkStream);
             Log.DebugFormat("Network stream has received data and deserialised to a {0} entity", entity);
             return entity;

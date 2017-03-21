@@ -1,5 +1,5 @@
-﻿using System.Diagnostics.Contracts;
-using System.Linq;
+﻿using System.Linq;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -13,19 +13,16 @@ namespace Shared.Repository
         /// Create a repository for storing <see cref="User" />s with a data mapping implementation.
         /// </summary>
         /// <param name="entityPersister">The <see cref="IEntityDataMapper{User}" /> implementation to use.</param>
-        public UserRepository(IEntityPersister<User> entityPersister) : base(entityPersister)
+        public UserRepository([NotNull] IEntityPersister<User> entityPersister) : base(entityPersister)
         {
-            Contract.Requires(entityPersister != null);
         }
 
         /// <summary>
         /// Updates a <see cref="User" />'s <see cref="ConnectionStatus" />
         /// </summary>
         /// <param name="connectionStatus">The new connection status of the user.</param>
-        public void UpdateUserConnectionStatus(ConnectionStatus connectionStatus)
+        public void UpdateUserConnectionStatus([NotNull] ConnectionStatus connectionStatus)
         {
-            Contract.Requires(connectionStatus != null);
-
             User user = FindEntityById(connectionStatus.UserId);
 
             User previousUser = Entity.DeepClone(user);
