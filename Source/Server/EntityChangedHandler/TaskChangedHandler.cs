@@ -12,42 +12,14 @@ namespace Server.EntityChangedHandler
     /// </summary>
     internal sealed class TaskChangedHandler : EntityChangedHandler
     {
-        private readonly ParticipationRepository participationRepository;
         private readonly TaskRepository taskRepository;
-        private readonly IReadOnlyEntityRepository<User> userRepository;
 
         public TaskChangedHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
             taskRepository = (TaskRepository) RepositoryManager.GetRepository<Task>();
 
-            participationRepository = (ParticipationRepository) RepositoryManager.GetRepository<Participation>();
-            userRepository = RepositoryManager.GetRepository<User>();
-
             taskRepository.EntityAdded += OnTaskAdded;
             taskRepository.EntityUpdated += OnTaskUpdated;
-        }
-
-        private void OnTaskUpdated(object sender, EntityChangedEventArgs<Task> e)
-        {
-            var bandParticipantIds = participationRepository.GetParticipationsByBandId(e.Entity.BandId)
-                .Select(participant => participant.Id);
-
-            var taskNotification = new EntityNotification<Task>(e.Entity, NotificationType.Update);
-
-            ClientManager.SendMessageToClients(taskNotification, bandParticipantIds);
-        }
-
-        private void OnTaskAdded(object sender, EntityChangedEventArgs<Task> e)
-        {
-            var addedBacklogTaskNotification = new EntityNotification<Task>(e.Entity, NotificationType.Create);
-
-            List<Participation> participantsInBand = participationRepository.GetParticipationsByBandId(e.Entity.BandId);
-
-            IEnumerable<User> participantUsers = participantsInBand.Select(participant => userRepository.FindEntityById(participant.UserId));
-
-            IEnumerable<int> connectedUserIds = participantUsers.Where(user => user.ConnectionStatus.UserConnectionStatus == ConnectionStatus.Status.Connected).Select(user => user.Id);
-
-            ClientManager.SendMessageToClients(addedBacklogTaskNotification, connectedUserIds);
         }
 
         /// <summary>
@@ -57,6 +29,22 @@ namespace Server.EntityChangedHandler
         {
             taskRepository.EntityAdded -= OnTaskAdded;
             taskRepository.EntityUpdated -= OnTaskUpdated;
+        }
+
+        private void OnTaskUpdated(object sender, EntityChangedEventArgs<Task> e)
+        {
+            var taskNotification = new EntityNotification<Task>(e.Entity, NotificationType.Update);
+
+            IEnumerable<User> band = e.Entity.Band.Members;
+            ClientManager.SendMessageToClients(taskNotification, band.Select(user => user.Id));
+        }
+
+        private void OnTaskAdded(object sender, EntityChangedEventArgs<Task> e)
+        {
+            var addedBacklogTaskNotification = new EntityNotification<Task>(e.Entity, NotificationType.Create);
+
+            IEnumerable<User> band = e.Entity.Band.Members;
+            ClientManager.SendMessageToClients(addedBacklogTaskNotification, band.Select(user => user.Id));
         }
     }
 }

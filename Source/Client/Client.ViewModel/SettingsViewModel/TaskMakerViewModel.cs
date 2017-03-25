@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 using Client.Model.SettingsModel;
@@ -7,7 +6,6 @@ using Client.Service;
 using Client.ViewModel.Commands;
 using Shared;
 using Shared.Domain;
-using Shared.Repository;
 using Utility;
 
 namespace Client.ViewModel.SettingsViewModel
@@ -17,7 +15,7 @@ namespace Client.ViewModel.SettingsViewModel
     /// </summary>
     public sealed class TaskMakerViewModel : ViewModel
     {
-        private readonly int bandId;
+        private readonly Band band;
         private readonly IClientService clientService;
         private TaskMakerModel taskMakerMakerModel;
 
@@ -25,20 +23,14 @@ namespace Client.ViewModel.SettingsViewModel
         /// Creates a new <see cref="Task" /> Maker View Model.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
-        /// <param name="bandId">The <see cref="Band" /> Id in which the <see cref="Task" /> will be created for.</param>
-        public TaskMakerViewModel(IServiceRegistry serviceRegistry, int bandId) : base(serviceRegistry)
+        /// <param name="band">The <see cref="Band" /> in which the <see cref="Task" /> will be created for.</param>
+        public TaskMakerViewModel(IServiceRegistry serviceRegistry, Band band) : base(serviceRegistry)
         {
-            this.bandId = bandId;
+            this.band = band;
 
-            IReadOnlyEntityRepository<User> userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-            var participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
             clientService = serviceRegistry.GetService<IClientService>();
 
-            List<Participation> bandParticipants = participationRepository.GetParticipationsByBandId(bandId);
-
-            List<User> bandMembers = bandParticipants.Select(bandParticipant => userRepository.FindEntityById(bandParticipant.UserId)).ToList();
-
-            TaskMakerModel = new TaskMakerModel(bandMembers);
+            TaskMakerModel = new TaskMakerModel(band.Members.ToList());
         }
 
         /// <summary>
@@ -74,7 +66,7 @@ namespace Client.ViewModel.SettingsViewModel
         {
             int assignedMemberId = TaskMakerModel.AssignedMember?.Id ?? 0;
 
-            clientService.AddTaskToBacklog(bandId, TaskMakerModel.TaskTitle, TaskMakerModel.TaskDescription, TaskMakerModel.TaskPoints, assignedMemberId, TaskMakerModel.TaskCategory);
+            clientService.AddTaskToBacklog(band.Id, TaskMakerModel.TaskTitle, TaskMakerModel.TaskDescription, TaskMakerModel.TaskPoints, assignedMemberId, TaskMakerModel.TaskCategory);
 
             OnCloseTaskMakerViewRequest();
         }

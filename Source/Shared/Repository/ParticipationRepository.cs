@@ -20,18 +20,6 @@ namespace Shared.Repository
         }
 
         /// <summary>
-        /// Gets a collection of <see cref="Band" /> Ids which a <see cref="User" /> participates in.
-        /// </summary>
-        /// <param name="userId">The <see cref="User" /> Id to find <see cref="Band" />s for.</param>
-        /// <returns></returns>
-        public IEnumerable<int> GetAllBandIdsByUserId(int userId)
-        {
-            return from participation in GetAllEntities()
-                where participation.UserId.Equals(userId)
-                select participation.BandId;
-        }
-
-        /// <summary>
         /// Checks whether a <see cref="Band" /> exists with a group of participants.
         /// </summary>
         /// <param name="userIds">The group of participants to check if a <see cref="Band" /> exists for.</param>
@@ -43,50 +31,18 @@ namespace Shared.Repository
             return userIdsIndexedByBandId.Select(ids => ids.Value.AreSetsEqual(userIds)).Any(isBand => isBand);
         }
 
-        /// <summary>
-        /// Finds whether the the <see cref="User" /> in the <see cref="Band" /> is the leader.
-        /// </summary>
-        /// <param name="userId">The <see cref="User" /> Id in the <see cref="Band" />.</param>
-        /// <param name="bandId">The <see cref="Band" /> to check.</param>
-        /// <returns>Whether the user is a leader in a <see cref="Band" />.</returns>
-        public bool IsParticipantLeaderOfBand(int userId, int bandId)
-        {
-            Participation participation = GetParticipationByUserIdAndBandId(userId, bandId);
-
-            return participation != null && participation.IsLeader;
-        }
-
-        /// <summary>
-        /// Finds the specific Participation object that matches the userId and bandId.
-        /// </summary>
-        /// <param name="userId">The Id of the User to match.</param>
-        /// <param name="bandId">The Id of the Band to match.</param>
-        /// <returns>The <see cref="Participation" /> that matches the user Id and Jam Id.</returns>
-        private Participation GetParticipationByUserIdAndBandId(int userId, int bandId)
-        {
-            foreach (Participation possibleParticipation in GetAllEntities())
-            {
-                if (possibleParticipation.UserId.Equals(userId) && possibleParticipation.BandId.Equals(bandId))
-                {
-                    return possibleParticipation;
-                }
-            }
-
-            return null;
-        }
-
         private Dictionary<int, List<int>> GetUserIdsIndexedByBandId()
         {
             var idsIndexedByBandId = new Dictionary<int, List<int>>();
 
             foreach (Participation participation in GetAllEntities())
             {
-                if (!idsIndexedByBandId.ContainsKey(participation.BandId))
+                if (!idsIndexedByBandId.ContainsKey(participation.Band.Id))
                 {
-                    idsIndexedByBandId[participation.BandId] = new List<int>();
+                    idsIndexedByBandId[participation.Band.Id] = new List<int>();
                 }
 
-                idsIndexedByBandId[participation.BandId].Add(participation.UserId);
+                idsIndexedByBandId[participation.Band.Id].Add(participation.User.Id);
             }
 
             return idsIndexedByBandId;

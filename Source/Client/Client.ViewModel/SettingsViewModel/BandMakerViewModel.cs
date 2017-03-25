@@ -19,9 +19,8 @@ namespace Client.ViewModel.SettingsViewModel
     public class BandMakerViewModel : ViewModel
     {
         private readonly BandRepository bandRepository;
-        private readonly int clientId;
         private readonly IClientService clientService;
-        private readonly ParticipationRepository participationRepository;
+        private readonly User clientUser;
         private readonly UserRepository userRepository;
         private BandMakerModel bandMakerModel;
 
@@ -38,16 +37,15 @@ namespace Client.ViewModel.SettingsViewModel
             bandRepository.EntityUpdated += OnBandsChanged;
 
             userRepository = (UserRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-            participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
             clientService = serviceRegistry.GetService<IClientService>();
 
             userRepository.EntityAdded += OnUserAdded;
 
-            clientId = serviceRegistry.GetService<IClientService>().ClientUserId;
+            clientUser = serviceRegistry.GetService<IClientService>().ClientUser;
 
             IEnumerable<User> usersToDisplay = userRepository.GetAllEntities();
 
-            bandMakerModel = new BandMakerModel(bandRepository.GetAllEntities(), usersToDisplay, clientId);
+            bandMakerModel = new BandMakerModel(bandRepository.GetAllEntities(), usersToDisplay, clientUser.Id);
         }
 
         /// <summary>
@@ -83,8 +81,7 @@ namespace Client.ViewModel.SettingsViewModel
         {
             BandMakerModel.Bands = bandRepository.GetAllEntities().ToList();
 
-            IEnumerable<int> bandIds = participationRepository.GetAllBandIdsByUserId(clientId);
-            if (bandIds.Any())
+            if (clientUser.Bands.Any())
             {
                 Application.Current.Dispatcher.Invoke(() => EventUtility.SafeFireEvent(OpenMainViewRequested, this, new WindowRequestedEventArgs(e.Entity)));
             }
@@ -99,7 +96,8 @@ namespace Client.ViewModel.SettingsViewModel
         {
             BandMakerModel.BandMakerUsers = userRepository
                 .GetAllEntities()
-                .Select(user => new BandMakerUserModel(user, clientId)).ToList();
+                .Select(user => new BandMakerUserModel(user, clientUser.Id))
+                .ToList();
         }
 
         private bool CanJoinBand()
@@ -109,7 +107,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private void JoinNewBand()
         {
-            clientService.AddUserToBand(clientId, BandMakerModel.SelectedBand.Id, false);
+            clientService.AddUserToBand(clientUser.Id, BandMakerModel.SelectedBand.Id, false);
         }
 
         private bool CanCreateBand()

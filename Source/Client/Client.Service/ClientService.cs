@@ -11,7 +11,6 @@ using Shared.Message.JamMessage;
 using Shared.Message.LoginMessage;
 using Shared.Message.ParticipationMessage;
 using Shared.Message.TaskMessage;
-using Shared.Repository;
 using Utility;
 
 namespace Client.Service
@@ -44,6 +43,11 @@ namespace Client.Service
             messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             ServiceRegistry = serviceRegistry;
             repositoryManager = ServiceRegistry.GetService<RepositoryManager>();
+        }
+
+        public User ClientUser
+        {
+            get { return repositoryManager.GetRepository<User>().FindEntityById(ClientUserId); }
         }
 
         /// <summary>

@@ -48,34 +48,7 @@ namespace SharedTest.RepositoryTest
             var participation = new Participation(1, 1, 1, true);
             participationRepository.AddEntity(participation);
 
-            Assert.True(participationRepository.DoesBandWithUsersExist(new List<int> { participation.UserId }));
-        }
-
-        [Test]
-        public void GetAllBandIdsByUserIdTest()
-        {
-            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
-
-            const int UserId = 3;
-
-            var participation1 = new Participation(1, UserId, 1, false);
-            var participation2 = new Participation(2, UserId, 2, true);
-            var participation3 = new Participation(3, UserId, 3, false);
-
-            var expectedBandIds = new List<int>
-            {
-                participation1.BandId,
-                participation2.BandId,
-                participation3.BandId
-            };
-
-            participationRepository.AddEntity(participation1);
-            participationRepository.AddEntity(participation2);
-            participationRepository.AddEntity(participation3);
-
-            IEnumerable<int> actualBandIds = participationRepository.GetAllBandIdsByUserId(UserId);
-
-            Assert.AreEqual(expectedBandIds, actualBandIds);
+            Assert.True(participationRepository.DoesBandWithUsersExist(new List<int> { participation.User.Id }));
         }
 
         [Test]

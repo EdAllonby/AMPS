@@ -31,6 +31,14 @@ namespace Server.EntityChangedHandler
             participationRepository.EntityAdded += OnParticipationAdded;
         }
 
+        /// <summary>
+        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity" /> changes.
+        /// </summary>
+        public override void StopOnMessageChangedHandling()
+        {
+            participationRepository.EntityAdded -= OnParticipationAdded;
+        }
+
         private void OnParticipationAdded(object sender, EntityChangedEventArgs<Participation> e)
         {
             Participation participation = e.Entity;
@@ -39,22 +47,22 @@ namespace Server.EntityChangedHandler
 
             var participationNotification = new EntityNotification<Participation>(participation, NotificationType.Create);
 
-            IEnumerable<int> bandParticipantUserIds = bandParticipants.Select(bandParticipant => bandParticipant.UserId);
+            IEnumerable<int> bandParticipantUserIds = bandParticipants.Select(bandParticipant => bandParticipant.User.Id);
 
             ClientManager.SendMessageToClients(participationNotification, bandParticipantUserIds);
 
             List<Participation> otherParticipants = bandParticipants.Where(bandParticipant => !bandParticipant.Equals(participation)).ToList();
 
-            otherParticipants.ForEach(otherParticipant => ClientManager.SendMessageToClient(new EntityNotification<Participation>(otherParticipant, NotificationType.Create), participation.UserId));
+            otherParticipants.ForEach(otherParticipant => ClientManager.SendMessageToClient(new EntityNotification<Participation>(otherParticipant, NotificationType.Create), participation.User.Id));
 
             Band band = bandRepository.FindEntityById(participation.BandId);
 
-            SendBandNotificationToParticipants(band, participation.UserId, otherParticipants);
+            SendBandNotificationToParticipants(band, participation.User.Id, otherParticipants);
 
             if (band != null)
             {
-                SendTasksToNewBandParticipant(band.Id, participation.UserId);
-                SendJamsToNewBandParticipant(band.Id, participation.UserId);
+                SendTasksToNewBandParticipant(band.Id, participation.User.Id);
+                SendJamsToNewBandParticipant(band.Id, participation.User.Id);
             }
         }
 
@@ -64,7 +72,7 @@ namespace Server.EntityChangedHandler
             {
                 ClientManager.SendMessageToClient(new EntityNotification<Band>(band, NotificationType.Update), newParticipantUserId);
 
-                IEnumerable<int> currentBandParticipantUserIds = otherParticipants.Select(participant => participant.UserId);
+                IEnumerable<int> currentBandParticipantUserIds = otherParticipants.Select(participant => participant.User.Id);
 
                 ClientManager.SendMessageToClients(new EntityNotification<Band>(band, NotificationType.Update), currentBandParticipantUserIds);
             }
@@ -72,7 +80,7 @@ namespace Server.EntityChangedHandler
 
         private void SendTasksToNewBandParticipant(int bandId, int newParticipantUserId)
         {
-            var tasks = taskRepository.GetTasksAssociatedWithBand(bandId);
+            IEnumerable<Task> tasks = taskRepository.GetTasksAssociatedWithBand(bandId);
 
             foreach (Task task in tasks)
             {
@@ -90,14 +98,6 @@ namespace Server.EntityChangedHandler
                 var jamNotification = new EntityNotification<Jam>(jam, NotificationType.Create);
                 ClientManager.SendMessageToClient(jamNotification, newParticipantUserId);
             }
-        }
-
-        /// <summary>
-        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity" /> changes.
-        /// </summary>
-        public override void StopOnMessageChangedHandling()
-        {
-            participationRepository.EntityAdded -= OnParticipationAdded;
         }
     }
 }

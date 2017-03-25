@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Shared;
+﻿using Shared;
 using Shared.Domain;
 using Shared.Message.ParticipationMessage;
 using Shared.Repository;
@@ -24,36 +22,17 @@ namespace Server.MessageHandler
         {
             var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
-            if (CheckUserCanEnterBand(message, participationRepository))
-            {
-                var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
-                AddUserToBand(message, entityIdAllocatorFactory, participationRepository);
-            }
+            var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
+            AddUserToBand(message, entityIdAllocatorFactory, participationRepository);
         }
 
-        private static bool CheckUserCanEnterBand(ParticipationRequest participationRequest, ParticipationRepository participationRepository)
-        {
-            Participation newparticipation = participationRequest.Participation;
-
-            List<Participation> currentParticipantsInBand = participationRepository.GetParticipationsByBandId(newparticipation.BandId);
-
-            if (currentParticipantsInBand.Any(participation => participation.UserId == newparticipation.UserId))
-            {
-                Log.WarnFormat(
-                    "User with id {0} cannot be added to band with Id {1}, user already exists in this Band.",
-                    participationRequest.Participation.UserId, participationRequest.Participation.BandId);
-
-                return false;
-            }
-
-            return true;
-        }
-
-        private static void AddUserToBand(ParticipationRequest participationRequest, EntityIdAllocatorFactory entityIdAllocatorFactory, IEntityRepository<Participation> participationRepository)
+        private void AddUserToBand(ParticipationRequest participationRequest, EntityIdAllocatorFactory entityIdAllocatorFactory, IEntityRepository<Participation> participationRepository)
         {
             int participationId = entityIdAllocatorFactory.AllocateEntityId<Participation>();
 
-            var participation = new Participation(participationId, participationRequest.Participation.UserId, participationRequest.Participation.BandId, participationRequest.Participation.IsLeader);
+            participationRequest.Participation.RepositoryManager = ServiceRegistry.GetService<RepositoryManager>();
+
+            var participation = new Participation(participationId, participationRequest.Participation.User.Id, participationRequest.Participation.Band.Id, participationRequest.Participation.IsLeader);
 
             participationRepository.AddEntity(participation);
         }

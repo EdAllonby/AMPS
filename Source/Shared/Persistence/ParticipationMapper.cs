@@ -27,7 +27,7 @@ namespace Shared.Persistence
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand command = new SqlCommand(updateParticipationQuery, databaseConnection))
+            using (var command = new SqlCommand(updateParticipationQuery, databaseConnection))
             {
                 DoInsert(entity, command);
 
@@ -37,6 +37,11 @@ namespace Shared.Persistence
             }
 
             return rowsUpdated == 1;
+        }
+
+        public override IEnumerable<Participation> GetAllEntities()
+        {
+            return FindMany(new FindAllParticipations());
         }
 
         protected override bool DoDelete(int entityId)
@@ -57,16 +62,11 @@ namespace Shared.Persistence
             return participation;
         }
 
-        public override IEnumerable<Participation> GetAllEntities()
-        {
-            return FindMany(new FindAllParticipations());
-        }
-
         protected override void DoInsert(Participation entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
-            insertCommand.Parameters.Add("@userId", SqlDbType.Int).Value = entity.UserId;
-            insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.BandId;
+            insertCommand.Parameters.Add("@userId", SqlDbType.Int).Value = entity.User.Id;
+            insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.Band.Id;
             insertCommand.Parameters.Add("@isLeader", SqlDbType.Bit).Value = entity.IsLeader;
         }
 

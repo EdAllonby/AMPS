@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Client.Model.SettingsModel;
+﻿using Client.Model.SettingsModel;
 using Shared;
 using Shared.Domain;
-using Shared.Repository;
 
 namespace Client.ViewModel.SettingsViewModel
 {
@@ -22,24 +19,7 @@ namespace Client.ViewModel.SettingsViewModel
         public BandDetailsViewModel(IServiceRegistry serviceRegistry, Band band)
             : base(serviceRegistry)
         {
-            ParticipationRepository participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-
-            List<Participation> bandParticipants = participationRepository.GetParticipationsByBandId(band.Id);
-
-            IReadOnlyEntityRepository<User> userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-
-            User bandLeader = bandParticipants.Where(bandParticipant => bandParticipant.IsLeader).Select(bandParticipant => userRepository.FindEntityById(bandParticipant.UserId)).FirstOrDefault();
-
-            var bandMembers = bandParticipants.Select(bandParticipant => userRepository.FindEntityById(bandParticipant.UserId));
-
-            if (bandLeader != null)
-            {
-                bandDetailsModel = new BandDetailsModel(bandMembers.ToList(), bandLeader, band);
-            }
-            else
-            {
-                Log.ErrorFormat("Leader not found for Band with Id {0}", band.Id);
-            }
+            bandDetailsModel = new BandDetailsModel(band);
         }
 
         /// <summary>

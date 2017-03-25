@@ -26,6 +26,11 @@ namespace Client.Service
         int ClientUserId { get; }
 
         /// <summary>
+        /// This Client's unique <see cref="User" />.
+        /// </summary>
+        User ClientUser { get; }
+
+        /// <summary>
         /// Fires when the client has finished successfully bootstrapping.
         /// </summary>
         event EventHandler BootstrapCompleted;

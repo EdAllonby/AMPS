@@ -29,6 +29,14 @@ namespace Server.EntityChangedHandler
             jamRepository.EntityUpdated += OnJamUpdated;
         }
 
+        /// <summary>
+        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity" /> changes.
+        /// </summary>
+        public override void StopOnMessageChangedHandling()
+        {
+            jamRepository.EntityAdded -= OnJamAdded;
+        }
+
         private void OnJamAdded(object sender, EntityChangedEventArgs<Jam> e)
         {
             var jamNotification = new EntityNotification<Jam>(e.Entity, NotificationType.Create);
@@ -38,10 +46,9 @@ namespace Server.EntityChangedHandler
             ClientManager.SendMessageToClients(jamNotification, userIds);
         }
 
-        private IEnumerable<int> UsersParticipatingInJam(Jam jam)
+        private static IEnumerable<int> UsersParticipatingInJam(Jam jam)
         {
-             IEnumerable<int> userIds = participationRepository.GetParticipationsByBandId(jam.Band.Id).Select(participation => participation.UserId);
-            return userIds;
+            return jam.Band.Members.Select(user => user.Id);
         }
 
         private void OnJamUpdated(object sender, EntityChangedEventArgs<Jam> e)
@@ -51,14 +58,6 @@ namespace Server.EntityChangedHandler
             IEnumerable<int> userIds = UsersParticipatingInJam(e.Entity);
 
             ClientManager.SendMessageToClients(jamNotification, userIds);
-        }
-
-        /// <summary>
-        /// Removes event subscriptions to <see cref="JamRepository" /> <see cref="Entity" /> changes.
-        /// </summary>
-        public override void StopOnMessageChangedHandling()
-        {
-            jamRepository.EntityAdded -= OnJamAdded;
         }
     }
 }

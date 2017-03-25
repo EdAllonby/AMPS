@@ -19,10 +19,8 @@ namespace Client.ViewModel.MainViewModel
         private readonly Band band;
         private readonly BandRepository bandRepository;
         private readonly IClientService clientService;
+        private readonly User clientUser;
         private readonly JamRepository jamRepository;
-        private readonly ParticipationRepository participationRepository;
-        private readonly int userId;
-        private readonly IReadOnlyEntityRepository<User> userRepository;
         private string memberSearchTerm = string.Empty;
 
         /// <summary>
@@ -39,25 +37,16 @@ namespace Client.ViewModel.MainViewModel
 
                 clientService = serviceRegistry.GetService<IClientService>();
                 clientService.ClientDisconnected += OnClientDisconnected;
-                userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-                participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+
                 bandRepository = (BandRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
                 jamRepository = (JamRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
 
                 jamRepository.EntityAdded += JamChanged;
                 jamRepository.EntityUpdated += JamChanged;
 
-                userId = ServiceRegistry.GetService<IClientService>().ClientUserId;
-                bool isLeader = participationRepository.IsParticipantLeaderOfBand(userId, band.Id);
+                clientUser = ServiceRegistry.GetService<IClientService>().ClientUser;
 
-                if (isLeader)
-                {
-                    IsCreateJamVisible = Visibility.Visible;
-                }
-                if (!isLeader)
-                {
-                    IsCreateJamVisible = Visibility.Collapsed;
-                }
+                CreateJamVisibility = IsClientUserLeader() ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -70,11 +59,11 @@ namespace Client.ViewModel.MainViewModel
             {
                 string extraInformation = string.Empty;
 
-                if (participationRepository.IsParticipantLeaderOfBand(userId, band.Id))
+                if (IsClientUserLeader())
                 {
                     extraInformation = "You are the leader of this Band.";
                 }
-                return $"AMPS - Agile Music Project Suite: Welcome, {userRepository.FindEntityById(userId).Username}. {extraInformation}";
+                return $"AMPS - Agile Music Project Suite: Welcome, {clientUser.Username}. {extraInformation}";
             }
         }
 
@@ -136,22 +125,7 @@ namespace Client.ViewModel.MainViewModel
         /// <summary>
         /// Returns whether the user is a leader and can see the Create <see cref="Jam" /> button.
         /// </summary>
-        public Visibility IsCreateJamVisible { get; private set; }
-
-        private void OpenSettingsView()
-        {
-            Application.Current.Dispatcher.Invoke(() => EventUtility.SafeFireEvent(OpenSettingsViewRequested, this));
-        }
-
-        private void OnClientDisconnected(object sender, EventArgs e)
-        {
-            EventUtility.SafeFireEvent(CloseMainAndOpenLoginViewRequested, this);
-        }
-
-        private void LogOffUserFromServer()
-        {
-            clientService.LogOff();
-        }
+        public Visibility CreateJamVisibility { get; }
 
         /// <summary>
         /// Fires when a <see cref="Band" /> details view is requested.
@@ -193,9 +167,24 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public event EventHandler CloseMainAndOpenLoginViewRequested;
 
+        private void OpenSettingsView()
+        {
+            Application.Current.Dispatcher.Invoke(() => EventUtility.SafeFireEvent(OpenSettingsViewRequested, this));
+        }
+
+        private void OnClientDisconnected(object sender, EventArgs e)
+        {
+            EventUtility.SafeFireEvent(CloseMainAndOpenLoginViewRequested, this);
+        }
+
+        private void LogOffUserFromServer()
+        {
+            clientService.LogOff();
+        }
+
         private bool CanOpenJamMakerView()
         {
-            if (!participationRepository.IsParticipantLeaderOfBand(userId, band.Id))
+            if (!IsClientUserLeader())
             {
                 return false;
             }
@@ -203,6 +192,11 @@ namespace Client.ViewModel.MainViewModel
             Jam currentJam = jamRepository.GetCurrentActiveJamInBand(band.Id);
 
             return currentJam == null || !currentJam.IsActive;
+        }
+
+        private bool IsClientUserLeader()
+        {
+            return band.Leader.Equals(clientUser);
         }
 
         private void OpenBandDetailsView()

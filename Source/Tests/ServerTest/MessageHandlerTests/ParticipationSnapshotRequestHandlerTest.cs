@@ -40,7 +40,7 @@ namespace ServerTest.MessageHandlerTests
 
                 var participationSnapshot = (EntitySnapshot<Participation>) message;
 
-                int userId = participationSnapshot.Entities.Select(participation => participation.UserId).First();
+                int userId = participationSnapshot.Entities.Select(participation => participation.User.Id).First();
 
                 Assert.AreEqual(DefaultUser.Id, userId);
             }
@@ -56,7 +56,7 @@ namespace ServerTest.MessageHandlerTests
 
                 var participationSnapshot = (EntitySnapshot<Participation>) message;
 
-                List<int> jamIds = participationSnapshot.Entities.Select(participation => participation.BandId).ToList();
+                List<int> jamIds = participationSnapshot.Entities.Select(participation => participation.Band.Id).ToList();
 
                 Assert.AreEqual(DefaultJamIdDefaultUserIsIn, jamIds.Distinct().First());
             }
@@ -64,7 +64,7 @@ namespace ServerTest.MessageHandlerTests
             [Test]
             public void SendsAMessage()
             {
-                bool isMessageSent = false;
+                var isMessageSent = false;
                 ConnectedUserClientHandler.MessageSent += (sender, eventArgs) => isMessageSent = true;
 
                 HandleMessage(participationSnapshotRequest);

@@ -47,5 +47,15 @@ namespace Shared.Domain
                 return participations.Select(p => p.User);
             }
         }
+
+        public User Leader
+        {
+            get
+            {
+                var participationRepository = (ParticipationRepository) RepositoryManager.GetRepository<Participation>();
+                List<Participation> participations = participationRepository.GetParticipationsByBandId(Id);
+                return participations.First(participant => participant.IsLeader).User;
+            }
+        }
     }
 }

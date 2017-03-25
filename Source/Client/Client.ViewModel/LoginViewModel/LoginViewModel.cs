@@ -10,7 +10,6 @@ using Shared;
 using Shared.Configuration;
 using Shared.Domain;
 using Shared.Message.LoginMessage;
-using Shared.Repository;
 using Utility;
 
 namespace Client.ViewModel.LoginViewModel
@@ -33,7 +32,7 @@ namespace Client.ViewModel.LoginViewModel
         {
             if (!IsInDesignMode)
             {
-                AppConfigManager configManager = serviceRegistry.GetService<AppConfigManager>();
+                var configManager = serviceRegistry.GetService<AppConfigManager>();
 
                 LoginModel.IPAddress = configManager.FindStoredValue("DefaultIPAddress");
                 LoginModel.Port = configManager.FindStoredValue("DefaultPort");
@@ -140,13 +139,9 @@ namespace Client.ViewModel.LoginViewModel
         private void OpenNextView()
         {
             // If the user does not have a band, show them the band maker view, otherwise go to the main view.
+            User user = ServiceRegistry.GetService<IClientService>().ClientUser;
 
-            ParticipationRepository participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-            int userId = ServiceRegistry.GetService<IClientService>().ClientUserId;
-
-            IEnumerable<int> bandIds = participationRepository.GetAllBandIdsByUserId(userId);
-
-            if (bandIds.Any())
+            if (user.Bands.Any())
             {
                 Application.Current.Dispatcher.Invoke(() => EventUtility.SafeFireEvent(OpenBandChooserViewRequested, this));
             }
@@ -172,7 +167,7 @@ namespace Client.ViewModel.LoginViewModel
 
         private bool CanLogin()
         {
-            return (string.IsNullOrWhiteSpace(LoginModel.Error));
+            return string.IsNullOrWhiteSpace(LoginModel.Error);
         }
     }
 }

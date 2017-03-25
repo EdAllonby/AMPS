@@ -44,7 +44,7 @@ namespace Shared.Domain
         /// <summary>
         /// The participants <see cref="User" /> Id.
         /// </summary>
-        public int UserId { get; }
+        private int UserId { get; }
 
         /// <summary>
         /// The <see cref="Band" /> Id this <see cref="User" /> is participating in.

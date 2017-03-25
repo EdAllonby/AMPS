@@ -13,7 +13,7 @@ namespace Client.ViewModel.MainViewModel
     /// </summary>
     public class UserListViewModel : ViewModel
     {
-        private readonly int bandId;
+        private readonly Band band;
         private readonly ParticipationRepository participationRepository;
         private readonly IReadOnlyEntityRepository<User> userRepository;
         private IList<UserViewModel> connectedUsers = new List<UserViewModel>();
@@ -23,8 +23,8 @@ namespace Client.ViewModel.MainViewModel
         /// Creates a new view model with reference to the <see cref="Band" /> it is managing for.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
-        /// <param name="bandId">The <see cref="Band" /> Id to manage.</param>
-        public UserListViewModel(IServiceRegistry serviceRegistry, int bandId)
+        /// <param name="band">The <see cref="Band" /> to manage.</param>
+        public UserListViewModel(IServiceRegistry serviceRegistry, Band band)
             : base(serviceRegistry)
         {
             if (IsInDesignMode)
@@ -32,7 +32,7 @@ namespace Client.ViewModel.MainViewModel
                 return;
             }
 
-            this.bandId = bandId;
+            this.band = band;
 
             userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
             participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
@@ -91,11 +91,11 @@ namespace Client.ViewModel.MainViewModel
 
         private void UpdateConnectedParticipants()
         {
-            IEnumerable<int> membersOfBandIds = participationRepository.GetParticipationsByBandId(bandId).Select(participant => participant.UserId);
+            IEnumerable<User> bandMembers = band.Members;
 
-            IEnumerable<User> allUsersInBand = userRepository.GetAllEntities().Where(user => membersOfBandIds.Contains(user.Id));
+            IEnumerable<User> allUsersInBand = userRepository.GetAllEntities().Where(user => bandMembers.Contains(user));
             IEnumerable<User> filteredUsers = allUsersInBand.Where(CanPresentUser);
-            IEnumerable<UserViewModel> connectedUserViewModels = filteredUsers.Select(user => new UserViewModel(ServiceRegistry, user, bandId));
+            IEnumerable<UserViewModel> connectedUserViewModels = filteredUsers.Select(user => new UserViewModel(ServiceRegistry, user, band));
 
             ConnectedUsers = connectedUserViewModels.ToList();
         }

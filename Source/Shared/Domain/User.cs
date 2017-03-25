@@ -1,5 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
+using Shared.Repository;
 
 namespace Shared.Domain
 {
@@ -38,5 +41,14 @@ namespace Shared.Domain
         /// The current status of the <see cref="User" />.
         /// </summary>
         public ConnectionStatus ConnectionStatus { get; set; }
+
+        public IEnumerable<Band> Bands
+        {
+            get
+            {
+                IReadOnlyEntityRepository<Participation> participationRepository = RepositoryManager.GetRepository<Participation>();
+                return participationRepository.GetAllEntities().Where(p => p.User.Equals(this)).Select(x => x.Band);
+            }
+        }
     }
 }

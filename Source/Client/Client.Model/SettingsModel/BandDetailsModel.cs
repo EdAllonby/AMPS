@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Shared.Domain;
 
 namespace Client.Model.SettingsModel
@@ -18,10 +19,10 @@ namespace Client.Model.SettingsModel
         /// <param name="bandMembers">The members of the <see cref="Band" />.</param>
         /// <param name="leader">The leader of the <see cref="Band" />.</param>
         /// <param name="band">The <see cref="Band" /> <see cref="Entity" /> to model this details page for.</param>
-        public BandDetailsModel(List<User> bandMembers, User leader, Band band)
+        public BandDetailsModel(Band band)
         {
-            BandMembers = bandMembers;
-            BandLeader = leader;
+            BandMembers = band.Members.ToList();
+            BandLeader = band.Leader;
             Band = band;
         }
 

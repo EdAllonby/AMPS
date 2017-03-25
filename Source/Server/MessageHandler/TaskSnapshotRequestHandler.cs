@@ -8,7 +8,7 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="EntitySnapshotRequest{T}" /> the Server received.
+    /// Handles a <see cref="EntitySnapshotRequest{TEntity}" /> the Server received.
     /// </summary>
     internal sealed class TaskSnapshotRequestHandler : MessageHandler<EntitySnapshotRequest<Task>>
     {
@@ -22,17 +22,16 @@ namespace Server.MessageHandler
         /// <param name="message">The <see cref="EntitySnapshotRequest{Task}" /> that has been received and needs to be handled.</param>
         protected override void HandleMessage(EntitySnapshotRequest<Task> message)
         {
+            IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            User user = userRepository.FindEntityById(message.UserId);
+
             IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
-            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
-            var clientManager = ServiceRegistry.GetService<IClientManager>();
-
-            List<int> bandIdsUserIsIn = participationRepository.GetAllBandIdsByUserId(message.UserId).ToList();
-
-            List<Task> tasksUserCanSee = taskRepository.GetAllEntities().Where(task => bandIdsUserIsIn.Contains(task.BandId)).ToList();
+            List<Task> tasksUserCanSee = taskRepository.GetAllEntities().Where(task => user.Bands.Select(band => band.Id).Contains(task.BandId)).ToList();
 
             var taskSnapshot = new EntitySnapshot<Task>(tasksUserCanSee);
 
+            var clientManager = ServiceRegistry.GetService<IClientManager>();
             clientManager.SendMessageToClient(taskSnapshot, message.UserId);
         }
     }

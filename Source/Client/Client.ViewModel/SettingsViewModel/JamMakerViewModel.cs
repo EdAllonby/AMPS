@@ -35,17 +35,13 @@ namespace Client.ViewModel.SettingsViewModel
         public JamMakerViewModel(IServiceRegistry serviceRegistry, Band band) : base(serviceRegistry)
         {
             bandId = band.Id;
-            var userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-
             var addableTaskModels = new List<AddableTaskModel>();
 
-            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-
-            List<User> bandMembers = participationRepository.GetParticipationsByBandId(band.Id).Select(participant => userRepository.FindEntityById(participant.UserId)).ToList();
+            IEnumerable<User> bandMembers = band.Members;
 
             foreach (Task backlogTask in band.Backlog)
             {
-                var addableTaskModel = new AddableTaskModel(backlogTask, bandMembers);
+                var addableTaskModel = new AddableTaskModel(backlogTask, bandMembers.ToList());
 
                 addableTaskModels.Add(addableTaskModel);
             }
@@ -112,7 +108,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private void SubmitJamRequest()
         {
-            IClientService clientService = ServiceRegistry.GetService<IClientService>();
+            var clientService = ServiceRegistry.GetService<IClientService>();
 
             List<int> taskIdsToAdd = jamMakerModel.AddableTasks.Where(taskModel => taskModel.Add).Select(taskModel => taskModel.TaskId).ToList();
 

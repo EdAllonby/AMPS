@@ -7,20 +7,6 @@ namespace SharedTest.DomainTest
     public class ParticipationTest
     {
         [Test]
-        public void CreateIncompleteParticipationTest()
-        {
-            const int UserId = 1;
-            const int BandId = 2;
-            const bool IsLeader = true;
-
-            var incompleteParticipation = new Participation(UserId, BandId, IsLeader);
-            Assert.IsTrue(incompleteParticipation.IsNew);
-            Assert.AreEqual(incompleteParticipation.UserId, UserId);
-            Assert.AreEqual(incompleteParticipation.BandId, BandId);
-            Assert.AreEqual(incompleteParticipation.IsLeader, IsLeader);
-        }
-
-        [Test]
         public void ParticipationEqualsTest()
         {
             const int ParticipationId = 1;
@@ -60,8 +46,6 @@ namespace SharedTest.DomainTest
             const bool IsLeader = false;
 
             var participation = new Participation(ParticipationId, UserId, BandId, IsLeader);
-            Assert.AreEqual(participation.UserId, UserId);
-            Assert.AreEqual(participation.BandId, BandId);
             Assert.AreEqual(participation.IsLeader, IsLeader);
         }
 

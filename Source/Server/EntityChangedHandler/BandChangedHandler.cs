@@ -14,7 +14,6 @@ namespace Server.EntityChangedHandler
     internal sealed class BandChangedHandler : EntityChangedHandler
     {
         private readonly IReadOnlyEntityRepository<Band> bandRepository;
-        private readonly ParticipationRepository participationRepository;
 
         /// <summary>
         /// Creates a new <see cref="TaskRepository" /> <see cref="Task" /> changed handler and wires up the change events.
@@ -24,26 +23,9 @@ namespace Server.EntityChangedHandler
             : base(serviceRegistry)
         {
             bandRepository = RepositoryManager.GetRepository<Band>();
-            participationRepository = (ParticipationRepository) RepositoryManager.GetRepository<Participation>();
 
             bandRepository.EntityAdded += OnBandAdded;
             bandRepository.EntityUpdated += OnBandUpdated;
-        }
-
-        private void OnBandAdded(object sender, EntityChangedEventArgs<Band> e)
-        {
-            var bandNotification = new EntityNotification<Band>(e.Entity, NotificationType.Create);
-
-            IEnumerable<int> userIds = participationRepository
-                .GetParticipationsByBandId(e.Entity.Id)
-                .Select(participation => participation.UserId);
-
-            ClientManager.SendMessageToClients(bandNotification, userIds);
-        }
-
-        private void OnBandUpdated(object sender, EntityChangedEventArgs<Band> e)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -53,6 +35,20 @@ namespace Server.EntityChangedHandler
         {
             bandRepository.EntityAdded -= OnBandAdded;
             bandRepository.EntityUpdated -= OnBandUpdated;
+        }
+
+        private void OnBandAdded(object sender, EntityChangedEventArgs<Band> e)
+        {
+            var bandNotification = new EntityNotification<Band>(e.Entity, NotificationType.Create);
+
+            IEnumerable<int> bandMembers = bandNotification.Entity.Members.Select(user => user.Id);
+
+            ClientManager.SendMessageToClients(bandNotification, bandMembers);
+        }
+
+        private void OnBandUpdated(object sender, EntityChangedEventArgs<Band> e)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -108,7 +108,7 @@ namespace Client.View.UI
 
         private void OnOpenCreateTaskViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)
         {
-            TaskMakerView taskMakerView = new TaskMakerView(serviceRegistry, windowRequestedEventArgs.Band.Id);
+            TaskMakerView taskMakerView = new TaskMakerView(serviceRegistry, windowRequestedEventArgs.Band);
             taskMakerView.ShowDialog();
         }
 
@@ -139,7 +139,7 @@ namespace Client.View.UI
         private void CreateUserListDock()
         {
             //TODO: Find a workaround for this. Currently creating a UserControl that has a constructor with a parameter can't be done in XAML, so do it here.
-            UserListDock.Children.Add(new UserListView(serviceRegistry, band.Id));
+            UserListDock.Children.Add(new UserListView(serviceRegistry, band));
         }
 
         private void CreateBurnDownDock()

@@ -1,10 +1,8 @@
-﻿using System.Linq;
-using System.Windows.Media;
+﻿using System.Windows.Media;
 using Client.Model;
 using Client.Service;
 using Shared;
 using Shared.Domain;
-using Shared.Repository;
 
 namespace Client.ViewModel.MainViewModel
 {
@@ -13,7 +11,7 @@ namespace Client.ViewModel.MainViewModel
     /// </summary>
     public sealed class UserViewModel : ViewModel
     {
-        private readonly int bandId;
+        private readonly Band bandToManage;
         private readonly User user;
 
         /// <summary>
@@ -21,14 +19,14 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         /// <param name="user">The <see cref="User" /> to display on the view.</param>
-        /// <param name="bandId">The <see cref="Band" /> Id to manage.</param>
-        public UserViewModel(IServiceRegistry serviceRegistry, User user, int bandId)
+        /// <param name="bandToManage">The <see cref="Band" /> to manage.</param>
+        public UserViewModel(IServiceRegistry serviceRegistry, User user, Band bandToManage)
             : base(serviceRegistry)
         {
             if (!IsInDesignMode)
             {
                 this.user = user;
-                this.bandId = bandId;
+                this.bandToManage = bandToManage;
             }
         }
 
@@ -62,13 +60,7 @@ namespace Client.ViewModel.MainViewModel
                 extraInformation += " (You)";
             }
 
-            ParticipationRepository participationRepository =
-                (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-
-            Participation leaderParticipant =
-                participationRepository.GetParticipationsByBandId(bandId).First(participant => participant.IsLeader);
-
-            if (leaderParticipant.UserId.Equals(UserId))
+            if (bandToManage.Leader.Equals(user))
             {
                 extraInformation += " (Leader)";
             }

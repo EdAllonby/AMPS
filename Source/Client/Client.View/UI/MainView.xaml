@@ -90,7 +90,7 @@
         <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal">
             <Label Content="{Binding BandName}" FontSize="20"
                    FontFamily="/Agile Music Project Suite;component/Resources/Fonts/Roboto/#Roboto Thin" />
-            <Button Command="{Binding OpenJamMaker}" Visibility="{Binding IsCreateJamVisible}" Height="24"
+            <Button Command="{Binding OpenJamMaker}" Visibility="{Binding CreateJamVisibility}" Height="24"
                     Margin="20,5,5,5" Padding="5,0" Content="Create Jam" />
         </StackPanel>
 

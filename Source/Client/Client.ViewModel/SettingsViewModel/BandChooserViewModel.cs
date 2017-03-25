@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Input;
 using Client.Model.SettingsModel;
 using Client.Service;
@@ -18,7 +17,7 @@ namespace Client.ViewModel.SettingsViewModel
     public class BandChooserViewModel : ViewModel
     {
         private readonly BandRepository bandRepository;
-        private readonly int clientUserId;
+        private readonly User clientUser;
         private readonly ParticipationRepository participationRepository;
         private BandChooserModel bandChooserModel;
 
@@ -28,7 +27,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
         public BandChooserViewModel(IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
-            clientUserId = serviceRegistry.GetService<IClientService>().ClientUserId;
+            clientUser = serviceRegistry.GetService<IClientService>().ClientUser;
 
             bandRepository = (BandRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
             participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
@@ -78,9 +77,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private IEnumerable<Band> GetBandsParticipatingIn()
         {
-            var bandIdsUserIsIn = participationRepository.GetAllBandIdsByUserId(clientUserId);
-
-            return bandIdsUserIsIn.Select(bandId => bandRepository.FindEntityById(bandId));
+            return clientUser.Bands;
         }
 
         private void OpenNewBand()

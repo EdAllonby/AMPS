@@ -23,14 +23,18 @@ namespace Server.MessageHandler
         /// </param>
         protected override void HandleMessage(EntitySnapshotRequest<Participation> message)
         {
+            IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
             var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+
+            User user = userRepository.FindEntityById(message.UserId);
+
             var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             var userParticipations = new List<Participation>();
 
-            foreach (int bandId in participationRepository.GetAllBandIdsByUserId(message.UserId))
+            foreach (Band band in user.Bands)
             {
-                userParticipations.AddRange(participationRepository.GetParticipationsByBandId(bandId));
+                userParticipations.AddRange(participationRepository.GetParticipationsByBandId(band.Id));
             }
 
             var participationSnapshot = new EntitySnapshot<Participation>(userParticipations);
