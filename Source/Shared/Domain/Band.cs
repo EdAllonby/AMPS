@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Shared.Repository;
 
 namespace Shared.Domain
@@ -31,6 +32,19 @@ namespace Shared.Domain
             {
                 var taskRepository = (TaskRepository) RepositoryManager.GetRepository<Task>();
                 return taskRepository.GetTasksInBandBacklog(Id);
+            }
+        }
+
+        /// <summary>
+        /// Current members of this <see cref="Band" />.
+        /// </summary>
+        public IEnumerable<User> Members
+        {
+            get
+            {
+                var participationRepository = (ParticipationRepository) RepositoryManager.GetRepository<Participation>();
+                List<Participation> participations = participationRepository.GetParticipationsByBandId(Id);
+                return participations.Select(p => p.User);
             }
         }
     }

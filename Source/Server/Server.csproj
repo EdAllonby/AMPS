@@ -56,6 +56,7 @@
     <Compile Include="EntityChangedHandler\JamChangedHandler.cs" />
     <Compile Include="EntityChangedHandler\BandChangedHandler.cs" />
     <Compile Include="EntityChangedHandler\TaskChangedHandler.cs" />
+    <Compile Include="EntityChangedHandler\TaskCommentChangedHandler.cs" />
     <Compile Include="InMemoryPasswordPersister.cs" />
     <Compile Include="IPasswordPersister.cs" />
     <Compile Include="MessageHandler\MessageHandlerRegistry.cs" />

@@ -16,10 +16,10 @@ namespace Server.MessageHandler
         {
             var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
             var taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), message.TaskComment, DateTime.Now);
-
+            taskComment.RepositoryManager = ServiceRegistry.GetService<RepositoryManager>();
             Task task = taskComment.Task;
             task.AddCommentToRelevantParent(taskComment);
-            var taskRepository = (TaskRepository)ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var taskRepository = (TaskRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
             taskRepository.UpdateEntity(task);
         }
     }

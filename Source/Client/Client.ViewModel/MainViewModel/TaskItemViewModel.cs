@@ -18,8 +18,10 @@ namespace Client.ViewModel.MainViewModel
     /// </summary>
     public sealed class TaskItemViewModel : TaskInformationViewModel, IEquatable<TaskItemViewModel>
     {
+        private readonly IReadOnlyEntityRepository<TaskComment> taskCommentRepository;
         private readonly int taskId;
         private readonly IReadOnlyEntityRepository<Task> taskRepository;
+
         private string comment = string.Empty;
         private string totalTaskComments;
 
@@ -33,8 +35,10 @@ namespace Client.ViewModel.MainViewModel
             taskId = task.Id;
 
             taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            taskCommentRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<TaskComment>();
 
             taskRepository.EntityUpdated += TaskUpdated;
+            taskCommentRepository.EntityAdded += TaskCommentAdded;
 
             TaskModel = new TaskModel(task);
             TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
@@ -95,6 +99,17 @@ namespace Client.ViewModel.MainViewModel
         public void UnsubscribeEvents()
         {
             taskRepository.EntityUpdated -= TaskUpdated;
+            taskCommentRepository.EntityAdded -= TaskCommentAdded;
+        }
+
+        /// <summary>
+        /// Fires when requesting to open Task Upload view.
+        /// </summary>
+        public event EventHandler<WindowRequestedEventArgs> OpenUploadTaskViewRequested;
+
+        private void TaskCommentAdded(object sender, EntityChangedEventArgs<TaskComment> e)
+        {
+            Application.Current.Dispatcher.Invoke(UpdateComments);
         }
 
         private void TaskUpdated(object sender, EntityChangedEventArgs<Task> e)
@@ -137,11 +152,6 @@ namespace Client.ViewModel.MainViewModel
             return taskComment.Replies.Aggregate(count, (current, reply) => AddCommentTree(reply, level + 1, ++current));
         }
 
-        /// <summary>
-        /// Fires when requesting to open Task Upload view.
-        /// </summary>
-        public event EventHandler<WindowRequestedEventArgs> OpenUploadTaskViewRequested;
-
         private bool CanCompleteTask()
         {
             if (TaskModel.IsCompleted)
@@ -151,7 +161,7 @@ namespace Client.ViewModel.MainViewModel
 
             var clientService = ServiceRegistry.GetService<IClientService>();
 
-            var clientUserId = clientService.ClientUserId;
+            int clientUserId = clientService.ClientUserId;
 
             return clientUserId.Equals(TaskModel.AssignedMember.Id);
         }

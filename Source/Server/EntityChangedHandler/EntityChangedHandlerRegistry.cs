@@ -20,11 +20,12 @@ namespace Server.EntityChangedHandler
             entityIdGeneratorsIndexedByEntityType =
                 new Dictionary<Type, EntityChangedHandler>
                 {
-                    {typeof (User), new UserChangedHandler(serviceRegistry)},
-                    {typeof (Band), new BandChangedHandler(serviceRegistry)},
-                    {typeof (Jam), new JamChangedHandler(serviceRegistry)},
-                    {typeof (Participation), new ParticipationChangedHandler(serviceRegistry)},
-                    {typeof (Task), new TaskChangedHandler(serviceRegistry)}
+                    { typeof(User), new UserChangedHandler(serviceRegistry) },
+                    { typeof(Band), new BandChangedHandler(serviceRegistry) },
+                    { typeof(Jam), new JamChangedHandler(serviceRegistry) },
+                    { typeof(Participation), new ParticipationChangedHandler(serviceRegistry) },
+                    { typeof(Task), new TaskChangedHandler(serviceRegistry) },
+                    { typeof(TaskComment), new TaskCommentChangedHandler(serviceRegistry) }
                 };
         }
 

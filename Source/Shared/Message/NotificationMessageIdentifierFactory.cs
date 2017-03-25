@@ -16,11 +16,12 @@ namespace Shared.Message
         private static readonly IReadOnlyDictionary<Type, MessageIdentifier> SerialisersByMessageType =
             new Dictionary<Type, MessageIdentifier>
             {
-                {typeof (User), MessageIdentifier.UserNotification},
-                {typeof (Jam), MessageIdentifier.JamNotification},
-                {typeof (Participation), MessageIdentifier.ParticipationNotification},
-                {typeof (Band), MessageIdentifier.BandNotification},
-                {typeof (Task), MessageIdentifier.TaskNotification}
+                { typeof(User), MessageIdentifier.UserNotification },
+                { typeof(Jam), MessageIdentifier.JamNotification },
+                { typeof(Participation), MessageIdentifier.ParticipationNotification },
+                { typeof(Band), MessageIdentifier.BandNotification },
+                { typeof(Task), MessageIdentifier.TaskNotification },
+                { typeof(TaskComment), MessageIdentifier.TaskCommentNotification }
             };
 
         /// <summary>
@@ -28,7 +29,7 @@ namespace Shared.Message
         /// </summary>
         /// <param name="notificationType">The snapshot type to get the correct <see cref="MessageIdentifier" />.</param>
         /// <returns>The <see cref="MessageIdentifier" /> linked to the Notification Message Type.</returns>
-        public MessageIdentifier GetIdentifierBySnapshotType(Type notificationType)
+        public MessageIdentifier GetIdentifierByNotificationType(Type notificationType)
         {
             return SerialisersByMessageType[notificationType];
         }

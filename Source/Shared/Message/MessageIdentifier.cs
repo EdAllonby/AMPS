@@ -30,6 +30,7 @@
         TaskSnapshotRequest,
         TaskSnapshot,
         TaskUpdateRequest,
-        TaskCommentRequest
+        TaskCommentRequest,
+        TaskCommentNotification
     }
 }

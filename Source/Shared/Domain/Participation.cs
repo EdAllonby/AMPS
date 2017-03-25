@@ -50,5 +50,9 @@ namespace Shared.Domain
         /// The <see cref="Band" /> Id this <see cref="User" /> is participating in.
         /// </summary>
         public int BandId { get; }
+
+        public User User => RepositoryManager.GetRepository<User>().FindEntityById(UserId);
+
+        public Band Band => RepositoryManager.GetRepository<Band>().FindEntityById(BandId);
     }
 }

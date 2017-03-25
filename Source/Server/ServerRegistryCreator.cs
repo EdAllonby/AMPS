@@ -50,7 +50,7 @@ namespace Server
 
             var repositoryManager = new RepositoryManager(persistenceStrategy)
             {
-                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task) }
+                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task), typeof(TaskComment) }
             };
 
             repositoryManager.CreateRepositories();

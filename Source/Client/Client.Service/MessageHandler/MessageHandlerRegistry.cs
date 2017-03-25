@@ -22,19 +22,20 @@ namespace Client.Service.MessageHandler
             MessageHandlersIndexedByMessageIdentifier = new Dictionary<MessageIdentifier, IMessageHandler>
             {
                 // Snapshot Handlers
-                {MessageIdentifier.UserSnapshot, new EntityBootstrapper<User>(serviceRegistry)},
-                {MessageIdentifier.JamSnapshot, new EntityBootstrapper<Jam>(serviceRegistry)},
-                {MessageIdentifier.ParticipationSnapshot, new EntityBootstrapper<Participation>(serviceRegistry)},
-                {MessageIdentifier.BandSnapshot, new EntityBootstrapper<Band>(serviceRegistry)},
-                {MessageIdentifier.TaskSnapshot, new EntityBootstrapper<Task>(serviceRegistry)},
+                { MessageIdentifier.UserSnapshot, new EntityBootstrapper<User>(serviceRegistry) },
+                { MessageIdentifier.JamSnapshot, new EntityBootstrapper<Jam>(serviceRegistry) },
+                { MessageIdentifier.ParticipationSnapshot, new EntityBootstrapper<Participation>(serviceRegistry) },
+                { MessageIdentifier.BandSnapshot, new EntityBootstrapper<Band>(serviceRegistry) },
+                { MessageIdentifier.TaskSnapshot, new EntityBootstrapper<Task>(serviceRegistry) },
 
                 // Entity Notification Handlers
-                {MessageIdentifier.UserNotification, new UserNotificationHandler(serviceRegistry)},
-                {MessageIdentifier.ConnectionStatusNotification, new ConnectionStatusNotificationHandler(serviceRegistry)},
-                {MessageIdentifier.JamNotification, new JamNotificationHandler(serviceRegistry)},
-                {MessageIdentifier.ParticipationNotification, new ParticipationNotificationHandler(serviceRegistry)},
-                {MessageIdentifier.BandNotification, new BandNotificationHandler(serviceRegistry)},
-                {MessageIdentifier.TaskNotification, new TaskNotificationHandler(serviceRegistry)}
+                { MessageIdentifier.UserNotification, new UserNotificationHandler(serviceRegistry) },
+                { MessageIdentifier.ConnectionStatusNotification, new ConnectionStatusNotificationHandler(serviceRegistry) },
+                { MessageIdentifier.JamNotification, new JamNotificationHandler(serviceRegistry) },
+                { MessageIdentifier.ParticipationNotification, new ParticipationNotificationHandler(serviceRegistry) },
+                { MessageIdentifier.BandNotification, new BandNotificationHandler(serviceRegistry) },
+                { MessageIdentifier.TaskNotification, new TaskNotificationHandler(serviceRegistry) },
+                { MessageIdentifier.TaskCommentNotification, new TaskCommentNotificationHandler(serviceRegistry) }
             };
         }
 

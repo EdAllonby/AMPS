@@ -6,6 +6,28 @@ using Shared.Repository;
 namespace Client.Service.MessageHandler
 {
     /// <summary>
+    /// Handles a <see cref="EntityNotification{TEntity}" /> the Client received.
+    /// </summary>
+    internal sealed class TaskCommentNotificationHandler : MessageHandler<EntityNotification<TaskComment>>
+    {
+        public TaskCommentNotificationHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
+        {
+        }
+
+        protected override void HandleMessage(EntityNotification<TaskComment> message)
+        {
+            var taskCommentRepository = (IEntityRepository<TaskComment>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<TaskComment>();
+
+            switch (message.NotificationType)
+            {
+                case NotificationType.Create:
+                    taskCommentRepository.AddEntity(message.Entity);
+                    break;
+            }
+        }
+    }
+
+    /// <summary>
     /// Handles a <see cref="EntityNotification{T}" /> the Client received.
     /// </summary>
     internal sealed class TaskNotificationHandler : MessageHandler<EntityNotification<Task>>

@@ -16,7 +16,7 @@ namespace Server
     internal sealed class JamManager : IService
     {
         private const int DateCheckerRateInMilliseconds = 30000;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (JamManager));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(JamManager));
         private readonly IReadOnlyEntityRepository<Jam> serverJamRepository;
         private bool canCheckForDates;
 
@@ -48,7 +48,7 @@ namespace Server
         /// </summary>
         public void CheckDates()
         {
-            Thread jamDateCheckerThread = new Thread(CheckDatesWorker);
+            var jamDateCheckerThread = new Thread(CheckDatesWorker) { Name = "JamManager" };
             jamDateCheckerThread.Start();
         }
 
@@ -62,7 +62,7 @@ namespace Server
                 {
                     if (DateTime.UtcNow > activeJam.JamEndDate)
                     {
-                        JamEndedEventArgs jamEndedEventArgs = new JamEndedEventArgs(activeJam);
+                        var jamEndedEventArgs = new JamEndedEventArgs(activeJam);
 
                         EventUtility.SafeFireEvent(JamEndDateSurpassed, this, jamEndedEventArgs);
 

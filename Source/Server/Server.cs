@@ -18,15 +18,15 @@ namespace Server
     /// </summary>
     public sealed class Server
     {
-        private readonly int PortNumber;
         private const int FallbackPortNumber = 3141;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (Server));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Server));
         private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
         private readonly MessageHandlerRegistry messageHandlerRegistry;
+        private readonly int PortNumber;
         private readonly IServiceRegistry serviceRegistry;
         private TcpListener clientListener;
         private bool isServerRunning;
-            
+
         /// <summary>
         /// Creates a new <see cref="Server" /> instance, and sets up the Repository Change Handlers.
         /// </summary>
@@ -49,7 +49,7 @@ namespace Server
             messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             entityChangedHandlerRegistry = new EntityChangedHandlerRegistry(serviceRegistry);
 
-            JamManager jamManager = serviceRegistry.GetService<JamManager>();
+            var jamManager = serviceRegistry.GetService<JamManager>();
             jamManager.JamEndDateSurpassed += OnJamDateSurpassed;
 
             jamManager.CheckDates();
@@ -77,7 +77,7 @@ namespace Server
 
             entityChangedHandlerRegistry.StopListening();
 
-            JamManager jamManager = serviceRegistry.GetService<JamManager>();
+            var jamManager = serviceRegistry.GetService<JamManager>();
             jamManager.StopCheckingForDates();
 
             clientListener.Stop();
@@ -130,17 +130,17 @@ namespace Server
         private void OnMessageReceived(object sender, MessageEventArgs e)
         {
             IMessage message = e.Message;
-
+            IMessageHandler handler = null;
             try
             {
-                IMessageHandler handler = messageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[message.MessageIdentifier];
-
-                handler.HandleMessage(message);
+                handler = messageHandlerRegistry.MessageHandlersIndexedByMessageIdentifier[message.MessageIdentifier];
             }
             catch (KeyNotFoundException keyNotFoundException)
             {
                 Log.Error("Server is not supposed to handle message with identifier: " + e.Message.MessageIdentifier, keyNotFoundException);
             }
+
+            handler?.HandleMessage(message);
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using log4net;
 using Shared.Message;
 using Shared.Serialiser.MessageSerialiser;
 
@@ -17,7 +18,7 @@ namespace Shared.Serialiser
         /// <returns>The MessageSerialiser used to serialise and deserialise the message.</returns>
         public static MessageSerialiser<T> GetSerialiser<T>() where T : IMessage
         {
-            return SerialiserRegistry.SerialisersByMessageType[typeof (T)] as MessageSerialiser<T>;
+            return SerialiserRegistry.SerialisersByMessageType[typeof(T)] as MessageSerialiser<T>;
         }
 
         /// <summary>
@@ -30,10 +31,18 @@ namespace Shared.Serialiser
         {
             if (identifier == MessageIdentifier.UnrecognisedMessage)
             {
-                throw new ArgumentException($"A MessageSerialiser does not exist for message type {identifier}.");
+                throw new ArgumentException("Message Identifier is unrecognised.");
             }
 
-            return SerialiserRegistry.SerialisersByMessageIdentifier[identifier];
+            IMessageSerialiser serialiser;
+            bool serialiserFound = SerialiserRegistry.SerialisersByMessageIdentifier.TryGetValue(identifier, out serialiser);
+
+            if (!serialiserFound)
+            {
+                throw new ArgumentException($"A Serialiser does not exist for message type {identifier}.");
+            }
+
+            return serialiser;
         }
     }
 }

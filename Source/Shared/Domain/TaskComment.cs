@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 
 namespace Shared.Domain
@@ -11,8 +12,8 @@ namespace Shared.Domain
     public sealed class TaskComment : Entity
     {
         private readonly int commenterId;
-        private readonly int taskId;
         private readonly List<TaskComment> replies = new List<TaskComment>();
+        private readonly int taskId;
 
         /// <summary>
         /// Create a task comment for a task.
@@ -53,7 +54,7 @@ namespace Shared.Domain
         /// </summary>
         public TaskComment ParentComment { get; }
 
-        public IEnumerable<TaskComment> Replies => replies;
+        public IEnumerable<TaskComment> Replies => RepositoryManager.GetRepository<TaskComment>().GetAllEntities().Where(x => x.ParentComment.Equals(this));
 
         public Task Task => RepositoryManager.GetRepository<Task>().FindEntityById(taskId);
 

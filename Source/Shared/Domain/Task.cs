@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
+using Shared.Repository;
 
 namespace Shared.Domain
 {
@@ -141,7 +143,7 @@ namespace Shared.Domain
         /// <see cref="Shared.Domain.Task.Comments" /> for the
         /// <see cref="Task" /> .
         /// </summary>
-        public List<TaskComment> Comments { get; } = new List<TaskComment>();
+        public IEnumerable<TaskComment> Comments => RepositoryManager.GetRepository<TaskComment>().GetAllEntities().Where(tc => tc.Task.Equals(this));
 
         /// <summary>
         /// The <see cref="Task" /> 's
@@ -179,6 +181,8 @@ namespace Shared.Domain
             }
         }
 
+        public Band Band => RepositoryManager.GetRepository<Band>().FindEntityById(BandId);
+
         /// <summary>
         /// Give the task a <see cref="Jam" /> .
         /// </summary>
@@ -196,7 +200,10 @@ namespace Shared.Domain
         /// <param name="comment"></param>
         public void AddCommentToRelevantParent(TaskComment comment)
         {
-            if (comment.ParentComment != null)
+            ((IEntityRepository<TaskComment>) RepositoryManager.GetRepository<TaskComment>()).AddEntity(comment);
+
+
+            /*            if (comment.ParentComment != null)
             {
                 foreach (TaskComment taskComment in Comments)
                 {
@@ -205,13 +212,13 @@ namespace Shared.Domain
             }
             else
             {
-                Comments.Add(comment);
-            }
+                ((IEntityRepository<TaskComment>) RepositoryManager.GetRepository<TaskComment>()).AddEntity(comment);
+            }*/
         }
 
         private static void TryFindParent(TaskComment reply, TaskComment comment)
         {
-            var added = TryAddReply(reply, comment);
+            bool added = TryAddReply(reply, comment);
 
             if (!added)
             {

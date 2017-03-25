@@ -28,7 +28,7 @@ namespace ConsoleClient
                 var serviceRegistry = new ServiceRegistry();
 
                 var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory);
-                repositoryManager.RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task) };
+                repositoryManager.RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task), typeof(TaskComment) };
 
                 serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
                 var client = new TestClient(serviceRegistry);

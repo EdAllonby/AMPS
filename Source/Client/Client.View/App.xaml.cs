@@ -62,7 +62,7 @@ namespace Client.View
 
             var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory)
             {
-                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task) }
+                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task), typeof(TaskComment) }
             };
 
             repositoryManager.CreateRepositories();

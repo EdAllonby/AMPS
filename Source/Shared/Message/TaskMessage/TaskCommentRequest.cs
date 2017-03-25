@@ -11,7 +11,7 @@ namespace Shared.Message.TaskMessage
             TaskComment = taskComment;
         }
 
-        public TaskComment TaskComment { get; private set; }
+        public TaskComment TaskComment { get; }
 
         public MessageIdentifier MessageIdentifier => MessageIdentifier.TaskCommentRequest;
     }

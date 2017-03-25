@@ -155,6 +155,7 @@
     <Compile Include="Repository\JamRepository.cs" />
     <Compile Include="Repository\BandRepository.cs" />
     <Compile Include="Repository\PersistenceStrategy.cs" />
+    <Compile Include="Repository\TaskCommentRepository.cs" />
     <Compile Include="Repository\TaskRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Serialiser\BinarySerialiser.cs" />
