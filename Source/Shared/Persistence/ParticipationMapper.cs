@@ -66,7 +66,7 @@ namespace Shared.Persistence
         {
             insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@userId", SqlDbType.Int).Value = entity.User.Id;
-            insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.Band.Id;
+            insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.BandId;
             insertCommand.Parameters.Add("@isLeader", SqlDbType.Bit).Value = entity.IsLeader;
         }
 

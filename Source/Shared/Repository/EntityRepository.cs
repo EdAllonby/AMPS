@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using log4net;
 using Shared.Domain;
 using Shared.Message;
@@ -120,7 +121,14 @@ namespace Shared.Repository
         /// <returns>The <see cref="Entity" /> which matches the ID. If no <see cref="Entity" /> is found, return null.</returns>
         public T FindEntityById(int entityId)
         {
-            return TypedEntityPersister.GetEntityById(entityId);
+            T entity = TypedEntityPersister.GetEntityById(entityId);
+
+            if (entity != null)
+            {
+                entity.RepositoryManager = RepositoryManager;
+            }
+
+            return entity;
         }
 
         /// <summary>
@@ -129,7 +137,12 @@ namespace Shared.Repository
         /// <returns>A collection of all <see cref="Entity" />s in the repository.</returns>
         public IEnumerable<T> GetAllEntities()
         {
-            return TypedEntityPersister.GetAllEntities();
+            List<T> entities = TypedEntityPersister.GetAllEntities().ToList();
+            foreach (T entity in entities)
+            {
+                entity.RepositoryManager = RepositoryManager;
+            }
+            return entities;
         }
 
         /// <summary>

@@ -69,8 +69,10 @@ namespace Shared
             switch (persistenceStrategy)
             {
                 case PersistenceStrategy.Database:
-                    Type databasePersisterType = typeof(DatabaseEntityPersister<>).FindFirstDerivedTypeWithGenericArgument(entityType);
-                    persister = (IEntityPersister) Activator.CreateInstance(databasePersisterType);
+                    Type entityMapperType = typeof(EntityMapper<>).FindFirstDerivedTypeWithGenericArgument(entityType);
+                    object entityMapper = Activator.CreateInstance(entityMapperType);
+                    Type databasePersisterType = typeof(DatabaseEntityPersister<>).MakeGenericType(entityType);
+                    persister = (IEntityPersister) Activator.CreateInstance(databasePersisterType, entityMapper);
                     break;
                 case PersistenceStrategy.InMemory:
                     Type inMemoryEntityPersisterType = typeof(InMemoryEntityPersister<>).MakeGenericType(entityType);
