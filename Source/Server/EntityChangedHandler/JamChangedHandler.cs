@@ -40,7 +40,7 @@ namespace Server.EntityChangedHandler
 
         private IEnumerable<int> UsersParticipatingInJam(Jam jam)
         {
-            IEnumerable<int> userIds = participationRepository.GetParticipationsByBandId(jam.BandId).Select(participation => participation.UserId);
+             IEnumerable<int> userIds = participationRepository.GetParticipationsByBandId(jam.Band.Id).Select(participation => participation.UserId);
             return userIds;
         }
 

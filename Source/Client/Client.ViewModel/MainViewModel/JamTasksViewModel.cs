@@ -199,7 +199,7 @@ namespace Client.ViewModel.MainViewModel
 
         private void OnJamAdded(object sender, EntityChangedEventArgs<Jam> e)
         {
-            if (e.Entity.BandId == managedBand.Id)
+            if (e.Entity.Band.Equals(managedBand))
             {
                 RedisplayTasks();
             }

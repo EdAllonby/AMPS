@@ -8,10 +8,30 @@ namespace Shared.Repository
     /// </summary>
     public interface IEntityRepository
     {
+        IEntityPersister EntityPersister { get; set; }
+
+        /// <summary>
+        /// The owning manager.
+        /// </summary>
+        RepositoryManager RepositoryManager { set; }
+
         /// <summary>
         /// Gets the <see cref="Entity" /> type that is held in the repository.
         /// </summary>
         Type EnclosedEntityType { get; }
+
+
+        /// <summary>
+        /// Delete an entity from the repository.
+        /// </summary>
+        /// <param name="entityId">The <see cref="Entity" /> Id to delete.</param>
+        /// <returns>If the delete was successful.</returns>
+        void DeleteEntity(int entityId);
+
+        /// <summary>
+        /// Remove all entities from the repository.
+        /// </summary>
+        void DeleteAll();
     }
 
     /// <summary>
@@ -31,17 +51,5 @@ namespace Shared.Repository
         /// </summary>
         /// <param name="entity">The <see cref="Entity" /> to update. Uses its Id as the comparer.</param>
         void UpdateEntity(T entity);
-
-        /// <summary>
-        /// Delete an entity from the repository.
-        /// </summary>
-        /// <param name="entityId">The <see cref="Entity" /> Id to delete.</param>
-        /// <returns>If the delete was successful.</returns>
-        void DeleteEntity(int entityId);
-
-        /// <summary>
-        /// Remove all entities from the repository.
-        /// </summary>
-        void DeleteAll();
     }
 }

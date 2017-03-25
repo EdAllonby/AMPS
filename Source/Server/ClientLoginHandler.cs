@@ -15,7 +15,7 @@ namespace Server
     /// </summary>
     internal sealed class ClientLoginHandler
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ClientLoginHandler));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ClientLoginHandler));
 
         /// <summary>
         /// From a <see cref="TcpClient" /> object, attempt to initialise a new <see cref="User" /> <see cref="Entity" />.
@@ -25,7 +25,9 @@ namespace Server
         /// <returns></returns>
         public static LoginResponse InitialiseNewClient(TcpClient tcpClient, IServiceRegistry serviceRegistry)
         {
-            var userRepository = (UserRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            var repositoryManager = serviceRegistry.GetService<RepositoryManager>();
+            var userRepository = (UserRepository) repositoryManager.GetRepository<User>();
+
             var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();
 
             LoginRequest loginRequest = GetLoginRequest(tcpClient);
@@ -33,7 +35,7 @@ namespace Server
 
             LoginResponse loginResponse;
 
-            PasswordHandler passwordHandler = serviceRegistry.GetService<PasswordHandler>();
+            var passwordHandler = serviceRegistry.GetService<PasswordHandler>();
 
             if (IsNewUser(user))
             {
@@ -59,7 +61,7 @@ namespace Server
         {
             User user = CreateUserEntity(loginRequest, userRepository, entityIdAllocatorFactory);
 
-            LoginResult userLoginResult = LoginResult.UnknownError;
+            var userLoginResult = LoginResult.UnknownError;
 
             if (passwordHandler.StorePassword(user.Id, loginRequest.Password))
             {
@@ -73,7 +75,7 @@ namespace Server
         {
             bool doesPasswordMatch = passwordHandler.IsPasswordValid(user.Id, loginRequest.Password);
 
-            LoginResult userLoginResult = LoginResult.Success;
+            var userLoginResult = LoginResult.Success;
 
             if (!doesPasswordMatch)
             {

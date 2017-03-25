@@ -1,6 +1,6 @@
 ﻿using System.Data;
 
-namespace Server
+namespace Shared.Persistence
 {
     /// <summary>
     /// Extension methods for SQL functions.

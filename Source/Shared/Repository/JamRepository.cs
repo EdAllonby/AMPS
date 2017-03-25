@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -11,21 +10,13 @@ namespace Shared.Repository
     public sealed class JamRepository : EntityRepository<Jam>
     {
         /// <summary>
-        /// Intialises the repository with any <see cref="Jam" /> entities it finds from the data layer.
-        /// </summary>
-        /// <param name="entityPersister">The <see cref="Jam" /> entity-to-table mapper to use.</param>
-        public JamRepository([NotNull] IEntityPersister<Jam> entityPersister) : base(entityPersister)
-        {
-        }
-
-        /// <summary>
         /// Gets all of the <see cref="Jam" />s that a <see cref="Band" /> has had.
         /// </summary>
         /// <param name="bandId">The <see cref="Band" /> Id to get all <see cref="Jam" />s.</param>
         /// <returns>The <see cref="Jam" />s a <see cref="Band" /> has had.</returns>
         public IEnumerable<Jam> GetAllJamsInBand(int bandId)
         {
-            return new List<Jam>(GetAllEntities().Where(jam => jam.BandId == bandId));
+            return new List<Jam>(GetAllEntities().Where(jam => jam.Band.Id == bandId));
         }
 
         /// <summary>
@@ -40,7 +31,7 @@ namespace Shared.Repository
         {
             IEnumerable<Jam> jamsInBand = GetAllEntities();
 
-            return jamsInBand.Where(jam => jam.BandId == bandId).FirstOrDefault(jam => jam.IsActive);
+            return jamsInBand.Where(jam => jam.Band.Id == bandId).FirstOrDefault(jam => jam.IsActive);
         }
     }
 }

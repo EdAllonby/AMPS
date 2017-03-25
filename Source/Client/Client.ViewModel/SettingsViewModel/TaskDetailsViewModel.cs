@@ -1,7 +1,6 @@
 ﻿using Client.Model.SettingsModel;
 using Shared;
 using Shared.Domain;
-using Shared.Repository;
 
 namespace Client.ViewModel.SettingsViewModel
 {
@@ -19,11 +18,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <param name="task">The task to get the details for.</param>
         public TaskDetailsViewModel(IServiceRegistry serviceRegistry, Task task) : base(serviceRegistry)
         {
-            IReadOnlyEntityRepository<User> userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-
-            User assignedUser = userRepository.FindEntityById(task.AssignedUserId);
-
-            TaskModel = new TaskModel(task, assignedUser);
+            TaskModel = new TaskModel(task);
         }
 
         /// <summary>

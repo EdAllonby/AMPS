@@ -16,22 +16,19 @@ namespace ConsoleClient
     internal static class Program
     {
         private const int TotalClients = 50;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (Program));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
         private static readonly List<TestClient> Clients = new List<TestClient>();
 
         private static void Main()
         {
             Log.Debug("Start");
 
-            for (int i = 0; i < TotalClients; i++)
+            for (var i = 0; i < TotalClients; i++)
             {
                 var serviceRegistry = new ServiceRegistry();
-                var repositoryManager = new RepositoryManager();
-                repositoryManager.AddRepository<User>(new UserRepository(new InMemoryEntityPersister<User>()));
-                repositoryManager.AddRepository<Jam>(new JamRepository(new InMemoryEntityPersister<Jam>()));
-                repositoryManager.AddRepository<Participation>(new ParticipationRepository(new InMemoryEntityPersister<Participation>()));
-                repositoryManager.AddRepository<Task>(new TaskRepository(new InMemoryEntityPersister<Task>()));
-                repositoryManager.AddRepository<Band>(new BandRepository(new InMemoryEntityPersister<Band>()));
+
+                var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory);
+                repositoryManager.RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task) };
 
                 serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
                 var client = new TestClient(serviceRegistry);
@@ -62,7 +59,7 @@ namespace ConsoleClient
         {
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
 
-            for (int clientNumber = 0; clientNumber < TotalClients; clientNumber++)
+            for (var clientNumber = 0; clientNumber < TotalClients; clientNumber++)
             {
                 Clients[clientNumber].LogOn(new LoginDetails($"$TestUser{clientNumber}", "Password1!", ipAddress, 5004));
             }

@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -10,14 +9,6 @@ namespace Shared.Repository
     /// </summary>
     public sealed class TaskRepository : EntityRepository<Task>
     {
-        /// <summary>
-        /// Intialises the repository with any <see cref="Task" /> entities it finds from the data layer.
-        /// </summary>
-        /// <param name="entityPersister">The <see cref="Task" /> entity-to-table mapper to use.</param>
-        public TaskRepository([NotNull] IEntityPersister<Task> entityPersister) : base(entityPersister)
-        {
-        }
-
         /// <summary>
         /// Gets all <see cref="Task" />s in a <see cref="Band" />s backlog.
         /// </summary>

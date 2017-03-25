@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using JetBrains.Annotations;
 using log4net;
 using Shared.Domain;
 using Shared.Message;
@@ -14,22 +13,41 @@ namespace Shared.Repository
     /// <typeparam name="T">An <see cref="Entity" />.</typeparam>
     public abstract class EntityRepository<T> : IEntityRepository<T> where T : Entity
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (EntityRepository<T>));
-        private readonly IEntityPersister<T> entityPersister;
+        private static readonly ILog Log = LogManager.GetLogger(typeof(EntityRepository<T>));
+        private RepositoryManager repositoryManager;
 
         /// <summary>
-        /// Intialises the repository with any entities it finds from the data layer.
+        /// The persistence strategy to use.
         /// </summary>
-        /// <param name="entityPersister">The entity-to-table mapper to use.</param>
-        protected EntityRepository([NotNull] IEntityPersister<T> entityPersister)
+        private IEntityPersister<T> TypedEntityPersister { get; set; }
+
+        public IEntityPersister EntityPersister
         {
-            this.entityPersister = entityPersister;
+            get { return TypedEntityPersister; }
+            set { TypedEntityPersister = (IEntityPersister<T>) value; }
+        }
+
+        /// <summary>
+        /// The owning repository manager.
+        /// </summary>
+        public RepositoryManager RepositoryManager
+        {
+            get { return repositoryManager; }
+            set
+            {
+                if (repositoryManager != null)
+                {
+                    throw new ArgumentException("RepositoryManager already set.");
+                }
+
+                repositoryManager = value;
+            }
         }
 
         /// <summary>
         /// Gets the <see cref="Entity" /> type that is held in the repository.
         /// </summary>
-        public Type EnclosedEntityType => typeof (T);
+        public Type EnclosedEntityType => typeof(T);
 
         /// <summary>
         /// Gets raised when an entity in the repository has been added.
@@ -52,7 +70,10 @@ namespace Shared.Repository
         /// <param name="entity">The <see cref="Entity" /> to add.</param>
         public void AddEntity(T entity)
         {
-            bool didInsert = entityPersister.InsertEntity(entity);
+            entity.RepositoryManager = repositoryManager;
+
+
+            bool didInsert = TypedEntityPersister.InsertEntity(entity);
 
             if (didInsert)
             {
@@ -62,7 +83,7 @@ namespace Shared.Repository
             }
             else
             {
-                Log.ErrorFormat("Could not add entity of type {0} with Id {1} to Database.", typeof (T), entity.Id);
+                Log.ErrorFormat("Could not add entity of type {0} with Id {1} to Database.", typeof(T), entity.Id);
             }
         }
 
@@ -72,13 +93,15 @@ namespace Shared.Repository
         /// <typeparam name="T">The <see cref="Entity" /> that the <see cref="EntityRepository{T}" /> holds.</typeparam>
         public void UpdateEntity(T entity)
         {
-            bool didUpdate = entityPersister.UpdateEntity(entity);
+            entity.RepositoryManager = repositoryManager;
+
+            bool didUpdate = TypedEntityPersister.UpdateEntity(entity);
 
             if (didUpdate)
             {
                 T previousEntity = FindEntityById(entity.Id);
 
-                entityPersister.UpdateEntity(entity);
+                TypedEntityPersister.UpdateEntity(entity);
 
                 Log.DebugFormat("Entity with Id {0} has been updated in {1} repository.", entity.Id, EnclosedEntityType.Name);
 
@@ -86,7 +109,7 @@ namespace Shared.Repository
             }
             else
             {
-                Log.ErrorFormat("Could not update entity of type {0} with Id {1} to {2} repository.", typeof (T).Name, entity.Id, EnclosedEntityType.Name);
+                Log.ErrorFormat("Could not update entity of type {0} with Id {1} to {2} repository.", typeof(T).Name, entity.Id, EnclosedEntityType.Name);
             }
         }
 
@@ -97,7 +120,7 @@ namespace Shared.Repository
         /// <returns>The <see cref="Entity" /> which matches the ID. If no <see cref="Entity" /> is found, return null.</returns>
         public T FindEntityById(int entityId)
         {
-            return entityPersister.GetEntityById(entityId);
+            return TypedEntityPersister.GetEntityById(entityId);
         }
 
         /// <summary>
@@ -106,7 +129,7 @@ namespace Shared.Repository
         /// <returns>A collection of all <see cref="Entity" />s in the repository.</returns>
         public IEnumerable<T> GetAllEntities()
         {
-            return entityPersister.GetAllEntities();
+            return TypedEntityPersister.GetAllEntities();
         }
 
         /// <summary>
@@ -116,7 +139,7 @@ namespace Shared.Repository
         /// <returns>If the delete was successful.</returns>
         public void DeleteEntity(int entityId)
         {
-            bool didDelete = entityPersister.DeleteEntity(entityId);
+            bool didDelete = TypedEntityPersister.DeleteEntity(entityId);
 
             if (didDelete)
             {
@@ -129,7 +152,7 @@ namespace Shared.Repository
         /// </summary>
         public void DeleteAll()
         {
-            bool didDelete = entityPersister.DeleteAllEntities();
+            bool didDelete = TypedEntityPersister.DeleteAllEntities();
 
             if (didDelete)
             {

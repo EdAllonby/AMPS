@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Threading;
@@ -44,7 +45,7 @@ namespace Client.View
 
         private static void SetupLogging(string logConfigName)
         {
-            string assemblyPath = Assembly.GetAssembly(typeof (App)).Location;
+            string assemblyPath = Assembly.GetAssembly(typeof(App)).Location;
             string assemblyDirectory = Path.GetDirectoryName(assemblyPath);
 
             if (assemblyDirectory != null)
@@ -59,18 +60,17 @@ namespace Client.View
         {
             IServiceRegistry serviceRegistry = new ServiceRegistry();
 
-            var repositoryManager = new RepositoryManager();
+            var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory)
+            {
+                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task) }
+            };
 
-            repositoryManager.AddRepository<User>(new UserRepository(new InMemoryEntityPersister<User>()));
-            repositoryManager.AddRepository<Participation>(new ParticipationRepository(new InMemoryEntityPersister<Participation>()));
-            repositoryManager.AddRepository<Band>(new BandRepository(new InMemoryEntityPersister<Band>()));
-            repositoryManager.AddRepository<Jam>(new JamRepository(new InMemoryEntityPersister<Jam>()));
-            repositoryManager.AddRepository<Task>(new TaskRepository(new InMemoryEntityPersister<Task>()));
+            repositoryManager.CreateRepositories();
 
             serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
             serviceRegistry.RegisterService<IClientService>(new ClientService(serviceRegistry));
-            
-            AppConfigManager configManager = new AppConfigManager(new AppConfiguration());
+
+            var configManager = new AppConfigManager(new AppConfiguration());
 
             serviceRegistry.RegisterService<AppConfigManager>(configManager);
             serviceRegistry.RegisterService<IFtpManager>(new FtpManager(configManager));

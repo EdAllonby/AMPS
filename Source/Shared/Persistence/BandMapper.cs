@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// A mapper for <see cref="Band" />s.
@@ -23,11 +23,11 @@ namespace Server.Persistence
 
         public override bool UpdateEntity(Band entity)
         {
-            var updateBandQuery = $"UPDATE Bands SET Id=@id,Name=@name WHERE Id = {entity.Id}";
+            string updateBandQuery = $"UPDATE Bands SET Id=@id,Name=@name WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand command = new SqlCommand(updateBandQuery, databaseConnection))
+            using (var command = new SqlCommand(updateBandQuery, databaseConnection))
             {
                 DoInsert(entity, command);
 
@@ -39,6 +39,11 @@ namespace Server.Persistence
             return rowsUpdated == 1;
         }
 
+        public override IEnumerable<Band> GetAllEntities()
+        {
+            return FindMany(new FindAllBands());
+        }
+
         protected override bool DoDelete(int entityId)
         {
             return DeleteEntity("Bands", entityId);
@@ -46,17 +51,12 @@ namespace Server.Persistence
 
         protected override Band DoLoad(int id, SqlDataReader reader)
         {
-            var bandName = reader.GetString(reader.GetOrdinal("Name"));
+            string bandName = reader.GetString(reader.GetOrdinal("Name"));
             var band = new Band(id, bandName);
 
             Log.DebugFormat("Band with Id {0} retrieved from Database.", band.Id);
 
             return band;
-        }
-
-        public override IEnumerable<Band> GetAllEntities()
-        {
-            return FindMany(new FindAllBands());
         }
 
         protected override void DoInsert(Band entity, SqlCommand insertCommand)

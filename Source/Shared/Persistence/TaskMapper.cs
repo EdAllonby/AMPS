@@ -5,19 +5,18 @@ using System.Data.SqlClient;
 using System.Linq;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// A mapper for <see cref="Task" />s.
     /// </summary>
     internal sealed class TaskMapper : EntityMapper<Task>
     {
-
-        private readonly EntityMapper<TaskComment> taskCommentMapper = new TaskCommentMapper();
-
         private const string Columns = " Id, BandId, Title, Description, AssignedUserId, IsCompleted, Points, JamId, TaskCategoryId ";
 
         private readonly TaskCategoryMapper taskCategoryMapper = new TaskCategoryMapper();
+
+        private readonly EntityMapper<TaskComment> taskCommentMapper = new TaskCommentMapper();
 
         protected override string FindStatement => "SELECT " + Columns +
                                                    " FROM Tasks" +
@@ -27,7 +26,7 @@ namespace Server.Persistence
 
         public override bool UpdateEntity(Task entity)
         {
-            var updateTaskQuery = $"UPDATE Tasks SET Id=@id,BandId=@bandId,Title=@title,Description=@description,AssignedUserId=@assignedUserId,IsCompleted=@isCompleted,Points=@points,JamId=@jamId,TaskCategoryId=@taskCategoryId WHERE Id = {entity.Id}";
+            string updateTaskQuery = $"UPDATE Tasks SET Id=@id,BandId=@bandId,Title=@title,Description=@description,AssignedUserId=@assignedUserId,IsCompleted=@isCompleted,Points=@points,JamId=@jamId,TaskCategoryId=@taskCategoryId WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -41,6 +40,25 @@ namespace Server.Persistence
             }
 
             return rowsUpdated == 1;
+        }
+
+        public override IEnumerable<Task> GetAllEntities()
+        {
+            List<Task> allTasks = FindMany(new FindAllTasks());
+
+            List<TaskComment> allComments = taskCommentMapper.GetAllEntities().ToList();
+
+            foreach (Task task in allTasks)
+            {
+                IEnumerable<TaskComment> taskComments = allComments.Where(comment => comment.Task.Id.Equals(task.Id));
+
+                foreach (TaskComment taskComment in taskComments)
+                {
+                    task.AddCommentToRelevantParent(taskComment);
+                }
+            }
+
+            return allTasks;
         }
 
         protected override bool DoDelete(int entityId)
@@ -61,7 +79,7 @@ namespace Server.Persistence
             int jamId = NullableColumnToInt(possibleJamId);
             TaskCategory taskCategory = taskCategoryMapper.GetCategory(reader.GetInt32(reader.GetOrdinal("TaskCategoryId")));
 
-            Task task = new Task(id, new Task(title, description, points, bandId, assignedUserId, taskCategory)) {IsCompleted = isCompleted};
+            var task = new Task(id, new Task(title, description, points, bandId, assignedUserId, taskCategory)) { IsCompleted = isCompleted };
 
             if (jamId > 0)
             {
@@ -71,25 +89,6 @@ namespace Server.Persistence
             Log.DebugFormat("Task with Id {0} retrieved from Database.", task.Id);
 
             return task;
-        }
-
-        public override IEnumerable<Task> GetAllEntities()
-        {
-            List<Task> allTasks = FindMany(new FindAllTasks());
-
-            List<TaskComment> allComments = taskCommentMapper.GetAllEntities().ToList();
-
-            foreach (Task task in allTasks)
-            {
-                IEnumerable<TaskComment> taskComments = allComments.Where(comment => comment.TaskId.Equals(task.Id));
-
-                foreach (TaskComment taskComment in taskComments)
-                {
-                    task.AddCommentToRelevantParent(taskComment);
-                }
-            }
-
-            return allTasks;
         }
 
         protected override void DoInsert(Task entity, SqlCommand insertCommand)
@@ -107,7 +106,7 @@ namespace Server.Persistence
 
         private static int NullableColumnToInt(int? possibleNullColumn)
         {
-            int columnValue = 0;
+            var columnValue = 0;
 
             if (possibleNullColumn.HasValue)
             {

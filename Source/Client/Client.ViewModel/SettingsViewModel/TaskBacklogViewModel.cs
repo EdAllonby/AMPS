@@ -2,7 +2,6 @@
 using Client.Model.SettingsModel;
 using Shared;
 using Shared.Domain;
-using Shared.Repository;
 
 namespace Client.ViewModel.SettingsViewModel
 {
@@ -17,19 +16,14 @@ namespace Client.ViewModel.SettingsViewModel
         /// Creates a new Backlog View Model.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
-        /// <param name="bandId">The <see cref="Band" />'s Id to display Backlog <see cref="Task" />s.</param>
-        public TaskBacklogViewModel(IServiceRegistry serviceRegistry, int bandId) : base(serviceRegistry)
+        /// <param name="band">The <see cref="Band" /> to display Backlog <see cref="Task" />s.</param>
+        public TaskBacklogViewModel(IServiceRegistry serviceRegistry, Band band) : base(serviceRegistry)
         {
-            var userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            var taskModels = new List<TaskModel>();
 
-            List<TaskModel> taskModels = new List<TaskModel>();
-
-            var taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
-
-            foreach (Task backlogTask in taskRepository.GetTasksInBandBacklog(bandId))
+            foreach (Task backlogTask in band.Backlog)
             {
-                User assignedUser = userRepository.FindEntityById(backlogTask.AssignedUserId);
-                TaskModel taskModel = new TaskModel(backlogTask, assignedUser);
+                var taskModel = new TaskModel(backlogTask);
 
                 taskModels.Add(taskModel);
             }

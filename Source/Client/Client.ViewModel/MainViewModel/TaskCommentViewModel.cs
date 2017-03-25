@@ -7,7 +7,6 @@ using Client.Service;
 using Client.ViewModel.Commands;
 using Shared;
 using Shared.Domain;
-using Shared.Repository;
 using Utility;
 
 namespace Client.ViewModel.MainViewModel
@@ -22,9 +21,7 @@ namespace Client.ViewModel.MainViewModel
 
         public TaskCommentViewModel(IServiceRegistry serviceRegistry, TaskComment comment, int child) : base(serviceRegistry)
         {
-            IReadOnlyEntityRepository<User> userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-
-            Username = userRepository.FindEntityById(comment.CommenterId).Username;
+            Username = comment.Commenter.Username;
             RelativeTime = comment.TimePosted.TimeAgo();
             LeftMargin = new Thickness(child*IndentationFactor, 0, 0, 0);
             TaskComment = comment;
@@ -36,7 +33,7 @@ namespace Client.ViewModel.MainViewModel
             myTimer.Elapsed += (sender, args) => UpdateTimePosted();
         }
 
-        public Thickness LeftMargin { get; private set; }
+        public Thickness LeftMargin { get; }
 
         public bool Reply
         {
@@ -90,7 +87,7 @@ namespace Client.ViewModel.MainViewModel
         {
             IClientService clientService = ServiceRegistry.GetService<IClientService>();
 
-            clientService.AddTaskComment(TaskComment.TaskId, ReplyComment, TaskComment);
+            clientService.AddTaskComment(TaskComment.Task, ReplyComment, TaskComment);
 
             ReplyComment = string.Empty;
             Reply = false;

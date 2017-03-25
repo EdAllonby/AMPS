@@ -1,6 +1,7 @@
 ﻿using Client.ViewModel;
 using Client.ViewModel.SettingsViewModel;
 using Shared;
+using Shared.Domain;
 
 namespace Client.View.UI
 {
@@ -15,12 +16,12 @@ namespace Client.View.UI
         /// Create a Task backlog view.
         /// </summary>
         /// <param name="serviceRegistry">The client's <see cref="IServiceRegistry" />.</param>
-        /// <param name="bandId">The band's backlog to view.</param>
-        public TaskBacklogView(IServiceRegistry serviceRegistry, int bandId)
+        /// <param name="band">The band's backlog to view.</param>
+        public TaskBacklogView(IServiceRegistry serviceRegistry, Band band)
         {
             this.serviceRegistry = serviceRegistry;
 
-            var viewModel = new TaskBacklogViewModel(serviceRegistry, bandId);
+            var viewModel = new TaskBacklogViewModel(serviceRegistry, band);
             viewModel.OpenTaskDetailsViewRequested += OnOpenTaskBacklogViewRequested;
 
             DataContext = viewModel;

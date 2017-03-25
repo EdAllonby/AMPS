@@ -28,7 +28,7 @@ namespace Server.MessageHandler
 
             IEnumerable<int> bandIds = participationRepository.GetAllBandIdsByUserId(message.UserId);
 
-            List<Jam> jams = jamRepository.GetAllEntities().Where(jam => bandIds.Contains(jam.BandId)).ToList();
+            List<Jam> jams = jamRepository.GetAllEntities().Where(jam => bandIds.Contains(jam.Band.Id)).ToList();
 
             var jamSnapshot = new EntitySnapshot<Jam>(jams);
 

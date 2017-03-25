@@ -7,7 +7,7 @@ namespace Shared.Serialiser.MessageSerialiser
 {
     internal class EntityNotificationSerialiser<T> : MessageSerialiser<EntityNotification<T>> where T : Entity
     {
-        private readonly EntitySerialiser<T> bandSerialiser = new EntitySerialiser<T>();
+        private readonly EntitySerialiser<T> entitySerialiser = new EntitySerialiser<T>();
         private readonly NotificationTypeSerialiser notificationTypeSerialiser = new NotificationTypeSerialiser();
 
         /// <summary>
@@ -18,7 +18,7 @@ namespace Shared.Serialiser.MessageSerialiser
         protected override void Serialise(NetworkStream networkStream, EntityNotification<T> message)
         {
             notificationTypeSerialiser.Serialise(networkStream, message.NotificationType);
-            bandSerialiser.Serialise(networkStream, message.Entity);
+            entitySerialiser.Serialise(networkStream, message.Entity);
         }
 
         /// <summary>
@@ -28,12 +28,13 @@ namespace Shared.Serialiser.MessageSerialiser
         /// The <see cref="NetworkStream" /> containing the serialised
         /// <see cref="EntityNotification{T}" />.
         /// </param>
+        /// <param name="repositoryManager"></param>
         /// <returns>The deserialised <see cref="EntityNotification{T}" />.</returns>
         public override IMessage Deserialise(NetworkStream networkStream)
         {
             NotificationType notificationType = notificationTypeSerialiser.Deserialise(networkStream);
 
-            var entityNotification = new EntityNotification<T>(bandSerialiser.Deserialise(networkStream), notificationType);
+            var entityNotification = new EntityNotification<T>(entitySerialiser.Deserialise(networkStream), notificationType);
 
             Log.InfoFormat("{0} message deserialised", entityNotification.MessageIdentifier);
 

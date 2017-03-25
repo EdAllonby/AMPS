@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Shared.Domain;
+using Shared.Persistence;
 using Shared.Repository;
+using Utility;
 
 namespace Shared
 {
@@ -10,16 +12,27 @@ namespace Shared
     /// </summary>
     public sealed class RepositoryManager : IService
     {
+        private readonly PersistenceStrategy persistenceStrategy;
         private readonly IDictionary<Type, IEntityRepository> repositoriesIndexedByEnclosedEntity = new Dictionary<Type, IEntityRepository>();
 
-        /// <summary>
-        /// Add a repository to the <see cref="RepositoryManager" />.
-        /// </summary>
-        /// <typeparam name="T">The type that the repository holds.</typeparam>
-        /// <param name="repository">The repository instance to add.</param>
-        public void AddRepository<T>(IEntityRepository repository) where T : Entity
+        public RepositoryManager(PersistenceStrategy persistenceStrategy)
         {
-            repositoriesIndexedByEnclosedEntity.Add(typeof (T), repository);
+            this.persistenceStrategy = persistenceStrategy;
+        }
+
+        /// <summary>
+        /// The types of repositories this manager will contain.
+        /// </summary>
+        public List<Type> RepositoryEntityTypes { get; set; }
+
+        public void CreateRepositories()
+        {
+            foreach (Type repositoryEntityType in RepositoryEntityTypes)
+            {
+                Type repositoryType = typeof(EntityRepository<>).FindFirstDerivedTypeWithGenericArgument(repositoryEntityType);
+                var entityRepository = (IEntityRepository) Activator.CreateInstance(repositoryType);
+                AddRepository(entityRepository);
+            }
         }
 
         /// <summary>
@@ -30,8 +43,46 @@ namespace Shared
         public IReadOnlyEntityRepository<T> GetRepository<T>() where T : Entity
         {
             IEntityRepository repository;
-            repositoriesIndexedByEnclosedEntity.TryGetValue(typeof (T), out repository);
+            repositoriesIndexedByEnclosedEntity.TryGetValue(typeof(T), out repository);
             return (IReadOnlyEntityRepository<T>) repository;
+        }
+
+        public void FlushAll()
+        {
+            foreach (IEntityRepository entityRepository in repositoriesIndexedByEnclosedEntity.Values)
+            {
+                entityRepository.DeleteAll();
+            }
+        }
+
+        /// <summary>
+        /// Add a repository to the <see cref="RepositoryManager" />.
+        /// </summary>
+        /// <param name="repository">The repository instance to add.</param>
+        private void AddRepository(IEntityRepository repository)
+        {
+            repository.RepositoryManager = this;
+            Type entityType = repository.EnclosedEntityType;
+
+            IEntityPersister persister;
+
+            switch (persistenceStrategy)
+            {
+                case PersistenceStrategy.Database:
+                    Type databasePersisterType = typeof(DatabaseEntityPersister<>).FindFirstDerivedTypeWithGenericArgument(entityType);
+                    persister = (IEntityPersister) Activator.CreateInstance(databasePersisterType);
+                    break;
+                case PersistenceStrategy.InMemory:
+                    Type inMemoryEntityPersisterType = typeof(InMemoryEntityPersister<>).MakeGenericType(entityType);
+                    persister = (IEntityPersister) Activator.CreateInstance(inMemoryEntityPersisterType);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            repository.EntityPersister = persister;
+
+            repositoriesIndexedByEnclosedEntity.Add(repository.EnclosedEntityType, repository);
         }
     }
 }

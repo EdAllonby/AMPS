@@ -18,19 +18,24 @@ namespace Client.Model.SettingsModel
         /// Create a new model for a <see cref="Task" />.
         /// </summary>
         /// <param name="task">The <see cref="Task" /> to model.</param>
-        /// <param name="assignedMember">the assigned member of this <see cref="Task" />.</param>
-        public TaskModel(Task task, User assignedMember)
+        public TaskModel(Task task)
         {
+            Task = task;
             TaskId = task.Id;
             Title = task.Title;
             Description = task.Description;
-            AssignedMember = assignedMember;
+            AssignedMember = task.AssignedUser;
             Points = task.Points;
             IsCompleted = task.IsCompleted;
             category = task.Category;
             TaskCompletedColour = IsCompletedColour();
         }
 
+        /// <summary>
+        /// The modelled task.
+        /// </summary>
+        public Task Task { get; }
+        
         /// <summary>
         /// The Id of the <see cref="Task" />
         /// </summary>

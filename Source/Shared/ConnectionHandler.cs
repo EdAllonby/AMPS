@@ -19,7 +19,7 @@ namespace Shared
     /// </summary>
     public sealed class ConnectionHandler : IDisposable
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ConnectionHandler));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ConnectionHandler));
         private static int totalListenerThreads;
         private readonly int clientUserId;
         private readonly MessageReceiver messageReceiver = new MessageReceiver();
@@ -31,6 +31,7 @@ namespace Shared
         /// </summary>
         /// <param name="clientUserId">A unique value that identifies the client.</param>
         /// <param name="tcpClient">The connection between the server and the client.</param>
+        /// <param name="repositoryManager"></param>
         public ConnectionHandler(int clientUserId, TcpClient tcpClient)
         {
             this.tcpClient = tcpClient;
@@ -83,21 +84,6 @@ namespace Shared
             }
         }
 
-        private void CreateReceiverThread()
-        {
-            var messageListenerThread = new Thread(() => messageReceiver.ReceiveMessages(clientUserId, tcpClient))
-            {
-                Name = "ReceiveMessageThread" + (totalListenerThreads++)
-            };
-
-            messageListenerThread.Start();
-        }
-
-        private void OnMessageReceiverMessageReceived(object sender, MessageEventArgs e)
-        {
-            EventUtility.SafeFireEvent(MessageReceived, sender, e);
-        }
-
         /// <summary>
         /// Disconnect the socket.
         /// </summary>
@@ -110,6 +96,21 @@ namespace Shared
             }
 
             Log.InfoFormat("TCP connection closed for client with Id: {0}.", clientUserId);
+        }
+
+        private void CreateReceiverThread()
+        {
+            var messageListenerThread = new Thread(() => messageReceiver.ReceiveMessages(clientUserId, tcpClient))
+            {
+                Name = "ReceiveMessageThread" + totalListenerThreads++
+            };
+
+            messageListenerThread.Start();
+        }
+
+        private void OnMessageReceiverMessageReceived(object sender, MessageEventArgs e)
+        {
+            EventUtility.SafeFireEvent(MessageReceived, sender, e);
         }
     }
 }

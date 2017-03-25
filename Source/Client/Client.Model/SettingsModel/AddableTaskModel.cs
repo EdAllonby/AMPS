@@ -18,10 +18,9 @@ namespace Client.Model.SettingsModel
         /// Create a new Addable <see cref="TaskModel" />, which can be edited.
         /// </summary>
         /// <param name="task">The <see cref="Task" /> to model.</param>
-        /// <param name="assignedMember">The <see cref="User" /> who is assigned the <see cref="Task" />.</param>
         /// <param name="bandMembers">The members of the band to assign the task.</param>
-        public AddableTaskModel(Task task, User assignedMember, List<User> bandMembers)
-            : base(task, assignedMember)
+        public AddableTaskModel(Task task, List<User> bandMembers)
+            : base(task)
         {
             BandMembers = bandMembers;
             PointsList = NumbersGenerator.CreateFibonacciSequence(8, true).ToList();

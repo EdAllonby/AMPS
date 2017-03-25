@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using Shared.Repository;
 
 namespace Shared.Domain
 {
@@ -22,5 +24,14 @@ namespace Shared.Domain
         /// The name of the <see cref="Band" />.
         /// </summary>
         public string Name { get; }
+
+        public IEnumerable<Task> Backlog
+        {
+            get
+            {
+                var taskRepository = (TaskRepository) RepositoryManager.GetRepository<Task>();
+                return taskRepository.GetTasksInBandBacklog(Id);
+            }
+        }
     }
 }

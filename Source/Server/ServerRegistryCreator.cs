@@ -1,5 +1,6 @@
-﻿using Server.EntityIdGenerator;
-using Server.Persistence;
+﻿using System;
+using System.Collections.Generic;
+using Server.EntityIdGenerator;
 using Shared;
 using Shared.Configuration;
 using Shared.Domain;
@@ -45,36 +46,16 @@ namespace Server
 
         private static RepositoryManager CreateRepositoryManager(bool useDatabasePersistence)
         {
-            var repositoryManager = new RepositoryManager();
+            PersistenceStrategy persistenceStrategy = useDatabasePersistence ? PersistenceStrategy.Database : PersistenceStrategy.InMemory;
 
-            if (useDatabasePersistence)
+            var repositoryManager = new RepositoryManager(persistenceStrategy)
             {
-                CreateDatabaseRepositories(repositoryManager);
-            }
-            else
-            {
-                CreateInMemoryRepositories(repositoryManager);
-            }
+                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task) }
+            };
+
+            repositoryManager.CreateRepositories();
 
             return repositoryManager;
-        }
-
-        private static void CreateInMemoryRepositories(RepositoryManager repositoryManager)
-        {
-            repositoryManager.AddRepository<User>(new UserRepository(new InMemoryEntityPersister<User>()));
-            repositoryManager.AddRepository<Participation>(new ParticipationRepository(new InMemoryEntityPersister<Participation>()));
-            repositoryManager.AddRepository<Band>(new BandRepository(new InMemoryEntityPersister<Band>()));
-            repositoryManager.AddRepository<Jam>(new JamRepository(new InMemoryEntityPersister<Jam>()));
-            repositoryManager.AddRepository<Task>(new TaskRepository(new InMemoryEntityPersister<Task>()));
-        }
-
-        private static void CreateDatabaseRepositories(RepositoryManager repositoryManager)
-        {
-            repositoryManager.AddRepository<User>(new UserRepository(new DatabaseEntityPersister<User>(new UserMapper())));
-            repositoryManager.AddRepository<Participation>(new ParticipationRepository(new DatabaseEntityPersister<Participation>(new ParticipationMapper())));
-            repositoryManager.AddRepository<Band>(new BandRepository(new DatabaseEntityPersister<Band>(new BandMapper())));
-            repositoryManager.AddRepository<Jam>(new JamRepository(new DatabaseEntityPersister<Jam>(new JamMapper())));
-            repositoryManager.AddRepository<Task>(new TaskRepository(new DatabaseEntityPersister<Task>(new TaskMapper())));
         }
     }
 }

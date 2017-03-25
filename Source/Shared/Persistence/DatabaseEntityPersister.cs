@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Shared.Domain;
 using Shared.Repository;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// Persist entities in a Database.

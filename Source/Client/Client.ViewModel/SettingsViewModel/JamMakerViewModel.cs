@@ -37,17 +37,15 @@ namespace Client.ViewModel.SettingsViewModel
             bandId = band.Id;
             var userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
 
-            List<AddableTaskModel> addableTaskModels = new List<AddableTaskModel>();
-            var taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var addableTaskModels = new List<AddableTaskModel>();
 
-            ParticipationRepository participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
 
             List<User> bandMembers = participationRepository.GetParticipationsByBandId(band.Id).Select(participant => userRepository.FindEntityById(participant.UserId)).ToList();
 
-            foreach (Task backlogTask in taskRepository.GetTasksInBandBacklog(bandId))
+            foreach (Task backlogTask in band.Backlog)
             {
-                User assignedUser = userRepository.FindEntityById(backlogTask.AssignedUserId);
-                AddableTaskModel addableTaskModel = new AddableTaskModel(backlogTask, assignedUser, bandMembers);
+                var addableTaskModel = new AddableTaskModel(backlogTask, bandMembers);
 
                 addableTaskModels.Add(addableTaskModel);
             }

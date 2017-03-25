@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// Defines an SQL Statement.

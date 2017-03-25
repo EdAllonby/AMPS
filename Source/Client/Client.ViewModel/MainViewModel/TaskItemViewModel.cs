@@ -32,14 +32,11 @@ namespace Client.ViewModel.MainViewModel
         {
             taskId = task.Id;
 
-            var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
             taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
             taskRepository.EntityUpdated += TaskUpdated;
 
-            var assignedMember = userRepository.FindEntityById(task.AssignedUserId);
-
-            TaskModel = new TaskModel(task, assignedMember);
+            TaskModel = new TaskModel(task);
             TaskCommentViewModels = new ObservableCollection<TaskCommentViewModel>();
             UpdateComments();
         }
@@ -173,7 +170,7 @@ namespace Client.ViewModel.MainViewModel
         {
             var clientService = ServiceRegistry.GetService<IClientService>();
 
-            clientService.AddTaskComment(TaskModel.TaskId, Comment, null);
+            clientService.AddTaskComment(TaskModel.Task, Comment, null);
 
             Comment = string.Empty;
         }

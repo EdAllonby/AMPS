@@ -11,7 +11,7 @@ namespace SharedTest.RepositoryTest
         [Test]
         public void AddParticipationsTest()
         {
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
 
             const int BandId = 1;
 
@@ -32,7 +32,7 @@ namespace SharedTest.RepositoryTest
         [Test]
         public void AddParticipationTest()
         {
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
 
             const bool IsLeader = true;
             const int ParticipationId = 1;
@@ -44,17 +44,17 @@ namespace SharedTest.RepositoryTest
         [Test]
         public void DoesBandWithUsersExistTest()
         {
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
             var participation = new Participation(1, 1, 1, true);
             participationRepository.AddEntity(participation);
 
-            Assert.True(participationRepository.DoesBandWithUsersExist(new List<int> {participation.UserId}));
+            Assert.True(participationRepository.DoesBandWithUsersExist(new List<int> { participation.UserId }));
         }
 
         [Test]
         public void GetAllBandIdsByUserIdTest()
         {
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
 
             const int UserId = 3;
 
@@ -81,7 +81,7 @@ namespace SharedTest.RepositoryTest
         [Test]
         public void GetAllParticipationsTest()
         {
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
 
             const int BandId = 1;
             IList<Participation> participations = new List<Participation>
@@ -104,14 +104,14 @@ namespace SharedTest.RepositoryTest
         {
             const int BandId = 10;
 
-            var participationRepository = new ParticipationRepository(new InMemoryEntityPersister<Participation>());
+            var participationRepository = new ParticipationRepository { EntityPersister = new InMemoryEntityPersister<Participation>() };
             var participation1 = new Participation(1, 1, BandId, false);
             var participation2 = new Participation(2, 2, BandId, true);
 
             participationRepository.AddEntity(participation1);
             participationRepository.AddEntity(participation2);
 
-            var expectedParticipations = new List<Participation> {participation1, participation2};
+            var expectedParticipations = new List<Participation> { participation1, participation2 };
 
             IEnumerable<Participation> actualParticipations =
                 participationRepository.GetParticipationsByBandId(BandId);

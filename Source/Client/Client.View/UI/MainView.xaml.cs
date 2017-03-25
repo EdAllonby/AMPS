@@ -114,7 +114,7 @@ namespace Client.View.UI
 
         private void OnOpenTaskBacklogViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)
         {
-            TaskBacklogView taskBacklogView = new TaskBacklogView(serviceRegistry, windowRequestedEventArgs.Band.Id);
+            TaskBacklogView taskBacklogView = new TaskBacklogView(serviceRegistry, windowRequestedEventArgs.Band);
             taskBacklogView.ShowDialog();
         }
 

@@ -16,7 +16,7 @@ namespace Shared
     /// </summary>
     public sealed class MessageReceiver
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (MessageReceiver));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MessageReceiver));
 
         /// <summary>
         /// Fires a <see cref="MessageEventArgs" /> encapsulating an <see cref="IMessage" /> when a new message is received.

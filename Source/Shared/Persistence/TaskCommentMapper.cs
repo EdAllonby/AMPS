@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     class TaskCommentMapper : EntityMapper<TaskComment>
     {
@@ -46,8 +46,8 @@ namespace Server.Persistence
         protected override void DoInsert(TaskComment entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
-            insertCommand.Parameters.Add("@taskId", SqlDbType.Int).Value = entity.TaskId;
-            insertCommand.Parameters.Add("@commenterId", SqlDbType.VarChar).Value = entity.CommenterId;
+            insertCommand.Parameters.Add("@taskId", SqlDbType.Int).Value = entity.Task.Id;
+            insertCommand.Parameters.Add("@commenterId", SqlDbType.VarChar).Value = entity.Commenter.Id;
             insertCommand.Parameters.Add("@parentCommentId", SqlDbType.VarChar).Value = entity.ParentComment!=null? (object)entity.ParentComment.Id : DBNull.Value;
             insertCommand.Parameters.Add("@comment", SqlDbType.Int).Value = entity.Comment;
         }

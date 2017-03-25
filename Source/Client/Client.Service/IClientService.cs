@@ -88,6 +88,6 @@ namespace Client.Service
         /// <param name="jamEndDate">The requested end date of the <see cref="Jam" />.</param>
         void CreateJam(int bandId, List<int> taskIds, DateTime jamEndDate);
 
-        void AddTaskComment(int taskId, string comment, TaskComment parent);
+        void AddTaskComment(Task task, string comment, TaskComment parent);
     }
 }

@@ -3,11 +3,15 @@ using Shared.Domain;
 
 namespace Shared.Repository
 {
+    public interface IEntityPersister
+    {
+    }
+
     /// <summary>
     /// Persists an <see cref="Entity" />.
     /// </summary>
     /// <typeparam name="T">The <see cref="Entity" />  to persist.</typeparam>
-    public interface IEntityPersister<T> where T : Entity
+    public interface IEntityPersister<T> : IEntityPersister where T : Entity
     {
         /// <summary>
         /// Gets an <see cref="Entity" /> from the Database by its Id.

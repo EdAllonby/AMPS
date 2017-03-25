@@ -14,16 +14,12 @@ namespace Server.MessageHandler
 
         protected override void HandleMessage(TaskCommentRequest message)
         {
-            TaskRepository taskRepository = (TaskRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
+            var taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), message.TaskComment, DateTime.Now);
 
-            EntityIdAllocatorFactory entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
-
-            TaskComment taskComment = new TaskComment(entityIdAllocatorFactory.AllocateEntityId<TaskComment>(), message.TaskComment, DateTime.Now);
-
-            Task task = taskRepository.FindEntityById(taskComment.TaskId);
-
+            Task task = taskComment.Task;
             task.AddCommentToRelevantParent(taskComment);
-
+            var taskRepository = (TaskRepository)ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
             taskRepository.UpdateEntity(task);
         }
     }

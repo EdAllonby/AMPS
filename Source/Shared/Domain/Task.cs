@@ -130,6 +130,8 @@ namespace Shared.Domain
             }
         }
 
+        public User AssignedUser => RepositoryManager.GetRepository<User>().FindEntityById(AssignedUserId);
+
         /// <summary>
         /// The <see cref="Jam" /> this <see cref="Task" /> belongs to.
         /// </summary>

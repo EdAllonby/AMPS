@@ -33,6 +33,8 @@ namespace ServerTest.MessageHandlerTests
             PopulateClientManager();
         }
 
+        public abstract void HandleMessage(IMessage message);
+
         private void PopulateClientManager()
         {
             IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
@@ -58,12 +60,12 @@ namespace ServerTest.MessageHandlerTests
 
         private void PopulateRepositoryManager(EntityIdAllocatorFactory idAllocator)
         {
-            var repositoryManager = new RepositoryManager();
+            var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory)
+            {
+                RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Jam), typeof(Band), typeof(Participation) }
+            };
 
-            repositoryManager.AddRepository<User>(new UserRepository(new InMemoryEntityPersister<User>()));
-            repositoryManager.AddRepository<Jam>(new JamRepository(new InMemoryEntityPersister<Jam>()));
-            repositoryManager.AddRepository<Band>(new BandRepository(new InMemoryEntityPersister<Band>()));
-            repositoryManager.AddRepository<Participation>(new ParticipationRepository(new InMemoryEntityPersister<Participation>()));
+            repositoryManager.CreateRepositories();
 
             ServiceRegistry.RegisterService<RepositoryManager>(repositoryManager);
 
@@ -72,7 +74,7 @@ namespace ServerTest.MessageHandlerTests
 
             var userRepository = (UserRepository) repositoryManager.GetRepository<User>();
 
-            var usersToAddToBand = new List<int> {DefaultUser.Id, userId2, userId3};
+            var usersToAddToBand = new List<int> { DefaultUser.Id, userId2, userId3 };
 
             foreach (int userId in usersToAddToBand)
             {
@@ -95,7 +97,7 @@ namespace ServerTest.MessageHandlerTests
             bandRepository.AddEntity(band);
 
             const int LeaderId = 1;
-            bool isLeader = false;
+            var isLeader = false;
 
             foreach (int userId in userIds)
             {
@@ -113,7 +115,7 @@ namespace ServerTest.MessageHandlerTests
 
         private static int CreateJamForNewBand(int bandId, RepositoryManager repositoryManager, EntityIdAllocatorFactory idAllocator)
         {
-            var jamId = idAllocator.AllocateEntityId<Jam>();
+            int jamId = idAllocator.AllocateEntityId<Jam>();
             var jam = new Jam(jamId, bandId, DateTime.UtcNow.AddDays(5));
 
             var jamRepository = (JamRepository) repositoryManager.GetRepository<Jam>();
@@ -121,7 +123,5 @@ namespace ServerTest.MessageHandlerTests
 
             return jamId;
         }
-
-        public abstract void HandleMessage(IMessage message);
     }
 }

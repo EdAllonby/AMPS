@@ -8,6 +8,7 @@ namespace Shared.Domain
     [Serializable]
     public sealed class Jam : Entity
     {
+        private readonly int bandId;
         private bool isActive = true;
 
         /// <summary>
@@ -18,14 +19,17 @@ namespace Shared.Domain
         /// <param name="jamEndDate">The date in which the <see cref="Jam" /> ends.</param>
         public Jam(int id, int bandId, DateTime jamEndDate) : base(id)
         {
-            BandId = bandId;
+            this.bandId = bandId;
             JamEndDate = jamEndDate;
         }
 
         /// <summary>
-        /// The <see cref="Band" /> Id that this <see cref="Jam" /> belongs to.
+        /// The <see cref="Band" /> that this <see cref="Jam" /> belongs to.
         /// </summary>
-        public int BandId { get; }
+        public Band Band
+        {
+            get { return RepositoryManager.GetRepository<Band>().FindEntityById(bandId); }
+        }
 
         /// <summary>
         /// The date in which the <see cref="Jam" /> ends.

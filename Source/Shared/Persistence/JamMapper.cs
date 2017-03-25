@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// A mapper for <see cref="Jam" />s.
@@ -53,7 +53,7 @@ namespace Server.Persistence
         protected override void DoInsert(Jam entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
-            insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.BandId;
+            insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.Band.Id;
             insertCommand.Parameters.Add("@endDate", SqlDbType.DateTime).Value = entity.JamEndDate;
             insertCommand.Parameters.Add("@isActive", SqlDbType.Bit).Value = entity.IsActive;
         }

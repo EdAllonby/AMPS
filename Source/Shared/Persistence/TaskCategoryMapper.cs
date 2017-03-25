@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     internal sealed class TaskCategoryMapper
     {

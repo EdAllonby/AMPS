@@ -13,7 +13,7 @@ namespace Server
     /// </summary>
     internal sealed class ClientHandler : IClientHandler, IDisposable
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ClientHandler));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ClientHandler));
         private ConnectionHandler connectionHandler;
 
         /// <summary>

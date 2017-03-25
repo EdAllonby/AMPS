@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using log4net;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// Moves data between entities and a database table.

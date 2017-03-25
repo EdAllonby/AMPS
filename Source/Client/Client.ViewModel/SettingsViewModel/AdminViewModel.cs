@@ -21,9 +21,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// <param name="band">The band that this admin panel should show.</param>
         public AdminViewModel(IServiceRegistry serviceRegistry, Band band) : base(serviceRegistry)
         {
-            var userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-
-            List<TaskModel> taskModels = new List<TaskModel>();
+            var taskModels = new List<TaskModel>();
 
             var taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
 
@@ -33,11 +31,9 @@ namespace Client.ViewModel.SettingsViewModel
 
             if (currentJam != null && taskRepository.GetTasksInJam(currentJam.Id) != null)
             {
-                foreach (Task completedJamTasks in taskRepository.GetTasksInJam(currentJam.Id).Where(task => task.IsCompleted))
+                foreach (Task completedJamTask in taskRepository.GetTasksInJam(currentJam.Id).Where(task => task.IsCompleted))
                 {
-                    User assignedUser = userRepository.FindEntityById(completedJamTasks.AssignedUserId);
-
-                    TaskModel taskModel = new TaskModel(completedJamTasks, assignedUser);
+                    var taskModel = new TaskModel(completedJamTask);
 
                     taskModels.Add(taskModel);
                 }

@@ -10,6 +10,8 @@ namespace Shared.Domain
     [Serializable]
     public sealed class TaskComment : Entity
     {
+        private readonly int commenterId;
+        private readonly int taskId;
         private readonly List<TaskComment> replies = new List<TaskComment>();
 
         /// <summary>
@@ -23,8 +25,8 @@ namespace Shared.Domain
         {
             Comment = comment;
             ParentComment = parentComment;
-            TaskId = taskId;
-            CommenterId = commenterId;
+            this.taskId = taskId;
+            this.commenterId = commenterId;
         }
 
         public TaskComment(int id, [NotNull] TaskComment incompleteTaskComment, DateTime timePosted) : base(id)
@@ -32,8 +34,8 @@ namespace Shared.Domain
             ParentComment = incompleteTaskComment.ParentComment;
 
             Comment = incompleteTaskComment.Comment;
-            TaskId = incompleteTaskComment.TaskId;
-            CommenterId = incompleteTaskComment.CommenterId;
+            taskId = incompleteTaskComment.taskId;
+            commenterId = incompleteTaskComment.commenterId;
             TimePosted = timePosted;
         }
 
@@ -42,7 +44,8 @@ namespace Shared.Domain
         /// </summary>
         public string Comment { get; }
 
-        public int CommenterId { get; }
+        public User Commenter => RepositoryManager.GetRepository<User>().FindEntityById(commenterId);
+
         public DateTime TimePosted { get; }
 
         /// <summary>
@@ -52,7 +55,7 @@ namespace Shared.Domain
 
         public IEnumerable<TaskComment> Replies => replies;
 
-        public int TaskId { get; }
+        public Task Task => RepositoryManager.GetRepository<Task>().FindEntityById(taskId);
 
         public void AddReply(TaskComment taskComment)
         {

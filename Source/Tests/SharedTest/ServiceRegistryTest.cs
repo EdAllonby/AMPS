@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using Shared;
+using Shared.Repository;
 
 namespace SharedTest
 {
@@ -10,9 +11,9 @@ namespace SharedTest
         [Test]
         public void CanRegisterService()
         {
-            ServiceRegistry serviceRegistry = new ServiceRegistry();
+            var serviceRegistry = new ServiceRegistry();
 
-            RepositoryManager repositoryManager = new RepositoryManager();
+            var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory);
 
             serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
 
@@ -22,7 +23,7 @@ namespace SharedTest
         [Test]
         public void ThrowsAnArgumentExceptionWhenServiceNotFound()
         {
-            ServiceRegistry serviceRegistry = new ServiceRegistry();
+            var serviceRegistry = new ServiceRegistry();
 
             Assert.Throws<ArgumentException>(() => serviceRegistry.GetService<RepositoryManager>());
         }

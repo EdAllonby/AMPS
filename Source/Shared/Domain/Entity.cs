@@ -12,6 +12,9 @@ namespace Shared.Domain
     [Serializable]
     public abstract class Entity : IEquatable<Entity>
     {
+        [NonSerialized]
+        private RepositoryManager repositoryManager;
+        
         /// <summary>
         /// The Log for an <see cref="Entity" />.
         /// </summary>
@@ -44,6 +47,12 @@ namespace Shared.Domain
         /// The unique Id of this entity.
         /// </summary>
         public int Id { get; }
+
+        public RepositoryManager RepositoryManager
+        {
+            get { return repositoryManager; }
+            set { repositoryManager = value; }
+        }
 
         /// <summary>
         /// Check for <see cref="Entity" /> equality.

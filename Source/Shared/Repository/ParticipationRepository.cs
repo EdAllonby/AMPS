@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Repository
@@ -10,14 +9,6 @@ namespace Shared.Repository
     /// </summary>
     public sealed class ParticipationRepository : EntityRepository<Participation>
     {
-        /// <summary>
-        /// Intialises the repository with any <see cref="Participation" /> entities it finds from the data layer.
-        /// </summary>
-        /// <param name="entityPersister">The <see cref="Participation" /> entity-to-table mapper to use.</param>
-        public ParticipationRepository([NotNull] IEntityPersister<Participation> entityPersister) : base(entityPersister)
-        {
-        }
-
         /// <summary>
         /// Gets all <see cref="Participation" /> objects that match the Band Id.
         /// </summary>

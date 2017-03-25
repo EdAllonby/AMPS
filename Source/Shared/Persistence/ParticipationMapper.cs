@@ -3,7 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using Shared.Domain;
 
-namespace Server.Persistence
+namespace Shared.Persistence
 {
     /// <summary>
     /// A mapper for <see cref="Participation" />s.

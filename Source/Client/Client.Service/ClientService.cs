@@ -22,14 +22,15 @@ namespace Client.Service
     /// </summary>
     public class ClientService : IClientService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ClientService));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ClientService));
+
+        private readonly MessageHandlerRegistry messageHandlerRegistry;
+        private readonly RepositoryManager repositoryManager;
 
         /// <summary>
         /// The client's service registry
         /// </summary>
         protected readonly IServiceRegistry ServiceRegistry;
-
-        private readonly MessageHandlerRegistry messageHandlerRegistry;
 
         private ConnectionHandler connectionHandler;
         private ServerLoginHandler serverLoginHandler;
@@ -42,6 +43,7 @@ namespace Client.Service
         {
             messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             ServiceRegistry = serviceRegistry;
+            repositoryManager = ServiceRegistry.GetService<RepositoryManager>();
         }
 
         /// <summary>
@@ -105,11 +107,7 @@ namespace Client.Service
 
             ClientUserId = 0;
 
-            ((IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>()).DeleteAll();
-            ((IEntityRepository<Participation>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>()).DeleteAll();
-            ((IEntityRepository<Band>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>()).DeleteAll();
-            ((IEntityRepository<Jam>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>()).DeleteAll();
-            ((IEntityRepository<Task>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>()).DeleteAll();
+            repositoryManager.FlushAll();
 
             EventUtility.SafeFireEvent(ClientDisconnected, this);
         }
@@ -153,9 +151,9 @@ namespace Client.Service
             connectionHandler.SendMessage(new JamRequest(bandId, taskIds, jamEndDate));
         }
 
-        public void AddTaskComment(int taskId, string comment, TaskComment parent)
+        public void AddTaskComment(Task task, string comment, TaskComment parent)
         {
-            connectionHandler.SendMessage(new TaskCommentRequest(new TaskComment(comment, taskId, ClientUserId, parent)));
+            connectionHandler.SendMessage(new TaskCommentRequest(new TaskComment(comment, task.Id, ClientUserId, parent)));
         }
 
         /// <summary>

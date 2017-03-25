@@ -13,17 +13,6 @@ namespace Shared.Serialiser.MessageSerialiser
         private readonly NotificationTypeSerialiser notificationTypeSerialiser = new NotificationTypeSerialiser();
 
         /// <summary>
-        /// Serialise a <see cref="ConnectionStatusNotification" /> down the wire.
-        /// </summary>
-        /// <param name="networkStream">The networkStream that connects the Client and Server.</param>
-        /// <param name="message">The <see cref="ConnectionStatusNotification" /> to serialise.</param>
-        protected override void Serialise(NetworkStream networkStream, ConnectionStatusNotification message)
-        {
-            notificationTypeSerialiser.Serialise(networkStream, message.NotificationType);
-            connectionStatusSerialiser.Serialise(networkStream, message.ConnectionStatus);
-        }
-
-        /// <summary>
         /// Deserialises a <see cref="ConnectionStatusNotification" /> from the <see cref="NetworkStream" />.
         /// </summary>
         /// <param name="networkStream">
@@ -39,6 +28,17 @@ namespace Shared.Serialiser.MessageSerialiser
             Log.InfoFormat("{0} message deserialised.", connectionStatusNotification.MessageIdentifier);
 
             return connectionStatusNotification;
+        }
+
+        /// <summary>
+        /// Serialise a <see cref="ConnectionStatusNotification" /> down the wire.
+        /// </summary>
+        /// <param name="networkStream">The networkStream that connects the Client and Server.</param>
+        /// <param name="message">The <see cref="ConnectionStatusNotification" /> to serialise.</param>
+        protected override void Serialise(NetworkStream networkStream, ConnectionStatusNotification message)
+        {
+            notificationTypeSerialiser.Serialise(networkStream, message.NotificationType);
+            connectionStatusSerialiser.Serialise(networkStream, message.ConnectionStatus);
         }
     }
 }

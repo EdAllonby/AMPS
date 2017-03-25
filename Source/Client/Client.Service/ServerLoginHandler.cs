@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using Client.Service.MessageHandler;
 using log4net;
 using Shared;
@@ -18,7 +19,7 @@ namespace Client.Service
     /// </summary>
     public sealed class ServerLoginHandler
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ServerLoginHandler));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ServerLoginHandler));
 
         private readonly MessageHandlerRegistry messageHandlerRegistry;
 
@@ -43,39 +44,6 @@ namespace Client.Service
             }
         }
 
-        private void EntityBootstrapCompleted(object sender, EntityBootstrapEventArgs e)
-        {
-            if (e.EntityType == typeof (User))
-            {
-                hasReceivedUserSnapshot = true;
-            }
-            else if (e.EntityType == typeof (Jam))
-            {
-                hasReceivedJamSnapshot = true;
-            }
-            else if (e.EntityType == typeof (Participation))
-            {
-                hasReceivedParticipationSnapshot = true;
-            }
-            else if (e.EntityType == typeof (Band))
-            {
-                hasReceivedBandSnapshot = true;
-            }
-            else if (e.EntityType == typeof (Task))
-            {
-                hasReceivedTaskSnapshot = true;
-            }
-            else
-            {
-                string errorMessage = $"{typeof (ServerLoginHandler).Name} class should not be bootstrapping for an entity of type {e.EntityType.Name}";
-                Log.ErrorFormat(errorMessage);
-
-                throw new ArgumentException(errorMessage);
-            }
-
-            TrySendBootstrapCompleteEvent();
-        }
-
         /// <summary>
         /// Fires when bootstrapping to all repositories has completed.
         /// </summary>
@@ -89,7 +57,7 @@ namespace Client.Service
         /// <returns></returns>
         public LoginResponse ConnectToServer(LoginDetails loginDetails, out ConnectionHandler connectionHandler)
         {
-            var isServerFound = CreateConnection(loginDetails.Address, loginDetails.Port);
+            bool isServerFound = CreateConnection(loginDetails.Address, loginDetails.Port);
 
             if (!isServerFound)
             {
@@ -129,6 +97,39 @@ namespace Client.Service
             }
         }
 
+        private void EntityBootstrapCompleted(object sender, EntityBootstrapEventArgs e)
+        {
+            if (e.EntityType == typeof(User))
+            {
+                hasReceivedUserSnapshot = true;
+            }
+            else if (e.EntityType == typeof(Jam))
+            {
+                hasReceivedJamSnapshot = true;
+            }
+            else if (e.EntityType == typeof(Participation))
+            {
+                hasReceivedParticipationSnapshot = true;
+            }
+            else if (e.EntityType == typeof(Band))
+            {
+                hasReceivedBandSnapshot = true;
+            }
+            else if (e.EntityType == typeof(Task))
+            {
+                hasReceivedTaskSnapshot = true;
+            }
+            else
+            {
+                string errorMessage = $"{typeof(ServerLoginHandler).Name} class should not be bootstrapping for an entity of type {e.EntityType.Name}";
+                Log.ErrorFormat(errorMessage);
+
+                throw new ArgumentException(errorMessage);
+            }
+
+            TrySendBootstrapCompleteEvent();
+        }
+
         private void BootstrapRepositories(int userId)
         {
             SendConnectionMessage(new EntitySnapshotRequest<User>(userId));
@@ -146,8 +147,8 @@ namespace Client.Service
 
             serverConnection.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
 
-            var asyncResult = serverConnection.BeginConnect(targetAddress.ToString(), targetPort, null, null);
-            var waitHandle = asyncResult.AsyncWaitHandle;
+            IAsyncResult asyncResult = serverConnection.BeginConnect(targetAddress.ToString(), targetPort, null, null);
+            WaitHandle waitHandle = asyncResult.AsyncWaitHandle;
             try
             {
                 if (!asyncResult.AsyncWaitHandle.WaitOne(TimeSpan.FromSeconds(timeoutSeconds), false))
@@ -193,16 +194,16 @@ namespace Client.Service
 
         private IMessage GetConnectionMessage()
         {
-            var messageIdentifier = MessageIdentifierSerialiser.DeserialiseMessageIdentifier(serverConnection.GetStream());
+            MessageIdentifier messageIdentifier = MessageIdentifierSerialiser.DeserialiseMessageIdentifier(serverConnection.GetStream());
 
-            var messageSerialiser = SerialiserFactory.GetSerialiser(messageIdentifier);
+            IMessageSerialiser messageSerialiser = SerialiserFactory.GetSerialiser(messageIdentifier);
 
             return messageSerialiser.Deserialise(serverConnection.GetStream());
         }
 
         private void SendConnectionMessage(IMessage message)
         {
-            var messageSerialiser = SerialiserFactory.GetSerialiser(message.MessageIdentifier);
+            IMessageSerialiser messageSerialiser = SerialiserFactory.GetSerialiser(message.MessageIdentifier);
             messageSerialiser.Serialise(serverConnection.GetStream(), message);
         }
 

@@ -10,14 +10,6 @@ namespace Shared.Repository
     public sealed class UserRepository : EntityRepository<User>
     {
         /// <summary>
-        /// Create a repository for storing <see cref="User" />s with a data mapping implementation.
-        /// </summary>
-        /// <param name="entityPersister">The <see cref="IEntityDataMapper{User}" /> implementation to use.</param>
-        public UserRepository([NotNull] IEntityPersister<User> entityPersister) : base(entityPersister)
-        {
-        }
-
-        /// <summary>
         /// Updates a <see cref="User" />'s <see cref="ConnectionStatus" />
         /// </summary>
         /// <param name="connectionStatus">The new connection status of the user.</param>
