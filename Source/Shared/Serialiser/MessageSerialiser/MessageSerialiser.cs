@@ -13,7 +13,8 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <summary>
         /// The <see cref="MessageSerialiser{T}" /> Log.
         /// </summary>
-        protected static readonly ILog Log = LogManager.GetLogger(typeof (MessageSerialiser<T>));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(MessageSerialiser<T>));
+
 
         private readonly ISerialiser serialiser = new BinarySerialiser();
 

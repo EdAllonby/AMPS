@@ -11,7 +11,7 @@ namespace Server
     /// </summary>
     internal sealed class ClientManager : IClientManager
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ClientManager));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ClientManager));
         private readonly Dictionary<int, IClientHandler> clientHandlersIndexedByUserId = new Dictionary<int, IClientHandler>();
 
         /// <summary>
@@ -22,7 +22,7 @@ namespace Server
         {
             foreach (IClientHandler clientHandler in clientHandlersIndexedByUserId.Values)
             {
-                clientHandler.SendMessage(message);
+                clientHandler.SendMessageAsync(message);
             }
         }
 
@@ -35,7 +35,7 @@ namespace Server
         {
             foreach (int userId in userIds.Where(HasClientHandler))
             {
-                clientHandlersIndexedByUserId[userId].SendMessage(message);
+                clientHandlersIndexedByUserId[userId].SendMessageAsync(message);
             }
         }
 
@@ -48,7 +48,7 @@ namespace Server
         {
             if (HasClientHandler(userId))
             {
-                clientHandlersIndexedByUserId[userId].SendMessage(message);
+                clientHandlersIndexedByUserId[userId].SendMessageAsync(message);
             }
         }
 

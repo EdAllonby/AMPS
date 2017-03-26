@@ -12,7 +12,7 @@ namespace Shared.Serialiser.MessageSerialiser
     /// </summary>
     public static class MessageIdentifierSerialiser
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (MessageIdentifierSerialiser));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(MessageIdentifierSerialiser));
 
         /// <summary>
         /// Serialises a <see cref="MessageIdentifier" /> through the <see cref="NetworkStream" />.
@@ -30,7 +30,6 @@ namespace Shared.Serialiser.MessageSerialiser
         /// </summary>
         /// <param name="networkStream">
         /// The <see cref="NetworkStream" /> containing the serialised <see cref="MessageIdentifier" />
-        /// .
         /// </param>
         /// <returns>The deserialised <see cref="MessageIdentifier" />.</returns>
         public static MessageIdentifier DeserialiseMessageIdentifier([NotNull] NetworkStream networkStream)
@@ -41,12 +40,7 @@ namespace Shared.Serialiser.MessageSerialiser
 
             int messageIdentifierNumber = BitConverter.ToInt32(messageTypeBuffer, 0);
 
-            var messageIdentifier = MessageIdentifier.UnrecognisedMessage;
-
-            if (Enum.IsDefined(typeof (MessageIdentifier), messageIdentifierNumber))
-            {
-                messageIdentifier = (MessageIdentifier) messageIdentifierNumber;
-            }
+            var messageIdentifier = (MessageIdentifier) messageIdentifierNumber;
 
             Log.DebugFormat("Message Identifier {0} received from networkStream.", messageIdentifier);
 

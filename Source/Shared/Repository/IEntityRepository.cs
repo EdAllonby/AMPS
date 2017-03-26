@@ -8,7 +8,7 @@ namespace Shared.Repository
     /// </summary>
     public interface IEntityRepository
     {
-        IEntityPersister EntityPersister { get; set; }
+        IEntityPersister EntityPersister { set; }
 
         /// <summary>
         /// The owning manager.
@@ -32,6 +32,11 @@ namespace Shared.Repository
         /// Remove all entities from the repository.
         /// </summary>
         void DeleteAll();
+
+        /// <summary>
+        /// Loads the repository from its persistence strategy.
+        /// </summary>
+        void Load();
     }
 
     /// <summary>
@@ -51,5 +56,6 @@ namespace Shared.Repository
         /// </summary>
         /// <param name="entity">The <see cref="Entity" /> to update. Uses its Id as the comparer.</param>
         void UpdateEntity(T entity);
+
     }
 }

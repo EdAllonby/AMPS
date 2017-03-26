@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using log4net;
 using Shared.Domain;
 using Shared.Persistence;
 using Shared.Repository;
@@ -12,6 +13,8 @@ namespace Shared
     /// </summary>
     public sealed class RepositoryManager : IService
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(RepositoryManager));
+
         private readonly PersistenceStrategy persistenceStrategy;
         private readonly IDictionary<Type, IEntityRepository> repositoriesIndexedByEnclosedEntity = new Dictionary<Type, IEntityRepository>();
 
@@ -32,6 +35,15 @@ namespace Shared
                 Type repositoryType = typeof(EntityRepository<>).FindFirstDerivedTypeWithGenericArgument(repositoryEntityType);
                 var entityRepository = (IEntityRepository) Activator.CreateInstance(repositoryType);
                 AddRepository(entityRepository);
+            }
+        }
+
+        public void LoadRepositories()
+        {
+            foreach (IEntityRepository entityRepository in repositoriesIndexedByEnclosedEntity.Values)
+            {
+                Log.Info($"Loading {entityRepository.EnclosedEntityType} repository with existing entities.");
+                entityRepository.Load();
             }
         }
 
@@ -83,7 +95,6 @@ namespace Shared
             }
 
             repository.EntityPersister = persister;
-
             repositoriesIndexedByEnclosedEntity.Add(repository.EnclosedEntityType, repository);
         }
     }

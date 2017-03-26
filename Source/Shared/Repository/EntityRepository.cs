@@ -24,7 +24,6 @@ namespace Shared.Repository
 
         public IEntityPersister EntityPersister
         {
-            get { return TypedEntityPersister; }
             set { TypedEntityPersister = (IEntityPersister<T>) value; }
         }
 
@@ -171,6 +170,11 @@ namespace Shared.Repository
             {
                 Log.DebugFormat("All entities removed from {0} repository", EnclosedEntityType.Name);
             }
+        }
+
+        public void Load()
+        {
+            TypedEntityPersister.GetAllEntities();
         }
 
         /// <summary>

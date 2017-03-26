@@ -54,7 +54,7 @@ namespace Server
             };
 
             repositoryManager.CreateRepositories();
-
+            repositoryManager.LoadRepositories();
             return repositoryManager;
         }
     }

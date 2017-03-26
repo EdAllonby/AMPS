@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using Shared;
 using Shared.Message;
 using Shared.Message.LoginMessage;
@@ -28,7 +29,7 @@ namespace Server
         /// Send an <see cref="IMessage" /> to the client.
         /// </summary>
         /// <param name="message">The <see cref="IMessage" /> to send to the client.</param>
-        void SendMessage(IMessage message);
+        Task SendMessageAsync(IMessage message);
 
         /// <summary>
         /// Disconnect a client.

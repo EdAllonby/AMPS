@@ -32,10 +32,6 @@ namespace Shared.Repository
         /// <returns>The <see cref="Entity" /> which matches the ID. If no <see cref="Entity" /> is found, return null.</returns>
         T FindEntityById(int entityId);
 
-        /// <summary>
-        /// Retrieves all <see cref="Entity" />s from the repository.
-        /// </summary>
-        /// <returns>A collection of all <see cref="Entity" />s in the repository.</returns>
         IEnumerable<T> GetAllEntities();
     }
 }

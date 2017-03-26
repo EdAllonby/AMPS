@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using log4net;
 using Shared;
 using Shared.Message;
@@ -48,9 +49,13 @@ namespace Server
         /// Send an <see cref="IMessage" /> to the client.
         /// </summary>
         /// <param name="message">The <see cref="IMessage" /> to send to the client.</param>
-        public void SendMessage(IMessage message)
+        public Task SendMessageAsync(IMessage message)
         {
-            connectionHandler.SendMessage(message);
+            var messageSender = new Task(() => { connectionHandler.SendMessage(message); });
+
+            messageSender.Start();
+
+            return messageSender;
         }
 
         /// <summary>

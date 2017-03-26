@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 using Server;
 using Shared;
 using Shared.Message;
@@ -30,9 +31,9 @@ namespace ServerTest
         /// Sends an <see cref="IMessage" /> to a client.
         /// </summary>
         /// <param name="message">The message to send.</param>
-        public void SendMessage(IMessage message)
+        public Task SendMessageAsync(IMessage message)
         {
-            EventUtility.SafeFireEvent(MessageSent, this, new MessageEventArgs(message));
+            return new Task(()=>EventUtility.SafeFireEvent(MessageSent, this, new MessageEventArgs(message)));
         }
 
         /// <summary>
