@@ -31,12 +31,12 @@ namespace Client.ViewModel.SettingsViewModel
         public BandMakerViewModel(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {
-            bandRepository = (BandRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            bandRepository = (BandRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
 
             bandRepository.EntityAdded += OnBandsChanged;
             bandRepository.EntityUpdated += OnBandsChanged;
 
-            userRepository = (UserRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            userRepository = (UserRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
             clientService = serviceRegistry.GetService<IClientService>();
 
             userRepository.EntityAdded += OnUserAdded;

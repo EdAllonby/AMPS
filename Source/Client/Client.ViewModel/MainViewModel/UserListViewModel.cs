@@ -34,8 +34,8 @@ namespace Client.ViewModel.MainViewModel
 
             this.band = band;
 
-            userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-            participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            userRepository = serviceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
+            participationRepository = (ParticipationRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
 
             userRepository.EntityAdded += OnUserChanged;
             userRepository.EntityUpdated += OnUserChanged;

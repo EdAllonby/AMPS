@@ -20,7 +20,7 @@ namespace Server.MessageHandler
         /// <param name="message">The <see cref="TaskRequest" /> that has been received and needs to be handled.</param>
         protected override void HandleMessage(TaskRequest message)
         {
-            var taskRepository = (IEntityRepository<Task>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var taskRepository = (IEntityRepository<Task>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
             EntityIdAllocatorFactory entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
 

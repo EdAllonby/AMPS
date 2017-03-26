@@ -38,8 +38,8 @@ namespace Client.ViewModel.MainViewModel
                 clientService = serviceRegistry.GetService<IClientService>();
                 clientService.ClientDisconnected += OnClientDisconnected;
 
-                bandRepository = (BandRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
-                jamRepository = (JamRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+                bandRepository = (BandRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
+                jamRepository = (JamRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
                 jamRepository.EntityAdded += JamChanged;
                 jamRepository.EntityUpdated += JamChanged;

@@ -19,7 +19,7 @@ namespace Server.EntityChangedHandler
         public UserChangedHandler(IServiceRegistry serviceRegistry)
             : base(serviceRegistry)
         {
-            userRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            userRepository = serviceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
 
             userRepository.EntityAdded += OnUserAdded;
             userRepository.EntityUpdated += OnUserUpdated;

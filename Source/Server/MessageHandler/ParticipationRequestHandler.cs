@@ -20,7 +20,7 @@ namespace Server.MessageHandler
         /// <param name="message">The <see cref="ParticipationRequest" /> that has been received and needs to be handled.</param>
         protected override void HandleMessage(ParticipationRequest message)
         {
-            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
 
             var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
             AddUserToBand(message, entityIdAllocatorFactory, participationRepository);
@@ -30,7 +30,7 @@ namespace Server.MessageHandler
         {
             int participationId = entityIdAllocatorFactory.AllocateEntityId<Participation>();
 
-            participationRequest.Participation.RepositoryManager = ServiceRegistry.GetService<RepositoryManager>();
+            participationRequest.Participation.RepositoryManager = ServiceRegistry.GetService<IRepositoryManager>();
 
             var participation = new Participation(participationId, participationRequest.Participation.User.Id, participationRequest.Participation.Band.Id, participationRequest.Participation.IsLeader);
 

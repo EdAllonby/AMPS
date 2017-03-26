@@ -12,13 +12,12 @@ namespace Shared.Domain
     [Serializable]
     public abstract class Entity : IEquatable<Entity>
     {
-        [NonSerialized]
-        private RepositoryManager repositoryManager;
-        
         /// <summary>
         /// The Log for an <see cref="Entity" />.
         /// </summary>
-        protected static readonly ILog Log = LogManager.GetLogger(typeof (Entity));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(Entity));
+
+        [NonSerialized] private IRepositoryManager repositoryManager;
 
         /// <summary>
         /// Gives an entity an id
@@ -48,7 +47,7 @@ namespace Shared.Domain
         /// </summary>
         public int Id { get; }
 
-        public RepositoryManager RepositoryManager
+        public IRepositoryManager RepositoryManager
         {
             get { return repositoryManager; }
             set { repositoryManager = value; }
@@ -82,7 +81,6 @@ namespace Shared.Domain
         /// <returns>A cloned <see cref="Entity" />.</returns>
         public static T DeepClone<T>([NotNull] T entity) where T : Entity
         {
-
             using (var memoryStream = new MemoryStream())
             {
                 var formatter = new BinaryFormatter();

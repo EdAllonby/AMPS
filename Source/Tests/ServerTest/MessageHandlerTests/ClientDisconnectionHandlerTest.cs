@@ -43,7 +43,7 @@ namespace ServerTest.MessageHandlerTests
             public void RepositoryUpdatesUser()
             {
                 bool isUserUpdated = false;
-                ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>().EntityUpdated += (sender, eventArgs) => isUserUpdated = true;
+                ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>().EntityUpdated += (sender, eventArgs) => isUserUpdated = true;
                 HandleMessage(clientDisconnection);
                 Assert.IsTrue(isUserUpdated);
             }
@@ -58,7 +58,7 @@ namespace ServerTest.MessageHandlerTests
             public void UserGetsSetToDisconnectedInUserRepository()
             {
                 HandleMessage(clientDisconnection);
-                IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+                IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
                 User defaultUser = userRepository.FindEntityById(DefaultUser.Id);
                 Assert.IsTrue(defaultUser.ConnectionStatus.UserConnectionStatus.Equals(ConnectionStatus.Status.Disconnected));
             }

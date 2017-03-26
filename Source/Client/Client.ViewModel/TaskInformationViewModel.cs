@@ -22,7 +22,7 @@ namespace Client.ViewModel
         /// <param name="serviceRegistry"></param>
         protected TaskInformationViewModel(IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
-            taskRepository = serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            taskRepository = serviceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
             HyperlinkClicked = new OpenTaskDetailsCommand(this);
 

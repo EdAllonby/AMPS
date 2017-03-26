@@ -37,7 +37,7 @@ namespace ServerTest.MessageHandlerTests
 
         private void PopulateClientManager()
         {
-            IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
 
             var clientManager = new ClientManager();
 
@@ -67,7 +67,7 @@ namespace ServerTest.MessageHandlerTests
 
             repositoryManager.CreateRepositories();
 
-            ServiceRegistry.RegisterService<RepositoryManager>(repositoryManager);
+            ServiceRegistry.RegisterService<IRepositoryManager>(repositoryManager);
 
             int userId2 = idAllocator.AllocateEntityId<User>();
             int userId3 = idAllocator.AllocateEntityId<User>();

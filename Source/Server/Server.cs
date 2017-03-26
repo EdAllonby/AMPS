@@ -86,7 +86,7 @@ namespace Server
 
         private void OnJamDateSurpassed(object sender, JamEndedEventArgs e)
         {
-            var jamRepository = (IEntityRepository<Jam>) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            var jamRepository = (IEntityRepository<Jam>) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
             Jam jamClone = Entity.DeepClone(e.FinishedJam);
 

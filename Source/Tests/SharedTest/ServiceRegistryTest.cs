@@ -15,9 +15,9 @@ namespace SharedTest
 
             var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory);
 
-            serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
+            serviceRegistry.RegisterService<IRepositoryManager>(repositoryManager);
 
-            Assert.AreEqual(serviceRegistry.GetService<RepositoryManager>(), repositoryManager);
+            Assert.AreEqual(serviceRegistry.GetService<IRepositoryManager>(), repositoryManager);
         }
 
         [Test]
@@ -25,7 +25,7 @@ namespace SharedTest
         {
             var serviceRegistry = new ServiceRegistry();
 
-            Assert.Throws<ArgumentException>(() => serviceRegistry.GetService<RepositoryManager>());
+            Assert.Throws<ArgumentException>(() => serviceRegistry.GetService<IRepositoryManager>());
         }
     }
 }

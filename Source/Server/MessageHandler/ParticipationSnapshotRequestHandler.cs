@@ -23,8 +23,8 @@ namespace Server.MessageHandler
         /// </param>
         protected override void HandleMessage(EntitySnapshotRequest<Participation> message)
         {
-            IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
-            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            IReadOnlyEntityRepository<User> userRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
 
             User user = userRepository.FindEntityById(message.UserId);
 

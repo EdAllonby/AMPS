@@ -67,7 +67,7 @@ namespace Client.View
 
             repositoryManager.CreateRepositories();
 
-            serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
+            serviceRegistry.RegisterService<IRepositoryManager>(repositoryManager);
             serviceRegistry.RegisterService<IClientService>(new ClientService(serviceRegistry));
 
             var configManager = new AppConfigManager(new AppConfiguration());

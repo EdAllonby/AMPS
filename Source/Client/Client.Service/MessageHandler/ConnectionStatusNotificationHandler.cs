@@ -16,7 +16,7 @@ namespace Client.Service.MessageHandler
 
         protected override void HandleMessage(ConnectionStatusNotification message)
         {
-            var userRepository = (UserRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            var userRepository = (UserRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
 
             userRepository.UpdateUserConnectionStatus(message.ConnectionStatus);
         }

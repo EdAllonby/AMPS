@@ -23,7 +23,7 @@ namespace Server
 
             RepositoryManager repositoryManager = CreateRepositoryManager(useDatabasePersistence);
 
-            serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
+            serviceRegistry.RegisterService<IRepositoryManager>(repositoryManager);
             serviceRegistry.RegisterService<IClientManager>(new ClientManager());
 
             if (useDatabasePersistence)

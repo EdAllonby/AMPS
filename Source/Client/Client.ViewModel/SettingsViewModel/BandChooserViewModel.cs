@@ -29,8 +29,8 @@ namespace Client.ViewModel.SettingsViewModel
         {
             clientUser = serviceRegistry.GetService<IClientService>().ClientUser;
 
-            bandRepository = (BandRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
-            participationRepository = (ParticipationRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
+            bandRepository = (BandRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
+            participationRepository = (ParticipationRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
 
             bandRepository.EntityAdded += OnBandsChanged;
             bandRepository.EntityUpdated += OnBandsChanged;
@@ -84,7 +84,7 @@ namespace Client.ViewModel.SettingsViewModel
         {
             if (BandChooserModel.SelectedBand != null)
             {
-                Band band = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>().FindEntityById(BandChooserModel.SelectedBand.Id);
+                Band band = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>().FindEntityById(BandChooserModel.SelectedBand.Id);
                 EventUtility.SafeFireEvent(OpenMainViewRequested, this, new WindowRequestedEventArgs(band));
             }
         }

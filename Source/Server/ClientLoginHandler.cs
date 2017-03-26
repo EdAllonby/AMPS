@@ -25,7 +25,7 @@ namespace Server
         /// <returns></returns>
         public static LoginResponse InitialiseNewClient(TcpClient tcpClient, IServiceRegistry serviceRegistry)
         {
-            var repositoryManager = serviceRegistry.GetService<RepositoryManager>();
+            var repositoryManager = serviceRegistry.GetService<IRepositoryManager>();
             var userRepository = (UserRepository) repositoryManager.GetRepository<User>();
 
             var entityIdAllocatorFactory = serviceRegistry.GetService<EntityIdAllocatorFactory>();

@@ -34,8 +34,8 @@ namespace Client.ViewModel.MainViewModel
         {
             taskId = task.Id;
 
-            taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
-            taskCommentRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<TaskComment>();
+            taskRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
+            taskCommentRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<TaskComment>();
 
             taskRepository.EntityUpdated += TaskUpdated;
             taskCommentRepository.EntityAdded += TaskCommentAdded;

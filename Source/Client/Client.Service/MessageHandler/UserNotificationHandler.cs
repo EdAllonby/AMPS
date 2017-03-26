@@ -16,7 +16,7 @@ namespace Client.Service.MessageHandler
 
         protected override void HandleMessage(EntityNotification<User> message)
         {
-            var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            var userRepository = (IEntityRepository<User>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
 
             switch (message.NotificationType)
             {

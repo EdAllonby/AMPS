@@ -112,7 +112,7 @@ namespace Client.ViewModel.SettingsViewModel
 
             List<int> taskIdsToAdd = jamMakerModel.AddableTasks.Where(taskModel => taskModel.Add).Select(taskModel => taskModel.TaskId).ToList();
 
-            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
             foreach (AddableTaskModel taskToUpdate in jamMakerModel.AddableTasks.Where(taskModel => taskModel.Add))
             {

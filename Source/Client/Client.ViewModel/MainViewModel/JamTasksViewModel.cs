@@ -37,8 +37,8 @@ namespace Client.ViewModel.MainViewModel
         public JamTasksViewModel(IServiceRegistry serviceRegistry, Band managedBand) : base(serviceRegistry)
         {
             this.managedBand = managedBand;
-            taskRepository = (TaskRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
-            jamRepository = (JamRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            taskRepository = (TaskRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
+            jamRepository = (JamRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
             DisplayedTasksInCurrentJam = new ObservableCollection<TaskItemViewModel>();
 

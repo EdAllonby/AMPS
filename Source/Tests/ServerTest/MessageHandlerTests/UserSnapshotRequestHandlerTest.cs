@@ -70,7 +70,7 @@ namespace ServerTest.MessageHandlerTests
 
                 var userSnapshot = (EntitySnapshot<User>) message;
 
-                IEnumerable<User> allUsers = ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>().GetAllEntities();
+                IEnumerable<User> allUsers = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>().GetAllEntities();
 
                 Assert.AreEqual(userSnapshot.Entities, allUsers);
             }

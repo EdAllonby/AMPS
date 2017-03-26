@@ -20,7 +20,7 @@ namespace Client.Service.MessageHandler
         {
             var toastNotifier = ServiceRegistry.GetService<ToastNotificationManager>();
 
-            var jamRepository = (JamRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            var jamRepository = (JamRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
             switch (message.NotificationType)
             {

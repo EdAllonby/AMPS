@@ -30,7 +30,7 @@ namespace ConsoleClient
                 var repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory);
                 repositoryManager.RepositoryEntityTypes = new List<Type> { typeof(User), typeof(Participation), typeof(Band), typeof(Jam), typeof(Task), typeof(TaskComment) };
 
-                serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
+                serviceRegistry.RegisterService<IRepositoryManager>(repositoryManager);
                 var client = new TestClient(serviceRegistry);
                 Clients.Add(client);
             }
@@ -45,7 +45,7 @@ namespace ConsoleClient
             foreach (TestClient client in Clients)
             {
                 Log.InfoFormat("Testing Client {0}:", client.ClientUserId);
-                Validator.ValidateUserRepository(client.ClientServiceRegistry.GetService<RepositoryManager>().GetRepository<User>(), 55);
+                Validator.ValidateUserRepository(client.ClientServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>(), 55);
             }
 
             // SimulatorUtilities.CreateTenFiveMemberBands(Clients);

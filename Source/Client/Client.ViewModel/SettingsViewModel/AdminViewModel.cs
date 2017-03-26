@@ -23,9 +23,9 @@ namespace Client.ViewModel.SettingsViewModel
         {
             var taskModels = new List<TaskModel>();
 
-            var taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var taskRepository = (TaskRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
-            var jamRepository = (JamRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            var jamRepository = (JamRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
             Jam currentJam = jamRepository.GetCurrentActiveJamInBand(band.Id);
 

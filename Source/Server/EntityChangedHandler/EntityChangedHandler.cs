@@ -11,11 +11,11 @@ namespace Server.EntityChangedHandler
     {
         protected EntityChangedHandler(IServiceRegistry serviceRegistry)
         {
-            RepositoryManager = serviceRegistry.GetService<RepositoryManager>();
+            RepositoryManager = serviceRegistry.GetService<IRepositoryManager>();
             ClientManager = serviceRegistry.GetService<IClientManager>();
         }
 
-        protected RepositoryManager RepositoryManager { get; }
+        protected IRepositoryManager RepositoryManager { get; }
         protected IClientManager ClientManager { get; }
 
         /// <summary>

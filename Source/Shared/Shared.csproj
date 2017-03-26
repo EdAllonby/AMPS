@@ -105,6 +105,7 @@
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="Configuration\IConfiguration.cs" />
     <Compile Include="IGeneratorStrategy.cs" />
+    <Compile Include="IRepositoryManager.cs" />
     <Compile Include="JamEndedEventArgs.cs" />
     <Compile Include="MessageHandler.cs" />
     <Compile Include="Message\ConnectionStatusNotification.cs" />

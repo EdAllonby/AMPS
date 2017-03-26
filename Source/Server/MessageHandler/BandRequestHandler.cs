@@ -25,8 +25,8 @@ namespace Server.MessageHandler
         {
             var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
 
-            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Participation>();
-            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
+            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
 
             if (IsBandValid(message))
             {

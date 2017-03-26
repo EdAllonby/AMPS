@@ -19,8 +19,8 @@ namespace Client.ViewModel.SettingsViewModel
         public BurnDownViewModel(Band band, IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
             this.band = band;
-            taskRepository = (TaskRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
-            jamRepository = (JamRepository) serviceRegistry.GetService<RepositoryManager>().GetRepository<Jam>();
+            taskRepository = (TaskRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
+            jamRepository = (JamRepository) serviceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
             taskRepository.EntityAdded += JamUpdated;
             taskRepository.EntityUpdated += JamUpdated;

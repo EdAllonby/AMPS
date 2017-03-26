@@ -24,7 +24,7 @@ namespace Client.Service
         private static readonly ILog Log = LogManager.GetLogger(typeof(ClientService));
 
         private readonly MessageHandlerRegistry messageHandlerRegistry;
-        private readonly RepositoryManager repositoryManager;
+        private readonly IRepositoryManager repositoryManager;
 
         /// <summary>
         /// The client's service registry
@@ -42,7 +42,7 @@ namespace Client.Service
         {
             messageHandlerRegistry = new MessageHandlerRegistry(serviceRegistry);
             ServiceRegistry = serviceRegistry;
-            repositoryManager = ServiceRegistry.GetService<RepositoryManager>();
+            repositoryManager = ServiceRegistry.GetService<IRepositoryManager>();
         }
 
         public User ClientUser

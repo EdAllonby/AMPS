@@ -13,7 +13,7 @@ namespace Client.Service.MessageHandler
 
         protected override void HandleMessage(EntityNotification<Band> message)
         {
-            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
 
             switch (message.NotificationType)
             {

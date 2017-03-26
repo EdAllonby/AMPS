@@ -23,7 +23,7 @@ namespace Client.Service.MessageHandler
 
         protected override void HandleMessage(EntitySnapshot<TEntity> message)
         {
-            var entityRepository = (IEntityRepository<TEntity>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<TEntity>();
+            var entityRepository = (IEntityRepository<TEntity>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<TEntity>();
 
             foreach (TEntity entity in message.Entities)
             {

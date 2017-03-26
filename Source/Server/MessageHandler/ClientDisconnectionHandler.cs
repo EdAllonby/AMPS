@@ -26,7 +26,7 @@ namespace Server.MessageHandler
 
             var connectionStatus = new ConnectionStatus(message.UserId, ConnectionStatus.Status.Disconnected);
 
-            var userRepository = (UserRepository) ServiceRegistry.GetService<RepositoryManager>().GetRepository<User>();
+            var userRepository = (UserRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>();
 
             userRepository.UpdateUserConnectionStatus(connectionStatus);
         }

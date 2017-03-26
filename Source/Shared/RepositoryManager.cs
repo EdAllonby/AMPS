@@ -11,7 +11,7 @@ namespace Shared
     /// <summary>
     /// Holds references to repositories.
     /// </summary>
-    public sealed class RepositoryManager : IService
+    public sealed class RepositoryManager : IRepositoryManager
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(RepositoryManager));
 

@@ -21,7 +21,7 @@ namespace Server.MessageHandler
         /// <param name="message">The <see cref="EntitySnapshotRequest{Band}" /> that has been received and needs to be handled.</param>
         protected override void HandleMessage(EntitySnapshotRequest<Band> message)
         {
-            IReadOnlyEntityRepository<Band> bandRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Band>();
+            IReadOnlyEntityRepository<Band> bandRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
             var clientManager = ServiceRegistry.GetService<IClientManager>();
 
             IEnumerable<Band> currentUsers = bandRepository.GetAllEntities();

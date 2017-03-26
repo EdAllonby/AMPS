@@ -16,7 +16,7 @@ namespace Client.Service.MessageHandler
 
         protected override void HandleMessage(EntityNotification<TaskComment> message)
         {
-            var taskCommentRepository = (IEntityRepository<TaskComment>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<TaskComment>();
+            var taskCommentRepository = (IEntityRepository<TaskComment>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<TaskComment>();
 
             switch (message.NotificationType)
             {
@@ -39,7 +39,7 @@ namespace Client.Service.MessageHandler
         protected override void HandleMessage(EntityNotification<Task> message)
         {
             var toastNotifier = ServiceRegistry.GetService<ToastNotificationManager>();
-            var taskRepository = (IEntityRepository<Task>) ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            var taskRepository = (IEntityRepository<Task>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
             Task task = message.Entity;
 

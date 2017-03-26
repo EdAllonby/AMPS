@@ -119,7 +119,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private void UpdateTaskStatusToComplete()
         {
-            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<RepositoryManager>().GetRepository<Task>();
+            IReadOnlyEntityRepository<Task> taskRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
             Task updatedTask = taskRepository.FindEntityById(UploadTaskModel.TaskId);
 

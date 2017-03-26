@@ -46,7 +46,7 @@ namespace BulkEntityGenerator
 
             repositoryManager.CreateRepositories();
 
-            serviceRegistry.RegisterService<RepositoryManager>(repositoryManager);
+            serviceRegistry.RegisterService<IRepositoryManager>(repositoryManager);
 
             var client = new ClientService(serviceRegistry);
 
