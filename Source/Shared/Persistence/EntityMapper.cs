@@ -17,7 +17,7 @@ namespace Shared.Persistence
         /// <summary>
         /// Logging for the mapper.
         /// </summary>
-        protected static readonly ILog Log = LogManager.GetLogger(typeof (EntityMapper<T>));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(EntityMapper<T>));
 
         /// <summary>
         /// The database connection string.
@@ -76,8 +76,8 @@ namespace Shared.Persistence
                 return entity;
             }
 
-            using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand command = new SqlCommand(FindStatement, databaseConnection))
+            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(FindStatement, databaseConnection))
             {
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
@@ -105,8 +105,8 @@ namespace Shared.Persistence
         /// <returns>Whether the insert was successful.</returns>
         public bool InsertEntity(T entity)
         {
-            using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand insertCommand = new SqlCommand(InsertStatement, databaseConnection))
+            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var insertCommand = new SqlCommand(InsertStatement, databaseConnection))
             {
                 databaseConnection.Open();
 
@@ -138,8 +138,8 @@ namespace Shared.Persistence
             const string DeleteEntityQuery = "DELETE FROM @tableName WHERE Id = @id";
             int rowsUpdated;
 
-            using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand command = new SqlCommand(DeleteEntityQuery, databaseConnection))
+            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(DeleteEntityQuery, databaseConnection))
             {
                 command.Parameters.Add("@tableName", SqlDbType.Int).Value = tableName;
                 command.Parameters.Add("@id", SqlDbType.Int).Value = entityId;
@@ -197,10 +197,10 @@ namespace Shared.Persistence
         /// <returns>A list of <see cref="Entity" /> objects that match the search query.</returns>
         protected List<T> FindMany(IStatementSource source)
         {
-            using (SqlConnection databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand command = new SqlCommand(source.Sql, databaseConnection))
+            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(source.Sql, databaseConnection))
             {
-                for (int i = 0; i < source.Parameters.Count; i++)
+                for (var i = 0; i < source.Parameters.Count; i++)
                 {
                     command.Parameters.Insert(i + 1, source.Parameters[i]);
                 }
@@ -221,7 +221,7 @@ namespace Shared.Persistence
         /// <returns>The entities in the reader.</returns>
         private List<T> LoadAll(SqlDataReader reader)
         {
-            List<T> entities = new List<T>();
+            var entities = new List<T>();
 
             if (reader.HasRows)
             {

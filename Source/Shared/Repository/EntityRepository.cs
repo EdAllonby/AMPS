@@ -15,7 +15,7 @@ namespace Shared.Repository
     public abstract class EntityRepository<T> : IEntityRepository<T> where T : Entity
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(EntityRepository<T>));
-        private RepositoryManager repositoryManager;
+        private IRepositoryManager repositoryManager;
 
         /// <summary>
         /// The persistence strategy to use.
@@ -30,7 +30,7 @@ namespace Shared.Repository
         /// <summary>
         /// The owning repository manager.
         /// </summary>
-        public RepositoryManager RepositoryManager
+        public IRepositoryManager RepositoryManager
         {
             get { return repositoryManager; }
             set

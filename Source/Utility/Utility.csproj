@@ -80,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DateTimeFormatter.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="EnumUtility.cs" />
     <Compile Include="EventUtility.cs" />
     <Compile Include="NumberFormatter.cs" />

@@ -47,7 +47,8 @@ namespace Shared.Domain
             get
             {
                 IReadOnlyEntityRepository<Participation> participationRepository = RepositoryManager.GetRepository<Participation>();
-                return participationRepository.GetAllEntities().Where(p => p.User.Equals(this)).Select(x => x.Band);
+                IEnumerable<Participation> participations = participationRepository.GetAllEntities().Where(p => p.User.Equals(this));
+                return participations.Select(x => x.Band);
             }
         }
     }

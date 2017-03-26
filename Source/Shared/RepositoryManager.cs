@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using log4net;
 using Shared.Domain;
 using Shared.Persistence;
@@ -40,11 +41,11 @@ namespace Shared
 
         public void LoadRepositories()
         {
-            foreach (IEntityRepository entityRepository in repositoriesIndexedByEnclosedEntity.Values)
+            Parallel.ForEach(repositoriesIndexedByEnclosedEntity.Values, entityRepository => //(IEntityRepository entityRepository in repositoriesIndexedByEnclosedEntity.Values)
             {
                 Log.Info($"Loading {entityRepository.EnclosedEntityType} repository with existing entities.");
                 entityRepository.Load();
-            }
+            });
         }
 
         /// <summary>

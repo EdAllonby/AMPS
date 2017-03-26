@@ -13,7 +13,7 @@ namespace Shared.Repository
         /// <summary>
         /// The owning manager.
         /// </summary>
-        RepositoryManager RepositoryManager { set; }
+        IRepositoryManager RepositoryManager { set; }
 
         /// <summary>
         /// Gets the <see cref="Entity" /> type that is held in the repository.
@@ -56,6 +56,5 @@ namespace Shared.Repository
         /// </summary>
         /// <param name="entity">The <see cref="Entity" /> to update. Uses its Id as the comparer.</param>
         void UpdateEntity(T entity);
-
     }
 }

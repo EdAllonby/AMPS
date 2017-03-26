@@ -1,4 +1,5 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using Shared.Domain;
 
@@ -33,7 +34,13 @@ namespace Shared.Repository
         /// <returns>If the insert was successful.</returns>
         public bool InsertEntity(T entity)
         {
+            if (entitiesIndexedById.ContainsKey(entity.Id))
+            {
+                throw new ArgumentException($"{entity} with Id {entity.Id} already exists. Cannot Insert Entity.");
+            }
+
             entitiesIndexedById.Add(entity.Id, entity);
+
             return true;
         }
 

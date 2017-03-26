@@ -39,6 +39,11 @@ namespace Shared.Persistence
             return rowsUpdated == 1;
         }
 
+        public override IEnumerable<User> GetAllEntities()
+        {
+            return FindMany(new FindAllUsers());
+        }
+
         protected override bool DoDelete(int entityId)
         {
             return DeleteEntity("Users", entityId);
@@ -50,14 +55,9 @@ namespace Shared.Persistence
 
             var user = new User(id, userName, new ConnectionStatus(id, ConnectionStatus.Status.Disconnected));
 
-            Log.InfoFormat("User with Id {0} retrieved from Database.", user.Id);
+            Log.DebugFormat("User with Id {0} retrieved from Database.", user.Id);
 
             return user;
-        }
-
-        public override IEnumerable<User> GetAllEntities()
-        {
-            return FindMany(new FindAllUsers());
         }
 
         protected override void DoInsert(User entity, SqlCommand insertCommand)
