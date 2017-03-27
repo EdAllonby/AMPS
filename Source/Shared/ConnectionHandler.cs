@@ -31,7 +31,6 @@ namespace Shared
         /// </summary>
         /// <param name="clientUserId">A unique value that identifies the client.</param>
         /// <param name="tcpClient">The connection between the server and the client.</param>
-        /// <param name="repositoryManager"></param>
         public ConnectionHandler(int clientUserId, TcpClient tcpClient)
         {
             this.tcpClient = tcpClient;
@@ -76,10 +75,6 @@ namespace Shared
                 {
                     messageSerialiser.Serialise(tcpClient.GetStream(), message);
                     Log.DebugFormat("Sent message with identifier {0} associated user with id {1}", message.MessageIdentifier, clientUserId);
-                }
-                else
-                {
-                    Log.WarnFormat("No TCP connection. Will not attempt to send {0} message", message.MessageIdentifier);
                 }
             }
         }

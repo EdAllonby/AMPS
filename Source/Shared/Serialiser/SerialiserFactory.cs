@@ -1,5 +1,4 @@
 ﻿using System;
-using log4net;
 using Shared.Message;
 using Shared.Serialiser.MessageSerialiser;
 
@@ -31,7 +30,7 @@ namespace Shared.Serialiser
         {
             if (identifier == MessageIdentifier.UnrecognisedMessage)
             {
-                throw new ArgumentException("Message Identifier is unrecognised.");
+                throw new UnrecognisedMessageException("Message Identifier is unrecognised.");
             }
 
             IMessageSerialiser serialiser;
@@ -43,6 +42,22 @@ namespace Shared.Serialiser
             }
 
             return serialiser;
+        }
+    }
+
+    [Serializable]
+    public class UnrecognisedMessageException : Exception
+    {
+        public UnrecognisedMessageException()
+        {
+        }
+
+        public UnrecognisedMessageException(string message) : base(message)
+        {
+        }
+
+        public UnrecognisedMessageException(string message, Exception inner) : base(message, inner)
+        {
         }
     }
 }

@@ -30,19 +30,27 @@ namespace Server
         /// <returns>A login response <see cref="IMessage" /> with the details of the login attempt.</returns>
         public LoginResponse InitialiseClient(TcpClient tcpClient, IServiceRegistry serviceRegistry)
         {
-            LoginResponse loginResponse = ClientLoginHandler.InitialiseNewClient(tcpClient, serviceRegistry);
-            var clientManager = serviceRegistry.GetService<IClientManager>();
-
-            if (loginResponse.LoginResult == LoginResult.Success)
+            try
             {
-                CreateConnectionHandler(loginResponse.User.Id, tcpClient);
+                LoginResponse loginResponse = ClientLoginHandler.InitialiseNewClient(tcpClient, serviceRegistry);
+                var clientManager = serviceRegistry.GetService<IClientManager>();
 
-                clientManager.AddClientHandler(loginResponse.User.Id, this);
+                if (loginResponse.LoginResult == LoginResult.Success)
+                {
+                    CreateConnectionHandler(loginResponse.User.Id, tcpClient);
 
-                Log.InfoFormat("Client with User Id {0} has successfully logged in.", loginResponse.User.Id);
+                    clientManager.AddClientHandler(loginResponse.User.Id, this);
+
+                    Log.InfoFormat("Client with User Id {0} has successfully logged in.", loginResponse.User.Id);
+                }
+
+                return loginResponse;
             }
-
-            return loginResponse;
+            catch (Exception)
+            {
+                Log.Warn("Login failed, unknown reason.");
+                return new LoginResponse(null, LoginResult.UnknownError);
+            }
         }
 
         /// <summary>

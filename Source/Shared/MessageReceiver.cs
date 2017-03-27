@@ -31,9 +31,9 @@ namespace Shared
         /// <param name="tcpClient">The stream between the Client and the Server.</param>
         public void ReceiveMessages(int clientUserId, [NotNull] TcpClient tcpClient)
         {
-            using (NetworkStream networkStream = tcpClient.GetStream())
+            try
             {
-                try
+                using (NetworkStream networkStream = tcpClient.GetStream())
                 {
                     while (true)
                     {
@@ -46,22 +46,24 @@ namespace Shared
                         EventUtility.SafeFireEvent(MessageReceived, this, new MessageEventArgs(message));
                     }
                 }
-                catch (IOException)
-                {
-                    Log.Info("Detected client disconnection, notifying Server of ClientDisconnection.");
-                    IMessage message = new ClientDisconnection(clientUserId);
-
-                    EventUtility.SafeFireEvent(MessageReceived, this, new MessageEventArgs(message));
-                }
-                catch (ObjectDisposedException)
-                {
-                    // TODO: Cardinal sin.
-                }
-                catch (ArgumentException)
-                {
-                    // TODO: Cardinal sin.
-                }
             }
+            catch (Exception e) when (e is UnrecognisedMessageException || e is IOException || e is InvalidOperationException)
+            {
+                LogOffClient(clientUserId);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Error recieving message from client with Id {clientUserId}.", e);
+            }
+        }
+
+        private void LogOffClient(int clientUserId)
+        {
+            // If an unrecognised message exception bubbles this far up, force the client off.
+            Log.Warn("Detected client disconnection, notifying Server of ClientDisconnection.");
+            IMessage message = new ClientDisconnection(clientUserId);
+
+            EventUtility.SafeFireEvent(MessageReceived, this, new MessageEventArgs(message));
         }
     }
 }

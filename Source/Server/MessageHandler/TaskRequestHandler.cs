@@ -22,9 +22,21 @@ namespace Server.MessageHandler
         {
             var taskRepository = (IEntityRepository<Task>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
-            EntityIdAllocatorFactory entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
+            IReadOnlyEntityRepository<Band> bandRepository = ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
 
-            Task newTask = new Task(entityIdAllocatorFactory.AllocateEntityId<Task>(), message.Task);
+            int owningBandId = message.Task.BandId;
+
+            if (bandRepository.FindEntityById(owningBandId) == null)
+            {
+                Log.WarnFormat("Not handling task request. No band found with Id {0}.", owningBandId);
+                return;
+            }
+
+            var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
+
+
+            var newTask = new Task(entityIdAllocatorFactory.AllocateEntityId<Task>(), message.Task);
+
 
             if (taskRepository.FindEntityById(newTask.Id) == null)
             {

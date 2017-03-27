@@ -85,6 +85,7 @@
     <Compile Include="MessageHandler\TaskRequestHandler.cs" />
     <Compile Include="MessageHandler\TaskSnapshotRequestHandler.cs" />
     <Compile Include="MessageHandler\TaskUpdateRequestHandler.cs" />
+    <Compile Include="MessageHandler\UnrecognisedMessageHandler.cs" />
     <Compile Include="MessageHandler\UserSnapshotRequestHandler.cs" />
     <Compile Include="EntityChangedHandler\EntityChangedHandler.cs" />
     <Compile Include="EntityChangedHandler\UserChangedHandler.cs" />

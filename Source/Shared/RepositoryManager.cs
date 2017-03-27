@@ -41,7 +41,7 @@ namespace Shared
 
         public void LoadRepositories()
         {
-            Parallel.ForEach(repositoriesIndexedByEnclosedEntity.Values, entityRepository => //(IEntityRepository entityRepository in repositoriesIndexedByEnclosedEntity.Values)
+            Parallel.ForEach(repositoriesIndexedByEnclosedEntity.Values, entityRepository =>
             {
                 Log.Info($"Loading {entityRepository.EnclosedEntityType} repository with existing entities.");
                 entityRepository.Load();

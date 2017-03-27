@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Net.Sockets;
 using JetBrains.Annotations;
 using log4net;
@@ -21,8 +22,15 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <param name="messageIdentifier">The <see cref="MessageIdentifier" /> to serialise.</param>
         public static void Serialise([NotNull] NetworkStream networkStream, MessageIdentifier messageIdentifier)
         {
-            networkStream.Write(BitConverter.GetBytes((int) messageIdentifier), 0, 4);
-            Log.DebugFormat("Sent Message Identifier: {0} to networkStream.", messageIdentifier);
+            try
+            {
+                networkStream.Write(BitConverter.GetBytes((int) messageIdentifier), 0, 4);
+                Log.DebugFormat("Sent Message Identifier: {0} to networkStream.", messageIdentifier);
+            }
+            catch (IOException)
+            {
+                Log.Debug($"Could not serialise {messageIdentifier}. Client has probably stopped its connection.");
+            }
         }
 
         /// <summary>
@@ -34,17 +42,25 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <returns>The deserialised <see cref="MessageIdentifier" />.</returns>
         public static MessageIdentifier DeserialiseMessageIdentifier([NotNull] NetworkStream networkStream)
         {
-            var messageTypeBuffer = new byte[4];
+            try
+            {
+                var messageTypeBuffer = new byte[4];
 
-            networkStream.Read(messageTypeBuffer, 0, 4);
+                networkStream.Read(messageTypeBuffer, 0, 4);
 
-            int messageIdentifierNumber = BitConverter.ToInt32(messageTypeBuffer, 0);
+                int messageIdentifierNumber = BitConverter.ToInt32(messageTypeBuffer, 0);
 
-            var messageIdentifier = (MessageIdentifier) messageIdentifierNumber;
+                var messageIdentifier = (MessageIdentifier) messageIdentifierNumber;
 
-            Log.DebugFormat("Message Identifier {0} received from networkStream.", messageIdentifier);
+                Log.DebugFormat("Message Identifier {0} received from networkStream.", messageIdentifier);
 
-            return messageIdentifier;
+                return messageIdentifier;
+            }
+            catch (IOException)
+            {
+                Log.Debug("Could not deserialise message. Client has probably stopped its connection. Passing unrecognised message identifier.");
+                return MessageIdentifier.UnrecognisedMessage;
+            }
         }
     }
 }

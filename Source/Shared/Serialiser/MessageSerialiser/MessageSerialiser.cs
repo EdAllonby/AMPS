@@ -1,4 +1,5 @@
-﻿using System.Net.Sockets;
+﻿using System.IO;
+using System.Net.Sockets;
 using log4net;
 using Shared.Message;
 
@@ -25,11 +26,18 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <param name="message">The <see cref="IMessage" /> to send.</param>
         public void Serialise(NetworkStream networkStream, IMessage message)
         {
-            MessageIdentifierSerialiser.Serialise(networkStream, message.MessageIdentifier);
+            try
+            {
+                MessageIdentifierSerialiser.Serialise(networkStream, message.MessageIdentifier);
 
-            Log.DebugFormat("Serialising {0} across the network stream.", message.MessageIdentifier);
-            Serialise(networkStream, (T) message);
-            Log.InfoFormat("Finished Serialising {0} across the network stream.", message.MessageIdentifier);
+                Log.DebugFormat("Serialising {0} across the network stream.", message.MessageIdentifier);
+                Serialise(networkStream, (T) message);
+                Log.InfoFormat("Finished Serialising {0} across the network stream.", message.MessageIdentifier);
+            }
+            catch (IOException)
+            {
+                Log.Debug($"Could not serialise {message.MessageIdentifier}. Client has stopped its connection.");
+            }
         }
 
         /// <summary>
@@ -39,9 +47,17 @@ namespace Shared.Serialiser.MessageSerialiser
         /// <returns>The <see cref="IMessage" /> that was received from the networkStream.</returns>
         public virtual IMessage Deserialise(NetworkStream networkStream)
         {
-            var requestMessage = (IMessage) serialiser.Deserialise(networkStream);
-            Log.InfoFormat("Network stream has received data and deserialised to a {0} object", requestMessage.MessageIdentifier);
-            return requestMessage;
+            try
+            {
+                var requestMessage = (IMessage) serialiser.Deserialise(networkStream);
+                Log.InfoFormat("Network stream has received data and deserialised to a {0} object", requestMessage.MessageIdentifier);
+                return requestMessage;
+            }
+            catch (IOException)
+            {
+                Log.Debug("Could not deserialise message. Client has stopped its connection. Passing Unrecognised message.");
+                return new UnrecognisedMessage();
+            }
         }
 
         /// <summary>
@@ -52,6 +68,11 @@ namespace Shared.Serialiser.MessageSerialiser
         protected virtual void Serialise(NetworkStream networkStream, T message)
         {
             serialiser.Serialise(networkStream, message);
+        }
+
+        private class UnrecognisedMessage : IMessage
+        {
+            public MessageIdentifier MessageIdentifier => MessageIdentifier.UnrecognisedMessage;
         }
     }
 }

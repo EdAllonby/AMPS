@@ -8,7 +8,7 @@ using Utility;
 namespace Client.Service.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="EntityNotification{T}" /> the Client received.
+    /// Handles a <see cref="EntityNotification{TEntity}" /> the Client received.
     /// </summary>
     internal sealed class JamNotificationHandler : MessageHandler<EntityNotification<Jam>>
     {
