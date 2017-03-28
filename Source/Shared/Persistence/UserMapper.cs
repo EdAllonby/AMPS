@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Persistence
@@ -8,38 +9,15 @@ namespace Shared.Persistence
     /// <summary>
     /// A mapper for <see cref="User" />s.
     /// </summary>
+    [UsedImplicitly]
     internal sealed class UserMapper : EntityMapper<User>
     {
         /// <summary>
         /// Columns for <see cref="User" />.
         /// </summary>
-        protected override List<string> Columns => new List<string> { "Id", "Username" };
+        protected override IEnumerable<string> Columns => new List<string> { "Id", "Username" };
 
         protected override EntityTable Table => EntityTable.Users;
-
-        public override bool UpdateEntity(User entity)
-        {
-            string updateUserQuery = $"UPDATE Users SET Id=@id,Username=@username WHERE Id = {entity.Id}";
-            int rowsUpdated;
-
-            using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(updateUserQuery, databaseConnection))
-            {
-                DoInsert(entity, command);
-
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
-
-            return rowsUpdated == 1;
-        }
-
-
-        protected override bool DoDelete(int entityId)
-        {
-            return DeleteEntity("Users", entityId);
-        }
 
         protected override User DoLoad(int id, SqlDataReader reader)
         {
@@ -52,7 +30,7 @@ namespace Shared.Persistence
             return user;
         }
 
-        protected override void DoInsert(User entity, SqlCommand insertCommand)
+        protected override void AddSpecificParameters(User entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@username", SqlDbType.VarChar).Value = entity.Username;
         }

@@ -2,39 +2,18 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Persistence
 {
+    [UsedImplicitly]
     internal class TaskCommentMapper : EntityMapper<TaskComment>
     {
-        protected override List<string> Columns => new List<string> { "Id", "TaskId", "CommenterId", "ParentCommentId", "Comment" };
+        protected override IEnumerable<string> Columns => new List<string> { "Id", "TaskId", "CommenterId", "ParentCommentId", "Comment" };
         protected override EntityTable Table => EntityTable.TaskComments;
 
-        public override bool UpdateEntity(TaskComment entity)
-        {
-            string updateTaskQuery = $"UPDATE TaskComments SET @id,@taskId,@commenterId,@parentCommentId,@comment WHERE Id = {entity.Id}";
-            int rowsUpdated;
-
-            using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(updateTaskQuery, databaseConnection))
-            {
-                DoInsert(entity, command);
-
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
-
-            return rowsUpdated == 1;
-        }
-
-        protected override bool DoDelete(int entityId)
-        {
-            return DeleteEntity("TaskComments", entityId);
-        }
-
-        protected override void DoInsert(TaskComment entity, SqlCommand insertCommand)
+        protected override void AddSpecificParameters(TaskComment entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@taskId", SqlDbType.Int).Value = entity.Task.Id;
             insertCommand.Parameters.Add("@commenterId", SqlDbType.VarChar).Value = entity.Commenter.Id;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Persistence
@@ -9,35 +10,13 @@ namespace Shared.Persistence
     /// <summary>
     /// A mapper for <see cref="Task" />s.
     /// </summary>
+    [UsedImplicitly]
     internal sealed class TaskMapper : EntityMapper<Task>
     {
         private readonly TaskCategoryMapper taskCategoryMapper = new TaskCategoryMapper();
 
-        protected override List<string> Columns => new List<string> { "Id", "BandId", "Title", "Description", "AssignedUserId", "IsCompleted", "Points", "JamId", "TaskCategoryId" };
+        protected override IEnumerable<string> Columns => new List<string> { "Id", "BandId", "Title", "Description", "AssignedUserId", "IsCompleted", "Points", "JamId", "TaskCategoryId" };
         protected override EntityTable Table => EntityTable.Tasks;
-
-        public override bool UpdateEntity(Task entity)
-        {
-            string updateTaskQuery = $"UPDATE Tasks SET Id=@id,BandId=@bandId,Title=@title,Description=@description,AssignedUserId=@assignedUserId,IsCompleted=@isCompleted,Points=@points,JamId=@jamId,TaskCategoryId=@taskCategoryId WHERE Id = {entity.Id}";
-            int rowsUpdated;
-
-            using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(updateTaskQuery, databaseConnection))
-            {
-                DoInsert(entity, command);
-
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
-
-            return rowsUpdated == 1;
-        }
-
-        protected override bool DoDelete(int entityId)
-        {
-            return DeleteEntity("Tasks", entityId);
-        }
 
         protected override Task DoLoad(int id, SqlDataReader reader)
         {
@@ -64,7 +43,7 @@ namespace Shared.Persistence
             return task;
         }
 
-        protected override void DoInsert(Task entity, SqlCommand insertCommand)
+        protected override void AddSpecificParameters(Task entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.BandId;
             insertCommand.Parameters.Add("@title", SqlDbType.VarChar).Value = entity.Title;

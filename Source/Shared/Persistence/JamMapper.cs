@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using JetBrains.Annotations;
 using Shared.Domain;
 
 namespace Shared.Persistence
@@ -9,38 +10,17 @@ namespace Shared.Persistence
     /// <summary>
     /// A mapper for <see cref="Jam" />s.
     /// </summary>
+    [UsedImplicitly]
     internal sealed class JamMapper : EntityMapper<Jam>
     {
         /// <summary>
         /// Columns for Jams.
         /// </summary>
-        protected override List<string> Columns => new List<string> { "Id", "BandId", "EndDate", "IsActive" };
+        protected override IEnumerable<string> Columns => new List<string> { "Id", "BandId", "EndDate", "IsActive" };
 
         protected override EntityTable Table => EntityTable.Jams;
-        public override bool UpdateEntity(Jam entity)
-        {
-            string updateJamQuery = $"UPDATE Jams SET Id=@id,BandId=@bandId,EndDate=@endDate,IsActive=@isActive WHERE Id = {entity.Id}";
-            int rowsUpdated;
 
-            using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(updateJamQuery, databaseConnection))
-            {
-                DoInsert(entity, command);
-
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
-
-            return rowsUpdated == 1;
-        }
-
-        protected override bool DoDelete(int entityId)
-        {
-            return DeleteEntity("Jams", entityId);
-        }
-
-        protected override void DoInsert(Jam entity, SqlCommand insertCommand)
+        protected override void AddSpecificParameters(Jam entity, SqlCommand insertCommand)
         {
             insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.Band.Id;
             insertCommand.Parameters.Add("@endDate", SqlDbType.DateTime).Value = entity.JamEndDate;

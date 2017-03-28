@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using log4net;
 using Shared.Domain;
 using Shared.Repository;
+using Utility;
 
 namespace Shared.Persistence
 {
@@ -11,6 +14,8 @@ namespace Shared.Persistence
     /// <typeparam name="T">The <see cref="Entity" /> to persist in a Database.</typeparam>
     public sealed class DatabaseEntityPersister<T> : IEntityPersister<T> where T : Entity
     {
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DatabaseEntityPersister<T>));
+
         private readonly EntityMapper<T> entityMapper;
 
         /// <summary>
@@ -39,7 +44,15 @@ namespace Shared.Persistence
         /// <returns>If the insert was successful.</returns>
         public bool InsertEntity(T entity)
         {
-            return entityMapper.InsertEntity(entity);
+            try
+            {
+                return entityMapper.InsertEntity(entity);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not insert {typeof(T)}.", e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -49,7 +62,15 @@ namespace Shared.Persistence
         /// <returns>If the update was successful.</returns>
         public bool UpdateEntity(T entity)
         {
-            return entityMapper.UpdateEntity(entity);
+            try
+            {
+                return entityMapper.UpdateEntity(entity);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not update {typeof(T)}.", e);
+                return false;
+            }
         }
 
         /// <summary>
@@ -59,7 +80,15 @@ namespace Shared.Persistence
         /// <returns>If the delete was successful.</returns>
         public bool DeleteEntity(int entityId)
         {
-            return entityMapper.DeleteEntity(entityId);
+            try
+            {
+                return entityMapper.DeleteEntity(entityId);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Could not delete {typeof(T)} with Id {entityId}.", e);
+                return false;
+            }
         }
 
         /// <summary>

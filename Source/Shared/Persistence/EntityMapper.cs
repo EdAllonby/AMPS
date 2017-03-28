@@ -33,30 +33,15 @@ namespace Shared.Persistence
         private readonly IDictionary<int, TEntity> loadedEntitiesIndexedById = new ConcurrentDictionary<int, TEntity>();
 
 
-        protected abstract List<string> Columns { get; }
+        protected abstract IEnumerable<string> Columns { get; }
 
         protected abstract EntityTable Table { get; }
 
-        protected IEnumerable<string> EntityColumns => new List<string>(Columns) { "CreatedDate", "UpdatedDate" };
+        private IEnumerable<string> EntityColumns => new List<string>(Columns) { "CreatedDate", "UpdatedDate" };
 
-        protected string CommaSeperatedEntityColumns => string.Join(", ", EntityColumns);
+        private string CommaSeperatedEntityColumns => string.Join(", ", EntityColumns);
 
-        /// <summary>
-        /// Updates an <see cref="Entity" />.
-        /// </summary>
-        /// <param name="entity">The updated <see cref="Entity" />.</param>
-        /// <returns>If the update was successful.</returns>
-        public abstract bool UpdateEntity(TEntity entity);
-
-        /// <summary>
-        /// Delete an <see cref="Entity" /> from the map.
-        /// </summary>
-        /// <param name="entityId">The <see cref="Entity" /> Id to delete.</param>
-        /// <returns>If the delete was successful.</returns>
-        public bool DeleteEntity(int entityId)
-        {
-            return DoDelete(entityId);
-        }
+        private IEnumerable<string> EntityColumnsAsParameters => EntityColumns.Select(c => $"@{c.FirstCharacterToLower()}");
 
         /// <summary>
         /// Gets an <see cref="Entity" /> from the Database by its Id.
@@ -103,9 +88,7 @@ namespace Shared.Persistence
         /// <returns>Whether the insert was successful.</returns>
         public bool InsertEntity(TEntity entity)
         {
-            IEnumerable<string> columnParameters = EntityColumns.Select(c => $"@{c.FirstCharacterToLower()}");
-
-            string insertStatement = $"INSERT INTO {Table} VALUES ({string.Join(", ", columnParameters)})";
+            string insertStatement = $"INSERT INTO {Table} VALUES ({string.Join(", ", EntityColumnsAsParameters)})";
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
             using (var insertCommand = new SqlCommand(insertStatement, databaseConnection))
@@ -114,7 +97,7 @@ namespace Shared.Persistence
 
                 AddEntityParameters(entity, insertCommand);
 
-                DoInsert(entity, insertCommand);
+                AddSpecificParameters(entity, insertCommand);
 
                 int rowsUpdated = insertCommand.ExecuteNonQuery();
 
@@ -122,6 +105,31 @@ namespace Shared.Persistence
 
                 return rowsUpdated == 1;
             }
+        }
+
+        /// <summary>
+        /// Updates an <see cref="Entity" />.
+        /// </summary>
+        /// <param name="entity">The updated <see cref="Entity" />.</param>
+        /// <returns>If the update was successful.</returns>
+        public bool UpdateEntity(TEntity entity)
+        {
+            IEnumerable<string> columnsAndParameters = EntityColumns.Zip(EntityColumnsAsParameters, (first, second) => first + "=" + second);
+            string updateStatement = $"UPDATE {Table} SET {string.Join(", ", columnsAndParameters)} WHERE Id={entity.Id}";
+
+            int rowsUpdated;
+
+            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(updateStatement, databaseConnection))
+            {
+                AddParameters(entity, command);
+
+                databaseConnection.Open();
+                rowsUpdated = command.ExecuteNonQuery();
+                databaseConnection.Close();
+            }
+
+            return rowsUpdated == 1;
         }
 
         /// <summary>
@@ -145,19 +153,11 @@ namespace Shared.Persistence
         }
 
         /// <summary>
-        /// Delete an <see cref="Entity" /> from a table.
-        /// </summary>
-        /// <param name="entityId">The <see cref="Entity" /> to delete.</param>
-        /// <returns>If the delete was successful.</returns>
-        protected abstract bool DoDelete(int entityId);
-
-        /// <summary>
         /// Deletes an <see cref="Entity" />.
         /// </summary>
-        /// <param name="tableName">The tablename to delete the entity from.</param>
         /// <param name="entityId">The <see cref="Entity" /> to delete.</param>
         /// <returns>If the delete was successful.</returns>
-        protected bool DeleteEntity(string tableName, int entityId)
+        public bool DeleteEntity(int entityId)
         {
             const string DeleteEntityQuery = "DELETE FROM @tableName WHERE Id = @id";
             int rowsUpdated;
@@ -165,7 +165,7 @@ namespace Shared.Persistence
             using (var databaseConnection = new SqlConnection(ConnectionString))
             using (var command = new SqlCommand(DeleteEntityQuery, databaseConnection))
             {
-                command.Parameters.Add("@tableName", SqlDbType.Int).Value = tableName;
+                command.Parameters.Add("@tableName", SqlDbType.Int).Value = Table;
                 command.Parameters.Add("@id", SqlDbType.Int).Value = entityId;
 
                 databaseConnection.Open();
@@ -177,11 +177,17 @@ namespace Shared.Persistence
         }
 
         /// <summary>
-        /// Prepare the insert command.
+        /// Prepare commands with parameters.
         /// </summary>
         /// <param name="entity">The <paramref name="entity" /> to insert.</param>
         /// <param name="insertCommand">The insert command.</param>
-        protected abstract void DoInsert(TEntity entity, SqlCommand insertCommand);
+        protected void AddParameters(TEntity entity, SqlCommand insertCommand)
+        {
+            AddEntityParameters(entity, insertCommand);
+            AddSpecificParameters(entity, insertCommand);
+        }
+
+        protected abstract void AddSpecificParameters(TEntity entity, SqlCommand insertCommand);
 
         /// <summary>
         /// Attempt to get an entity based on the reader and its Id.
