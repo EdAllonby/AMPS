@@ -4,6 +4,8 @@
     [CommenterId]	 INT		   NOT NULL,
     [ParentCommentId]    INT NOT NULL,
     [Comment] VARCHAR (MAX) NULL,
+	[CreatedDate]  DATETIME2 (7) NOT NULL,
+    [UpdatedDate]  DATETIME2 (7) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_TaskComments_Tasks] FOREIGN KEY ([TaskId]) REFERENCES [dbo].[Tasks] ([Id]),
     CONSTRAINT [FK_TaskComments_Users] FOREIGN KEY ([CommenterId]) REFERENCES [dbo].[Users] ([Id]),

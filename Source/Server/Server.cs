@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading;
 using log4net;
 using Server.EntityChangedHandler;
 using Server.MessageHandler;
@@ -21,7 +22,10 @@ namespace Server
     {
         private const int FallbackPortNumber = 3141;
         private static readonly ILog Log = LogManager.GetLogger(typeof(Server));
+
         private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
+
+        private readonly ManualResetEvent manualResetEvent = new ManualResetEvent(false);
         private readonly MessageHandlerRegistry messageHandlerRegistry;
         private readonly int PortNumber;
         private readonly IServiceRegistry serviceRegistry;
@@ -96,24 +100,35 @@ namespace Server
             jamRepository.UpdateEntity(jamClone);
         }
 
+
         private void ListenForNewClients()
         {
             clientListener = new TcpListener(IPAddress.Any, PortNumber);
-
             clientListener.Start();
 
             Log.Info("Server started listening for clients to connect");
 
             while (isServerRunning)
             {
-                TcpClient client = clientListener.AcceptTcpClient();
-
-                Log.Info("New client connection found. Starting login initialisation process.");
-
-                client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-
-                InitialiseNewClient(client);
+                manualResetEvent.Reset();
+                clientListener.BeginAcceptTcpClient(ListenerCallback, clientListener);
+                manualResetEvent.WaitOne();
             }
+        }
+
+        private void ListenerCallback(IAsyncResult ar)
+        {
+            manualResetEvent.Set();
+
+            var listener = ar.AsyncState as TcpListener;
+
+            TcpClient client = listener.EndAcceptTcpClient(ar);
+
+            Log.Info("New client connection found. Starting login initialisation process.");
+
+            client.Client.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
+
+            InitialiseNewClient(client);
         }
 
         private void InitialiseNewClient(TcpClient tcpClient)

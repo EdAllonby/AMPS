@@ -72,6 +72,10 @@ namespace Shared.Repository
         {
             entity.RepositoryManager = repositoryManager;
 
+            if (!entity.CreatedDate.HasValue)
+            {
+                entity.CreatedDate = DateTime.UtcNow;
+            }
 
             bool didInsert = TypedEntityPersister.InsertEntity(entity);
 
@@ -94,6 +98,8 @@ namespace Shared.Repository
         public void UpdateEntity(T entity)
         {
             entity.RepositoryManager = repositoryManager;
+
+            entity.UpdatedDate = DateTime.UtcNow;
 
             bool didUpdate = TypedEntityPersister.UpdateEntity(entity);
 

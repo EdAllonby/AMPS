@@ -13,13 +13,9 @@ namespace Shared.Persistence
         /// <summary>
         /// Columns for Band.
         /// </summary>
-        private const string Columns = " Id, Name ";
+        protected override List<string> Columns => new List<string> { "Id", "Name" };
 
-        protected override string FindStatement => "SELECT " + Columns +
-                                                   " FROM Bands" +
-                                                   " WHERE Id = @id ";
-
-        protected override string InsertStatement => "INSERT INTO Bands VALUES (@id,@name)";
+        protected override EntityTable Table => EntityTable.Bands;
 
         public override bool UpdateEntity(Band entity)
         {
@@ -39,11 +35,6 @@ namespace Shared.Persistence
             return rowsUpdated == 1;
         }
 
-        public override IEnumerable<Band> GetAllEntities()
-        {
-            return FindMany(new FindAllBands());
-        }
-
         protected override bool DoDelete(int entityId)
         {
             return DeleteEntity("Bands", entityId);
@@ -61,16 +52,7 @@ namespace Shared.Persistence
 
         protected override void DoInsert(Band entity, SqlCommand insertCommand)
         {
-            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@name", SqlDbType.NChar).Value = entity.Name;
-        }
-
-        private class FindAllBands : IStatementSource
-        {
-            public string Sql => "SELECT " + Columns +
-                                 " FROM Bands";
-
-            public IList<string> Parameters => new List<string>();
         }
     }
 }

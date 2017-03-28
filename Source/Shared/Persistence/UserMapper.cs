@@ -13,17 +13,13 @@ namespace Shared.Persistence
         /// <summary>
         /// Columns for <see cref="User" />.
         /// </summary>
-        private const string Columns = " Id, Username ";
+        protected override List<string> Columns => new List<string> { "Id", "Username" };
 
-        protected override string FindStatement => "SELECT " + Columns +
-                                                   " FROM Users" +
-                                                   " WHERE Id = @id ";
-
-        protected override string InsertStatement => "INSERT INTO Users VALUES (@id,@username)";
+        protected override EntityTable Table => EntityTable.Users;
 
         public override bool UpdateEntity(User entity)
         {
-            string updateUserQuery = $"UPDATE Participations SET Id=@id,Username=@username WHERE Id = {entity.Id}";
+            string updateUserQuery = $"UPDATE Users SET Id=@id,Username=@username WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -39,10 +35,6 @@ namespace Shared.Persistence
             return rowsUpdated == 1;
         }
 
-        public override IEnumerable<User> GetAllEntities()
-        {
-            return FindMany(new FindAllUsers());
-        }
 
         protected override bool DoDelete(int entityId)
         {
@@ -62,16 +54,7 @@ namespace Shared.Persistence
 
         protected override void DoInsert(User entity, SqlCommand insertCommand)
         {
-            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@username", SqlDbType.VarChar).Value = entity.Username;
-        }
-
-        private class FindAllUsers : IStatementSource
-        {
-            public string Sql => "SELECT " + Columns +
-                                 " FROM Users ";
-
-            public IList<string> Parameters => new List<string>();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System;
+using System.Data;
 
 namespace Shared.Persistence
 {
@@ -16,6 +17,17 @@ namespace Shared.Persistence
         public static int? GetNullableInt(this IDataRecord reader, int colIndex)
         {
             return !reader.IsDBNull(colIndex) ? reader.GetInt32(colIndex) : new int?();
+        }
+
+        /// <summary>
+        /// Safely gets a possible nullable <see langword="int" />.
+        /// </summary>
+        /// <param name="reader">The data reader.</param>
+        /// <param name="colIndex">Return nullable int with potential column value.</param>
+        /// <returns></returns>
+        public static DateTime? GetNullableDateTime(this IDataRecord reader, int colIndex)
+        {
+            return !reader.IsDBNull(colIndex) ? reader.GetDateTime(colIndex) : new DateTime?();
         }
     }
 }

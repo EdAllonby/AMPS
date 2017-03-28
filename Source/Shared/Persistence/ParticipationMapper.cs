@@ -13,13 +13,9 @@ namespace Shared.Persistence
         /// <summary>
         /// Columns for Participation.
         /// </summary>
-        private const string Columns = " Id, UserId, BandId, IsLeader ";
+        protected override List<string> Columns => new List<string> { "Id", "UserId", "BandId", "IsLeader" };
 
-        protected override string FindStatement => "SELECT " + Columns +
-                                                   " FROM Participations" +
-                                                   " WHERE Id = @id ";
-
-        protected override string InsertStatement => "INSERT INTO Participations VALUES (@id,@userId,@bandId,@isLeader)";
+        protected override EntityTable Table => EntityTable.Participations;
 
         public override bool UpdateEntity(Participation entity)
         {
@@ -37,11 +33,6 @@ namespace Shared.Persistence
             }
 
             return rowsUpdated == 1;
-        }
-
-        public override IEnumerable<Participation> GetAllEntities()
-        {
-            return FindMany(new FindAllParticipations());
         }
 
         protected override bool DoDelete(int entityId)
@@ -64,18 +55,9 @@ namespace Shared.Persistence
 
         protected override void DoInsert(Participation entity, SqlCommand insertCommand)
         {
-            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@userId", SqlDbType.Int).Value = entity.User.Id;
             insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.BandId;
             insertCommand.Parameters.Add("@isLeader", SqlDbType.Bit).Value = entity.IsLeader;
-        }
-
-        private class FindAllParticipations : IStatementSource
-        {
-            public string Sql => "SELECT " + Columns +
-                                 " FROM Participations";
-
-            public IList<string> Parameters => new List<string>();
         }
     }
 }

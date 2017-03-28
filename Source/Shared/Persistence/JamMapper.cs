@@ -14,21 +14,16 @@ namespace Shared.Persistence
         /// <summary>
         /// Columns for Jams.
         /// </summary>
-        private const string Columns = " Id, BandId, EndDate, IsActive ";
+        protected override List<string> Columns => new List<string> { "Id", "BandId", "EndDate", "IsActive" };
 
-        protected override string FindStatement => "SELECT " + Columns +
-                                                   " FROM Tasks" +
-                                                   " WHERE Id = @id ";
-
-        protected override string InsertStatement => "INSERT INTO Jams VALUES (@id,@bandId,@endDate,@isActive)";
-
+        protected override EntityTable Table => EntityTable.Jams;
         public override bool UpdateEntity(Jam entity)
         {
             string updateJamQuery = $"UPDATE Jams SET Id=@id,BandId=@bandId,EndDate=@endDate,IsActive=@isActive WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (SqlCommand command = new SqlCommand(updateJamQuery, databaseConnection))
+            using (var command = new SqlCommand(updateJamQuery, databaseConnection))
             {
                 DoInsert(entity, command);
 
@@ -45,14 +40,8 @@ namespace Shared.Persistence
             return DeleteEntity("Jams", entityId);
         }
 
-        public override IEnumerable<Jam> GetAllEntities()
-        {
-            return FindMany(new FindAllJams());
-        }
-
         protected override void DoInsert(Jam entity, SqlCommand insertCommand)
         {
-            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.Band.Id;
             insertCommand.Parameters.Add("@endDate", SqlDbType.DateTime).Value = entity.JamEndDate;
             insertCommand.Parameters.Add("@isActive", SqlDbType.Bit).Value = entity.IsActive;
@@ -64,19 +53,11 @@ namespace Shared.Persistence
             DateTime jamEndDate = dataRecord.GetDateTime(dataRecord.GetOrdinal("EndDate"));
             bool isActive = dataRecord.GetBoolean(dataRecord.GetOrdinal("IsActive"));
 
-            var jam = new Jam(id, bandId, jamEndDate) {IsActive = isActive};
+            var jam = new Jam(id, bandId, jamEndDate) { IsActive = isActive };
 
             Log.DebugFormat("Jam with Id {0} retrieved from Database.", jam.Id);
 
             return jam;
-        }
-
-        private class FindAllJams : IStatementSource
-        {
-            public string Sql => "SELECT " + Columns +
-                                 " FROM Jams ";
-
-            public IList<string> Parameters => new List<string>();
         }
     }
 }

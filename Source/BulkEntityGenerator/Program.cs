@@ -13,9 +13,9 @@ namespace BulkEntityGenerator
 
         private static void Main()
         {
-            LoginUser(1);
+            // LoginUser(1);
 
-            // LoginUsers(50);
+            LoginUsers(5000);
 
             Log.Debug("Start");
 
@@ -32,7 +32,7 @@ namespace BulkEntityGenerator
             var generator = new Generator($"generatedUser{i}");
             generator.LoginUser();
 
-            generator.BootstrapCompleted += (s, e) => Parallel.For(0, 10000, j => { generator.CreateTask(); });
+            // generator.BootstrapCompleted += (s, e) => Parallel.For(0, 10000, j => { generator.CreateTask(); });
         }
     }
 }

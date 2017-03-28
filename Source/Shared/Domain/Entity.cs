@@ -17,6 +17,8 @@ namespace Shared.Domain
         /// </summary>
         protected static readonly ILog Log = LogManager.GetLogger(typeof(Entity));
 
+        private DateTime createdDate;
+
         [NonSerialized] private IRepositoryManager repositoryManager;
 
         /// <summary>
@@ -52,6 +54,11 @@ namespace Shared.Domain
             get { return repositoryManager; }
             set { repositoryManager = value; }
         }
+
+        public DateTime? CreatedDate { get; set; }
+
+        public DateTime? UpdatedDate { get; set; }
+
 
         /// <summary>
         /// Check for <see cref="Entity" /> equality.

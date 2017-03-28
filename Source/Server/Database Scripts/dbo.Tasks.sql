@@ -8,6 +8,8 @@
     [Points]         INT           NOT NULL,
     [JamId]          INT           NULL,
     [TaskCategoryId] INT           NOT NULL,
+	[CreatedDate]  DATETIME2 (7) NOT NULL,
+    [UpdatedDate]  DATETIME2 (7) NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_Tasks_Bands] FOREIGN KEY ([BandId]) REFERENCES [dbo].[Bands] ([Id]),
     CONSTRAINT [FK_Tasks_Users] FOREIGN KEY ([AssignedUserId]) REFERENCES [dbo].[Users] ([Id]),

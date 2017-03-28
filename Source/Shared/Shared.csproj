@@ -128,7 +128,6 @@
     <Compile Include="Persistence\BandMapper.cs" />
     <Compile Include="Persistence\DatabaseEntityPersister.cs" />
     <Compile Include="Persistence\EntityMapper.cs" />
-    <Compile Include="Persistence\IStatementSource.cs" />
     <Compile Include="Persistence\JamMapper.cs" />
     <Compile Include="Persistence\ParticipationMapper.cs" />
     <Compile Include="Persistence\SqlExtensions.cs" />

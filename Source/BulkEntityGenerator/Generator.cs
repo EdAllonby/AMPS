@@ -13,7 +13,7 @@ namespace BulkEntityGenerator
     internal class Generator
     {
         private static readonly IPAddress IpAddress = IPAddress.Parse("127.0.0.1");
-        private readonly IRepositoryManager repositoryManager = new RepositoryManager(PersistenceStrategy.InMemory);
+        private readonly IRepositoryManager repositoryManager = new EmptyRepositoryManager(); //new RepositoryManager(PersistenceStrategy.InMemory);
         private readonly IServiceRegistry serviceRegistry = new ServiceRegistry();
         private readonly string username;
         private ClientService clientService;

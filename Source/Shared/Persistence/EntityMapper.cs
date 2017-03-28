@@ -1,23 +1,26 @@
-﻿using System.Collections.Concurrent;
+﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 using log4net;
 using Shared.Domain;
+using Utility;
 
 namespace Shared.Persistence
 {
     /// <summary>
     /// Moves data between entities and a database table.
     /// </summary>
-    /// <typeparam name="T">The <see cref="Entity" /> that is mapped.</typeparam>
-    public abstract class EntityMapper<T> where T : Entity
+    /// <typeparam name="TEntity">The <see cref="Entity" /> that is mapped.</typeparam>
+    public abstract class EntityMapper<TEntity> where TEntity : Entity
     {
         /// <summary>
         /// Logging for the mapper.
         /// </summary>
-        protected static readonly ILog Log = LogManager.GetLogger(typeof(EntityMapper<T>));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(EntityMapper<TEntity>));
 
         /// <summary>
         /// The database connection string.
@@ -27,24 +30,23 @@ namespace Shared.Persistence
         /// <summary>
         /// Loaded entities to reduce database calls.
         /// </summary>
-        private readonly IDictionary<int, T> loadedEntitiesIndexedById = new ConcurrentDictionary<int, T>();
+        private readonly IDictionary<int, TEntity> loadedEntitiesIndexedById = new ConcurrentDictionary<int, TEntity>();
 
-        /// <summary>
-        /// The <see cref="Entity" /> find statement.
-        /// </summary>
-        protected abstract string FindStatement { get; }
 
-        /// <summary>
-        /// The <see cref="Entity" /> insert statement
-        /// </summary>
-        protected abstract string InsertStatement { get; }
+        protected abstract List<string> Columns { get; }
+
+        protected abstract EntityTable Table { get; }
+
+        protected IEnumerable<string> EntityColumns => new List<string>(Columns) { "CreatedDate", "UpdatedDate" };
+
+        protected string CommaSeperatedEntityColumns => string.Join(", ", EntityColumns);
 
         /// <summary>
         /// Updates an <see cref="Entity" />.
         /// </summary>
         /// <param name="entity">The updated <see cref="Entity" />.</param>
         /// <returns>If the update was successful.</returns>
-        public abstract bool UpdateEntity(T entity);
+        public abstract bool UpdateEntity(TEntity entity);
 
         /// <summary>
         /// Delete an <see cref="Entity" /> from the map.
@@ -57,27 +59,23 @@ namespace Shared.Persistence
         }
 
         /// <summary>
-        /// Get all <see cref="Entity" /> objects from the data map.
-        /// </summary>
-        /// <returns></returns>
-        public abstract IEnumerable<T> GetAllEntities();
-
-        /// <summary>
         /// Gets an <see cref="Entity" /> from the Database by its Id.
         /// </summary>
         /// <param name="id">The Id of the <see cref="Entity" /> to get.</param>
         /// <returns>The <see cref="Entity" /> from the Database.</returns>
-        public T GetEntityById(int id)
+        public TEntity GetEntityById(int id)
         {
-            T entity;
+            TEntity entity;
 
             if (loadedEntitiesIndexedById.TryGetValue(id, out entity))
             {
                 return entity;
             }
 
+            string findStatement = $"SELECT {string.Join(", ", EntityColumns)} FROM {Table} where Id = @id";
+
             using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(FindStatement, databaseConnection))
+            using (var command = new SqlCommand(findStatement, databaseConnection))
             {
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
 
@@ -103,12 +101,18 @@ namespace Shared.Persistence
         /// </summary>
         /// <param name="entity">The <see cref="Entity" /> to insert.</param>
         /// <returns>Whether the insert was successful.</returns>
-        public bool InsertEntity(T entity)
+        public bool InsertEntity(TEntity entity)
         {
+            IEnumerable<string> columnParameters = EntityColumns.Select(c => $"@{c.FirstCharacterToLower()}");
+
+            string insertStatement = $"INSERT INTO {Table} VALUES ({string.Join(", ", columnParameters)})";
+
             using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var insertCommand = new SqlCommand(InsertStatement, databaseConnection))
+            using (var insertCommand = new SqlCommand(insertStatement, databaseConnection))
             {
                 databaseConnection.Open();
+
+                AddEntityParameters(entity, insertCommand);
 
                 DoInsert(entity, insertCommand);
 
@@ -117,6 +121,26 @@ namespace Shared.Persistence
                 loadedEntitiesIndexedById.Add(entity.Id, entity);
 
                 return rowsUpdated == 1;
+            }
+        }
+
+        /// <summary>
+        /// Get all <see cref="Entity" /> objects from the data map.
+        /// </summary>
+        /// <returns></returns>
+        public List<TEntity> GetAllEntities()
+        {
+            string selectAllStatement = $"Select {CommaSeperatedEntityColumns} from {Table}";
+
+            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var command = new SqlCommand(selectAllStatement, databaseConnection))
+            {
+                databaseConnection.Open();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    return LoadAll(reader);
+                }
             }
         }
 
@@ -157,7 +181,7 @@ namespace Shared.Persistence
         /// </summary>
         /// <param name="entity">The <paramref name="entity" /> to insert.</param>
         /// <param name="insertCommand">The insert command.</param>
-        protected abstract void DoInsert(T entity, SqlCommand insertCommand);
+        protected abstract void DoInsert(TEntity entity, SqlCommand insertCommand);
 
         /// <summary>
         /// Attempt to get an entity based on the reader and its Id.
@@ -165,18 +189,18 @@ namespace Shared.Persistence
         /// <param name="id">The entity's Id.</param>
         /// <param name="reader">The reader containing the entity.</param>
         /// <returns></returns>
-        protected abstract T DoLoad(int id, SqlDataReader reader);
+        protected abstract TEntity DoLoad(int id, SqlDataReader reader);
 
         /// <summary>
         /// Creates an entity based on the reader.
         /// </summary>
         /// <param name="reader">The database reader.</param>
         /// <returns>The entity based on the reader results.</returns>
-        private T Load(SqlDataReader reader)
+        private TEntity Load(SqlDataReader reader)
         {
             int entityId = reader.GetInt32(0);
 
-            T entity;
+            TEntity entity;
 
             if (loadedEntitiesIndexedById.TryGetValue(entityId, out entity))
             {
@@ -185,33 +209,12 @@ namespace Shared.Persistence
 
             entity = DoLoad(entityId, reader);
 
+            entity.CreatedDate = reader.GetDateTime(reader.GetOrdinal("CreatedDate"));
+            entity.UpdatedDate = reader.GetNullableDateTime(reader.GetOrdinal("UpdatedDate"));
+
             loadedEntitiesIndexedById.Add(entityId, entity);
 
             return entity;
-        }
-
-        /// <summary>
-        /// Find many <see cref="Entity" /> objects based on a search query specified in <see cref="IStatementSource" />.
-        /// </summary>
-        /// <param name="source">The search query.</param>
-        /// <returns>A list of <see cref="Entity" /> objects that match the search query.</returns>
-        protected List<T> FindMany(IStatementSource source)
-        {
-            using (var databaseConnection = new SqlConnection(ConnectionString))
-            using (var command = new SqlCommand(source.Sql, databaseConnection))
-            {
-                for (var i = 0; i < source.Parameters.Count; i++)
-                {
-                    command.Parameters.Insert(i + 1, source.Parameters[i]);
-                }
-
-                databaseConnection.Open();
-
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    return LoadAll(reader);
-                }
-            }
         }
 
         /// <summary>
@@ -219,9 +222,9 @@ namespace Shared.Persistence
         /// </summary>
         /// <param name="reader">The reader containing potential entities.</param>
         /// <returns>The entities in the reader.</returns>
-        private List<T> LoadAll(SqlDataReader reader)
+        private List<TEntity> LoadAll(SqlDataReader reader)
         {
-            var entities = new List<T>();
+            var entities = new List<TEntity>();
 
             if (reader.HasRows)
             {
@@ -232,6 +235,13 @@ namespace Shared.Persistence
             }
 
             return entities;
+        }
+
+        private static void AddEntityParameters(TEntity entity, SqlCommand insertCommand)
+        {
+            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
+            insertCommand.Parameters.Add("@createdDate", SqlDbType.DateTime2).Value = entity.CreatedDate;
+            insertCommand.Parameters.Add("@updatedDate", SqlDbType.DateTime2).Value = entity.UpdatedDate.HasValue ? (object) entity.UpdatedDate : DBNull.Value;
         }
     }
 }

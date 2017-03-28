@@ -6,18 +6,14 @@ using Shared.Domain;
 
 namespace Shared.Persistence
 {
-    class TaskCommentMapper : EntityMapper<TaskComment>
+    internal class TaskCommentMapper : EntityMapper<TaskComment>
     {
-        private const string Columns = " Id, TaskId, CommenterId, ParentCommentId, Comment ";
-
-        protected override string FindStatement => "SELECT " + Columns +
-                                                   " FROM TaskComments" +
-                                                   " WHERE Id = @id ";
-        protected override string InsertStatement => "INSERT INTO TaskComments VALUES (@id,@taskId,@commenterId,@parentCommentId,@comment)";
+        protected override List<string> Columns => new List<string> { "Id", "TaskId", "CommenterId", "ParentCommentId", "Comment" };
+        protected override EntityTable Table => EntityTable.TaskComments;
 
         public override bool UpdateEntity(TaskComment entity)
         {
-            var updateTaskQuery = $"UPDATE TaskComments SET @id,@taskId,@commenterId,@parentCommentId,@comment WHERE Id = {entity.Id}";
+            string updateTaskQuery = $"UPDATE TaskComments SET @id,@taskId,@commenterId,@parentCommentId,@comment WHERE Id = {entity.Id}";
             int rowsUpdated;
 
             using (var databaseConnection = new SqlConnection(ConnectionString))
@@ -33,11 +29,6 @@ namespace Shared.Persistence
             return rowsUpdated == 1;
         }
 
-        public override IEnumerable<TaskComment> GetAllEntities()
-        {
-            return FindMany(new FindAllTaskComments());
-        }
-
         protected override bool DoDelete(int entityId)
         {
             return DeleteEntity("TaskComments", entityId);
@@ -45,10 +36,9 @@ namespace Shared.Persistence
 
         protected override void DoInsert(TaskComment entity, SqlCommand insertCommand)
         {
-            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@taskId", SqlDbType.Int).Value = entity.Task.Id;
             insertCommand.Parameters.Add("@commenterId", SqlDbType.VarChar).Value = entity.Commenter.Id;
-            insertCommand.Parameters.Add("@parentCommentId", SqlDbType.VarChar).Value = entity.ParentComment!=null? (object)entity.ParentComment.Id : DBNull.Value;
+            insertCommand.Parameters.Add("@parentCommentId", SqlDbType.VarChar).Value = entity.ParentComment != null ? (object) entity.ParentComment.Id : DBNull.Value;
             insertCommand.Parameters.Add("@comment", SqlDbType.Int).Value = entity.Comment;
         }
 
@@ -67,19 +57,11 @@ namespace Shared.Persistence
 
             string comment = reader.GetString(reader.GetOrdinal("Comment"));
 
-            TaskComment taskComment = new TaskComment(id, new TaskComment(comment, taskId, commenterId, parentComment), DateTime.Now);
+            var taskComment = new TaskComment(id, new TaskComment(comment, taskId, commenterId, parentComment), DateTime.Now);
 
             Log.DebugFormat("TaskComment with Id {0} retrieved from Database.", taskComment.Id);
 
             return taskComment;
-        }
-        
-        private class FindAllTaskComments : IStatementSource
-        {
-            public string Sql => "SELECT " + Columns +
-                                 " FROM TaskComments";
-
-            public IList<string> Parameters => new List<string>();
         }
     }
 }

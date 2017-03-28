@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using Shared.Domain;
 
 namespace Shared.Persistence
@@ -12,17 +11,10 @@ namespace Shared.Persistence
     /// </summary>
     internal sealed class TaskMapper : EntityMapper<Task>
     {
-        private const string Columns = " Id, BandId, Title, Description, AssignedUserId, IsCompleted, Points, JamId, TaskCategoryId ";
-
         private readonly TaskCategoryMapper taskCategoryMapper = new TaskCategoryMapper();
 
-        private readonly EntityMapper<TaskComment> taskCommentMapper = new TaskCommentMapper();
-
-        protected override string FindStatement => "SELECT " + Columns +
-                                                   " FROM Tasks" +
-                                                   " WHERE Id = @id ";
-
-        protected override string InsertStatement => "INSERT INTO Tasks VALUES (@id,@bandId,@title,@description,@assignedUserId,@isCompleted,@points,@jamId,@taskCategoryId)";
+        protected override List<string> Columns => new List<string> { "Id", "BandId", "Title", "Description", "AssignedUserId", "IsCompleted", "Points", "JamId", "TaskCategoryId" };
+        protected override EntityTable Table => EntityTable.Tasks;
 
         public override bool UpdateEntity(Task entity)
         {
@@ -40,25 +32,6 @@ namespace Shared.Persistence
             }
 
             return rowsUpdated == 1;
-        }
-
-        public override IEnumerable<Task> GetAllEntities()
-        {
-            List<Task> allTasks = FindMany(new FindAllTasks());
-
-            List<TaskComment> allComments = taskCommentMapper.GetAllEntities().ToList();
-
-            foreach (Task task in allTasks)
-            {
-                IEnumerable<TaskComment> taskComments = allComments.Where(comment => comment.Task.Id.Equals(task.Id));
-
-                foreach (TaskComment taskComment in taskComments)
-                {
-                    task.AddCommentToRelevantParent(taskComment);
-                }
-            }
-
-            return allTasks;
         }
 
         protected override bool DoDelete(int entityId)
@@ -93,7 +66,6 @@ namespace Shared.Persistence
 
         protected override void DoInsert(Task entity, SqlCommand insertCommand)
         {
-            insertCommand.Parameters.Add("@id", SqlDbType.Int).Value = entity.Id;
             insertCommand.Parameters.Add("@bandId", SqlDbType.Int).Value = entity.BandId;
             insertCommand.Parameters.Add("@title", SqlDbType.VarChar).Value = entity.Title;
             insertCommand.Parameters.Add("@description", SqlDbType.VarChar).Value = entity.Description;
@@ -114,14 +86,6 @@ namespace Shared.Persistence
             }
 
             return columnValue;
-        }
-
-        private class FindAllTasks : IStatementSource
-        {
-            public string Sql => "SELECT " + Columns +
-                                 " FROM Tasks";
-
-            public IList<string> Parameters => new List<string>();
         }
     }
 }

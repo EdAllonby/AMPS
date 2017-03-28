@@ -1,3 +1,4 @@
+using System;
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
@@ -19,11 +20,11 @@ namespace Server
         /// <returns>Whether the operation was successful.</returns>
         public bool StorePasswordHash(int userId, string generatedPasswordHash)
         {
-            const string InsertPasswordHashQuery = "INSERT INTO UserLogins (UserId,PasswordHash) VALUES (@userId,@passwordHash)";
+            const string InsertPasswordHashQuery = "INSERT INTO UserLogins (UserId,PasswordHash, CreatedDate) VALUES (@userId,@passwordHash,@createdDate)";
 
             int rowsUpdated;
 
-            using (SqlConnection databaseConnection = new SqlConnection(connectionString))
+            using (var databaseConnection = new SqlConnection(connectionString))
             using (SqlCommand command = CreatePasswordCommand(InsertPasswordHashQuery, userId, generatedPasswordHash, databaseConnection))
             {
                 databaseConnection.Open();
@@ -45,8 +46,8 @@ namespace Server
 
             string getUserQuery = $"SELECT PasswordHash FROM UserLogins where UserId = {userId}";
 
-            using (SqlConnection databaseConnection = new SqlConnection(connectionString))
-            using (SqlCommand getUserCommand = new SqlCommand(getUserQuery, databaseConnection))
+            using (var databaseConnection = new SqlConnection(connectionString))
+            using (var getUserCommand = new SqlCommand(getUserQuery, databaseConnection))
             {
                 databaseConnection.Open();
 
@@ -68,10 +69,11 @@ namespace Server
 
         private static SqlCommand CreatePasswordCommand(string query, int userId, string generatedPasswordHash, SqlConnection databaseConnection)
         {
-            SqlCommand command = new SqlCommand(query, databaseConnection);
+            var command = new SqlCommand(query, databaseConnection);
 
             command.Parameters.Add("@userId", SqlDbType.Int).Value = userId;
             command.Parameters.Add("@passwordHash", SqlDbType.VarChar).Value = generatedPasswordHash;
+            command.Parameters.Add("@createdDate", SqlDbType.DateTime2).Value = DateTime.UtcNow;
 
             return command;
         }

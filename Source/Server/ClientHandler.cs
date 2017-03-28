@@ -46,9 +46,9 @@ namespace Server
 
                 return loginResponse;
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Log.Warn("Login failed, unknown reason.");
+                Log.Warn("Login failed, unknown reason.", e);
                 return new LoginResponse(null, LoginResult.UnknownError);
             }
         }
