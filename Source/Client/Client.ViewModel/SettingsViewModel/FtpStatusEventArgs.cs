@@ -20,6 +20,6 @@ namespace Client.ViewModel.SettingsViewModel
         /// <summary>
         /// The <see cref="FtpStatusCode" /> error.
         /// </summary>
-        public FtpStatusCode StatusCode { get; private set; }
+        public FtpStatusCode StatusCode { get; }
     }
 }

@@ -22,11 +22,11 @@ namespace Client.ViewModel.LoginViewModel
         /// <summary>
         /// The description of the login error.
         /// </summary>
-        public string ErrorDescription { get; private set; }
+        public string ErrorDescription { get; }
 
         /// <summary>
         /// The <see cref="LoginResult" /> supplied by the server.
         /// </summary>
-        public LoginResult Result { get; private set; }
+        public LoginResult Result { get; }
     }
 }

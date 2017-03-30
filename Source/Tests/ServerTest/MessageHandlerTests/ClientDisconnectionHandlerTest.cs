@@ -42,7 +42,7 @@ namespace ServerTest.MessageHandlerTests
             [Test]
             public void RepositoryUpdatesUser()
             {
-                bool isUserUpdated = false;
+                var isUserUpdated = false;
                 ServiceRegistry.GetService<IRepositoryManager>().GetRepository<User>().EntityUpdated += (sender, eventArgs) => isUserUpdated = true;
                 HandleMessage(clientDisconnection);
                 Assert.IsTrue(isUserUpdated);

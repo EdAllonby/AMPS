@@ -17,9 +17,9 @@ namespace Shared.Persistence
         /// <returns>The <see cref="TaskCategory" />.</returns>
         public TaskCategory GetCategory(int categoryId)
         {
-            TaskCategory taskCategory = TaskCategory.Other;
+            var taskCategory = TaskCategory.Other;
 
-            var getTaskCategoryQuery = $"SELECT Category FROM TaskCategories where Id = {categoryId}";
+            string getTaskCategoryQuery = $"SELECT Category FROM TaskCategories where Id = {categoryId}";
 
             using (var databaseConnection = new SqlConnection(connectionString))
             using (var getTaskCommand = new SqlCommand(getTaskCategoryQuery, databaseConnection))
@@ -45,7 +45,7 @@ namespace Shared.Persistence
         {
             const string GetTaskCategoryIdQuery = "SELECT Id FROM TaskCategories where Category = @taskCategory";
 
-            int categoryId = 0;
+            var categoryId = 0;
 
             using (var databaseConnection = new SqlConnection(connectionString))
             using (var getTaskCategoryIdCommand = new SqlCommand(GetTaskCategoryIdQuery, databaseConnection))

@@ -7,7 +7,7 @@ namespace Client.View
     /// <summary>
     /// Helper to merge styles together.
     /// </summary>
-    [MarkupExtensionReturnType(typeof (Style))]
+    [MarkupExtensionReturnType(typeof(Style))]
     public class MultiStyleExtension : MarkupExtension
     {
         private readonly string[] resourceKeys;
@@ -26,7 +26,7 @@ namespace Client.View
                 throw new ArgumentNullException(nameof(inputResourceKeys));
             }
 
-            resourceKeys = inputResourceKeys.Split(new[] {' '}, StringSplitOptions.RemoveEmptyEntries);
+            resourceKeys = inputResourceKeys.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
             if (resourceKeys.Length == 0)
             {
@@ -41,7 +41,7 @@ namespace Client.View
         /// <returns>A style that merges all styles with the keys specified in the constructor.</returns>
         public override object ProvideValue(IServiceProvider serviceProvider)
         {
-            Style resultStyle = new Style();
+            var resultStyle = new Style();
 
             foreach (string currentResourceKey in resourceKeys)
             {
@@ -49,11 +49,11 @@ namespace Client.View
 
                 if (currentResourceKey == ".")
                 {
-                    IProvideValueTarget service = (IProvideValueTarget) serviceProvider.GetService(typeof (IProvideValueTarget));
+                    var service = (IProvideValueTarget) serviceProvider.GetService(typeof(IProvideValueTarget));
                     key = service.TargetObject.GetType();
                 }
 
-                Style currentStyle = new StaticResourceExtension(key).ProvideValue(serviceProvider) as Style;
+                var currentStyle = new StaticResourceExtension(key).ProvideValue(serviceProvider) as Style;
 
                 if (currentStyle == null)
                 {

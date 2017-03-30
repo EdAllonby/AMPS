@@ -75,7 +75,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         private async void DownloadTaskFromServer()
         {
-            IFtpManager ftpManager = ServiceRegistry.GetService<IFtpManager>();
+            var ftpManager = ServiceRegistry.GetService<IFtpManager>();
 
             ftpManager.DownloadedDataUpdate += OnDownloadedDataUpdate;
 

@@ -15,7 +15,7 @@ namespace Client.View.UI
 
             DataContext = new SettingsViewModel(serviceRegistry);
 
-            SettingsViewModel viewModel = (SettingsViewModel) DataContext;
+            var viewModel = (SettingsViewModel) DataContext;
 
             viewModel.Close += CloseRequested;
         }

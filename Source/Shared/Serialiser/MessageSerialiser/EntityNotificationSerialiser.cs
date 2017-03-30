@@ -11,17 +11,6 @@ namespace Shared.Serialiser.MessageSerialiser
         private readonly NotificationTypeSerialiser notificationTypeSerialiser = new NotificationTypeSerialiser();
 
         /// <summary>
-        /// Serialise a <see cref="EntityNotification{T}" /> down the wire.
-        /// </summary>
-        /// <param name="networkStream">The networkStream that connects the Client and Server.</param>
-        /// <param name="message">The <see cref="EntityNotification{T}" /> to serialise.</param>
-        protected override void Serialise(NetworkStream networkStream, EntityNotification<T> message)
-        {
-            notificationTypeSerialiser.Serialise(networkStream, message.NotificationType);
-            entitySerialiser.Serialise(networkStream, message.Entity);
-        }
-
-        /// <summary>
         /// Deserialises a <see cref="EntityNotification{T}" /> from the <see cref="NetworkStream" />.
         /// </summary>
         /// <param name="networkStream">
@@ -39,6 +28,17 @@ namespace Shared.Serialiser.MessageSerialiser
             Log.InfoFormat("{0} message deserialised", entityNotification.MessageIdentifier);
 
             return entityNotification;
+        }
+
+        /// <summary>
+        /// Serialise a <see cref="EntityNotification{T}" /> down the wire.
+        /// </summary>
+        /// <param name="networkStream">The networkStream that connects the Client and Server.</param>
+        /// <param name="message">The <see cref="EntityNotification{T}" /> to serialise.</param>
+        protected override void Serialise(NetworkStream networkStream, EntityNotification<T> message)
+        {
+            notificationTypeSerialiser.Serialise(networkStream, message.NotificationType);
+            entitySerialiser.Serialise(networkStream, message.Entity);
         }
     }
 }

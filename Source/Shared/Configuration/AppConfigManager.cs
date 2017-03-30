@@ -6,7 +6,7 @@ namespace Shared.Configuration
 {
     public class AppConfigManager : IService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (AppConfigManager));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(AppConfigManager));
 
         private readonly IConfiguration configuration;
 

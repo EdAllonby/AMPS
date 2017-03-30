@@ -25,7 +25,7 @@ namespace Client.ViewModel.SettingsViewModel
             taskRepository.EntityAdded += JamUpdated;
             taskRepository.EntityUpdated += JamUpdated;
 
-            PlotModel = new PlotModel {Title = "Jam Burndown"};
+            PlotModel = new PlotModel { Title = "Jam Burndown" };
 
             UpdateModel();
         }
@@ -58,7 +58,7 @@ namespace Client.ViewModel.SettingsViewModel
             {
                 int totalPoints = taskRepository.GetTasksInJam(jam.Id).Sum(x => x.Points);
 
-                int days = 0;
+                var days = 0;
 
                 actualBurndown.Points.Add(new DataPoint(DateTimeAxis.ToDouble(DateTime.Now.AddDays(days)), totalPoints));
 
@@ -132,9 +132,9 @@ namespace Client.ViewModel.SettingsViewModel
         {
             PlotModel = new PlotModel();
 
-            var dateAxis = new DateTimeAxis {Title = "Projected Finish"};
+            var dateAxis = new DateTimeAxis { Title = "Projected Finish" };
             PlotModel.Axes.Add(dateAxis);
-            var valueAxis = new LinearAxis {Title = "Task Points Remaining"};
+            var valueAxis = new LinearAxis { Title = "Task Points Remaining" };
             PlotModel.Axes.Add(valueAxis);
 
             PlotModel.Series.Add(CreateExpectedBurndown());

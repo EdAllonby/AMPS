@@ -183,6 +183,13 @@ namespace Shared.Repository
             TypedEntityPersister.GetAllEntities();
         }
 
+        private void OnEntityAdded(T entity)
+        {
+            var entityChangedEventArgs = new EntityChangedEventArgs<T>(entity, NotificationType.Create);
+
+            EventUtility.SafeFireEvent(EntityAdded, this, entityChangedEventArgs);
+        }
+
         /// <summary>
         /// Fires an <see cref="EntityUpdated" /> event.
         /// </summary>
@@ -193,13 +200,6 @@ namespace Shared.Repository
             var entityChangedEventArgs = new EntityChangedEventArgs<T>(entity, previousEntity);
 
             EventUtility.SafeFireEvent(EntityUpdated, this, entityChangedEventArgs);
-        }
-
-        private void OnEntityAdded(T entity)
-        {
-            var entityChangedEventArgs = new EntityChangedEventArgs<T>(entity, NotificationType.Create);
-
-            EventUtility.SafeFireEvent(EntityAdded, this, entityChangedEventArgs);
         }
     }
 }

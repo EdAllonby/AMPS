@@ -8,21 +8,21 @@ namespace ConsoleClient
 {
     public static class SimulatorUtilities
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (SimulatorUtilities));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(SimulatorUtilities));
 
         public static void CreateTenFiveMemberBands(List<IClientService> clients)
         {
             const int BandSize = 5;
 
-            for (int bandCount = 0; bandCount < 10; bandCount++)
+            for (var bandCount = 0; bandCount < 10; bandCount++)
             {
                 Log.Debug("------New Band------");
 
-                IClientService leader = clients[bandCount*BandSize];
+                IClientService leader = clients[bandCount * BandSize];
 
-                List<int> participantIds = new List<int>();
+                var participantIds = new List<int>();
 
-                for (int bandMemberIndex = bandCount*BandSize; bandMemberIndex < (bandCount*BandSize) + BandSize; bandMemberIndex++)
+                for (int bandMemberIndex = bandCount * BandSize; bandMemberIndex < bandCount * BandSize + BandSize; bandMemberIndex++)
                 {
                     participantIds.Add(clients[bandMemberIndex].ClientUserId);
                 }
@@ -42,9 +42,9 @@ namespace ConsoleClient
 
             foreach (IClientService client in clients)
             {
-                for (int i = 0; i < TasksToCreate; i++)
+                for (var i = 0; i < TasksToCreate; i++)
                 {
-                    int bandId = 0;
+                    var bandId = 0;
 
                     if (client.ClientUserId >= 1 && client.ClientUserId <= 5)
                         bandId = 1;

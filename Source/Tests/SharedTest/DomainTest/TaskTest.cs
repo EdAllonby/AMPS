@@ -9,7 +9,7 @@ namespace SharedTest.DomainTest
         [Test]
         public void CannotSetCompletedTaskToIncompletedTest()
         {
-            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other) {IsCompleted = true};
+            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other) { IsCompleted = true };
 
             task.IsCompleted = false;
 
@@ -19,8 +19,8 @@ namespace SharedTest.DomainTest
         [Test]
         public void CanSetTaskToCompletedTest()
         {
-            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other) {IsCompleted = true};
-            
+            var task = new Task("hello", "description", 0, 1, 1, TaskCategory.Other) { IsCompleted = true };
+
             Assert.IsTrue(task.IsCompleted);
         }
 

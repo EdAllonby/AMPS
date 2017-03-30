@@ -17,7 +17,7 @@ namespace Client.ViewModel
         /// <summary>
         /// The logging mechanism for View Models.
         /// </summary>
-        protected static readonly ILog Log = LogManager.GetLogger(typeof (ViewModel));
+        protected static readonly ILog Log = LogManager.GetLogger(typeof(ViewModel));
 
         /// <summary>
         /// The client's <see cref="IServiceRegistry" />.
@@ -53,7 +53,7 @@ isInDesignMode = DesignerProperties.IsInDesignTool;
 #else
                     DependencyProperty prop = DesignerProperties.IsInDesignModeProperty;
                     isInDesignMode =
-                        (bool) DependencyPropertyDescriptor.FromProperty(prop, typeof (FrameworkElement)).Metadata.DefaultValue;
+                        (bool) DependencyPropertyDescriptor.FromProperty(prop, typeof(FrameworkElement)).Metadata.DefaultValue;
 
                     if (!isInDesignMode.Value)
                     {

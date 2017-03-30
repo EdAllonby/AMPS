@@ -55,20 +55,6 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Client\Client.Service\Client.Service.csproj">
-      <Project>{B13883B4-FCE9-4ED1-A538-21C71B2C5007}</Project>
-      <Name>Client.Service</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Client\Client.ViewModel\Client.ViewModel.csproj">
-      <Project>{C44B8051-07BB-4745-B21F-E67BB416BE58}</Project>
-      <Name>Client.ViewModel</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\Shared\Shared.csproj">
-      <Project>{E4649EF7-3B1D-4F05-A5BA-EE3174F924BD}</Project>
-      <Name>Shared</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

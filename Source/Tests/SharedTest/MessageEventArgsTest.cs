@@ -14,7 +14,7 @@ namespace SharedTest
         {
             IMessage message = new LoginRequest("1", "1");
 
-            MessageEventArgs messageEventArgs = new MessageEventArgs(message);
+            var messageEventArgs = new MessageEventArgs(message);
 
             Assert.AreEqual(message, messageEventArgs.Message);
         }
@@ -22,7 +22,7 @@ namespace SharedTest
         [Test]
         public void IsAnEventArgs()
         {
-            MessageEventArgs messageEventArgs = new MessageEventArgs(new LoginRequest("1", "1"));
+            var messageEventArgs = new MessageEventArgs(new LoginRequest("1", "1"));
 
             Assert.IsInstanceOf<EventArgs>(messageEventArgs);
         }

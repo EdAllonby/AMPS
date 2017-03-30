@@ -22,7 +22,7 @@ namespace Shared.Message
         /// <summary>
         /// The User to disconnect.
         /// </summary>
-        public int UserId { get; private set; }
+        public int UserId { get; }
 
         /// <summary>
         /// <see cref="ClientDisconnection" /> message type.

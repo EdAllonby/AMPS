@@ -15,22 +15,22 @@ namespace Client.View.UI
         /// <summary>
         /// The Displayed Items Dependency Property.
         /// </summary>
-        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof (List<string>), typeof (MultiSelectComboBox), new FrameworkPropertyMetadata(null, OnItemsSourceChanged));
+        public static readonly DependencyProperty ItemsSourceProperty = DependencyProperty.Register("ItemsSource", typeof(List<string>), typeof(MultiSelectComboBox), new FrameworkPropertyMetadata(null, OnItemsSourceChanged));
 
         /// <summary>
         /// The Items selected Dependency Property.
         /// </summary>
-        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof (List<string>), typeof (MultiSelectComboBox), new FrameworkPropertyMetadata(null, OnSelectedItemsChanged));
+        public static readonly DependencyProperty SelectedItemsProperty = DependencyProperty.Register("SelectedItems", typeof(List<string>), typeof(MultiSelectComboBox), new FrameworkPropertyMetadata(null, OnSelectedItemsChanged));
 
         /// <summary>
         /// The Control's text Dependency Property.
         /// </summary>
-        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof (string), typeof (MultiSelectComboBox), new UIPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty TextProperty = DependencyProperty.Register("Text", typeof(string), typeof(MultiSelectComboBox), new UIPropertyMetadata(string.Empty));
 
         /// <summary>
         /// The Control's default text Dependency Property.
         /// </summary>
-        public static readonly DependencyProperty DefaultTextProperty = DependencyProperty.Register("DefaultText", typeof (string), typeof (MultiSelectComboBox), new UIPropertyMetadata(string.Empty));
+        public static readonly DependencyProperty DefaultTextProperty = DependencyProperty.Register("DefaultText", typeof(string), typeof(MultiSelectComboBox), new UIPropertyMetadata(string.Empty));
 
         private readonly ObservableCollection<DropdownMenuCheckBoxItem> nodeList;
 
@@ -81,20 +81,20 @@ namespace Client.View.UI
 
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            MultiSelectComboBox control = (MultiSelectComboBox) d;
+            var control = (MultiSelectComboBox) d;
             control.DisplayInControl();
         }
 
         private static void OnSelectedItemsChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            MultiSelectComboBox control = (MultiSelectComboBox) d;
+            var control = (MultiSelectComboBox) d;
             control.SelectNodes();
             control.SetText();
         }
 
         private void CheckBoxItemClicked(object sender, RoutedEventArgs e)
         {
-            CheckBox clickedBox = (CheckBox) sender;
+            var clickedBox = (CheckBox) sender;
 
             if ((string) clickedBox.Content == "All")
             {
@@ -173,7 +173,7 @@ namespace Client.View.UI
         {
             if (SelectedItems != null)
             {
-                StringBuilder displayText = new StringBuilder();
+                var displayText = new StringBuilder();
                 foreach (DropdownMenuCheckBoxItem node in nodeList)
                 {
                     if (node.IsSelected && node.Title == "All")

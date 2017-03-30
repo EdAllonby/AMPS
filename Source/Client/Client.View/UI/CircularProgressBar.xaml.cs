@@ -41,13 +41,13 @@ namespace Client.View.UI
 
         private void HandleAnimationTick(object sender, EventArgs e)
         {
-            SpinnerRotate.Angle = (SpinnerRotate.Angle + 36)%360;
+            SpinnerRotate.Angle = (SpinnerRotate.Angle + 36) % 360;
         }
 
         private void HandleLoaded(object sender, RoutedEventArgs e)
         {
             const double Offset = Math.PI;
-            const double Step = Math.PI*2/10.0;
+            const double Step = Math.PI * 2 / 10.0;
 
             SetPosition(C0, Offset, 0.0, Step);
             SetPosition(C1, Offset, 1.0, Step);
@@ -62,9 +62,9 @@ namespace Client.View.UI
 
         private static void SetPosition(DependencyObject ellipse, double offset, double posOffSet, double step)
         {
-            ellipse.SetValue(Canvas.LeftProperty, 50.0 + Math.Sin(offset + posOffSet*step)*50.0);
+            ellipse.SetValue(Canvas.LeftProperty, 50.0 + Math.Sin(offset + posOffSet * step) * 50.0);
 
-            ellipse.SetValue(Canvas.TopProperty, 50 + Math.Cos(offset + posOffSet*step)*50.0);
+            ellipse.SetValue(Canvas.TopProperty, 50 + Math.Cos(offset + posOffSet * step) * 50.0);
         }
 
         private void HandleUnloaded(object sender, RoutedEventArgs e)
@@ -74,7 +74,7 @@ namespace Client.View.UI
 
         private void HandleVisibleChanged(object sender, DependencyPropertyChangedEventArgs e)
         {
-            bool isVisible = (bool) e.NewValue;
+            var isVisible = (bool) e.NewValue;
 
             if (isVisible)
             {

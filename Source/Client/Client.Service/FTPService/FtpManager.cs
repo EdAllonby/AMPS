@@ -3,7 +3,6 @@ using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using log4net;
-using Shared;
 using Shared.Configuration;
 using Utility;
 
@@ -14,9 +13,9 @@ namespace Client.Service.FTPService
     /// </summary>
     public class FtpManager : IFtpManager
     {
-        private readonly AppConfigManager configManager;
         private const int BufferSize = 2048;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (FtpManager));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(FtpManager));
+        private readonly AppConfigManager configManager;
 
         public FtpManager(AppConfigManager configManager)
         {
@@ -98,19 +97,19 @@ namespace Client.Service.FTPService
         /// <returns></returns>
         public string[] FilesOnServer(string directory)
         {
-            string[] directoryList = new string[10];
+            var directoryList = new string[10];
 
             try
             {
                 FtpWebRequest ftpRequest = CreateRequest(directory, WebRequestMethods.Ftp.ListDirectory);
 
-                using (FtpWebResponse ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
+                using (var ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
                 {
                     Stream responseStream = ftpResponse.GetResponseStream();
 
                     if (responseStream != null)
                     {
-                        using (StreamReader ftpReader = new StreamReader(responseStream))
+                        using (var ftpReader = new StreamReader(responseStream))
                         {
                             string directoryRaw = null;
 
@@ -131,7 +130,7 @@ namespace Client.Service.FTPService
                             catch (Exception ex)
                             {
                                 Console.WriteLine(ex.Message);
-                                return new[] {""};
+                                return new[] { "" };
                             }
                         }
                     }
@@ -158,7 +157,7 @@ namespace Client.Service.FTPService
 
                 ftpRequest.RenameTo = newName;
 
-                using (FtpWebResponse response = (FtpWebResponse) ftpRequest.GetResponse())
+                using (var response = (FtpWebResponse) ftpRequest.GetResponse())
                 {
                     return response.StatusCode;
                 }
@@ -179,7 +178,7 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(filename, WebRequestMethods.Ftp.DeleteFile);
 
-                using (FtpWebResponse ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
+                using (var ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
                 {
                     return ftpResponse.StatusCode;
                 }
@@ -200,7 +199,7 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(name, WebRequestMethods.Ftp.MakeDirectory);
 
-                using (FtpWebResponse response = (FtpWebResponse) ftpRequest.GetResponse())
+                using (var response = (FtpWebResponse) ftpRequest.GetResponse())
                 {
                     return response.StatusCode;
                 }
@@ -253,11 +252,11 @@ namespace Client.Service.FTPService
         {
             try
             {
-                using (FtpWebResponse responseFileDownload = (FtpWebResponse) downloadRequest.GetResponse())
+                using (var responseFileDownload = (FtpWebResponse) downloadRequest.GetResponse())
                 using (Stream responseStream = responseFileDownload.GetResponseStream())
-                using (FileStream writeStream = new FileStream(localFile, FileMode.Create))
+                using (var writeStream = new FileStream(localFile, FileMode.Create))
                 {
-                    byte[] buffer = new byte[BufferSize];
+                    var buffer = new byte[BufferSize];
 
                     if (responseStream == null)
                     {
@@ -265,7 +264,7 @@ namespace Client.Service.FTPService
                     }
 
                     int bytesRead = responseStream.Read(buffer, 0, buffer.Length);
-                    int bytes = 0;
+                    var bytes = 0;
 
                     while (bytesRead > 0)
                     {
@@ -289,7 +288,7 @@ namespace Client.Service.FTPService
 
         private static FtpStatusCode DownloadWithoutUpdates(WebRequest uploadRequest, string localFile)
         {
-            using (FtpWebResponse response = (FtpWebResponse) uploadRequest.GetResponse())
+            using (var response = (FtpWebResponse) uploadRequest.GetResponse())
             using (Stream responseStream = response.GetResponseStream())
             using (FileStream fileStream = File.Create(localFile))
             {
@@ -305,11 +304,11 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(remoteFile, WebRequestMethods.Ftp.UploadFile);
 
-                using (var inputStream = File.OpenRead(localFile))
-                using (var outputStream = ftpRequest.GetRequestStream())
+                using (FileStream inputStream = File.OpenRead(localFile))
+                using (Stream outputStream = ftpRequest.GetRequestStream())
                 {
                     var buffer = new byte[BufferSize];
-                    int totalReadBytesCount = 0;
+                    var totalReadBytesCount = 0;
 
                     int readBytesCount;
 
@@ -346,7 +345,7 @@ namespace Client.Service.FTPService
 
         private FtpWebRequest CreateRequest(string file, string requestMethod)
         {
-            FtpWebRequest ftpRequest = (FtpWebRequest) WebRequest.Create(Address + "/" + file);
+            var ftpRequest = (FtpWebRequest) WebRequest.Create(Address + "/" + file);
             ftpRequest.Credentials = new NetworkCredential(Username, Password);
 
             SetupRequestParameters(requestMethod, ftpRequest);

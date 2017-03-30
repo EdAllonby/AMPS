@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using Shared;
 using Shared.Domain;
 using Shared.Message.BandMessage;
@@ -15,23 +14,6 @@ namespace Server.MessageHandler
     {
         public BandRequestHandler(IServiceRegistry serviceRegistry) : base(serviceRegistry)
         {
-        }
-
-        /// <summary>
-        /// Handles the incoming <see cref="BandRequest" />.
-        /// </summary>
-        /// <param name="message">The <see cref="BandRequest" /> that has been received and needs to be handled.</param>
-        protected override void HandleMessage(BandRequest message)
-        {
-            var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
-
-            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
-            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
-
-            if (IsBandValid(message))
-            {
-                CreateBandEntity(message, bandRepository, participationRepository, entityIdAllocatorFactory);
-            }
         }
 
         private static void CreateBandEntity(BandRequest bandRequest, IEntityRepository<Band> bandRepository, IEntityRepository<Participation> participationRepository, EntityIdAllocatorFactory entityIdAllocatorFactory)
@@ -65,6 +47,23 @@ namespace Server.MessageHandler
             // TODO: Do we need more checks here? Can a system have two bands with the same users?
 
             return true;
+        }
+
+        /// <summary>
+        /// Handles the incoming <see cref="BandRequest" />.
+        /// </summary>
+        /// <param name="message">The <see cref="BandRequest" /> that has been received and needs to be handled.</param>
+        protected override void HandleMessage(BandRequest message)
+        {
+            var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
+
+            var participationRepository = (ParticipationRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Participation>();
+            var bandRepository = (IEntityRepository<Band>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
+
+            if (IsBandValid(message))
+            {
+                CreateBandEntity(message, bandRepository, participationRepository, entityIdAllocatorFactory);
+            }
         }
     }
 }

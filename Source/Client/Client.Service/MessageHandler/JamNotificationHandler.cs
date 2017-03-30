@@ -16,6 +16,14 @@ namespace Client.Service.MessageHandler
         {
         }
 
+        private static void CreateNotification(ToastNotificationManager toastNotifier, EntityNotification<Jam> jamNotification)
+        {
+            Jam jam = jamNotification.Entity;
+            TimeSpan jamLength = jam.JamEndDate - DateTime.Now;
+
+            toastNotifier.Notify(new Notification("A Jam has been created", $"A jam has been created ending in {jamLength.ToDays(false)}."));
+        }
+
         protected override void HandleMessage(EntityNotification<Jam> message)
         {
             var toastNotifier = ServiceRegistry.GetService<ToastNotificationManager>();
@@ -33,14 +41,6 @@ namespace Client.Service.MessageHandler
                     jamRepository.UpdateEntity(message.Entity);
                     break;
             }
-        }
-
-        private static void CreateNotification(ToastNotificationManager toastNotifier, EntityNotification<Jam> jamNotification)
-        {
-            Jam jam = jamNotification.Entity;
-            TimeSpan jamLength = jam.JamEndDate - DateTime.Now;
-
-            toastNotifier.Notify(new Notification("A Jam has been created", $"A jam has been created ending in {jamLength.ToDays(false)}."));
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Client.ViewModel.SettingsViewModel
             }
         }
 
-        public int MaxToastsToDisplay { get; private set; }
+        public int MaxToastsToDisplay { get; }
 
         public string FTPUsername
         {

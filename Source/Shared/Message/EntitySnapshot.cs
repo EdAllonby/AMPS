@@ -25,11 +25,11 @@ namespace Shared.Message
         /// <summary>
         /// The entities packages as a Snapshot.
         /// </summary>
-        public IEnumerable<TEntity> Entities { get; private set; }
+        public IEnumerable<TEntity> Entities { get; }
 
         /// <summary>
         /// The type of Snapshot.
         /// </summary>
-        public MessageIdentifier MessageIdentifier => snapshotMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (TEntity));
+        public MessageIdentifier MessageIdentifier => snapshotMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof(TEntity));
     }
 }

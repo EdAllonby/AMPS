@@ -12,7 +12,7 @@ namespace Client.ViewModel.MainViewModel
             {
                 audio = new byte[fileStream.Length];
 
-                int currentBytesRead = 0;
+                var currentBytesRead = 0;
 
                 var numberOfBytesToRead = (int) fileStream.Length;
 

@@ -55,7 +55,7 @@ namespace Client.View
 
         private static void InvalidateOutAndError()
         {
-            Type type = typeof (Console);
+            Type type = typeof(Console);
 
             FieldInfo consoleOut = type.GetField("_out",
                 BindingFlags.Static | BindingFlags.NonPublic);
@@ -74,7 +74,7 @@ namespace Client.View
             consoleOut.SetValue(null, null);
             consoleError.SetValue(null, null);
 
-            consoleInitializeStdOutError.Invoke(null, new object[] {true});
+            consoleInitializeStdOutError.Invoke(null, new object[] { true });
         }
 
         private static void SetOutAndErrorNull()

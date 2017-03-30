@@ -26,16 +26,16 @@ namespace Shared.Message
         /// <summary>
         /// What change the <see cref="TEntity" /> <see cref="Entity" /> made.
         /// </summary>
-        public NotificationType NotificationType { get; private set; }
+        public NotificationType NotificationType { get; }
 
         /// <summary>
         /// The <see cref="TEntity" /> <see cref="Entity" /> changed.
         /// </summary>
-        public TEntity Entity { get; private set; }
+        public TEntity Entity { get; }
 
         /// <summary>
         /// What the message identifier is.
         /// </summary>
-        public MessageIdentifier MessageIdentifier => notificationMessageIdentifierFactory.GetIdentifierByNotificationType(typeof (TEntity));
+        public MessageIdentifier MessageIdentifier => notificationMessageIdentifierFactory.GetIdentifierByNotificationType(typeof(TEntity));
     }
 }

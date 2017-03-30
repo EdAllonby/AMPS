@@ -7,7 +7,7 @@ namespace ConsoleClient
 {
     public static class Validator
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (Validator));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Validator));
 
         public static void ValidateUserRepository(IReadOnlyEntityRepository<User> userRepository, int expectedUsers)
         {

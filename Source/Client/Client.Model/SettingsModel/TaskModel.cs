@@ -35,7 +35,7 @@ namespace Client.Model.SettingsModel
         /// The modelled task.
         /// </summary>
         public Task Task { get; }
-        
+
         /// <summary>
         /// The Id of the <see cref="Task" />
         /// </summary>

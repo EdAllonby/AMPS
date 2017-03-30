@@ -15,7 +15,7 @@ namespace Client.ViewModel
     /// </summary>
     public static class DisplayedTaskFilter
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (DisplayedTaskFilter));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(DisplayedTaskFilter));
 
         /// <summary>
         /// <para>
@@ -109,7 +109,7 @@ namespace Client.ViewModel
 
         private static void TryRemoveTaskFromViewModels(ICollection<TaskItemViewModel> tasksInCurrentJam, Task jamTask)
         {
-            var viewModel = tasksInCurrentJam.FirstOrDefault(x => x.TaskModel.TaskId.Equals(jamTask.Id));
+            TaskItemViewModel viewModel = tasksInCurrentJam.FirstOrDefault(x => x.TaskModel.TaskId.Equals(jamTask.Id));
 
             if (viewModel != null)
             {

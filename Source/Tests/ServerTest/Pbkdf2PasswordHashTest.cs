@@ -10,7 +10,7 @@ namespace ServerTest
         [Test]
         public void CreatesAHashWithThreeParts()
         {
-            Pbkdf2PasswordHash pbkdf2PasswordHash = new Pbkdf2PasswordHash();
+            var pbkdf2PasswordHash = new Pbkdf2PasswordHash();
 
             string hash = pbkdf2PasswordHash.CreateHash("Password");
 
@@ -22,7 +22,7 @@ namespace ServerTest
         [Test]
         public void ReturnsFalseWhenIncorrectHashIsSuppliedForPassword()
         {
-            Pbkdf2PasswordHash pbkdf2PasswordHash = new Pbkdf2PasswordHash();
+            var pbkdf2PasswordHash = new Pbkdf2PasswordHash();
 
             const string Password = "Password1!";
 
@@ -34,7 +34,7 @@ namespace ServerTest
         [Test]
         public void ReturnsTrueWhenCorrectHashIsSuppliedForPassword()
         {
-            Pbkdf2PasswordHash pbkdf2PasswordHash = new Pbkdf2PasswordHash();
+            var pbkdf2PasswordHash = new Pbkdf2PasswordHash();
 
             const string Password = "Password1!";
 

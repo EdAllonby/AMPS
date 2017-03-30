@@ -45,16 +45,16 @@ namespace Shared.Domain
         /// <summary>
         /// The action being applied to the entity.
         /// </summary>
-        public NotificationType NotificationType { get; private set; }
+        public NotificationType NotificationType { get; }
 
         /// <summary>
         /// The new entity.
         /// </summary>
-        public T Entity { get; private set; }
+        public T Entity { get; }
 
         /// <summary>
         /// The previous state of the entity.
         /// </summary>
-        public T PreviousEntity { get; private set; }
+        public T PreviousEntity { get; }
     }
 }

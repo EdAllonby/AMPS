@@ -54,6 +54,6 @@ namespace Client.Model.SettingsModel
         /// <summary>
         /// The available days allowed.
         /// </summary>
-        public List<int> DaysList { get; private set; }
+        public List<int> DaysList { get; }
     }
 }

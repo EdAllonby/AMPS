@@ -22,7 +22,7 @@ namespace UtilityTest
         public void ShouldCreateNumbers0To10WithGapOf2()
         {
             IEnumerable<int> numbers = NumbersGenerator.CreateNumberSequence(0, 10, 2);
-            List<int> expectedResult = new List<int> {0, 2, 4, 6, 8, 10, 12, 14, 16, 18};
+            var expectedResult = new List<int> { 0, 2, 4, 6, 8, 10, 12, 14, 16, 18 };
 
             CollectionAssert.AreEqual(expectedResult, numbers);
         }
@@ -31,7 +31,7 @@ namespace UtilityTest
         public void ShouldCreateNumbers0To5WithGapOf5()
         {
             IEnumerable<int> numbers = NumbersGenerator.CreateNumberSequence(0, 2, 5);
-            List<int> expectedResult = new List<int> {0, 5};
+            var expectedResult = new List<int> { 0, 5 };
 
             CollectionAssert.AreEqual(expectedResult, numbers);
         }
@@ -50,7 +50,7 @@ namespace UtilityTest
         public void ShouldCreateNumbers1To11WithGapOf5()
         {
             IEnumerable<int> numbers = NumbersGenerator.CreateNumberSequence(1, 3, 5);
-            List<int> expectedResult = new List<int> {1, 6, 11};
+            var expectedResult = new List<int> { 1, 6, 11 };
 
             CollectionAssert.AreEqual(expectedResult, numbers);
         }

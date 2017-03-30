@@ -15,7 +15,7 @@ namespace Server.EntityIdGenerator
         /// <returns></returns>
         public int GetCurrentHighestId(EntityTable table)
         {
-            int currentId = 0;
+            var currentId = 0;
             string connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
 
             string getMaxIdQuery = $"SELECT MAX(Id) as Id FROM {table}";

@@ -60,6 +60,21 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public ICommand BrowseTaskToUpload => new RelayCommand(OpenUploadFileDialog, CanOpenFileDialog);
 
+        /// <summary>
+        /// Fires when a show FTP error is requested.
+        /// </summary>
+        public event EventHandler<FtpStatusEventArgs> ShowUploadStatus;
+
+        /// <summary>
+        /// Fires when close this view is requested.
+        /// </summary>
+        public event EventHandler CloseUploaderViewRequested;
+
+        /// <summary>
+        /// Fires when requesting to open file dialog.
+        /// </summary>
+        public event EventHandler OpenFileDialogRequested;
+
         private bool CanCompleteTaskAndClose()
         {
             return !UploadTaskModel.IsUploading;
@@ -78,24 +93,9 @@ namespace Client.ViewModel.SettingsViewModel
             UploadTaskModel.TotalSize = e.TotalBytes;
         }
 
-        /// <summary>
-        /// Fires when a show FTP error is requested.
-        /// </summary>
-        public event EventHandler<FtpStatusEventArgs> ShowUploadStatus;
-
-        /// <summary>
-        /// Fires when close this view is requested.
-        /// </summary>
-        public event EventHandler CloseUploaderViewRequested;
-
-        /// <summary>
-        /// Fires when requesting to open file dialog.
-        /// </summary>
-        public event EventHandler OpenFileDialogRequested;
-
         private async void UploadTaskToServer()
         {
-            IFtpManager ftpManager = ServiceRegistry.GetService<IFtpManager>();
+            var ftpManager = ServiceRegistry.GetService<IFtpManager>();
 
             ftpManager.UploadedDataUpdate += OnUploadDataUpdate;
 

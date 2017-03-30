@@ -21,6 +21,11 @@ namespace Client.Service.MessageHandler
         /// </summary>
         public event EventHandler<EntityBootstrapEventArgs> EntityBootstrapCompleted;
 
+        private void OnEntityBootstrapCompleted()
+        {
+            EventUtility.SafeFireEvent(EntityBootstrapCompleted, this, new EntityBootstrapEventArgs(typeof(TEntity)));
+        }
+
         protected override void HandleMessage(EntitySnapshot<TEntity> message)
         {
             var entityRepository = (IEntityRepository<TEntity>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<TEntity>();
@@ -31,11 +36,6 @@ namespace Client.Service.MessageHandler
             }
 
             OnEntityBootstrapCompleted();
-        }
-
-        private void OnEntityBootstrapCompleted()
-        {
-            EventUtility.SafeFireEvent(EntityBootstrapCompleted, this, new EntityBootstrapEventArgs(typeof(TEntity)));
         }
     }
 }

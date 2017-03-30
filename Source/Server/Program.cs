@@ -11,7 +11,7 @@ namespace Server
     /// </summary>
     internal static class Program
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (Program));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
         private static bool serviceRunningInteractive;
 
         /// <summary>
@@ -61,15 +61,15 @@ namespace Server
         {
             Log.Debug("Services running in interactive mode.");
 
-            MethodInfo onStartMethod = typeof (ServiceBase).GetMethod("OnStart", BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodInfo onStartMethod = typeof(ServiceBase).GetMethod("OnStart", BindingFlags.Instance | BindingFlags.NonPublic);
             foreach (ServiceBase service in servicesToRun)
             {
                 Log.DebugFormat("Starting {0}...", service.ServiceName);
-                onStartMethod.Invoke(service, new object[] {new[] {useDatabasePersistence.ToString()}});
+                onStartMethod.Invoke(service, new object[] { new[] { useDatabasePersistence.ToString() } });
                 Log.Debug("Started");
             }
 
-            bool runService = true;
+            var runService = true;
 
             Log.Debug("Press Q key to stop the services and end the process...");
             while (runService && !serviceRunningInteractive)
@@ -84,7 +84,7 @@ namespace Server
 
             Console.ReadKey();
 
-            MethodInfo onStopMethod = typeof (ServiceBase).GetMethod("OnStop", BindingFlags.Instance | BindingFlags.NonPublic);
+            MethodInfo onStopMethod = typeof(ServiceBase).GetMethod("OnStop", BindingFlags.Instance | BindingFlags.NonPublic);
 
             foreach (ServiceBase service in servicesToRun)
             {

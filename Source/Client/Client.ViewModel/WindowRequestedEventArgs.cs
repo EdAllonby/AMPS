@@ -29,11 +29,11 @@ namespace Client.ViewModel
         /// <summary>
         /// The <see cref="Band" /> packaged.
         /// </summary>
-        public Band Band { get; private set; }
+        public Band Band { get; }
 
         /// <summary>
         /// The <see cref="Task" /> packaged.
         /// </summary>
-        public Task Task { get; private set; }
+        public Task Task { get; }
     }
 }

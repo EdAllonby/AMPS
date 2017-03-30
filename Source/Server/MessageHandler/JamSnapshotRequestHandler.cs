@@ -8,7 +8,7 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="EntitySnapshotRequest{T}" /> the Server received.
+    /// Handles a <see cref="EntitySnapshotRequest{TEntity}" /> the Server received.
     /// </summary>
     internal sealed class JamSnapshotRequestHandler : MessageHandler<EntitySnapshotRequest<Jam>>
     {
@@ -28,7 +28,7 @@ namespace Server.MessageHandler
 
             User user = userRepository.FindEntityById(message.UserId);
 
-            IEnumerable<int> bandIds = user.Bands.Select(band=>band.Id);
+            IEnumerable<int> bandIds = user.Bands.Select(band => band.Id);
 
             List<Jam> jams = jamRepository.GetAllEntities().Where(jam => bandIds.Contains(jam.Band.Id)).ToList();
 

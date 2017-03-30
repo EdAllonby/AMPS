@@ -18,6 +18,18 @@ namespace Shared.Persistence
         protected override IEnumerable<string> Columns => new List<string> { "Id", "BandId", "Title", "Description", "AssignedUserId", "IsCompleted", "Points", "JamId", "TaskCategoryId" };
         protected override EntityTable Table => EntityTable.Tasks;
 
+        private static int NullableColumnToInt(int? possibleNullColumn)
+        {
+            var columnValue = 0;
+
+            if (possibleNullColumn.HasValue)
+            {
+                columnValue = possibleNullColumn.Value;
+            }
+
+            return columnValue;
+        }
+
         protected override Task DoLoad(int id, SqlDataReader reader)
         {
             int bandId = reader.GetInt32(reader.GetOrdinal("BandId"));
@@ -53,18 +65,6 @@ namespace Shared.Persistence
             insertCommand.Parameters.Add("@points", SqlDbType.Int).Value = entity.Points;
             insertCommand.Parameters.Add("@jamId", SqlDbType.Int).Value = entity.IsInJam ? (object) entity.JamId : DBNull.Value;
             insertCommand.Parameters.Add("@taskCategoryId", SqlDbType.Int).Value = taskCategoryMapper.GetCategoryId(entity.Category);
-        }
-
-        private static int NullableColumnToInt(int? possibleNullColumn)
-        {
-            var columnValue = 0;
-
-            if (possibleNullColumn.HasValue)
-            {
-                columnValue = possibleNullColumn.Value;
-            }
-
-            return columnValue;
         }
     }
 }

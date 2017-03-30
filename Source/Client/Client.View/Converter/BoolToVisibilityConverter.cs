@@ -19,7 +19,7 @@ namespace Client.View.Converter
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            var val = System.Convert.ToBoolean(value);
+            bool val = System.Convert.ToBoolean(value);
             return val ? TrueValue : FalseValue;
         }
 

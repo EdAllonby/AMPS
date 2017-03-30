@@ -23,12 +23,12 @@ namespace Client.ViewModel.MainViewModel
         {
             Username = comment.Commenter.Username;
             RelativeTime = comment.TimePosted.TimeAgo();
-            LeftMargin = new Thickness(child*IndentationFactor, 0, 0, 0);
+            LeftMargin = new Thickness(child * IndentationFactor, 0, 0, 0);
             TaskComment = comment;
             TimePosted = comment.TimePosted.ToString(CultureInfo.InvariantCulture);
             UpdateTimePosted();
 
-            Timer myTimer = new Timer(30*1000);
+            var myTimer = new Timer(30 * 1000);
             myTimer.Start();
             myTimer.Elapsed += (sender, args) => UpdateTimePosted();
         }
@@ -85,7 +85,7 @@ namespace Client.ViewModel.MainViewModel
 
         private void AddReplyToComment()
         {
-            IClientService clientService = ServiceRegistry.GetService<IClientService>();
+            var clientService = ServiceRegistry.GetService<IClientService>();
 
             clientService.AddTaskComment(TaskComment.Task, ReplyComment, TaskComment);
 

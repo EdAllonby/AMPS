@@ -16,7 +16,7 @@ namespace Utility
             // C# Doesn't have a way of specifying an Enum. So let's say that an Enum is defined as below.
             where TEnum : struct, IConvertible, IComparable, IFormattable
         {
-            return Enum.GetValues(typeof (TEnum)).Cast<TEnum>();
+            return Enum.GetValues(typeof(TEnum)).Cast<TEnum>();
         }
     }
 }

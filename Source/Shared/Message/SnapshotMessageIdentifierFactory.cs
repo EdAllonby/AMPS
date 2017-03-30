@@ -17,11 +17,11 @@ namespace Shared.Message
         private static readonly IReadOnlyDictionary<Type, MessageIdentifier> SerialisersByMessageType =
             new Dictionary<Type, MessageIdentifier>
             {
-                {typeof (User), MessageIdentifier.UserSnapshot},
-                {typeof (Jam), MessageIdentifier.JamSnapshot},
-                {typeof (Participation), MessageIdentifier.ParticipationSnapshot},
-                {typeof (Band), MessageIdentifier.BandSnapshot},
-                {typeof (Task), MessageIdentifier.TaskSnapshot}
+                { typeof(User), MessageIdentifier.UserSnapshot },
+                { typeof(Jam), MessageIdentifier.JamSnapshot },
+                { typeof(Participation), MessageIdentifier.ParticipationSnapshot },
+                { typeof(Band), MessageIdentifier.BandSnapshot },
+                { typeof(Task), MessageIdentifier.TaskSnapshot }
             };
 
         /// <summary>

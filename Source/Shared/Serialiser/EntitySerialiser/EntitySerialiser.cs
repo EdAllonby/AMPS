@@ -11,7 +11,7 @@ namespace Shared.Serialiser.EntitySerialiser
     /// <typeparam name="T">The <see cref="Entity" /> to serialise.</typeparam>
     internal sealed class EntitySerialiser<T> where T : Entity
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (EntitySerialiser<T>));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(EntitySerialiser<T>));
         private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>

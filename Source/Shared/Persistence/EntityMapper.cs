@@ -25,7 +25,7 @@ namespace Shared.Persistence
         /// <summary>
         /// The database connection string.
         /// </summary>
-        protected readonly string ConnectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
+        private readonly string connectionString = ConfigurationManager.ConnectionStrings["DatabaseConnectionString"].ConnectionString;
 
         /// <summary>
         /// Loaded entities to reduce database calls.
@@ -59,7 +59,7 @@ namespace Shared.Persistence
 
             string findStatement = $"SELECT {string.Join(", ", EntityColumns)} FROM {Table} where Id = @id";
 
-            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var databaseConnection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(findStatement, databaseConnection))
             {
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
@@ -90,7 +90,7 @@ namespace Shared.Persistence
         {
             string insertStatement = $"INSERT INTO {Table} VALUES ({string.Join(", ", EntityColumnsAsParameters)})";
 
-            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var databaseConnection = new SqlConnection(connectionString))
             using (var insertCommand = new SqlCommand(insertStatement, databaseConnection))
             {
                 databaseConnection.Open();
@@ -119,7 +119,7 @@ namespace Shared.Persistence
 
             int rowsUpdated;
 
-            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var databaseConnection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(updateStatement, databaseConnection))
             {
                 AddParameters(entity, command);
@@ -140,7 +140,7 @@ namespace Shared.Persistence
         {
             string selectAllStatement = $"Select {CommaSeperatedEntityColumns} from {Table}";
 
-            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var databaseConnection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(selectAllStatement, databaseConnection))
             {
                 databaseConnection.Open();
@@ -162,7 +162,7 @@ namespace Shared.Persistence
             const string DeleteEntityQuery = "DELETE FROM @tableName WHERE Id = @id";
             int rowsUpdated;
 
-            using (var databaseConnection = new SqlConnection(ConnectionString))
+            using (var databaseConnection = new SqlConnection(connectionString))
             using (var command = new SqlCommand(DeleteEntityQuery, databaseConnection))
             {
                 command.Parameters.Add("@tableName", SqlDbType.Int).Value = Table;
@@ -175,27 +175,6 @@ namespace Shared.Persistence
 
             return rowsUpdated == 1;
         }
-
-        /// <summary>
-        /// Prepare commands with parameters.
-        /// </summary>
-        /// <param name="entity">The <paramref name="entity" /> to insert.</param>
-        /// <param name="insertCommand">The insert command.</param>
-        protected void AddParameters(TEntity entity, SqlCommand insertCommand)
-        {
-            AddEntityParameters(entity, insertCommand);
-            AddSpecificParameters(entity, insertCommand);
-        }
-
-        protected abstract void AddSpecificParameters(TEntity entity, SqlCommand insertCommand);
-
-        /// <summary>
-        /// Attempt to get an entity based on the reader and its Id.
-        /// </summary>
-        /// <param name="id">The entity's Id.</param>
-        /// <param name="reader">The reader containing the entity.</param>
-        /// <returns></returns>
-        protected abstract TEntity DoLoad(int id, SqlDataReader reader);
 
         /// <summary>
         /// Creates an entity based on the reader.
@@ -249,5 +228,26 @@ namespace Shared.Persistence
             insertCommand.Parameters.Add("@createdDate", SqlDbType.DateTime2).Value = entity.CreatedDate;
             insertCommand.Parameters.Add("@updatedDate", SqlDbType.DateTime2).Value = entity.UpdatedDate.HasValue ? (object) entity.UpdatedDate : DBNull.Value;
         }
+
+        /// <summary>
+        /// Prepare commands with parameters.
+        /// </summary>
+        /// <param name="entity">The <paramref name="entity" /> to insert.</param>
+        /// <param name="insertCommand">The insert command.</param>
+        protected void AddParameters(TEntity entity, SqlCommand insertCommand)
+        {
+            AddEntityParameters(entity, insertCommand);
+            AddSpecificParameters(entity, insertCommand);
+        }
+
+        protected abstract void AddSpecificParameters(TEntity entity, SqlCommand insertCommand);
+
+        /// <summary>
+        /// Attempt to get an entity based on the reader and its Id.
+        /// </summary>
+        /// <param name="id">The entity's Id.</param>
+        /// <param name="reader">The reader containing the entity.</param>
+        /// <returns></returns>
+        protected abstract TEntity DoLoad(int id, SqlDataReader reader);
     }
 }

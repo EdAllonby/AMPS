@@ -15,7 +15,7 @@
         }
 
         public string Message { get; }
-        public int Id { get; private set; }
+        public int Id { get; }
 
         public static string ImageUrl => "pack://application:,,,/Resources/notification-icon.png";
 

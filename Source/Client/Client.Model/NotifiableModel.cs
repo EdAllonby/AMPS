@@ -23,7 +23,6 @@ namespace Client.Model
         protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             EventUtility.SafeFireEvent(PropertyChanged, this, propertyName);
-
         }
     }
 }

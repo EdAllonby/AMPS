@@ -18,8 +18,8 @@ namespace Utility
             var fibonacciNumbers = new List<int>();
 
             int number;
-            int lastFibonacciNumber = 0;
-            int currentFibonacciNumber = 1;
+            var lastFibonacciNumber = 0;
+            var currentFibonacciNumber = 1;
 
             for (number = 0; number <= highestNumber; number++)
             {
@@ -53,7 +53,7 @@ namespace Utility
         {
             var numberSequence = new List<int>();
 
-            int highestNumber = index + (count*gap);
+            int highestNumber = index + count * gap;
 
             for (int number = index; number < highestNumber; number = number + gap)
             {

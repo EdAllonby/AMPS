@@ -8,7 +8,7 @@ namespace Client.View.Converter
     /// <summary>
     /// Convert double to double using a ratio parameter
     /// </summary>
-    [ValueConversion(typeof (string), typeof (string))]
+    [ValueConversion(typeof(string), typeof(string))]
     public class RatioConverter : MarkupExtension, IValueConverter
     {
         private static RatioConverter instance;
@@ -26,7 +26,7 @@ namespace Client.View.Converter
             var size = 0.0;
             if (value != null)
             {
-                size = System.Convert.ToDouble(value, CultureInfo.InvariantCulture)*System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture);
+                size = System.Convert.ToDouble(value, CultureInfo.InvariantCulture) * System.Convert.ToDouble(parameter, CultureInfo.InvariantCulture);
             }
 
             return size;

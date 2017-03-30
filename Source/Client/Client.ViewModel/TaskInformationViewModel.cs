@@ -32,12 +32,12 @@ namespace Client.ViewModel
         /// <summary>
         /// When a more info link is clicked.
         /// </summary>
-        public ICommand HyperlinkClicked { get; private set; }
+        public ICommand HyperlinkClicked { get; }
 
         /// <summary>
         /// When a download link is clicked.
         /// </summary>
-        public ICommand DownloadClicked { get; private set; }
+        public ICommand DownloadClicked { get; }
 
         /// <summary>
         /// Attempt to download a <see cref="Task" /> from the FTP.

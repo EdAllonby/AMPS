@@ -12,7 +12,7 @@ namespace Server.MessageHandler
     /// </summary>
     internal static class JamValidator
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (JamValidator));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(JamValidator));
 
         /// <summary>
         /// Checks if <see cref="Task" />s can join a <see cref="Jam" />.

@@ -9,7 +9,7 @@ namespace SharedTest
         [Test]
         public void GetHighestIdReturnsZero()
         {
-            NewGenerator newGenerator = new NewGenerator();
+            var newGenerator = new NewGenerator();
 
             Assert.IsTrue(newGenerator.GetCurrentHighestId().Equals(0));
         }

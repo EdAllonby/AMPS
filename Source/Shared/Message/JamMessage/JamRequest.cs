@@ -26,12 +26,12 @@ namespace Shared.Message.JamMessage
         /// <summary>
         /// The <see cref="Task" />s to include in the new <see cref="Jam" />.
         /// </summary>
-        public List<int> TaskIds { get; private set; }
+        public List<int> TaskIds { get; }
 
         /// <summary>
         /// The <see cref="Band" /> who holds the <see cref="Jam" /> session.
         /// </summary>
-        public int BandId { get; private set; }
+        public int BandId { get; }
 
         /// <summary>
         /// The requested end date of the <see cref="Jam" />.

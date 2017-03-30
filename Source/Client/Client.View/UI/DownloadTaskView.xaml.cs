@@ -41,7 +41,7 @@ namespace Client.View.UI
         {
             if (e.StatusCode == FtpStatusCode.CommandOK || e.StatusCode == FtpStatusCode.ClosingData)
             {
-                MessageBox.Show("File successfully downloaded from server!", $"Response status code: {((int) e.StatusCode)}", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("File successfully downloaded from server!", $"Response status code: {(int) e.StatusCode}", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -51,18 +51,18 @@ namespace Client.View.UI
 
         private void OnSaveFileDialogRequested(object sender, EventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
             {
                 Filter = "Zip Files|*.zip",
                 DefaultExt = ".zip",
                 AddExtension = true
             };
-            
+
             bool? showDialog = saveFileDialog.ShowDialog();
 
             if (showDialog != null && showDialog.Value)
             {
-                DownloadTaskViewModel viewModel = (DownloadTaskViewModel) DataContext;
+                var viewModel = (DownloadTaskViewModel) DataContext;
 
                 viewModel.DownloadTaskModel.DownloadLocation = saveFileDialog.FileName;
             }

@@ -14,6 +14,17 @@ namespace Server.MessageHandler
         {
         }
 
+        private void AddUserToBand(ParticipationRequest participationRequest, EntityIdAllocatorFactory entityIdAllocatorFactory, IEntityRepository<Participation> participationRepository)
+        {
+            int participationId = entityIdAllocatorFactory.AllocateEntityId<Participation>();
+
+            participationRequest.Participation.RepositoryManager = ServiceRegistry.GetService<IRepositoryManager>();
+
+            var participation = new Participation(participationId, participationRequest.Participation.User.Id, participationRequest.Participation.Band.Id, participationRequest.Participation.IsLeader);
+
+            participationRepository.AddEntity(participation);
+        }
+
         /// <summary>
         /// Handles the incoming <see cref="ParticipationRequest" />.
         /// </summary>
@@ -24,17 +35,6 @@ namespace Server.MessageHandler
 
             var entityIdAllocatorFactory = ServiceRegistry.GetService<EntityIdAllocatorFactory>();
             AddUserToBand(message, entityIdAllocatorFactory, participationRepository);
-        }
-
-        private void AddUserToBand(ParticipationRequest participationRequest, EntityIdAllocatorFactory entityIdAllocatorFactory, IEntityRepository<Participation> participationRepository)
-        {
-            int participationId = entityIdAllocatorFactory.AllocateEntityId<Participation>();
-
-            participationRequest.Participation.RepositoryManager = ServiceRegistry.GetService<IRepositoryManager>();
-
-            var participation = new Participation(participationId, participationRequest.Participation.User.Id, participationRequest.Participation.Band.Id, participationRequest.Participation.IsLeader);
-
-            participationRepository.AddEntity(participation);
         }
     }
 }

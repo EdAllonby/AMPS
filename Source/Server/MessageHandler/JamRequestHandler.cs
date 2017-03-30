@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using log4net;
 using Shared;
 using Shared.Domain;
 using Shared.Message.JamMessage;
@@ -23,7 +22,7 @@ namespace Server.MessageHandler
         /// <param name="message">The <see cref="JamRequest" /> that has been received and needs to be handled.</param>
         protected override void HandleMessage(JamRequest message)
         {
-            BandRepository bandRepository = (BandRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
+            var bandRepository = (BandRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Band>();
 
             if (JamValidator.IsJamEndDateValid(message.JamEndDate))
             {
@@ -35,7 +34,7 @@ namespace Server.MessageHandler
 
                     var jamRepository = (IEntityRepository<Jam>) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Jam>();
 
-                    TaskRepository taskRepository = (TaskRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
+                    var taskRepository = (TaskRepository) ServiceRegistry.GetService<IRepositoryManager>().GetRepository<Task>();
 
                     List<Task> jamTasks = message.TaskIds.Select(taskId => taskRepository.FindEntityById(taskId)).ToList();
 

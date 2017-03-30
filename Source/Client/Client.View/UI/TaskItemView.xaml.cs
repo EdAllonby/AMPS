@@ -28,7 +28,7 @@ namespace Client.View.UI
             {
                 // TODO: Reliant on this event for a view model.
 
-                TaskItemViewModel viewModel = (TaskItemViewModel) DataContext;
+                var viewModel = (TaskItemViewModel) DataContext;
                 serviceRegistry = viewModel.ClientServiceRegistry;
                 viewModel.OpenTaskDetailsViewRequested += OnOpenTaskBacklogViewRequested;
                 viewModel.OpenUploadTaskViewRequested += viewModel_OpenUploadTaskViewRequested;

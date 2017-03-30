@@ -8,16 +8,15 @@ namespace BulkEntityGenerator
 {
     public class EmptyRepositoryManager : IRepositoryManager
     {
-        public List<Type> RepositoryEntityTypes { get; set; }
-
         private readonly IDictionary<Type, IEntityRepository> repositoriesIndexedByEnclosedEntity = new Dictionary<Type, IEntityRepository>();
+        public List<Type> RepositoryEntityTypes { get; set; }
 
 
         public void CreateRepositories()
         {
             foreach (Type repositoryEntityType in RepositoryEntityTypes)
             {
-                var entityRepository = (IEntityRepository)Activator.CreateInstance(typeof(EmptyEntityRepository<>).MakeGenericType(repositoryEntityType));
+                var entityRepository = (IEntityRepository) Activator.CreateInstance(typeof(EmptyEntityRepository<>).MakeGenericType(repositoryEntityType));
                 AddRepository(entityRepository);
             }
         }
@@ -35,13 +34,13 @@ namespace BulkEntityGenerator
         {
             IEntityRepository repository;
             repositoriesIndexedByEnclosedEntity.TryGetValue(typeof(T), out repository);
-            return (IReadOnlyEntityRepository<T>)repository;
+            return (IReadOnlyEntityRepository<T>) repository;
         }
 
         public void LoadRepositories()
         {
         }
-        
+
         /// <summary>
         /// Add a repository to the <see cref="RepositoryManager" />.
         /// </summary>

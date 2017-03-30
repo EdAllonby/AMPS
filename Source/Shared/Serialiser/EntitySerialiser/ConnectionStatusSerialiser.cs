@@ -10,7 +10,7 @@ namespace Shared.Serialiser.EntitySerialiser
     /// </summary>
     public sealed class ConnectionStatusSerialiser
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ConnectionStatusSerialiser));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ConnectionStatusSerialiser));
         private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>

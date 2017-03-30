@@ -86,7 +86,7 @@ namespace Client.View.UI
         {
             applicationExitHelper.CanExitApplication = false;
 
-            LoginView loginWindow = new LoginView(serviceRegistry);
+            var loginWindow = new LoginView(serviceRegistry);
 
             toastNotifier.ToastNotificationRequested -= NotificationReceived;
             growlNotifications.Close();
@@ -102,37 +102,37 @@ namespace Client.View.UI
 
         private void OnOpenBandDetailsViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)
         {
-            BandDetailsView bandDetailsView = new BandDetailsView(serviceRegistry, windowRequestedEventArgs.Band);
+            var bandDetailsView = new BandDetailsView(serviceRegistry, windowRequestedEventArgs.Band);
             bandDetailsView.ShowDialog();
         }
 
         private void OnOpenCreateTaskViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)
         {
-            TaskMakerView taskMakerView = new TaskMakerView(serviceRegistry, windowRequestedEventArgs.Band);
+            var taskMakerView = new TaskMakerView(serviceRegistry, windowRequestedEventArgs.Band);
             taskMakerView.ShowDialog();
         }
 
         private void OnOpenTaskBacklogViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)
         {
-            TaskBacklogView taskBacklogView = new TaskBacklogView(serviceRegistry, windowRequestedEventArgs.Band);
+            var taskBacklogView = new TaskBacklogView(serviceRegistry, windowRequestedEventArgs.Band);
             taskBacklogView.ShowDialog();
         }
 
         private void OnOpenJamMakerViewRequested(object sender, WindowRequestedEventArgs windowRequestedEventArgs)
         {
-            JamMakerView jamMakerView = new JamMakerView(serviceRegistry, windowRequestedEventArgs.Band);
+            var jamMakerView = new JamMakerView(serviceRegistry, windowRequestedEventArgs.Band);
             jamMakerView.ShowDialog();
         }
 
         private static void OnOpenAboutBoxRequested(object sender, EventArgs e)
         {
-            AboutBox aboutBox = new AboutBox();
+            var aboutBox = new AboutBox();
             aboutBox.ShowDialog();
         }
 
         private void OnOpenSettingsRequested(object sender, EventArgs e)
         {
-            SettingsView settingsView = new SettingsView(serviceRegistry);
+            var settingsView = new SettingsView(serviceRegistry);
             settingsView.ShowDialog();
         }
 

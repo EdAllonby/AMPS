@@ -11,7 +11,7 @@ namespace SharedTest.DomainTest
         public void EntityCreatedDoesNotHaveAPreviousEntity()
         {
             var bandEntity = new Band(1, "Bandname");
-            EntityChangedEventArgs<Band> entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Create);
+            var entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Create);
             Assert.IsNull(entityChangedEventArgs.PreviousEntity);
         }
 
@@ -19,7 +19,7 @@ namespace SharedTest.DomainTest
         public void EntityCreatedSetsNotificationTypeToCreate()
         {
             var bandEntity = new Band(1, "Bandname");
-            EntityChangedEventArgs<Band> entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Create);
+            var entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Create);
             Assert.AreEqual(NotificationType.Create, entityChangedEventArgs.NotificationType);
         }
 
@@ -27,7 +27,7 @@ namespace SharedTest.DomainTest
         public void EntityDeletedMakesCurrentAndPreviousEntitySame()
         {
             var bandEntity = new Band(1, "Bandname");
-            EntityChangedEventArgs<Band> entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Delete);
+            var entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Delete);
             Assert.AreEqual(entityChangedEventArgs.Entity, entityChangedEventArgs.PreviousEntity);
         }
 
@@ -35,7 +35,7 @@ namespace SharedTest.DomainTest
         public void EntityDeletedSetsNotificationTypeToDelete()
         {
             var bandEntity = new Band(1, "Bandname");
-            EntityChangedEventArgs<Band> entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Delete);
+            var entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, NotificationType.Delete);
             Assert.AreEqual(NotificationType.Delete, entityChangedEventArgs.NotificationType);
         }
 
@@ -44,7 +44,7 @@ namespace SharedTest.DomainTest
         {
             var bandEntity = new Band(1, "Bandname");
             var previousBandEntity = new Band(1, "Old Band Name");
-            EntityChangedEventArgs<Band> entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, previousBandEntity);
+            var entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, previousBandEntity);
             Assert.AreEqual(bandEntity, entityChangedEventArgs.Entity);
             Assert.AreEqual(previousBandEntity, entityChangedEventArgs.PreviousEntity);
         }
@@ -54,7 +54,7 @@ namespace SharedTest.DomainTest
         {
             var bandEntity = new Band(1, "Bandname");
             var previousBandEntity = new Band(1, "Old Band Name");
-            EntityChangedEventArgs<Band> entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, previousBandEntity);
+            var entityChangedEventArgs = new EntityChangedEventArgs<Band>(bandEntity, previousBandEntity);
             Assert.AreEqual(NotificationType.Update, entityChangedEventArgs.NotificationType);
         }
     }

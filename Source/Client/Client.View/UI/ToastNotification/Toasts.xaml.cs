@@ -25,7 +25,7 @@ namespace Client.View.UI.ToastNotification
 
         public void AddNotification(Notification newNotification)
         {
-            Notification notification = new Notification(count++, newNotification);
+            var notification = new Notification(count++, newNotification);
 
             if (notifications.Count + 1 > notificationManager.TotalToastsToDisplay)
             {

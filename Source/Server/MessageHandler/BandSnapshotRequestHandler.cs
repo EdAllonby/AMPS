@@ -7,7 +7,7 @@ using Shared.Repository;
 namespace Server.MessageHandler
 {
     /// <summary>
-    /// Handles a <see cref="EntitySnapshotRequest{T}" /> the Server received.
+    /// Handles a <see cref="EntitySnapshotRequest{TEntity}" /> the Server received.
     /// </summary>
     internal class BandSnapshotRequestHandler : MessageHandler<EntitySnapshotRequest<Band>>
     {

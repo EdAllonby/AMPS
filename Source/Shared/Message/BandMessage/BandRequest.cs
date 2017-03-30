@@ -31,7 +31,7 @@ namespace Shared.Message.BandMessage
         /// <summary>
         /// The users to add to the Band.
         /// </summary>
-        public List<int> UserIds { get; private set; }
+        public List<int> UserIds { get; }
 
         /// <summary>
         /// The leader's Id.

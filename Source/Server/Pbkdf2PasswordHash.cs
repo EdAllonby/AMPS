@@ -14,6 +14,7 @@ namespace Server
     {
         // The following constants may be changed without breaking existing hashes.
         private const int SaltByteSize = 40;
+
         private const int HashByteSize = 40;
         private const int Pbkdf2Iterations = 1000;
         private const int IterationIndex = 0;
@@ -28,8 +29,8 @@ namespace Server
         public string CreateHash(string password)
         {
             // Generate a random salt
-            RNGCryptoServiceProvider csprng = new RNGCryptoServiceProvider();
-            byte[] salt = new byte[SaltByteSize];
+            var csprng = new RNGCryptoServiceProvider();
+            var salt = new byte[SaltByteSize];
             csprng.GetBytes(salt);
 
             // Hash the password and encode the parameters
@@ -48,7 +49,7 @@ namespace Server
         public bool ValidatePassword(string password, string correctHash)
         {
             // Extract the parameters from the hash
-            char[] delimiter = {':'};
+            char[] delimiter = { ':' };
             string[] split = correctHash.Split(delimiter);
             int iterations = int.Parse(split[IterationIndex]);
             byte[] salt = Convert.FromBase64String(split[SaltIndex]);
@@ -69,7 +70,7 @@ namespace Server
         private static bool SlowEquals(IReadOnlyList<byte> a, IReadOnlyList<byte> b)
         {
             uint diff = (uint) a.Count ^ (uint) b.Count;
-            for (int i = 0; i < a.Count && i < b.Count; i++)
+            for (var i = 0; i < a.Count && i < b.Count; i++)
                 diff |= (uint) (a[i] ^ b[i]);
             return diff == 0;
         }
@@ -84,7 +85,7 @@ namespace Server
         /// <returns>A hash of the password.</returns>
         private static byte[] Pbkdf2(string password, byte[] salt, int iterations, int outputBytes)
         {
-            Rfc2898DeriveBytes pbkdf2 = new Rfc2898DeriveBytes(password, salt) {IterationCount = iterations};
+            var pbkdf2 = new Rfc2898DeriveBytes(password, salt) { IterationCount = iterations };
             return pbkdf2.GetBytes(outputBytes);
         }
     }

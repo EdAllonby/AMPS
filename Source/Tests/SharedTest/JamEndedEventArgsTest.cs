@@ -11,9 +11,9 @@ namespace SharedTest
         [Test]
         public void HoldsJam()
         {
-            Jam jam = new Jam(1, 1, new DateTime());
+            var jam = new Jam(1, 1, new DateTime());
 
-            JamEndedEventArgs jamEndedEventArgs = new JamEndedEventArgs(jam);
+            var jamEndedEventArgs = new JamEndedEventArgs(jam);
 
             Assert.AreEqual(jam, jamEndedEventArgs.FinishedJam);
         }
@@ -21,7 +21,7 @@ namespace SharedTest
         [Test]
         public void IsAnEventArgs()
         {
-            JamEndedEventArgs jamEndedEventArgs = new JamEndedEventArgs(new Jam(1, 1, new DateTime()));
+            var jamEndedEventArgs = new JamEndedEventArgs(new Jam(1, 1, new DateTime()));
 
             Assert.IsInstanceOf<EventArgs>(jamEndedEventArgs);
         }

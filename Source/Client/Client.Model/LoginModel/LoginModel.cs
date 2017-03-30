@@ -153,7 +153,7 @@ namespace Client.Model.LoginModel
         {
             string asterisks = string.Empty;
 
-            for (int asteriskCount = 0; asteriskCount < length; asteriskCount++)
+            for (var asteriskCount = 0; asteriskCount < length; asteriskCount++)
             {
                 asterisks += "*";
             }

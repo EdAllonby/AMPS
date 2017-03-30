@@ -6,14 +6,8 @@ namespace Client.ViewModel.Commands
 {
     internal sealed class RelayCommand : ICommand
     {
-        #region Members
-
         private readonly Func<bool> canExecute;
         private readonly Action execute;
-
-        #endregion
-
-        #region Constructors
 
         public RelayCommand(Action execute)
             : this(execute, null)
@@ -29,10 +23,6 @@ namespace Client.ViewModel.Commands
             this.execute = execute;
             this.canExecute = canExecute;
         }
-
-        #endregion
-
-        #region ICommand Members
 
         public event EventHandler CanExecuteChanged
         {
@@ -62,7 +52,5 @@ namespace Client.ViewModel.Commands
         {
             execute();
         }
-
-        #endregion
     }
 }

@@ -41,7 +41,7 @@ namespace Client.View.UI
         {
             if (e.StatusCode == FtpStatusCode.CommandOK)
             {
-                MessageBox.Show("File successfully uploaded to server!", $"Response status code: {((int) e.StatusCode)}", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("File successfully uploaded to server!", $"Response status code: {(int) e.StatusCode}", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
@@ -51,7 +51,7 @@ namespace Client.View.UI
 
         private void OnOpenFileDialogRequested(object sender, EventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog {Filter = "Any file|*.*"};
+            var openFileDialog = new OpenFileDialog { Filter = "Any file|*.*" };
 
             openFileDialog.Filter = "Zip Files|*.zip";
 
@@ -59,7 +59,7 @@ namespace Client.View.UI
 
             if (showDialog != null && showDialog.Value)
             {
-                UploadTaskViewModel viewModel = (UploadTaskViewModel) DataContext;
+                var viewModel = (UploadTaskViewModel) DataContext;
 
                 viewModel.UploadTaskModel.FileExtension = Path.GetExtension(openFileDialog.FileName);
 

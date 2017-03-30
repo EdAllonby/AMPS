@@ -24,11 +24,11 @@ namespace Shared.Message
         /// <summary>
         /// The <see cref="User" /> requesting the snapshot.
         /// </summary>
-        public int UserId { get; private set; }
+        public int UserId { get; }
 
         /// <summary>
         /// The identifier associated with the particular <see cref="IMessage" />.
         /// </summary>
-        public MessageIdentifier MessageIdentifier => snapshotRequestMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof (TEntity));
+        public MessageIdentifier MessageIdentifier => snapshotRequestMessageIdentifierFactory.GetIdentifierBySnapshotType(typeof(TEntity));
     }
 }

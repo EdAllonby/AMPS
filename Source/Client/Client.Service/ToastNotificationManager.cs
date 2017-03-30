@@ -7,7 +7,7 @@ namespace Client.Service
 {
     public sealed class ToastNotificationManager : IService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ToastNotificationManager));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ToastNotificationManager));
         private int totalToastsToDisplay = 4;
 
         public ToastNotificationManager()

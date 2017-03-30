@@ -21,7 +21,7 @@ namespace Shared.Message.TaskMessage
         /// <summary>
         /// The new <see cref="Task" />.
         /// </summary>
-        public Task Task { get; private set; }
+        public Task Task { get; }
 
         /// <summary>
         /// The identifier associated with the particular <see cref="IMessage" />.

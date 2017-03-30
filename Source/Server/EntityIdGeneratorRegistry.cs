@@ -25,12 +25,12 @@ namespace Server
             EntityIdGeneratorsIndexedByEntityType =
                 new Dictionary<Type, EntityIdGenerator.EntityIdGenerator>
                 {
-                    {typeof (User), new UserIdGenerator(generatorStrategy)},
-                    {typeof (Band), new BandIdGenerator(generatorStrategy)},
-                    {typeof (Jam), new JamIdGenerator(generatorStrategy)},
-                    {typeof (Participation), new ParticipationIdGenerator(generatorStrategy)},
-                    {typeof (Task), new TaskIdGenerator(generatorStrategy)},
-                    {typeof (TaskComment), new TaskCommentIdGenerator(generatorStrategy)}
+                    { typeof(User), new UserIdGenerator(generatorStrategy) },
+                    { typeof(Band), new BandIdGenerator(generatorStrategy) },
+                    { typeof(Jam), new JamIdGenerator(generatorStrategy) },
+                    { typeof(Participation), new ParticipationIdGenerator(generatorStrategy) },
+                    { typeof(Task), new TaskIdGenerator(generatorStrategy) },
+                    { typeof(TaskComment), new TaskCommentIdGenerator(generatorStrategy) }
                 };
         }
     }

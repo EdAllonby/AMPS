@@ -34,8 +34,8 @@ namespace ServerTest.MessageHandlerTests
             [Test]
             public void CanManuallySetJamToInActiveIfAfterActivePeriod()
             {
-                var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
-                Jam jam = new Jam(1, 1, jamEndDate) {IsActive = false};
+                DateTime jamEndDate = DateTime.UtcNow.AddMinutes(-60);
+                var jam = new Jam(1, 1, jamEndDate) { IsActive = false };
 
                 Assert.IsFalse(jam.IsActive);
             }
@@ -44,7 +44,7 @@ namespace ServerTest.MessageHandlerTests
             public void JamEndDateTest()
             {
                 var jamEndDate = new DateTime(1, 1, 1);
-                Jam jam = new Jam(1, 1, jamEndDate);
+                var jam = new Jam(1, 1, jamEndDate);
 
                 Assert.AreEqual(jam.JamEndDate, jamEndDate);
             }
@@ -52,8 +52,8 @@ namespace ServerTest.MessageHandlerTests
             [Test]
             public void JamIsActiveBeforeSpecifiedEndDateTest()
             {
-                var jamEndDate = DateTime.UtcNow.AddMinutes(60);
-                Jam jam = new Jam(1, 1, jamEndDate);
+                DateTime jamEndDate = DateTime.UtcNow.AddMinutes(60);
+                var jam = new Jam(1, 1, jamEndDate);
 
                 Assert.IsTrue(jam.IsActive);
             }
@@ -61,8 +61,8 @@ namespace ServerTest.MessageHandlerTests
             [Test]
             public void JamIsNotActiveAfterSpecifiedEndDateTest()
             {
-                var jamEndDate = DateTime.UtcNow.AddMinutes(-60);
-                Jam jam = new Jam(1, 1, jamEndDate);
+                DateTime jamEndDate = DateTime.UtcNow.AddMinutes(-60);
+                var jam = new Jam(1, 1, jamEndDate);
 
                 Assert.IsTrue(jam.IsActive);
             }
@@ -98,7 +98,7 @@ namespace ServerTest.MessageHandlerTests
             [Test]
             public void SendsAMessage()
             {
-                bool isMessageSent = false;
+                var isMessageSent = false;
                 ConnectedUserClientHandler.MessageSent += (sender, eventArgs) => isMessageSent = true;
 
                 HandleMessage(jamSnapshotRequest);

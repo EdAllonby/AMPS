@@ -9,7 +9,7 @@ namespace Shared
     /// </summary>
     public sealed class ServiceRegistry : IServiceRegistry
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ServiceRegistry));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ServiceRegistry));
         private readonly IDictionary<Type, IService> services = new Dictionary<Type, IService>();
 
         /// <summary>
@@ -19,12 +19,12 @@ namespace Shared
         /// <returns>The service requested.</returns>
         public T GetService<T>() where T : IService
         {
-            if (!services.ContainsKey(typeof (T)))
+            if (!services.ContainsKey(typeof(T)))
             {
-                throw new ArgumentException("Service not registered: " + typeof (T));
+                throw new ArgumentException("Service not registered: " + typeof(T));
             }
 
-            return (T) services[typeof (T)];
+            return (T) services[typeof(T)];
         }
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace Shared
         /// <param name="service">The service instance to add.</param>
         public void RegisterService<T>(IService service) where T : IService
         {
-            services.Add(typeof (T), service);
-            Log.DebugFormat("Service [{0}] added to service registry", typeof (T).FullName);
+            services.Add(typeof(T), service);
+            Log.DebugFormat("Service [{0}] added to service registry", typeof(T).FullName);
         }
     }
 }

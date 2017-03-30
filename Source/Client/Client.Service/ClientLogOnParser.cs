@@ -11,7 +11,7 @@ namespace Client.Service
     {
         private const int PortMaxBound = 65535;
         private const int PortMinBound = 0;
-        private static readonly ILog Log = LogManager.GetLogger(typeof (ClientLogOnParser));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ClientLogOnParser));
         private bool isParsed;
         private IPAddress targetedAddress;
         private string targetedPassword;
@@ -26,7 +26,7 @@ namespace Client.Service
         /// <returns>Whether the parse was successful.</returns>
         public bool TryParseCommandLineArguments(IEnumerable<string> commandLineArguments, out LoginDetails loginDetails)
         {
-            string parameterName = "";
+            var parameterName = "";
 
             foreach (string argument in commandLineArguments)
             {

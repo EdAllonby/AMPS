@@ -10,7 +10,7 @@ namespace Shared.Serialiser.MessageSerialiser
     /// </summary>
     internal sealed class NotificationTypeSerialiser
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof (NotificationType));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(NotificationType));
         private readonly ISerialiser serialiser = new BinarySerialiser();
 
         /// <summary>

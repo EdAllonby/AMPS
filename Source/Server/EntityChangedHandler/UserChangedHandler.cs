@@ -25,6 +25,15 @@ namespace Server.EntityChangedHandler
             userRepository.EntityUpdated += OnUserUpdated;
         }
 
+        /// <summary>
+        /// Removes event subscriptions to <see cref="UserRepository" /> <see cref="Entity" /> changes.
+        /// </summary>
+        public override void StopOnMessageChangedHandling()
+        {
+            userRepository.EntityAdded -= OnUserAdded;
+            userRepository.EntityUpdated -= OnUserUpdated;
+        }
+
         private void OnUserAdded(object sender, EntityChangedEventArgs<User> e)
         {
             var userNotification = new EntityNotification<User>(e.Entity, NotificationType.Create);
@@ -45,15 +54,6 @@ namespace Server.EntityChangedHandler
             var userNotification = new ConnectionStatusNotification(user.ConnectionStatus, NotificationType.Update);
 
             ClientManager.SendMessageToClients(userNotification);
-        }
-
-        /// <summary>
-        /// Removes event subscriptions to <see cref="UserRepository" /> <see cref="Entity" /> changes.
-        /// </summary>
-        public override void StopOnMessageChangedHandling()
-        {
-            userRepository.EntityAdded -= OnUserAdded;
-            userRepository.EntityUpdated -= OnUserUpdated;
         }
     }
 }

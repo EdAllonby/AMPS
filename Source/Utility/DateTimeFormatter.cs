@@ -13,9 +13,9 @@ namespace Utility
 
             if (span.Days > DaysInYear)
             {
-                int years = (span.Days/DaysInYear);
+                int years = span.Days / DaysInYear;
 
-                if (span.Days%DaysInYear != 0)
+                if (span.Days % DaysInYear != 0)
                 {
                     years += 1;
                 }
@@ -24,9 +24,9 @@ namespace Utility
             }
             if (span.Days > DaysInMonth)
             {
-                int months = (span.Days/DaysInMonth);
+                int months = span.Days / DaysInMonth;
 
-                if (span.Days%31 != 0)
+                if (span.Days % 31 != 0)
                 {
                     months += 1;
                 }

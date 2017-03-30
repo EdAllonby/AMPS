@@ -23,12 +23,12 @@ namespace Shared.Message.LoginMessage
         /// <summary>
         /// Whether or not the Client is allowed on to the Server.
         /// </summary>
-        public LoginResult LoginResult { get; private set; }
+        public LoginResult LoginResult { get; }
 
         /// <summary>
         /// The <see cref="User" /> object created by the Server.
         /// </summary>
-        public User User { get; private set; }
+        public User User { get; }
 
         /// <summary>
         /// The type of message this is.

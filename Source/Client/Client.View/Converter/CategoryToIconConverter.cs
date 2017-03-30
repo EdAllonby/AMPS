@@ -21,7 +21,7 @@ namespace Client.View.Converter
         /// <returns></returns>
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            TaskCategory taskCategory = (TaskCategory) value;
+            var taskCategory = (TaskCategory) value;
 
             if (taskCategory.Equals(TaskCategory.Guitar))
             {

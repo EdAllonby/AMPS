@@ -46,7 +46,7 @@ namespace Client.ViewModel.MainViewModel
 
             TaskCategories = new List<string>();
 
-            List<string> defaultSelectedTaskCategories = new List<string> {"All"};
+            var defaultSelectedTaskCategories = new List<string> { "All" };
 
             foreach (TaskCategory taskCategory in EnumUtility.EnumToEnumerable<TaskCategory>())
             {
@@ -130,6 +130,7 @@ namespace Client.ViewModel.MainViewModel
         public ObservableCollection<TaskItemViewModel> DisplayedTasksInCurrentJam { get; }
 
         // ReSharper restore CollectionNeverQueried.Global
+
         /// <summary>
         /// The total points in this <see cref="Jam" />.
         /// </summary>
