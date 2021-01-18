@@ -37,7 +37,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public bool IsSelected
         {
-            get { return isSelected; }
+            get => isSelected;
             set
             {
                 if (Equals(value, isSelected)) return;
@@ -62,7 +62,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public bool IsLeader
         {
-            get { return isLeader; }
+            get => isLeader;
             set
             {
                 if (Equals(value, isLeader)) return;

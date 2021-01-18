@@ -25,8 +25,8 @@ namespace BulkEntityGenerator
 
         public event EventHandler BootstrapCompleted
         {
-            add { clientService.BootstrapCompleted += value; }
-            remove { clientService.BootstrapCompleted -= value; }
+            add => clientService.BootstrapCompleted += value;
+            remove => clientService.BootstrapCompleted -= value;
         }
 
         public void LoginUser()

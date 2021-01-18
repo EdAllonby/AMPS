@@ -36,7 +36,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public TaskBacklogModel TaskBacklogModel
         {
-            get { return taskBacklogModel; }
+            get => taskBacklogModel;
             set
             {
                 if (Equals(value, taskBacklogModel)) return;

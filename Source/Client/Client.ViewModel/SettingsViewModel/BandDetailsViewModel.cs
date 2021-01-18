@@ -27,7 +27,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public BandDetailsModel BandMakerModel
         {
-            get { return bandDetailsModel; }
+            get => bandDetailsModel;
             set
             {
                 if (Equals(value, bandDetailsModel)) return;

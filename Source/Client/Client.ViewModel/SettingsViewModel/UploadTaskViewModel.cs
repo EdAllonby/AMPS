@@ -36,7 +36,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public UploadTaskModel UploadTaskModel
         {
-            get { return uploadTaskModel; }
+            get => uploadTaskModel;
             set
             {
                 if (Equals(value, uploadTaskModel)) return;

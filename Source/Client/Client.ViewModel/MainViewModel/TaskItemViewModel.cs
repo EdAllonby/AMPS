@@ -59,7 +59,7 @@ namespace Client.ViewModel.MainViewModel
 
         public string Comment
         {
-            get { return comment; }
+            get => comment;
             set
             {
                 comment = value;
@@ -69,7 +69,7 @@ namespace Client.ViewModel.MainViewModel
 
         public string TotalTaskComments
         {
-            get { return totalTaskComments; }
+            get => totalTaskComments;
             set
             {
                 totalTaskComments = value;

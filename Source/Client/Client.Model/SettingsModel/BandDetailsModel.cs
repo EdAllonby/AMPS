@@ -31,7 +31,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public User BandLeader
         {
-            get { return bandLeader; }
+            get => bandLeader;
             set
             {
                 if (Equals(value, bandLeader)) return;
@@ -45,7 +45,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public Band Band
         {
-            get { return band; }
+            get => band;
             set
             {
                 if (Equals(value, band)) return;
@@ -59,7 +59,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<User> BandMembers
         {
-            get { return bandMembers; }
+            get => bandMembers;
             set
             {
                 if (Equals(value, bandMembers)) return;

@@ -24,7 +24,7 @@ namespace Client.Service.FTPService
 
         public string Address
         {
-            get { return configManager.FindStoredValue("FTPHost"); }
+            get => configManager.FindStoredValue("FTPHost");
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -36,7 +36,7 @@ namespace Client.Service.FTPService
 
         public string Username
         {
-            get { return configManager.FindStoredValue("FTPUsername"); }
+            get => configManager.FindStoredValue("FTPUsername");
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))
@@ -48,7 +48,7 @@ namespace Client.Service.FTPService
 
         public string Password
         {
-            get { return configManager.FindStoredValue("FTPPassword"); }
+            get => configManager.FindStoredValue("FTPPassword");
             set
             {
                 if (!string.IsNullOrWhiteSpace(value))

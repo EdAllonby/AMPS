@@ -62,7 +62,7 @@ namespace Client.ViewModel.LoginViewModel
         /// </summary>
         public LoginModel LoginModel
         {
-            get { return loginModel; }
+            get => loginModel;
             set
             {
                 if (Equals(value, loginModel)) return;

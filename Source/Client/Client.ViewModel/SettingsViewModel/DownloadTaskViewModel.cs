@@ -24,7 +24,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public DownloadTaskModel DownloadTaskModel
         {
-            get { return downloadTaskModel; }
+            get => downloadTaskModel;
             set
             {
                 if (Equals(value, downloadTaskModel)) return;

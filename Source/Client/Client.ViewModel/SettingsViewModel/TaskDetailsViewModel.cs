@@ -26,7 +26,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public TaskModel TaskModel
         {
-            get { return taskModel; }
+            get => taskModel;
             set
             {
                 if (Equals(value, taskModel)) return;

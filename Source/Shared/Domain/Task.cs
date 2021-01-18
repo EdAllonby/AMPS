@@ -102,7 +102,7 @@ namespace Shared.Domain
         /// </summary>
         public int Points
         {
-            get { return points; }
+            get => points;
             set
             {
                 if (points >= 0)
@@ -122,7 +122,7 @@ namespace Shared.Domain
         /// </summary>
         public int AssignedUserId
         {
-            get { return assignedUserId; }
+            get => assignedUserId;
             set
             {
                 if (assignedUserId >= 0)
@@ -156,7 +156,7 @@ namespace Shared.Domain
         /// </summary>
         public bool IsCompleted
         {
-            get { return isCompleted; }
+            get => isCompleted;
             set
             {
                 if (value && !IsCompleted)
@@ -171,7 +171,7 @@ namespace Shared.Domain
         /// </summary>
         public DateTime CompletedDate
         {
-            get { return completedDate; }
+            get => completedDate;
             set
             {
                 if (CompletedDate == DateTime.MinValue && IsCompleted)

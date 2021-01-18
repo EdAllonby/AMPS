@@ -56,7 +56,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public User AssignedMember
         {
-            get { return assignedMember; }
+            get => assignedMember;
             set
             {
                 if (Equals(value, assignedMember))
@@ -73,7 +73,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public int Points
         {
-            get { return points; }
+            get => points;
             set
             {
                 if (Equals(value, points) || value < 0)
@@ -91,7 +91,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public bool IsCompleted
         {
-            get { return isCompleted; }
+            get => isCompleted;
             set
             {
                 if (Equals(value, isCompleted))
@@ -112,7 +112,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public TaskCategory Category
         {
-            get { return category; }
+            get => category;
             set
             {
                 if (Equals(value, category))
@@ -131,7 +131,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public Brush TaskCompletedColour
         {
-            get { return taskCompletedColour; }
+            get => taskCompletedColour;
             set
             {
                 if (Equals(value, taskCompletedColour))

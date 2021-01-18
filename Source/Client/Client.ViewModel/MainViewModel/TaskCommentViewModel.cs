@@ -37,7 +37,7 @@ namespace Client.ViewModel.MainViewModel
 
         public bool Reply
         {
-            get { return reply; }
+            get => reply;
             set
             {
                 reply = value;
@@ -49,7 +49,7 @@ namespace Client.ViewModel.MainViewModel
 
         public string RelativeTime
         {
-            get { return relativeTime; }
+            get => relativeTime;
             set
             {
                 relativeTime = value;
@@ -63,7 +63,7 @@ namespace Client.ViewModel.MainViewModel
 
         public string ReplyComment
         {
-            get { return replyComment; }
+            get => replyComment;
             set
             {
                 replyComment = value;

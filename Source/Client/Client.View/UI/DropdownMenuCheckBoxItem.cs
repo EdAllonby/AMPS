@@ -25,7 +25,7 @@ namespace Client.View.UI
         /// </summary>
         public string Title
         {
-            get { return title; }
+            get => title;
             private set
             {
                 title = value;
@@ -38,7 +38,7 @@ namespace Client.View.UI
         /// </summary>
         public bool IsSelected
         {
-            get { return isSelected; }
+            get => isSelected;
             set
             {
                 isSelected = value;

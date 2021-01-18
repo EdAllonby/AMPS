@@ -32,7 +32,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public string TaskTitle
         {
-            get { return taskTitle; }
+            get => taskTitle;
             set
             {
                 if (Equals(value, taskTitle))
@@ -49,7 +49,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public string TaskDescription
         {
-            get { return taskDescription; }
+            get => taskDescription;
             set
             {
                 if (Equals(value, taskDescription))
@@ -66,7 +66,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public int TaskPoints
         {
-            get { return taskPoints; }
+            get => taskPoints;
             set
             {
                 if (Equals(value, taskPoints) || value < 0)
@@ -84,7 +84,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<int> PointsList
         {
-            get { return pointsList; }
+            get => pointsList;
             set
             {
                 if (Equals(value, pointsList))
@@ -102,7 +102,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<User> BandMembers
         {
-            get { return bandMembers; }
+            get => bandMembers;
             set
             {
                 if (Equals(value, bandMembers))
@@ -119,7 +119,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public User AssignedMember
         {
-            get { return assignedMember; }
+            get => assignedMember;
             set
             {
                 if (Equals(value, assignedMember))
@@ -141,7 +141,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public TaskCategory TaskCategory
         {
-            get { return taskCategory; }
+            get => taskCategory;
             set
             {
                 if (Equals(value, taskCategory))

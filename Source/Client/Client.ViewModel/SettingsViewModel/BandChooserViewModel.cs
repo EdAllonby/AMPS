@@ -46,7 +46,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public BandChooserModel BandChooserModel
         {
-            get { return bandChooserModel; }
+            get => bandChooserModel;
             set
             {
                 if (Equals(value, bandChooserModel)) return;

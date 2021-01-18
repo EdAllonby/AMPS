@@ -26,7 +26,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<Band> Bands
         {
-            get { return bands; }
+            get => bands;
             set
             {
                 if (Equals(value, bands)) return;
@@ -40,7 +40,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public Band SelectedBand
         {
-            get { return selectedBand; }
+            get => selectedBand;
             set
             {
                 if (Equals(value, selectedBand)) return;

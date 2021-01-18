@@ -50,7 +50,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public IList<UserViewModel> ConnectedUsers
         {
-            get { return connectedUsers; }
+            get => connectedUsers;
             set
             {
                 if (Equals(value, connectedUsers))
@@ -68,7 +68,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public string UserFilter
         {
-            get { return userFilter; }
+            get => userFilter;
             set
             {
                 userFilter = value;

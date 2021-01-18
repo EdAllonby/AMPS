@@ -34,7 +34,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public bool IsNotificationsEnabled
         {
-            get { return isNotificationsEnabled; }
+            get => isNotificationsEnabled;
 
             set
             {
@@ -45,7 +45,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public int ToastsToDisplay
         {
-            get { return toastsToDisplay; }
+            get => toastsToDisplay;
             set
             {
                 toastsToDisplay = value;
@@ -57,7 +57,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public string FTPUsername
         {
-            get { return ftpUsername; }
+            get => ftpUsername;
             set
             {
                 ftpUsername = value;
@@ -67,7 +67,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public string FTPPassword
         {
-            get { return ftpPassword; }
+            get => ftpPassword;
             set
             {
                 ftpPassword = value;
@@ -77,7 +77,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public string FTPAddress
         {
-            get { return ftpAddress; }
+            get => ftpAddress;
             set
             {
                 ftpAddress = value;

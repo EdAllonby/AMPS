@@ -28,7 +28,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<AddableTaskModel> AddableTasks
         {
-            get { return addableTask; }
+            get => addableTask;
             set
             {
                 if (Equals(value, addableTask)) return;
@@ -42,7 +42,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public int JamDayLength
         {
-            get { return jamDayLength; }
+            get => jamDayLength;
             set
             {
                 if (Equals(value, jamDayLength)) return;

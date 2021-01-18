@@ -25,7 +25,7 @@ namespace Client.Model.LoginModel
         /// </summary>
         public string Username
         {
-            get { return username; }
+            get => username;
             set
             {
                 if (value == username) return;
@@ -44,7 +44,7 @@ namespace Client.Model.LoginModel
         /// </summary>
         public string ExposedPassword
         {
-            get { return exposedPassword; }
+            get => exposedPassword;
             set
             {
                 if (value == exposedPassword) return;
@@ -71,7 +71,7 @@ namespace Client.Model.LoginModel
         /// </summary>
         public string IPAddress
         {
-            get { return ipAddress; }
+            get => ipAddress;
             set
             {
                 if (value == ipAddress) return;
@@ -85,7 +85,7 @@ namespace Client.Model.LoginModel
         /// </summary>
         public string Port
         {
-            get { return port; }
+            get => port;
             set
             {
                 if (value == port) return;

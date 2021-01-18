@@ -53,7 +53,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public BandMakerModel BandMakerModel
         {
-            get { return bandMakerModel; }
+            get => bandMakerModel;
             set
             {
                 if (Equals(value, bandMakerModel)) return;

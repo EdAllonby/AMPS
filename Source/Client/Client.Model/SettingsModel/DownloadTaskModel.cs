@@ -25,7 +25,7 @@ namespace Client.Model.SettingsModel
 
         public long DownloadedSize
         {
-            get { return downloadedSize; }
+            get => downloadedSize;
             set
             {
                 if (Equals(value, downloadedSize))
@@ -41,7 +41,7 @@ namespace Client.Model.SettingsModel
 
         public long TotalSize
         {
-            get { return totalSize; }
+            get => totalSize;
             set
             {
                 if (Equals(value, totalSize))
@@ -65,7 +65,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public bool IsDownloading
         {
-            get { return isDownloading; }
+            get => isDownloading;
             set
             {
                 if (Equals(value, isDownloading))
@@ -84,7 +84,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public string DownloadLocation
         {
-            get { return downloadLocation; }
+            get => downloadLocation;
             set
             {
                 if (Equals(value, downloadLocation))

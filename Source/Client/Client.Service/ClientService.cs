@@ -45,10 +45,7 @@ namespace Client.Service
             repositoryManager = ServiceRegistry.GetService<IRepositoryManager>();
         }
 
-        public User ClientUser
-        {
-            get { return repositoryManager.GetRepository<User>().FindEntityById(ClientUserId); }
-        }
+        public User ClientUser => repositoryManager.GetRepository<User>().FindEntityById(ClientUserId);
 
         /// <summary>
         /// Gets fired when bootstrapping the repository is complete.

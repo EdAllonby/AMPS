@@ -54,7 +54,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public JamMakerModel JamMakerModel
         {
-            get { return jamMakerModel; }
+            get => jamMakerModel;
             set
             {
                 if (Equals(value, jamMakerModel)) return;
@@ -65,7 +65,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public bool AddAllTasks
         {
-            get { return addAllTasks; }
+            get => addAllTasks;
             set
             {
                 addAllTasks = value;

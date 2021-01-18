@@ -24,7 +24,7 @@ namespace Shared.Repository
 
         public IEntityPersister EntityPersister
         {
-            set { TypedEntityPersister = (IEntityPersister<T>) value; }
+            set => TypedEntityPersister = (IEntityPersister<T>) value;
         }
 
         /// <summary>
@@ -32,7 +32,7 @@ namespace Shared.Repository
         /// </summary>
         public IRepositoryManager RepositoryManager
         {
-            get { return repositoryManager; }
+            get => repositoryManager;
             set
             {
                 if (repositoryManager != null)

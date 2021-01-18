@@ -32,7 +32,7 @@ namespace Client.ViewModel.SettingsViewModel
 
         public PlotModel PlotModel
         {
-            get { return plotModel; }
+            get => plotModel;
             set
             {
                 plotModel = value;

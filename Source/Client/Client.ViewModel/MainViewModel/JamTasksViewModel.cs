@@ -71,7 +71,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public List<string> TaskCategories
         {
-            get { return taskCategories; }
+            get => taskCategories;
             set
             {
                 taskCategories = value;
@@ -84,7 +84,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public List<string> SelectedTaskCategories
         {
-            get { return selectedTaskCategories; }
+            get => selectedTaskCategories;
             set
             {
                 taskCategoriesFiltered.Clear();
@@ -110,7 +110,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public TaskFilter SelectedTaskFilter
         {
-            get { return selectedTaskFilter; }
+            get => selectedTaskFilter;
             set
             {
                 if (Equals(value, selectedTaskFilter)) return;
@@ -134,7 +134,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public int CompletedPoints
         {
-            get { return completedPoints; }
+            get => completedPoints;
             set
             {
                 if (Equals(value, completedPoints)) return;
@@ -148,7 +148,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public int RemainingPoints
         {
-            get { return remainingPoints; }
+            get => remainingPoints;
             set
             {
                 if (Equals(value, remainingPoints)) return;
@@ -162,7 +162,7 @@ namespace Client.ViewModel.MainViewModel
         /// </summary>
         public int TotalPoints
         {
-            get { return totalPoints; }
+            get => totalPoints;
             set
             {
                 if (Equals(value, totalPoints)) return;

@@ -31,7 +31,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public bool Add
         {
-            get { return add; }
+            get => add;
             set
             {
                 if (Equals(value, add)) return;
@@ -45,7 +45,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<int> PointsList
         {
-            get { return pointsList; }
+            get => pointsList;
             set
             {
                 if (Equals(value, pointsList))
@@ -63,7 +63,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public List<User> BandMembers
         {
-            get { return bandMembers; }
+            get => bandMembers;
             set
             {
                 if (Equals(value, bandMembers))

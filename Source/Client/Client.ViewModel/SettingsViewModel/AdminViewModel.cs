@@ -47,7 +47,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public AdminModel AdminModel
         {
-            get { return adminModel; }
+            get => adminModel;
             set
             {
                 if (Equals(value, adminModel)) return;

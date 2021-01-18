@@ -26,10 +26,7 @@ namespace Shared.Domain
         /// <summary>
         /// The <see cref="Band" /> that this <see cref="Jam" /> belongs to.
         /// </summary>
-        public Band Band
-        {
-            get { return RepositoryManager.GetRepository<Band>().FindEntityById(bandId); }
-        }
+        public Band Band => RepositoryManager.GetRepository<Band>().FindEntityById(bandId);
 
         /// <summary>
         /// The date in which the <see cref="Jam" /> ends.
@@ -41,7 +38,7 @@ namespace Shared.Domain
         /// </summary>
         public bool IsActive
         {
-            get { return isActive; }
+            get => isActive;
             set
             {
                 if (value.Equals(false))

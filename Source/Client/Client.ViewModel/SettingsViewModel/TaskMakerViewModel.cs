@@ -38,7 +38,7 @@ namespace Client.ViewModel.SettingsViewModel
         /// </summary>
         public TaskMakerModel TaskMakerModel
         {
-            get { return taskMakerMakerModel; }
+            get => taskMakerMakerModel;
             set
             {
                 if (Equals(value, taskMakerMakerModel)) return;

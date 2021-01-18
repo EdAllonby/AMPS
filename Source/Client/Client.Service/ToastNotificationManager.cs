@@ -22,7 +22,7 @@ namespace Client.Service
 
         public int TotalToastsToDisplay
         {
-            get { return totalToastsToDisplay; }
+            get => totalToastsToDisplay;
             set
             {
                 if (value > 0 || value < MaxNotificationsToDisplay)

@@ -79,7 +79,7 @@ namespace Client.ViewModel.MainViewModel
 
         public string MemberSearchTerm
         {
-            get { return memberSearchTerm; }
+            get => memberSearchTerm;
             set
             {
                 memberSearchTerm = value;

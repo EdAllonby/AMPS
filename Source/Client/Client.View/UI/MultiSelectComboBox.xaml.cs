@@ -48,8 +48,8 @@ namespace Client.View.UI
         /// </summary>
         public List<string> ItemsSource
         {
-            get { return (List<string>) GetValue(ItemsSourceProperty); }
-            set { SetValue(ItemsSourceProperty, value); }
+            get => (List<string>) GetValue(ItemsSourceProperty);
+            set => SetValue(ItemsSourceProperty, value);
         }
 
         /// <summary>
@@ -57,8 +57,8 @@ namespace Client.View.UI
         /// </summary>
         public List<string> SelectedItems
         {
-            get { return (List<string>) GetValue(SelectedItemsProperty); }
-            set { SetValue(SelectedItemsProperty, value); }
+            get => (List<string>) GetValue(SelectedItemsProperty);
+            set => SetValue(SelectedItemsProperty, value);
         }
 
         /// <summary>
@@ -66,8 +66,8 @@ namespace Client.View.UI
         /// </summary>
         public string Text
         {
-            get { return (string) GetValue(TextProperty); }
-            set { SetValue(TextProperty, value); }
+            get => (string) GetValue(TextProperty);
+            set => SetValue(TextProperty, value);
         }
 
         /// <summary>
@@ -75,8 +75,8 @@ namespace Client.View.UI
         /// </summary>
         public string DefaultText
         {
-            get { return (string) GetValue(DefaultTextProperty); }
-            set { SetValue(DefaultTextProperty, value); }
+            get => (string) GetValue(DefaultTextProperty);
+            set => SetValue(DefaultTextProperty, value);
         }
 
         private static void OnItemsSourceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)

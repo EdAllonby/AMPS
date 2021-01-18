@@ -51,8 +51,8 @@ namespace Shared.Domain
 
         public IRepositoryManager RepositoryManager
         {
-            get { return repositoryManager; }
-            set { repositoryManager = value; }
+            get => repositoryManager;
+            set => repositoryManager = value;
         }
 
         public DateTime? CreatedDate { get; set; }

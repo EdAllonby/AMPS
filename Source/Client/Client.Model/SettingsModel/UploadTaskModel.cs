@@ -25,7 +25,7 @@ namespace Client.Model.SettingsModel
 
         public long UploadSize
         {
-            get { return uploadSize; }
+            get => uploadSize;
             set
             {
                 if (Equals(value, uploadSize))
@@ -41,7 +41,7 @@ namespace Client.Model.SettingsModel
 
         public long TotalSize
         {
-            get { return totalSize; }
+            get => totalSize;
             set
             {
                 if (Equals(value, totalSize))
@@ -70,7 +70,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public bool IsUploading
         {
-            get { return isUploading; }
+            get => isUploading;
             set
             {
                 if (Equals(value, isUploading))
@@ -89,7 +89,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public string FileToUploadLocation
         {
-            get { return fileToUploadLocation; }
+            get => fileToUploadLocation;
             set
             {
                 if (Equals(value, fileToUploadLocation))
@@ -107,7 +107,7 @@ namespace Client.Model.SettingsModel
         /// </summary>
         public string FileExtension
         {
-            get { return fileExtension; }
+            get => fileExtension;
             set
             {
                 if (Equals(value, fileExtension))
