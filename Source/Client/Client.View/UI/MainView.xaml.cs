@@ -16,7 +16,7 @@ namespace Client.View.UI
     {
         private const double TopOffset = 20;
         private const double LeftOffset = 380;
-        private readonly ApplicationExitHelper applicationExitHelper = new ApplicationExitHelper();
+        private readonly ApplicationExitHelper applicationExitHelper = new();
         private readonly Band band;
         private readonly Toasts growlNotifications;
         private readonly IServiceRegistry serviceRegistry;

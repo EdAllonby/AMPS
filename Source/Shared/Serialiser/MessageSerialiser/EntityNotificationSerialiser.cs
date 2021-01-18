@@ -7,8 +7,8 @@ namespace Shared.Serialiser.MessageSerialiser
 {
     internal class EntityNotificationSerialiser<T> : MessageSerialiser<EntityNotification<T>> where T : Entity
     {
-        private readonly EntitySerialiser<T> entitySerialiser = new EntitySerialiser<T>();
-        private readonly NotificationTypeSerialiser notificationTypeSerialiser = new NotificationTypeSerialiser();
+        private readonly EntitySerialiser<T> entitySerialiser = new();
+        private readonly NotificationTypeSerialiser notificationTypeSerialiser = new();
 
         /// <summary>
         /// Deserialises a <see cref="EntityNotification{T}" /> from the <see cref="NetworkStream" />.

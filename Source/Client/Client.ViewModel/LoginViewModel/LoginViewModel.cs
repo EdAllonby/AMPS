@@ -20,9 +20,9 @@ namespace Client.ViewModel.LoginViewModel
     public class LoginViewModel : ViewModel
     {
         private readonly IClientService clientService;
-        private readonly ClientLogOnParser logOnParser = new ClientLogOnParser();
+        private readonly ClientLogOnParser logOnParser = new();
         private bool canOpenWindow;
-        private LoginModel loginModel = new LoginModel();
+        private LoginModel loginModel = new();
 
         /// <summary>
         /// Create a new view model for the login view.

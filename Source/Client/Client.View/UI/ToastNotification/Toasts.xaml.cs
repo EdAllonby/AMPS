@@ -9,9 +9,9 @@ namespace Client.View.UI.ToastNotification
 {
     public partial class Toasts
     {
-        private readonly ObservableCollection<Notification> buffer = new ObservableCollection<Notification>();
+        private readonly ObservableCollection<Notification> buffer = new();
         private readonly ToastNotificationManager notificationManager;
-        private readonly ObservableCollection<Notification> notifications = new ObservableCollection<Notification>();
+        private readonly ObservableCollection<Notification> notifications = new();
         private int count;
 
         public Toasts(ToastNotificationManager notificationManager)

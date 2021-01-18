@@ -25,7 +25,7 @@ namespace Server
 
         private readonly EntityChangedHandlerRegistry entityChangedHandlerRegistry;
 
-        private readonly ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+        private readonly ManualResetEvent manualResetEvent = new(false);
         private readonly MessageHandlerRegistry messageHandlerRegistry;
         private readonly int PortNumber;
         private readonly IServiceRegistry serviceRegistry;

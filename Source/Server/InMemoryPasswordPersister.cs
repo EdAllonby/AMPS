@@ -7,7 +7,7 @@ namespace Server
     /// </summary>
     public sealed class InMemoryPasswordPersister : IPasswordPersister
     {
-        private readonly Dictionary<int, string> userHashesIndexedById = new Dictionary<int, string>();
+        private readonly Dictionary<int, string> userHashesIndexedById = new();
 
         /// <summary>
         /// Store the password.

@@ -13,7 +13,7 @@ namespace Shared.Persistence
     [UsedImplicitly]
     internal sealed class TaskMapper : EntityMapper<Task>
     {
-        private readonly TaskCategoryMapper taskCategoryMapper = new TaskCategoryMapper();
+        private readonly TaskCategoryMapper taskCategoryMapper = new();
 
         protected override IEnumerable<string> Columns => new List<string> { "Id", "BandId", "Title", "Description", "AssignedUserId", "IsCompleted", "Points", "JamId", "TaskCategoryId" };
         protected override EntityTable Table => EntityTable.Tasks;

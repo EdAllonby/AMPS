@@ -11,7 +11,7 @@ namespace Client.View.UI
     /// </summary>
     public partial class BandChooserView
     {
-        private readonly ApplicationExitHelper applicationExitHelper = new ApplicationExitHelper();
+        private readonly ApplicationExitHelper applicationExitHelper = new();
         private readonly IServiceRegistry serviceRegistry;
 
         /// <summary>

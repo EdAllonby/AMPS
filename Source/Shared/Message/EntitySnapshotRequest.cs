@@ -10,7 +10,7 @@ namespace Shared.Message
     [Serializable]
     public sealed class EntitySnapshotRequest<TEntity> : IMessage where TEntity : Entity
     {
-        private readonly SnapshotRequestMessageIdentifierFactory snapshotRequestMessageIdentifierFactory = new SnapshotRequestMessageIdentifierFactory();
+        private readonly SnapshotRequestMessageIdentifierFactory snapshotRequestMessageIdentifierFactory = new();
 
         /// <summary>
         /// Create a new request for an <see cref="Entity" /> snapshot.

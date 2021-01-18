@@ -17,8 +17,8 @@ namespace SharedTest.RepositoryTest
 
             IList<Participation> participations = new List<Participation>
             {
-                new Participation(1, 1, BandId, true),
-                new Participation(2, 2, BandId, false)
+                new(1, 1, BandId, true),
+                new(2, 2, BandId, false)
             };
 
             foreach (Participation participation in participations)
@@ -59,10 +59,10 @@ namespace SharedTest.RepositoryTest
             const int BandId = 1;
             IList<Participation> participations = new List<Participation>
             {
-                new Participation(1, 1, BandId, false),
-                new Participation(2, 2, BandId, true),
-                new Participation(3, 3, BandId, false),
-                new Participation(4, 5, BandId, false)
+                new(1, 1, BandId, false),
+                new(2, 2, BandId, true),
+                new(3, 3, BandId, false),
+                new(4, 5, BandId, false)
             };
             foreach (Participation participation in participations)
             {

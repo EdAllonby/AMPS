@@ -22,8 +22,8 @@ namespace Shared
         private static readonly ILog Log = LogManager.GetLogger(typeof(ConnectionHandler));
         private static int totalListenerThreads;
         private readonly int clientUserId;
-        private readonly MessageReceiver messageReceiver = new MessageReceiver();
-        private readonly object messageSenderLock = new object();
+        private readonly MessageReceiver messageReceiver = new();
+        private readonly object messageSenderLock = new();
         private readonly TcpClient tcpClient;
 
         /// <summary>

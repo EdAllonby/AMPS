@@ -9,7 +9,7 @@ namespace Client.Model.SettingsModel
     /// </summary>
     public sealed class BandMakerModel : NotifiableModel
     {
-        private List<BandMakerUserModel> bandMakerUsers = new List<BandMakerUserModel>();
+        private List<BandMakerUserModel> bandMakerUsers = new();
         private string bandName = string.Empty;
         private List<Band> bands;
         private Band selectedBand;

@@ -10,7 +10,7 @@ namespace Shared.Message
     /// <typeparam name="TEntity">The <see cref="Entity" /> changed.</typeparam>
     public sealed class EntityNotification<TEntity> : IMessage where TEntity : Entity
     {
-        private readonly NotificationMessageIdentifierFactory notificationMessageIdentifierFactory = new NotificationMessageIdentifierFactory();
+        private readonly NotificationMessageIdentifierFactory notificationMessageIdentifierFactory = new();
 
         /// <summary>
         /// Create a new notification object for <see cref="TEntity" />.

@@ -17,7 +17,7 @@ namespace ConsoleClient
     {
         private const int TotalClients = 50;
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
-        private static readonly List<TestClient> Clients = new List<TestClient>();
+        private static readonly List<TestClient> Clients = new();
 
         private static void Main()
         {

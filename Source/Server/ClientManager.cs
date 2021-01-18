@@ -12,7 +12,7 @@ namespace Server
     internal sealed class ClientManager : IClientManager
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(ClientManager));
-        private readonly Dictionary<int, IClientHandler> clientHandlersIndexedByUserId = new Dictionary<int, IClientHandler>();
+        private readonly Dictionary<int, IClientHandler> clientHandlersIndexedByUserId = new();
 
         /// <summary>
         /// Sends an <see cref="IMessage" /> to all clients.

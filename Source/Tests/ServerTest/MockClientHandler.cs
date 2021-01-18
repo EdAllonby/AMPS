@@ -33,7 +33,7 @@ namespace ServerTest
         /// <param name="message">The message to send.</param>
         public Task SendMessageAsync(IMessage message)
         {
-            return new Task(() => EventUtility.SafeFireEvent(MessageSent, this, new MessageEventArgs(message)));
+            return new(() => EventUtility.SafeFireEvent(MessageSent, this, new MessageEventArgs(message)));
         }
 
         /// <summary>

@@ -22,7 +22,7 @@ namespace Client.Service
         private static readonly ILog Log = LogManager.GetLogger(typeof(ServerLoginHandler));
 
         private readonly MessageHandlerRegistry messageHandlerRegistry;
-        private readonly TcpClient serverConnection = new TcpClient();
+        private readonly TcpClient serverConnection = new();
 
         private bool hasReceivedBandSnapshot;
         private bool hasReceivedJamSnapshot;

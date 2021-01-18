@@ -9,8 +9,8 @@ namespace Shared.Serialiser.MessageSerialiser
     /// </summary>
     public sealed class ConnectionStatusNotificationSerialiser : MessageSerialiser<ConnectionStatusNotification>
     {
-        private readonly ConnectionStatusSerialiser connectionStatusSerialiser = new ConnectionStatusSerialiser();
-        private readonly NotificationTypeSerialiser notificationTypeSerialiser = new NotificationTypeSerialiser();
+        private readonly ConnectionStatusSerialiser connectionStatusSerialiser = new();
+        private readonly NotificationTypeSerialiser notificationTypeSerialiser = new();
 
         /// <summary>
         /// Deserialises a <see cref="ConnectionStatusNotification" /> from the <see cref="NetworkStream" />.

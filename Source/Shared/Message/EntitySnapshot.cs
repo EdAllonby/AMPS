@@ -11,7 +11,7 @@ namespace Shared.Message
     [Serializable]
     public sealed class EntitySnapshot<TEntity> : IMessage where TEntity : Entity
     {
-        private readonly SnapshotMessageIdentifierFactory snapshotMessageIdentifierFactory = new SnapshotMessageIdentifierFactory();
+        private readonly SnapshotMessageIdentifierFactory snapshotMessageIdentifierFactory = new();
 
         /// <summary>
         /// Create a snapshot containing <see cref="Entity" />s of type <see cref="TEntity" />.

@@ -12,7 +12,7 @@ namespace Shared.Domain
     public sealed class TaskComment : Entity
     {
         private readonly int commenterId;
-        private readonly List<TaskComment> replies = new List<TaskComment>();
+        private readonly List<TaskComment> replies = new();
         private readonly int taskId;
 
         /// <summary>
