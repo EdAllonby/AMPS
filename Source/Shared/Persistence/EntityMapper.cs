@@ -146,7 +146,6 @@ namespace Shared.Persistence
         public bool DeleteEntity(int entityId)
         {
             const string DeleteEntityQuery = "DELETE FROM @tableName WHERE Id = @id";
-            int rowsUpdated;
 
             using var databaseConnection = new SqlConnection(connectionString);
             using var command = new SqlCommand(DeleteEntityQuery, databaseConnection);
@@ -154,7 +153,7 @@ namespace Shared.Persistence
             command.Parameters.Add("@id", SqlDbType.Int).Value = entityId;
 
             databaseConnection.Open();
-            rowsUpdated = command.ExecuteNonQuery();
+            int rowsUpdated = command.ExecuteNonQuery();
             databaseConnection.Close();
 
             return rowsUpdated == 1;

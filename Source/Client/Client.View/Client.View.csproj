@@ -1,107 +1,74 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-	
-  <PropertyGroup>
-	  <OutputType>WinExe</OutputType>
-	  <TargetFramework>net5.0-windows</TargetFramework>
-	  <UseWPF>true</UseWPF>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>961FBB9FB5237052D95D105C1AC132A2A71893F0</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>Client.View_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>false</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>false</SignManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <TargetZone>LocalIntranet</TargetZone>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
-  <ItemGroup>
-    <None Update="log4netDebug.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="log4netRelease.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\Entypo.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Black.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-BlackItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Bold.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-BoldItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Italic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Light.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-LightItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Medium.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-MediumItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Regular.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-Thin.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\Roboto-ThinItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Bold.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\RobotoCondensed-BoldItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Italic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Light.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\RobotoCondensed-LightItalic.ttf" />
-    <Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Regular.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Shared.csproj" />
-    <ProjectReference Include="..\..\Utility\Utility.csproj" />
-    <ProjectReference Include="..\Client.Model\Client.Model.csproj" />
-    <ProjectReference Include="..\Client.Service\Client.Service.csproj" />
-    <ProjectReference Include="..\Client.ViewModel\Client.ViewModel.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\halftone.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\AppIcon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.5">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4.5 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\close.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\notification-icon.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\WindowsIcons-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\Entypo-license.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.3" />
-    <PackageReference Include="MahApps.Metro.Resources" Version="0.6.1" />
-    <PackageReference Include="OxyPlot.Core" Version="2.0.0" />
-    <PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
-    <PackageReference Include="System.Drawing.Common" Version="5.0.0" />
-  </ItemGroup>
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net5.0-windows</TargetFramework>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+	</PropertyGroup>
+	<PropertyGroup>
+		<ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+	</PropertyGroup>
+	<ItemGroup>
+		<None Update="log4netDebug.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="log4netRelease.config">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<AppDesigner Include="Properties\" />
+		<Resource Include="Resources\Entypo.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Black.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-BlackItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Bold.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-BoldItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Italic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Light.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-LightItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Medium.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-MediumItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Regular.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-Thin.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\Roboto-ThinItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Bold.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\RobotoCondensed-BoldItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Italic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Light.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\RobotoCondensed-LightItalic.ttf" />
+		<Resource Include="Resources\Fonts\Roboto\RobotoCondensed-Regular.ttf" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\..\Shared\Shared.csproj" />
+		<ProjectReference Include="..\..\Utility\Utility.csproj" />
+		<ProjectReference Include="..\Client.Model\Client.Model.csproj" />
+		<ProjectReference Include="..\Client.Service\Client.Service.csproj" />
+		<ProjectReference Include="..\Client.ViewModel\Client.ViewModel.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\halftone.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\AppIcon.ico" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\close.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\notification-icon.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\WindowsIcons-license.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<Resource Include="Resources\Entypo-license.txt" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Extended.Wpf.Toolkit" Version="4.0.2" />
+		<PackageReference Include="MahApps.Metro" Version="2.4.3" />
+		<PackageReference Include="MahApps.Metro.Resources" Version="0.6.1" />
+		<PackageReference Include="OxyPlot.Core" Version="2.0.0" />
+		<PackageReference Include="OxyPlot.Wpf" Version="2.0.0" />
+	</ItemGroup>
 </Project>
