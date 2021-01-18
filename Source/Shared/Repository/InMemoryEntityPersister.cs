@@ -20,9 +20,7 @@ namespace Shared.Repository
         /// <returns>The <see cref="Entity" /> from the persister.</returns>
         public T GetEntityById(int id)
         {
-            T entity;
-
-            entitiesIndexedById.TryGetValue(id, out entity);
+            entitiesIndexedById.TryGetValue(id, out var entity);
 
             return entity;
         }

@@ -73,9 +73,7 @@ namespace Shared.Persistence
         {
             string taskCategoryString = dataRecord.GetString(dataRecord.GetOrdinal("Category"));
 
-            TaskCategory taskCategory;
-
-            bool didParse = Enum.TryParse(taskCategoryString, out taskCategory);
+            bool didParse = Enum.TryParse(taskCategoryString, out TaskCategory taskCategory);
 
             if (!didParse)
             {

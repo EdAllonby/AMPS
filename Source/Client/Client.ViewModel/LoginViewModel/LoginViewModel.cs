@@ -48,8 +48,7 @@ namespace Client.ViewModel.LoginViewModel
                 {
                     Log.Info("Command line arguments found, attempting to parse");
 
-                    LoginDetails loginDetails;
-                    bool result = logOnParser.TryParseCommandLineArguments(Environment.GetCommandLineArgs(), out loginDetails);
+                    bool result = logOnParser.TryParseCommandLineArguments(Environment.GetCommandLineArgs(), out var loginDetails);
                     if (result)
                     {
                         AttemptLogin(loginDetails);
@@ -153,8 +152,7 @@ namespace Client.ViewModel.LoginViewModel
 
         private void LoginToServer()
         {
-            LoginDetails loginDetails;
-            bool result = logOnParser.TryParseLogonDetails(LoginModel.Username, LoginModel.Password, LoginModel.IPAddress, LoginModel.Port, out loginDetails);
+            bool result = logOnParser.TryParseLogonDetails(LoginModel.Username, LoginModel.Password, LoginModel.IPAddress, LoginModel.Port, out var loginDetails);
             if (result)
             {
                 AttemptLogin(loginDetails);

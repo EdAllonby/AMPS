@@ -29,9 +29,7 @@ namespace Server
         /// <returns>A unique Id for the entity.</returns>
         public int AllocateEntityId<T>() where T : Entity
         {
-            EntityIdGenerator.EntityIdGenerator generator;
-
-            bool isEntityGeneratorFound = entityIdGeneratorRegistry.EntityIdGeneratorsIndexedByEntityType.TryGetValue(typeof(T), out generator);
+            bool isEntityGeneratorFound = entityIdGeneratorRegistry.EntityIdGeneratorsIndexedByEntityType.TryGetValue(typeof(T), out var generator);
 
             if (!isEntityGeneratorFound)
             {

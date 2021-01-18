@@ -123,8 +123,7 @@ namespace Client.Service
 
         private void ParseIPAddress(string ipString)
         {
-            IPAddress address;
-            isParsed = IPAddress.TryParse(ipString, out address);
+            isParsed = IPAddress.TryParse(ipString, out var address);
 
             if (isParsed)
             {
@@ -139,8 +138,7 @@ namespace Client.Service
 
         private void ParsePort(string portLine)
         {
-            int port;
-            isParsed = int.TryParse(portLine, out port);
+            isParsed = int.TryParse(portLine, out int port);
 
             if (port > PortMaxBound || port < PortMinBound)
             {

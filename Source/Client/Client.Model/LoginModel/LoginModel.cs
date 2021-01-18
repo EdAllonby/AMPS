@@ -120,8 +120,7 @@ namespace Client.Model.LoginModel
                     Error = "IP Address is required.";
                 }
 
-                int portInt;
-                if (!int.TryParse(Port, out portInt))
+                if (!int.TryParse(Port, out int portInt))
                 {
                     Error = "Port must only consist of digits.";
                 }

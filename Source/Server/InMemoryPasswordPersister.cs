@@ -29,9 +29,7 @@ namespace Server
         /// <returns>The user's password hash (null if not found).</returns>
         public string GetPasswordHash(int userId)
         {
-            string value;
-
-            return userHashesIndexedById.TryGetValue(userId, out value) ? value : null;
+            return userHashesIndexedById.TryGetValue(userId, out string value) ? value : null;
         }
     }
 }

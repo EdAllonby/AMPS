@@ -33,8 +33,7 @@ namespace Shared.Serialiser
                 throw new UnrecognisedMessageException("Message Identifier is unrecognised.");
             }
 
-            IMessageSerialiser serialiser;
-            bool serialiserFound = SerialiserRegistry.SerialisersByMessageIdentifier.TryGetValue(identifier, out serialiser);
+            bool serialiserFound = SerialiserRegistry.SerialisersByMessageIdentifier.TryGetValue(identifier, out var serialiser);
 
             if (!serialiserFound)
             {

@@ -50,9 +50,7 @@ namespace Shared.Persistence
         /// <returns>The <see cref="Entity" /> from the Database.</returns>
         public TEntity GetEntityById(int id)
         {
-            TEntity entity;
-
-            if (loadedEntitiesIndexedById.TryGetValue(id, out entity))
+            if (loadedEntitiesIndexedById.TryGetValue(id, out var entity))
             {
                 return entity;
             }
@@ -185,9 +183,7 @@ namespace Shared.Persistence
         {
             int entityId = reader.GetInt32(0);
 
-            TEntity entity;
-
-            if (loadedEntitiesIndexedById.TryGetValue(entityId, out entity))
+            if (loadedEntitiesIndexedById.TryGetValue(entityId, out var entity))
             {
                 return entity;
             }

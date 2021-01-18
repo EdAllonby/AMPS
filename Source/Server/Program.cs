@@ -37,9 +37,7 @@ namespace Server
 
             ConsoleKeyInfo keyPress = Console.ReadKey();
 
-            int persistenceType;
-
-            if (int.TryParse(keyPress.KeyChar.ToString(), out persistenceType))
+            if (int.TryParse(keyPress.KeyChar.ToString(), out int persistenceType))
             {
                 if (persistenceType == 1 || persistenceType == 2)
                 {

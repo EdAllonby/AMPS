@@ -93,9 +93,7 @@ namespace Client.ViewModel.MainViewModel
 
                 foreach (string category in selectedTaskCategories)
                 {
-                    TaskCategory taskCategory;
-
-                    if (Enum.TryParse(category, out taskCategory))
+                    if (Enum.TryParse(category, out TaskCategory taskCategory))
                     {
                         taskCategoriesFiltered.Add(taskCategory);
                     }

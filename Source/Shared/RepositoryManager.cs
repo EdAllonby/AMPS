@@ -60,8 +60,7 @@ namespace Shared
         /// <returns>A readonly version of the repository requested. If no repository is found, return null.</returns>
         public IReadOnlyEntityRepository<T> GetRepository<T>() where T : Entity
         {
-            IEntityRepository repository;
-            repositoriesIndexedByEnclosedEntity.TryGetValue(typeof(T), out repository);
+            repositoriesIndexedByEnclosedEntity.TryGetValue(typeof(T), out var repository);
             return (IReadOnlyEntityRepository<T>) repository;
         }
 
