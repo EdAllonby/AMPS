@@ -103,36 +103,32 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(directory, WebRequestMethods.Ftp.ListDirectory);
 
-                using (var ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
+                using var ftpResponse = (FtpWebResponse) ftpRequest.GetResponse();
+                Stream responseStream = ftpResponse.GetResponseStream();
+
+                if (responseStream != null)
                 {
-                    Stream responseStream = ftpResponse.GetResponseStream();
+                    using var ftpReader = new StreamReader(responseStream);
+                    string directoryRaw = null;
 
-                    if (responseStream != null)
+                    try
                     {
-                        using (var ftpReader = new StreamReader(responseStream))
+                        while (ftpReader.Peek() != -1)
                         {
-                            string directoryRaw = null;
-
-                            try
-                            {
-                                while (ftpReader.Peek() != -1)
-                                {
-                                    directoryRaw += ftpReader.ReadLine() + "|";
-                                }
-
-                                if (directoryRaw != null)
-                                {
-                                    directoryList = directoryRaw.Split("|".ToCharArray());
-                                }
-
-                                return directoryList;
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                                return new[] { "" };
-                            }
+                            directoryRaw += ftpReader.ReadLine() + "|";
                         }
+
+                        if (directoryRaw != null)
+                        {
+                            directoryList = directoryRaw.Split("|".ToCharArray());
+                        }
+
+                        return directoryList;
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.Message);
+                        return new[] { "" };
                     }
                 }
             }
@@ -157,10 +153,8 @@ namespace Client.Service.FTPService
 
                 ftpRequest.RenameTo = newName;
 
-                using (var response = (FtpWebResponse) ftpRequest.GetResponse())
-                {
-                    return response.StatusCode;
-                }
+                using var response = (FtpWebResponse) ftpRequest.GetResponse();
+                return response.StatusCode;
             }
             catch (WebException webException)
             {
@@ -178,10 +172,8 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(filename, WebRequestMethods.Ftp.DeleteFile);
 
-                using (var ftpResponse = (FtpWebResponse) ftpRequest.GetResponse())
-                {
-                    return ftpResponse.StatusCode;
-                }
+                using var ftpResponse = (FtpWebResponse) ftpRequest.GetResponse();
+                return ftpResponse.StatusCode;
             }
             catch (WebException webException)
             {
@@ -199,10 +191,8 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(name, WebRequestMethods.Ftp.MakeDirectory);
 
-                using (var response = (FtpWebResponse) ftpRequest.GetResponse())
-                {
-                    return response.StatusCode;
-                }
+                using var response = (FtpWebResponse) ftpRequest.GetResponse();
+                return response.StatusCode;
             }
             catch (WebException webException)
             {
@@ -252,33 +242,31 @@ namespace Client.Service.FTPService
         {
             try
             {
-                using (var responseFileDownload = (FtpWebResponse) downloadRequest.GetResponse())
-                using (Stream responseStream = responseFileDownload.GetResponseStream())
-                using (var writeStream = new FileStream(localFile, FileMode.Create))
+                using var responseFileDownload = (FtpWebResponse) downloadRequest.GetResponse();
+                using Stream responseStream = responseFileDownload.GetResponseStream();
+                using var writeStream = new FileStream(localFile, FileMode.Create);
+                var buffer = new byte[BufferSize];
+
+                if (responseStream == null)
                 {
-                    var buffer = new byte[BufferSize];
-
-                    if (responseStream == null)
-                    {
-                        return FtpStatusCode.FileActionAborted;
-                    }
-
-                    int bytesRead = responseStream.Read(buffer, 0, buffer.Length);
-                    var bytes = 0;
-
-                    while (bytesRead > 0)
-                    {
-                        writeStream.Write(buffer, 0, bytesRead);
-                        bytesRead = responseStream.Read(buffer, 0, buffer.Length);
-                        bytes += bytesRead;
-
-                        int bytesDownloaded = bytes;
-
-                        EventUtility.SafeFireEvent(DownloadedDataUpdate, this, new DataSentEventArgs(bytesDownloaded, fileSize));
-                    }
-
-                    return FtpStatusCode.CommandOK;
+                    return FtpStatusCode.FileActionAborted;
                 }
+
+                int bytesRead = responseStream.Read(buffer, 0, buffer.Length);
+                var bytes = 0;
+
+                while (bytesRead > 0)
+                {
+                    writeStream.Write(buffer, 0, bytesRead);
+                    bytesRead = responseStream.Read(buffer, 0, buffer.Length);
+                    bytes += bytesRead;
+
+                    int bytesDownloaded = bytes;
+
+                    EventUtility.SafeFireEvent(DownloadedDataUpdate, this, new DataSentEventArgs(bytesDownloaded, fileSize));
+                }
+
+                return FtpStatusCode.CommandOK;
             }
             catch (WebException exception)
             {
@@ -288,14 +276,12 @@ namespace Client.Service.FTPService
 
         private static FtpStatusCode DownloadWithoutUpdates(WebRequest uploadRequest, string localFile)
         {
-            using (var response = (FtpWebResponse) uploadRequest.GetResponse())
-            using (Stream responseStream = response.GetResponseStream())
-            using (FileStream fileStream = File.Create(localFile))
-            {
-                responseStream?.CopyTo(fileStream);
+            using var response = (FtpWebResponse) uploadRequest.GetResponse();
+            using Stream responseStream = response.GetResponseStream();
+            using FileStream fileStream = File.Create(localFile);
+            responseStream?.CopyTo(fileStream);
 
-                return response.StatusCode;
-            }
+            return response.StatusCode;
         }
 
         private FtpStatusCode UploadFile(string localFile, string remoteFile)
@@ -304,21 +290,19 @@ namespace Client.Service.FTPService
             {
                 FtpWebRequest ftpRequest = CreateRequest(remoteFile, WebRequestMethods.Ftp.UploadFile);
 
-                using (FileStream inputStream = File.OpenRead(localFile))
-                using (Stream outputStream = ftpRequest.GetRequestStream())
+                using FileStream inputStream = File.OpenRead(localFile);
+                using Stream outputStream = ftpRequest.GetRequestStream();
+                var buffer = new byte[BufferSize];
+                var totalReadBytesCount = 0;
+
+                int readBytesCount;
+
+                while ((readBytesCount = inputStream.Read(buffer, 0, buffer.Length)) > 0)
                 {
-                    var buffer = new byte[BufferSize];
-                    var totalReadBytesCount = 0;
+                    outputStream.Write(buffer, 0, readBytesCount);
+                    totalReadBytesCount += readBytesCount;
 
-                    int readBytesCount;
-
-                    while ((readBytesCount = inputStream.Read(buffer, 0, buffer.Length)) > 0)
-                    {
-                        outputStream.Write(buffer, 0, readBytesCount);
-                        totalReadBytesCount += readBytesCount;
-
-                        EventUtility.SafeFireEvent(UploadedDataUpdate, this, new DataSentEventArgs(totalReadBytesCount, inputStream.Length));
-                    }
+                    EventUtility.SafeFireEvent(UploadedDataUpdate, this, new DataSentEventArgs(totalReadBytesCount, inputStream.Length));
                 }
 
                 return FtpStatusCode.CommandOK;

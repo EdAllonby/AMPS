@@ -88,14 +88,12 @@ namespace Shared.Domain
         /// <returns>A cloned <see cref="Entity" />.</returns>
         public static T DeepClone<T>([NotNull] T entity) where T : Entity
         {
-            using (var memoryStream = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(memoryStream, entity);
-                memoryStream.Position = 0;
+            using var memoryStream = new MemoryStream();
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(memoryStream, entity);
+            memoryStream.Position = 0;
 
-                return (T) formatter.Deserialize(memoryStream);
-            }
+            return (T) formatter.Deserialize(memoryStream);
         }
 
         /// <summary>

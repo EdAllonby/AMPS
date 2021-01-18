@@ -33,18 +33,16 @@ namespace Shared
         {
             try
             {
-                using (NetworkStream networkStream = tcpClient.GetStream())
+                using NetworkStream networkStream = tcpClient.GetStream();
+                while (true)
                 {
-                    while (true)
-                    {
-                        MessageIdentifier messageIdentifier = MessageIdentifierSerialiser.DeserialiseMessageIdentifier(networkStream);
+                    MessageIdentifier messageIdentifier = MessageIdentifierSerialiser.DeserialiseMessageIdentifier(networkStream);
 
-                        IMessageSerialiser messageSerialiser = SerialiserFactory.GetSerialiser(messageIdentifier);
+                    IMessageSerialiser messageSerialiser = SerialiserFactory.GetSerialiser(messageIdentifier);
 
-                        IMessage message = messageSerialiser.Deserialise(networkStream);
+                    IMessage message = messageSerialiser.Deserialise(networkStream);
 
-                        EventUtility.SafeFireEvent(MessageReceived, this, new MessageEventArgs(message));
-                    }
+                    EventUtility.SafeFireEvent(MessageReceived, this, new MessageEventArgs(message));
                 }
             }
             catch (Exception e) when (e is UnrecognisedMessageException || e is IOException || e is InvalidOperationException)

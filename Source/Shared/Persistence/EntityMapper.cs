@@ -57,22 +57,18 @@ namespace Shared.Persistence
 
             string findStatement = $"SELECT {string.Join(", ", EntityColumns)} FROM {Table} where Id = @id";
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(findStatement, databaseConnection))
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var command = new SqlCommand(findStatement, databaseConnection);
+            command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+
+            databaseConnection.Open();
+
+            using SqlDataReader reader = command.ExecuteReader();
+            if (reader.HasRows)
             {
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
-
-                databaseConnection.Open();
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                while (reader.Read())
                 {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            entity = Load(reader);
-                        }
-                    }
+                    entity = Load(reader);
                 }
             }
 
@@ -88,21 +84,19 @@ namespace Shared.Persistence
         {
             string insertStatement = $"INSERT INTO {Table} VALUES ({string.Join(", ", EntityColumnsAsParameters)})";
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var insertCommand = new SqlCommand(insertStatement, databaseConnection))
-            {
-                databaseConnection.Open();
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var insertCommand = new SqlCommand(insertStatement, databaseConnection);
+            databaseConnection.Open();
 
-                AddEntityParameters(entity, insertCommand);
+            AddEntityParameters(entity, insertCommand);
 
-                AddSpecificParameters(entity, insertCommand);
+            AddSpecificParameters(entity, insertCommand);
 
-                int rowsUpdated = insertCommand.ExecuteNonQuery();
+            int rowsUpdated = insertCommand.ExecuteNonQuery();
 
-                loadedEntitiesIndexedById.Add(entity.Id, entity);
+            loadedEntitiesIndexedById.Add(entity.Id, entity);
 
-                return rowsUpdated == 1;
-            }
+            return rowsUpdated == 1;
         }
 
         /// <summary>
@@ -117,15 +111,13 @@ namespace Shared.Persistence
 
             int rowsUpdated;
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(updateStatement, databaseConnection))
-            {
-                AddParameters(entity, command);
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var command = new SqlCommand(updateStatement, databaseConnection);
+            AddParameters(entity, command);
 
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
+            databaseConnection.Open();
+            rowsUpdated = command.ExecuteNonQuery();
+            databaseConnection.Close();
 
             return rowsUpdated == 1;
         }
@@ -138,16 +130,12 @@ namespace Shared.Persistence
         {
             string selectAllStatement = $"Select {CommaSeperatedEntityColumns} from {Table}";
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(selectAllStatement, databaseConnection))
-            {
-                databaseConnection.Open();
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var command = new SqlCommand(selectAllStatement, databaseConnection);
+            databaseConnection.Open();
 
-                using (SqlDataReader reader = command.ExecuteReader())
-                {
-                    return LoadAll(reader);
-                }
-            }
+            using SqlDataReader reader = command.ExecuteReader();
+            return LoadAll(reader);
         }
 
         /// <summary>
@@ -160,16 +148,14 @@ namespace Shared.Persistence
             const string DeleteEntityQuery = "DELETE FROM @tableName WHERE Id = @id";
             int rowsUpdated;
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand(DeleteEntityQuery, databaseConnection))
-            {
-                command.Parameters.Add("@tableName", SqlDbType.Int).Value = Table;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = entityId;
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var command = new SqlCommand(DeleteEntityQuery, databaseConnection);
+            command.Parameters.Add("@tableName", SqlDbType.Int).Value = Table;
+            command.Parameters.Add("@id", SqlDbType.Int).Value = entityId;
 
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
+            databaseConnection.Open();
+            rowsUpdated = command.ExecuteNonQuery();
+            databaseConnection.Close();
 
             return rowsUpdated == 1;
         }

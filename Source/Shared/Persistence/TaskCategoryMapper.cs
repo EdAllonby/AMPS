@@ -21,20 +21,16 @@ namespace Shared.Persistence
 
             string getTaskCategoryQuery = $"SELECT Category FROM TaskCategories where Id = {categoryId}";
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var getTaskCommand = new SqlCommand(getTaskCategoryQuery, databaseConnection))
-            {
-                databaseConnection.Open();
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var getTaskCommand = new SqlCommand(getTaskCategoryQuery, databaseConnection);
+            databaseConnection.Open();
 
-                using (SqlDataReader reader = getTaskCommand.ExecuteReader())
+            using SqlDataReader reader = getTaskCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
                 {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            taskCategory = CreateEntityFromRecord(reader);
-                        }
-                    }
+                    taskCategory = CreateEntityFromRecord(reader);
                 }
             }
 
@@ -47,22 +43,18 @@ namespace Shared.Persistence
 
             var categoryId = 0;
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var getTaskCategoryIdCommand = new SqlCommand(GetTaskCategoryIdQuery, databaseConnection))
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var getTaskCategoryIdCommand = new SqlCommand(GetTaskCategoryIdQuery, databaseConnection);
+            getTaskCategoryIdCommand.Parameters.Add("@taskCategory", SqlDbType.VarChar).Value = category.ToString();
+
+            databaseConnection.Open();
+
+            using SqlDataReader reader = getTaskCategoryIdCommand.ExecuteReader();
+            if (reader.HasRows)
             {
-                getTaskCategoryIdCommand.Parameters.Add("@taskCategory", SqlDbType.VarChar).Value = category.ToString();
-
-                databaseConnection.Open();
-
-                using (SqlDataReader reader = getTaskCategoryIdCommand.ExecuteReader())
+                while (reader.Read())
                 {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            categoryId = reader.GetInt32(reader.GetOrdinal("Id"));
-                        }
-                    }
+                    categoryId = reader.GetInt32(reader.GetOrdinal("Id"));
                 }
             }
 

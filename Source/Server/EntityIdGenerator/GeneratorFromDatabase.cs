@@ -20,22 +20,18 @@ namespace Server.EntityIdGenerator
 
             string getMaxIdQuery = $"SELECT MAX(Id) as Id FROM {table}";
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var getHighestIdCommand = new SqlCommand(getMaxIdQuery, databaseConnection))
-            {
-                databaseConnection.Open();
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var getHighestIdCommand = new SqlCommand(getMaxIdQuery, databaseConnection);
+            databaseConnection.Open();
 
-                using (SqlDataReader reader = getHighestIdCommand.ExecuteReader())
+            using SqlDataReader reader = getHighestIdCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
                 {
-                    if (reader.HasRows)
+                    if (!reader.IsDBNull(reader.GetOrdinal("Id")))
                     {
-                        while (reader.Read())
-                        {
-                            if (!reader.IsDBNull(reader.GetOrdinal("Id")))
-                            {
-                                currentId = reader.GetInt32(reader.GetOrdinal("Id"));
-                            }
-                        }
+                        currentId = reader.GetInt32(reader.GetOrdinal("Id"));
                     }
                 }
             }

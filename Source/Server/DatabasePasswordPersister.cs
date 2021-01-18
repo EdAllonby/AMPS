@@ -24,13 +24,11 @@ namespace Server
 
             int rowsUpdated;
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (SqlCommand command = CreatePasswordCommand(InsertPasswordHashQuery, userId, generatedPasswordHash, databaseConnection))
-            {
-                databaseConnection.Open();
-                rowsUpdated = command.ExecuteNonQuery();
-                databaseConnection.Close();
-            }
+            using var databaseConnection = new SqlConnection(connectionString);
+            using SqlCommand command = CreatePasswordCommand(InsertPasswordHashQuery, userId, generatedPasswordHash, databaseConnection);
+            databaseConnection.Open();
+            rowsUpdated = command.ExecuteNonQuery();
+            databaseConnection.Close();
 
             return rowsUpdated == 1;
         }
@@ -46,25 +44,21 @@ namespace Server
 
             string getUserQuery = $"SELECT PasswordHash FROM UserLogins where UserId = {userId}";
 
-            using (var databaseConnection = new SqlConnection(connectionString))
-            using (var getUserCommand = new SqlCommand(getUserQuery, databaseConnection))
+            using var databaseConnection = new SqlConnection(connectionString);
+            using var getUserCommand = new SqlCommand(getUserQuery, databaseConnection);
+            databaseConnection.Open();
+
+            using SqlDataReader reader = getUserCommand.ExecuteReader();
+            if (reader.HasRows)
             {
-                databaseConnection.Open();
-
-                using (SqlDataReader reader = getUserCommand.ExecuteReader())
+                while (reader.Read())
                 {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            storedPasswordHash = reader.GetString(reader.GetOrdinal("PasswordHash"));
-                        }
-
-                        return storedPasswordHash;
-                    }
-                    return null;
+                    storedPasswordHash = reader.GetString(reader.GetOrdinal("PasswordHash"));
                 }
+
+                return storedPasswordHash;
             }
+            return null;
         }
 
         private static SqlCommand CreatePasswordCommand(string query, int userId, string generatedPasswordHash, SqlConnection databaseConnection)

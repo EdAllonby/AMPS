@@ -6,31 +6,27 @@ namespace Client.ViewModel.MainViewModel
     {
         public static byte[] GetBytesFromWavFile(string filename)
         {
-            byte[] audio;
+            using FileStream fileStream = File.OpenRead(filename);
+            var audio = new byte[fileStream.Length];
 
-            using (FileStream fileStream = File.OpenRead(filename))
+            var currentBytesRead = 0;
+
+            var numberOfBytesToRead = (int) fileStream.Length;
+
+            while (numberOfBytesToRead > 0)
             {
-                audio = new byte[fileStream.Length];
+                int readBytes = fileStream.Read(audio, currentBytesRead, numberOfBytesToRead);
 
-                var currentBytesRead = 0;
-
-                var numberOfBytesToRead = (int) fileStream.Length;
-
-                while (numberOfBytesToRead > 0)
+                if (readBytes == 0)
                 {
-                    int readBytes = fileStream.Read(audio, currentBytesRead, numberOfBytesToRead);
-
-                    if (readBytes == 0)
-                    {
-                        break;
-                    }
-
-                    numberOfBytesToRead -= readBytes;
-                    currentBytesRead += readBytes;
+                    break;
                 }
 
-                fileStream.Close();
+                numberOfBytesToRead -= readBytes;
+                currentBytesRead += readBytes;
             }
+
+            fileStream.Close();
 
             return audio;
         }
