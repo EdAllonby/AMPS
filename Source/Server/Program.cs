@@ -1,6 +1,9 @@
 ﻿using System;
+using System.IO;
+using System.Reflection;
 using System.Threading;
 using log4net;
+using log4net.Config;
 
 namespace Server
 {
@@ -12,11 +15,26 @@ namespace Server
         private static readonly ILog Log = LogManager.GetLogger(typeof(Program));
         private static bool serviceRunningInteractive;
 
+        private static void SetupLogging(string logConfigName)
+        {
+            string assemblyPath = Assembly.GetAssembly(typeof(Program)).Location;
+            string assemblyDirectory = Path.GetDirectoryName(assemblyPath);
+
+            if (assemblyDirectory != null)
+            {
+                var uri = new Uri(Path.Combine(assemblyDirectory, logConfigName));
+
+                XmlConfigurator.Configure(uri);
+            }
+        }
+
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         private static void Main()
         {
+            SetupLogging("log4net.config");
+
             Thread mainThread = Thread.CurrentThread;
             mainThread.Name = "Main Thread";
 
