@@ -57,7 +57,7 @@
                                  Text="{Binding UserFilter, UpdateSourceTrigger= PropertyChanged, ValidatesOnDataErrors=True}">
                             <TextBox.Style>
                                 <Style TargetType="{x:Type TextBox}"
-                                       BasedOn="{StaticResource SearchMetroTextBox}">
+                                       BasedOn="{StaticResource MahApps.Styles.TextBox.Search}">
                                     <Style.Triggers>
                                         <Trigger Property="controls:TextBoxHelper.HasText"
                                                  Value="True">

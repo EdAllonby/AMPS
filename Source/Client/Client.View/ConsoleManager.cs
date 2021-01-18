@@ -21,7 +21,7 @@ namespace Client.View
             if (!HasConsole)
             {
                 UnsafeNativeMethods.AllocConsole();
-                InvalidateOutAndError();
+                //InvalidateOutAndError();
             }
         }
 

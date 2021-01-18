@@ -8,18 +8,10 @@ namespace Server
     /// <summary>
     /// A service to run the <see cref="Server" />.
     /// </summary>
-    public partial class ServerService : ServiceBase
+    public class ServerService
     {
         private static readonly ILog Log = LogManager.GetLogger(typeof(ServerService));
         private Server server;
-
-        /// <summary>
-        /// Starts the windows service.
-        /// </summary>
-        public ServerService()
-        {
-            InitializeComponent();
-        }
 
         private void StartServer(bool useDatabasePersistence)
         {
@@ -34,7 +26,7 @@ namespace Server
         /// Creates a <see cref="Server" /> in a new thread when the windows service has started.
         /// </summary>
         /// <param name="args"></param>
-        protected override void OnStart(string[] args)
+        public void OnStart(string[] args)
         {
             bool useDatabasePersistence = bool.Parse(args[0]);
 
@@ -45,7 +37,7 @@ namespace Server
         /// <summary>
         /// Shuts down the <see cref="Server" /> when the windows service has stopped.
         /// </summary>
-        protected override void OnStop()
+        public void OnStop()
         {
             server?.Shutdown();
         }

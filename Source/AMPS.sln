@@ -1,39 +1,39 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26228.4
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{E4649EF7-3B1D-4F05-A5BA-EE3174F924BD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{E4649EF7-3B1D-4F05-A5BA-EE3174F924BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{5D19C725-F706-47B3-AE13-1FCF54FC76B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{B85709B3-89C1-4D17-8CA7-DF5425AB880B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleClient", "ConsoleClient\ConsoleClient.csproj", "{B85709B3-89C1-4D17-8CA7-DF5425AB880B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "Server\Server.csproj", "{10B084BF-DF40-4162-855C-65CF2831DEBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Server", "Server\Server.csproj", "{10B084BF-DF40-4162-855C-65CF2831DEBB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{3A02F04E-E5BE-4535-AE57-50428AC6D67E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedTest", "Tests\SharedTest\SharedTest.csproj", "{9EBC1259-9D52-4729-BD6F-BF5F4A49E791}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedTest", "Tests\SharedTest\SharedTest.csproj", "{9EBC1259-9D52-4729-BD6F-BF5F4A49E791}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Service", "Client\Client.Service\Client.Service.csproj", "{B13883B4-FCE9-4ED1-A538-21C71B2C5007}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Service", "Client\Client.Service\Client.Service.csproj", "{B13883B4-FCE9-4ED1-A538-21C71B2C5007}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.Model", "Client\Client.Model\Client.Model.csproj", "{D4AD533B-DC9F-46B7-B586-1D4FC101732B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.Model", "Client\Client.Model\Client.Model.csproj", "{D4AD533B-DC9F-46B7-B586-1D4FC101732B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.View", "Client\Client.View\Client.View.csproj", "{E181F12F-8C18-43D4-9B0E-F1318AC08AB5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.View", "Client\Client.View\Client.View.csproj", "{E181F12F-8C18-43D4-9B0E-F1318AC08AB5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client.ViewModel", "Client\Client.ViewModel\Client.ViewModel.csproj", "{C44B8051-07BB-4745-B21F-E67BB416BE58}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client.ViewModel", "Client\Client.ViewModel\Client.ViewModel.csproj", "{C44B8051-07BB-4745-B21F-E67BB416BE58}"
 EndProject
 Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "UML", "UML\UML.modelproj", "{B7074C2F-CBCF-4297-9F4D-3A06D4C0B7D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Utility", "Utility\Utility.csproj", "{B0475856-33B2-4ACB-999C-1E231554EC98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utility", "Utility\Utility.csproj", "{B0475856-33B2-4ACB-999C-1E231554EC98}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityTest", "Tests\UtilityTest\UtilityTest.csproj", "{4B4348B1-7FEB-4B4A-B481-24479EE5DC6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UtilityTest", "Tests\UtilityTest\UtilityTest.csproj", "{4B4348B1-7FEB-4B4A-B481-24479EE5DC6C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientViewModelTest", "Tests\ClientViewModelTest\ClientViewModelTest.csproj", "{FEB7E353-8FDF-48A7-9FC1-157FE0059B82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClientViewModelTest", "Tests\ClientViewModelTest\ClientViewModelTest.csproj", "{FEB7E353-8FDF-48A7-9FC1-157FE0059B82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerTest", "Tests\ServerTest\ServerTest.csproj", "{AD831397-9BC2-4E27-8CE5-9FAF3494AF02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServerTest", "Tests\ServerTest\ServerTest.csproj", "{AD831397-9BC2-4E27-8CE5-9FAF3494AF02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BulkEntityGenerator", "BulkEntityGenerator\BulkEntityGenerator.csproj", "{72F9ACA9-6A69-4A4D-850E-72F889F7BDB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BulkEntityGenerator", "BulkEntityGenerator\BulkEntityGenerator.csproj", "{72F9ACA9-6A69-4A4D-850E-72F889F7BDB1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -110,5 +110,8 @@ Global
 		{4B4348B1-7FEB-4B4A-B481-24479EE5DC6C} = {3A02F04E-E5BE-4535-AE57-50428AC6D67E}
 		{FEB7E353-8FDF-48A7-9FC1-157FE0059B82} = {3A02F04E-E5BE-4535-AE57-50428AC6D67E}
 		{AD831397-9BC2-4E27-8CE5-9FAF3494AF02} = {3A02F04E-E5BE-4535-AE57-50428AC6D67E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {71377BBC-C761-4F9D-AA33-0DD11582AF62}
 	EndGlobalSection
 EndGlobal

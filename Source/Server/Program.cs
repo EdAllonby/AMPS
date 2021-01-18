@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Reflection;
-using System.ServiceProcess;
 using System.Threading;
 using log4net;
 
@@ -22,21 +20,16 @@ namespace Server
             Thread mainThread = Thread.CurrentThread;
             mainThread.Name = "Main Thread";
 
-            var servicesToRun = new ServiceBase[]
-            {
-                new ServerService()
-            };
+            var servicesToRun = new ServerService();
 
             if (Environment.UserInteractive)
             {
                 serviceRunningInteractive = true;
                 RunInteractive(servicesToRun);
             }
-
-            ServiceBase.Run(servicesToRun);
         }
 
-        private static void RunInteractive(ServiceBase[] servicesToRun)
+        private static void RunInteractive(ServerService servicesToRun)
         {
             Console.WriteLine("Enter Persistence Strategy:");
             Console.WriteLine("1 - Database Persistence (Warning: you need to have a database set up in app.config. Do not use for demonstration purposes.)");
@@ -57,22 +50,18 @@ namespace Server
             }
         }
 
-        private static void RunServer(ServiceBase[] servicesToRun, bool useDatabasePersistence)
+        private static void RunServer(ServerService service, bool useDatabasePersistence)
         {
             Log.Debug("Services running in interactive mode.");
 
-            MethodInfo onStartMethod = typeof(ServiceBase).GetMethod("OnStart", BindingFlags.Instance | BindingFlags.NonPublic);
-            foreach (ServiceBase service in servicesToRun)
-            {
-                Log.DebugFormat("Starting {0}...", service.ServiceName);
-                onStartMethod.Invoke(service, new object[] { new[] { useDatabasePersistence.ToString() } });
-                Log.Debug("Started");
-            }
+            Log.DebugFormat("Starting {0}...", service);
+            service.OnStart(new[] {useDatabasePersistence.ToString()});
+            Log.Debug("Started");
 
             var runService = true;
 
             Log.Debug("Press Q key to stop the services and end the process...");
-            while (runService && !serviceRunningInteractive)
+            while (runService)
             {
                 ConsoleKey keyPressed = Console.ReadKey().Key;
 
@@ -84,15 +73,10 @@ namespace Server
 
             Console.ReadKey();
 
-            MethodInfo onStopMethod = typeof(ServiceBase).GetMethod("OnStop", BindingFlags.Instance | BindingFlags.NonPublic);
-
-            foreach (ServiceBase service in servicesToRun)
-            {
-                Log.DebugFormat("Stopping {0}...", service.ServiceName);
-                onStopMethod.Invoke(service, null);
-                Log.Info("Server Stopped");
-            }
-
+            Log.DebugFormat("Stopping {0}...", service);
+            service.OnStop();
+            Log.Info("Server Stopped");
+        
             Log.Info("All services stopped.");
         }
     }
